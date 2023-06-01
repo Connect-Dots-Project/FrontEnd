@@ -96,20 +96,7 @@ const ConnectMainPage = () => {
 
                 </ul>
             </div>
-
-
-
-
-
-
-
         </div>
-
-
-
-
-
-
     </div>
   )
 }

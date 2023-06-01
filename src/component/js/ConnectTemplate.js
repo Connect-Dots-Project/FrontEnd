@@ -9,7 +9,7 @@ import ConnectSales from './ConnectSales';
 import ConnectStoreInfo from './ConnectStoreInfo';
 
 import '../scss/ConnectTemplate.scss';
-import ConnectMain from './ConnectMainPage';
+import ConnectMainOutline from './ConnectMainOutline';
 
 const ConnectTemplate = () => {
   return (
@@ -17,7 +17,7 @@ const ConnectTemplate = () => {
       <BrowserRouter>
 
       {/* 모든 페이지에 항시 출력(고정) */}
-        {/* <ConnectHeader>
+        <ConnectHeader>
           <Routes>
             <Route path='/' element={ <ConnectMainPage /> }></Route>
             <Route path='/nb-hot-place' element={ <ConnectHotPlace /> }></Route>
@@ -26,13 +26,13 @@ const ConnectTemplate = () => {
             <Route path='/nb-closing-sale' element={ <ConnectSales /> }></Route>
             <Route path='/nb-store-event-info' element={ <ConnectStoreInfo /> }></Route>
           </Routes>
-        </ConnectHeader> */}
+        </ConnectHeader>
 
       {/* 첫 메인화면 출력 */}
       {/* <ConnectMainPage /> */}
 
-      <ConnectMain />
-      
+      <ConnectMainOutline />
+
 
 
       </BrowserRouter>

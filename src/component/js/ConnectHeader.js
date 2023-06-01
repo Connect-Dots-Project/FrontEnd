@@ -20,7 +20,7 @@ const ConnectHeader = () => {
                 <ul className='ch-menu'>
                     {/* header 메뉴 list */}
                     <li className='ch-menu-list'><Link to={'/'} className='list'>Home</Link></li>
-                    <li className='ch-menu-list'><Link to={'/nb-hot-place'} className='list'>Hot Place</Link></li>
+                    <li className='ch-menu-list'><Link to={'/nb-hot-place'} className='list' id='Hot-Place'>Hot Place</Link></li>
                     <li className='ch-menu-list'><Link to={'/nb-real-time-chatting'} className='list'>동네 실시간 채팅</Link></li>
                     <li className='ch-menu-list'><Link to={'/nb-making-friends'} className='list'>동네 친구 만들기</Link></li>
                     <li className='ch-menu-list'><Link to={'/nb-closing-sale'} className='list'>동네 마감 세일</Link></li>
