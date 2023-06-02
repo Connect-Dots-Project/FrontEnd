@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import '../scss/ConnectHeader.scss';
 
 const ConnectHeader = () => {
+
+
   return (
     <>
         {/* connect-header-wrapper  */}
@@ -28,20 +30,6 @@ const ConnectHeader = () => {
                 </ul>
             </div>
         </div>
-
-        {/* 로그인 버튼 box */}
-        <div className='connect-header-login-wrapper'>
-            {/* 로그인 box */}
-            <div className='ch-login-box'>
-                {/* 로그인 */}
-                <Link to={'/nb-login'} id='Login'>로그인</Link>
-            </div>
-            {/* 회원가입 box */}
-            <div className='ch-signin-box'>
-                {/* 회원가입 */}
-                <Link to={'/nb-signin'} id='Sign-in'>회원가입</Link>
-            </div>
-        </div>    
     </>
   )
 }

@@ -80,24 +80,28 @@
             .hot-place {
                 background: red;
                 background-size: 100%;
+                background-position: 50%;
             }
             
             // 동네 실시간 채팅 배경
             .real-time-chatting {
                 background: yellow;
                 background-size: 100%;
+                background-position: 50%;
             }
             
             // 동네 친구 만들기 배경
             .making-friends {
                 background: green;
                 background-size: 100%;
+                background-position: 50%;
             }
             
             // 동네 마감 세일 배경
             .closing-sale {
                 background: blue;
                 background-size: 100%;
+                background-position: 50%;
             }
         }
 
@@ -115,8 +119,6 @@
                 width: 90%;
                 height: 100%;
                 margin: 0 auto;
-                border-top-left-radius: 5px;
-                border-top-right-radius: 5px;
             }
         }
     }
