@@ -22,8 +22,8 @@ const ConnectHotPlace = () => {
                     <p>강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남</p>
                   </div>
                   <div className='like-box'>
-                    <p className='like-count'>1</p>
                     <button className='like' id='Like'></button>
+                    <p className='like-count'>100</p>
                   </div>
                 </div>
               </div>

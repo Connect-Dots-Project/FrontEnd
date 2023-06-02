@@ -1,0 +1,162 @@
+
+
+// 자유게시판
+.free-board-wrapper {
+    width: 100%;
+    height: 100%;
+
+    // header + mainBoard
+    .fb-box {
+        background: #fff;
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+
+        // 자유게시판 header
+        .fb-header {
+            border-bottom: 1px solid #000;
+            width: 100%;
+            height: 30%;
+            padding: 15px;
+
+            // 자유게시판 header text box
+            .fbh-info-box {
+                width: 100%;
+                height: 65%;
+                display: flex;
+
+                // fbh-header-icon
+                .icon-box {
+                    background: url('./img/Bulb.png') no-repeat;
+                    background-size: 100%;
+                    width: 10%;
+                    height: 100%;
+                }
+
+                .fbh-text-box {
+                    width: 90%;
+                    height: 80%;
+                    margin: auto 0;
+                    
+                    h2 {
+                        width: 100%;
+                        height: 60%;
+                        font-size: 35px;
+                        font-weight: 700;
+                        padding-left: 1%;
+                        
+                        display: flex;
+                        justify-content: left;
+                        align-items: center;
+                    }
+                    p {
+                        width: 100%;
+                        height: 40%;
+                        font-weight: 700;
+                        padding-left: 1%;
+                        
+                        display: flex;
+                        justify-content: left;
+                        align-items: center;
+                    }
+                }
+                
+            }
+
+            // 자유게시판 header best info box
+            .fbh-best-info-box {
+                width: 100%;
+                height: 35%;
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .fbh-best-info-list {
+                    border-radius: 10px;
+                    width: 19%;
+                    height: 100%;
+                    
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    
+                    .fbh-best-info-text-box {
+                        border-radius: 10px;
+                        width: 100%;
+                        height: 100%;
+                        background: #bbb;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        &:hover {
+                            opacity: 0.7;
+                            border-bottom: 1px solid #000;
+                        }
+
+                        .fbh-best-info-text {
+                            font-weight: 700;
+                            color: #000;
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 자유게시판 main
+        .free-board-main-container {
+            border: 1px solid #000;
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+
+            // 자유게시판 main box
+            .fbm-box {
+                // border: 1px solid #000;
+                border-radius: 10px;
+                width: 100%;
+                height: 100%;
+
+                .fbm-info-list-box {
+                    border: 1px solid #000;
+                    border-radius: 10px;
+                    width: 100%;
+                    height: 25%;
+                    margin-bottom: 20px;
+                    padding: 10px;
+                    
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    
+                    .fbm-info-list {
+                        background: tomato;
+                        border: none;
+                        width: 100%;
+                        height: 100%;
+
+                        .info-list-img {
+                            border: 1px solid #000;
+                            width: 90%;
+                            height: 100%;
+                        }
+                    }
+
+                }
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+    }
+}
