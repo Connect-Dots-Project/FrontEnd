@@ -50,16 +50,42 @@ const ConnectFreeBoard = () => {
                     </ul>
                 </header>
 
+                {/* 자유 게시판 */}
                 <div className='free-board-main-container'>
-                    <ul className='fbm-box'>
-                        <div className='fbm-info-list-box'>
-                            <li className='fbm-info-list'>
-                                <div className='info-list-img'></div>
-                            </li>
-                        </div>                        
+                    {/* 자유 게시판 box */}
+                    <ul className='fbm-info-box'>
+
+                        {/* 반복 */}
+                        {/* 자유 게시판 정보 */}
+                        <li className='fbm-info-list'>
+                            {/* 자유 게시판 정보 사진 box */}
+                            <div className='fbm-info-img-box'>
+                                {/* 자유 게시판 정보 사진 */}
+                                <div className='fbm-info-img'></div>
+                            </div>
+                            {/* 자유 게시판 세부 정보 box */}
+                            <ul className='fbm-inr-info-box'>
+                                {/* 자유 게시판 세부 정보 */}
+                                <li className='fbm-inr-info' id='Area'>[지역]</li>
+                                <li className='fbm-inr-info' id='BoardTitle'>게시판 제목</li>
+                                <li className='fbm-inr-info' id='SaleInfo'>[세일 정보]</li>
+                                <li className='fbm-inr-info' id='Date'>2023.06.03</li>
+                                <span>
+                                    {/* 댓글 + 좋아요 box */}
+                                    <div className='reply-like-box'>
+                                        <div className='reply' id='Reply'>
+                                            <div className='reply-img'></div>
+                                        </div>
+                                        <div className='like' id='Like'>
+                                            <div className='like-img'></div>
+                                        </div>
+                                    </div>
+                                </span>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
-
+                {/* 반복 */}
 
 
             </div>

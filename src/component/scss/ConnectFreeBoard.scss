@@ -14,7 +14,6 @@
 
         // 자유게시판 header
         .fb-header {
-            border-bottom: 1px solid #000;
             width: 100%;
             height: 30%;
             padding: 15px;
@@ -107,48 +106,145 @@
 
         // 자유게시판 main
         .free-board-main-container {
-            border: 1px solid #000;
             width: 100%;
             height: 100%;
             padding: 15px;
 
-            // 자유게시판 main box
-            .fbm-box {
-                // border: 1px solid #000;
-                border-radius: 10px;
+            // 자유 게시판 정보 box
+            .fbm-info-box {
                 width: 100%;
                 height: 100%;
-
-                .fbm-info-list-box {
-                    border: 1px solid #000;
-                    border-radius: 10px;
+                
+                // 자유게시판 정보
+                .fbm-info-list {
+                    background: rgb(196, 231, 243);
+                    border: none;
+                    border-radius: 15px;
                     width: 100%;
                     height: 25%;
-                    margin-bottom: 20px;
-                    padding: 10px;
-                    
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    
-                    .fbm-info-list {
-                        background: tomato;
-                        border: none;
-                        width: 100%;
-                        height: 100%;
+                    justify-content: space-evenly;
 
-                        .info-list-img {
-                            border: 1px solid #000;
-                            width: 90%;
-                            height: 100%;
+                    // 자유게시판 정보 사진 box
+                    .fbm-info-img-box {
+                        width: 18%;
+                        height: 100%;
+                        
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        // 자유게시판 정보 사진
+                        .fbm-info-img {
+                            border: none;
+                            background: aquamarine;
+                            border-radius: 50%;
+                            width: 80%;
+                            height: 80%;
                         }
+                    }
+
+                    // 자유게시판 세부 정보 box
+                    .fbm-inr-info-box {
+                        width: 78%;
+                        height: 65%;
+                        margin-top: 23px;
+                        position: relative;
+
+                        // 세부 정보 공통 box
+                        .fbm-inr-info {
+                            background: #777;
+                            color: #fff;
+                            height: 40%;
+                            font-size: 16px;
+                            text-align: center;
+
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        // 지역
+                        #Area {
+                            width: 30%;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                        }
+                        
+                        // 게시판 제목
+                        #BoardTitle {
+                            width: 65%;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                        }
+                        
+                        // 세일 정보
+                        #SaleInfo {
+                            width: 30%;
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                        }
+                        
+                        // 날짜
+                        #Date {
+                            width: 35%;
+                            position: absolute;
+                            bottom: 0;
+                            right: 174px;                            
+                        }
+
+                        // 댓글 + 좋아요 box 
+                        .reply-like-box {
+                            width: 30%;
+                            height: 40%;
+                            display: flex;
+                            padding-top: 3px;
+                            position: absolute;
+                            right: 0;
+                            bottom: 0;
+
+                            // 댓글
+                            #Reply {
+                                width: 50%;
+                                height: 100%;
+
+                                display: flex;
+                                justify-content: right;
+                                align-items: center;
+                                
+                                .reply-img {
+                                    background: url('./img/Reply.png') no-repeat;
+                                    background-size: 70%;
+                                    width: 50%;
+                                    height: 100%;
+                                }
+                            }
+                            
+                            // 좋아요
+                            #Like {
+                                width: 50%;
+                                height: 100%;
+                                display: flex;
+                                justify-content: right;
+                                align-items: center;
+                                
+                                .like-img {
+                                    background: url('./img/Like.png') no-repeat;
+                                    background-size: 70%;
+                                    width: 50%;
+                                    height: 100%;
+                                }
+                            }
+                        }
+
                     }
 
                 }
 
             }
-
-
 
         }
 
