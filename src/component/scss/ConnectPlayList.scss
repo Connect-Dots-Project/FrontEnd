@@ -1,0 +1,362 @@
+// playlist
+.playlist-board-wrapper {
+    width: 100%;
+    height: 100%;
+
+    // playlist box
+    .plb-box {
+        border: 1px solid #000;
+        background: #fff;
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+
+        // playlist header 
+        .plb-header {
+            border-bottom: 1px solid #000;
+            width: 100%;
+            height: 30%;
+            padding: 15px;
+            
+            // 메인text + 검색창 box
+            .plb-header-text-search-box {
+                width: 100%;
+                height: 60%;
+                margin-bottom: 10px;
+                display: flex;
+
+                // 플리 logo
+                .plb-logo {
+                    background: url('./img/PlaylistLogo.png') no-repeat;
+                    background-size: 105%;
+                    border-radius: 20px;
+                    width: 12%;
+                    height: 100%;
+                }
+
+                .plb-text-box {
+                    width: 38%;
+                    height: 100%;
+                    font-weight: 700;
+                }
+
+                // 플리 메인 Title
+                h2 {
+                    width: 100%;
+                    height: 40%;
+                    font-size: 26px;
+                    padding-left: 3%;
+                }
+
+                // 플리 서브 Title
+                p {
+                    width: 100%;
+                    height: 60%;
+                    padding-left: 3%;
+                }
+
+                // 검색창
+                .plb-search-box {
+                    width: 50%;
+                    height: 100%;
+
+                    display: flex;
+                    justify-content: center;
+
+                    .plb-search {
+                        border-radius: 20px;
+                        width: 90%;
+                        height: 40%;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .search-logo {
+                            border: 2px solid #bbb;
+                            border-right: none;
+                            border-radius: 20px 0px 0px 20px;
+                            width: 15%;
+                            height: 100%;
+                            position: relative;
+
+                            &::before {
+                                content: '';
+                                background: url('./img/SearchLogo.png')no-repeat;
+                                background-size: 40%;
+                                background-position: 15px;
+                                border-radius: 20px 0px 0px 20px;
+                                width: 100%;
+                                height: 100%;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                            }
+
+                        }
+
+                        .search-text {
+                            border: 2px solid #bbb;
+                            border-right: none;
+                            width: 70%;
+                            height: 100%;
+                            padding-left: 2%;
+                            font-size: 16px;
+                            font-weight: 700;
+
+                            &:focus {
+                                outline: none;
+                            }
+                        }
+
+                        .search-btn {
+                            background: url('./img/Search.png') no-repeat;
+                            background-size: 35%;
+                            background-position: 20px;
+                            border-radius: 0px 20px 20px 0px;
+                            border: 2px solid #bbb;
+                            border-left: none;
+                            width: 15%;
+                            height: 100%;
+                            position: relative;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            // header menu box
+            .plb-header-menu-box {
+                width: 100%;
+                height: 35%;
+
+                .plb-info-box {
+                    width: 100%;
+                    height: 100%;
+
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .plb-info-list {
+                        border-radius: 10px;
+                        width: 19%;
+                        height: 100%;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .plb-info-text-box {
+                            border-radius: 10px;
+                            width: 100%;
+                            height: 100%;
+                            background: #bbb;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            &:hover {
+                                opacity: 0.7;
+                            }
+
+                            .plb-info-text {
+                                font-weight: 700;
+                                color: #000;
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        // playlist container
+        .plb-container-box {
+            width: 100%;
+            height: 100%;
+
+            // plb-container
+            .plb-container {
+                border: 1px solid #000;
+                width: 95%;
+                height: 100%;
+                margin: 0 auto;
+
+                // plb-playlist box
+                .plb-playlist-box {
+                    border-bottom: 1px solid #000;
+                    width: 100%;
+                    height: 25%;
+                    display: flex;
+
+                    // playlist img
+                    .plb-img-box {
+                        width: 20%;
+                        height: 100%;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        // plb-img
+                        .plb-img {
+                            background: url('./img/PlayLogo.png') no-repeat;
+                            background-size: 96%;
+                            width: 60%;
+                            height: 60%;
+                        }
+                    }
+                    
+                    // playlist-info-box
+                    .playlist-info-box {
+                        width: 80%;
+                        height: 60%;
+                        margin: auto 0;
+                        display: flex;
+
+                        // playlist-info-title-btn-playing-box
+                        .playlist-info-title-btn-playing-box {
+                            width: 70%;
+                            height: 100%;
+                        }
+                        
+                        // playlist-info-title
+                        .playlist-info-title {
+                            background: #888;
+                            width: 100%;
+                            height: 40%;
+                            margin-bottom: 13px;
+
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                        
+                        // playlist-btn-playing-box
+                        .playlist-btn-playing-box {
+                            width: 100%;
+                            height: 45%;
+                            display: flex;
+                            justify-content: space-between;
+                            
+                            // playlist-plauBtn 
+                            .playlist-playBtn {
+                                background: url('./img/PlayBtn.png') no-repeat;
+                                background-size: 90%;
+                                border: none;
+                                width: 10%;
+                                height: 100%;
+                                cursor: pointer;
+                            }
+                            
+                            // playlist-info-playing-music
+                            .playlist-info-playing-music {
+                                background: #888;
+                                width: 90%;
+                                height: 100%;
+
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
+                        }
+                        
+                        // pl-like-reply-bookmark-box
+                        .pl-like-reply-bookmark-box {
+                            width: 30%;
+                            height: 100%;
+
+                            // pl-btn
+                            .pl-btn {
+                                border: none;
+                            }
+
+                            .like-box {
+                                width: 100%;
+                                height: 50%;
+                                position: relative;
+                                
+                                #Like {
+                                    background: url('./img/Like.png') no-repeat;
+                                    background-size: 100%;
+                                    width: 20%;
+                                    height: 100%;
+                                    position: absolute;
+                                    top: 0;
+                                    right: 10px;
+                                    cursor: pointer;
+                                }
+                            }
+                            
+                            // pl-reply-bookmark-box
+                            .pl-reply-bookmark-box {
+                                width: 100%;
+                                height: 50%;
+                                display: flex;
+                                
+                                .reply-box {
+                                    width: 100%;
+                                    height: 100%;
+                                    position: relative;
+    
+                                    #Reply {
+                                        background: url('./img/Reply.png') no-repeat;
+                                        background-size: 40%;
+                                        width: 100%;
+                                        height: 100%;
+                                        position: absolute;
+                                        top: 7px;
+                                        left: 43px;
+                                        cursor: pointer;
+                                    }
+                                }
+                                
+                                .bookmark-box {
+                                    width: 100%;
+                                    height: 100%;
+                                    position: relative;
+                                    
+                                    #Bookmark {
+                                        background: url('./img/BookMark.png') no-repeat;
+                                        background-size: 40%;
+                                        width: 100%;
+                                        height: 100%;
+                                        position: absolute;
+                                        top: 7px;
+                                        left: 43px;
+                                        cursor: pointer;
+                                    }
+                                }
+                                
+                            }
+                            
+
+
+
+
+
+
+                        }
+                        
+                        
+                        
+
+                    }
+
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+    }
+}
