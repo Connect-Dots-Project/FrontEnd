@@ -24,7 +24,7 @@ const ConnectPlayList = () => {
                         <div className='plb-search-box'>
                             <div className='plb-search'>
                                 <div className='search-logo'></div>
-                                <input className='search-text'></input>
+                                <input className='search-text' placeholder='검색어를 입력해주세요'></input>
                                 <button className='search-btn'></button>
                             </div>
                         </div>

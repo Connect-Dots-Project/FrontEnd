@@ -94,6 +94,9 @@ const ConnectLogin = () => {
                             <input className='inputBox' id='ID' placeholder='아이디' autoFocus></input>
                             <input className='inputBox' id='PW' placeholder='비밀번호'></input>
                         </div>
+                        <div className='login-btn-box'>
+                            <button className='login-btn'>로그인</button>
+                        </div>
 
                         {/* 아이디, 비밀번호 찾기 */}
                         <div className='search-id-pw-wrapper'>
@@ -177,7 +180,7 @@ const ConnectLogin = () => {
 
             <footer id='Footer'>
                 <div className='signinBtn-box'>
-                    <button className='signinBtn' id='SigninBtn'>Sign In</button>
+                    <button className='signinBtn' id='SigninBtn'>Sign Up</button>
                 </div>
             </footer>
         </div>

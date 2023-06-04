@@ -67,20 +67,20 @@ body {
             .list {
                 width: fit-content;
                 height: 100%;
-
+                
                 color: #000;
-
+                
                 font-size: 16px;
                 font-weight: 700;
                 text-align: center;
                 line-height: 2.2em;
-
+                
                 &:hover {
                     border-bottom: 4px solid #000;
                     transition: 0.01s;
                 }
             }
-
+            
             // Hot-Place
             #Hot-Place {
                 color: red;
@@ -102,12 +102,6 @@ body {
     
     z-index: 1;
     
-    // &:hover .ch-signin-box {
-    //     display: block;
-    //     transition: 0.5s ease;
-    //     opacity: 1;
-    // }   
-    
     // 로그인 box
     .ch-login-box {
         width: 75px;
@@ -125,7 +119,7 @@ body {
             border-radius: 10px;
             
             @include disflex();
-
+            
             &:hover {
                 opacity: 0.8;
             }

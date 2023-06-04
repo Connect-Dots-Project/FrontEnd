@@ -5,3 +5,9 @@
     text-decoration: none;
     word-spacing: 3px;
 }
+
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

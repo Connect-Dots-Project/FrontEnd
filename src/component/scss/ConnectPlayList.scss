@@ -1,3 +1,9 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 // playlist
 .playlist-board-wrapper {
     width: 100%;
@@ -5,7 +11,6 @@
 
     // playlist box
     .plb-box {
-        border: 1px solid #000;
         background: #fff;
         width: 90%;
         height: 100%;
@@ -13,7 +18,6 @@
 
         // playlist header 
         .plb-header {
-            border-bottom: 1px solid #000;
             width: 100%;
             height: 30%;
             padding: 15px;
@@ -52,7 +56,7 @@
                 p {
                     width: 100%;
                     height: 60%;
-                    padding-left: 3%;
+                    padding-left: 4%;
                 }
 
                 // 검색창
@@ -68,9 +72,7 @@
                         width: 90%;
                         height: 40%;
 
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
+                        @include disflex();
 
                         .search-logo {
                             border: 2px solid #bbb;
@@ -94,7 +96,8 @@
                             }
 
                         }
-
+                        
+                        // 입력창
                         .search-text {
                             border: 2px solid #bbb;
                             border-right: none;
@@ -143,18 +146,15 @@
                         width: 19%;
                         height: 100%;
 
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
+                        @include disflex();
 
                         .plb-info-text-box {
                             border-radius: 10px;
                             width: 100%;
                             height: 100%;
                             background: #bbb;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
+
+                            @include disflex();
 
                             &:hover {
                                 opacity: 0.7;
@@ -169,7 +169,6 @@
                     }
                 }
             }
-
         }
 
         // playlist container
@@ -179,14 +178,14 @@
 
             // plb-container
             .plb-container {
-                border: 1px solid #000;
                 width: 95%;
                 height: 100%;
                 margin: 0 auto;
 
                 // plb-playlist box
                 .plb-playlist-box {
-                    border-bottom: 1px solid #000;
+                    border-radius: 10px;
+                    background: rgb(228, 248, 255);
                     width: 100%;
                     height: 25%;
                     display: flex;
@@ -196,9 +195,7 @@
                         width: 20%;
                         height: 100%;
 
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
+                        @include disflex();
 
                         // plb-img
                         .plb-img {
@@ -228,10 +225,9 @@
                             width: 100%;
                             height: 40%;
                             margin-bottom: 13px;
+                            color: #fff;
 
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
+                            @include disflex();
                         }
                         
                         // playlist-btn-playing-box
@@ -254,12 +250,11 @@
                             // playlist-info-playing-music
                             .playlist-info-playing-music {
                                 background: #888;
+                                color: #fff;
                                 width: 90%;
                                 height: 100%;
 
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
+                                @include disflex();
                             }
                         }
                         
@@ -280,7 +275,7 @@
                                 
                                 #Like {
                                     background: url('./img/Like.png') no-repeat;
-                                    background-size: 100%;
+                                    background-size: 75%;
                                     width: 20%;
                                     height: 100%;
                                     position: absolute;
@@ -303,7 +298,7 @@
     
                                     #Reply {
                                         background: url('./img/Reply.png') no-repeat;
-                                        background-size: 40%;
+                                        background-size: 30%;
                                         width: 100%;
                                         height: 100%;
                                         position: absolute;
@@ -320,7 +315,7 @@
                                     
                                     #Bookmark {
                                         background: url('./img/BookMark.png') no-repeat;
-                                        background-size: 40%;
+                                        background-size: 30%;
                                         width: 100%;
                                         height: 100%;
                                         position: absolute;
@@ -329,34 +324,11 @@
                                         cursor: pointer;
                                     }
                                 }
-                                
                             }
-                            
-
-
-
-
-
-
                         }
-                        
-                        
-                        
-
                     }
-
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

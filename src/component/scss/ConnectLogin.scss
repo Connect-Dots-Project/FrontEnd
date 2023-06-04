@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     position: relative;
 }
@@ -113,11 +117,11 @@ body {
     // header (사용자 프로필 이미지)
     #Header {
         width: 100%;
-        height: 30%;
+        height: 25%;
         
         // 사용자 프로필 box
         .user-profile-box {
-            width: 40%;
+            width: 33%;
             height: 100%;
             margin: 0 auto;
             
@@ -138,7 +142,7 @@ body {
     // container (로그인 입력창)
     #Container {
         width: 100%;
-        height: 50%;
+        height: 60%;
         
         // 로그인 입력창
         .login-wrapper {
@@ -152,32 +156,63 @@ body {
             .login-box {
                 width: 100%;
                 height: 100%;
+                position: relative;
                 
                 // 아이디, 비밀번호 입력창
                 .id-pw-box {
-                    width: 80%;
-                    height: 70%;
-                    margin: 0 auto;
+                    width: 100%;
+                    height: 60%;
+                    text-align: center;
+                    border-bottom: 4px solid #ddd;
                     
                     // 입력창
                     .inputBox {
                         border: 4px solid #ddd;
-                        width: 100%;
+                        width: 80%;
                         height: 30%;
-                        margin-top: 22px;
                         font-size: 16px;
                         text-align: center;
+                        margin-top: 24px;
 
                         &:focus {
                             outline: none;
                         }
                     }
+
                 }
+
+                // 로그인 버튼 box
+                .login-btn-box {
+                    width: 97%;
+                    height: 20%;
+                    margin: 0 auto;
+                    
+                    // 로그인 버튼
+                    .login-btn {
+                        background: #ddd;
+                        width: 100%;
+                        height: 85%;
+                        margin-top: 5px;
+                        border: none;
+                        font-size: 16px;
+                        font-weight: 700;
+                        text-align: center;
+                        cursor: pointer;
+    
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+
+                }
+                
                 
                 // 아이디, 비밀번호 찾기
                 .search-id-pw-wrapper {
                     width: 100%;
-                    height: 30%;
+                    height: 20%;
+                    position: absolute;
+                    bottom: 0;
                     
                     // 아이디, 비밀번호 찾기 box 
                     .search-id-pw-box {
@@ -213,46 +248,47 @@ body {
     // footer
     #Footer {
         width: 100%;
-        height: 20%;
-
+        height: 15%;
+        
         // 소셜 로그인 전체
         .social-login-wrapper {
             width: 100%;
             height: 100%;
-
+            
             // 소셜 로그인 box
             .social-login-box {
                 width: 50%;
                 height: 100%;
                 margin: 0 auto;
                 display: flex;
-
+                
                 // 소셜 로그인 목록
                 .social-login-list {
-                    width: 50%;
+                    width: 30%;
                     height: 100%;
+                    margin: 0 auto;
                     position: relative;
-
+                    
                     // 소셜 로그인 이미지 box
                     .img-box {
                         border: none;
                         border-radius: 50%;
                         width: 50%;
-                        height: 50%;
-
+                        height: 42%;
+                        
                         position: absolute;
                         top: 0;
                         left: 0;
                         transform: translate(50%, 50%);
                     }
                 }
-
+                
                 // Kakaotalk
                 #KakaoTalk {
                     background: url('./img/kakaoTalk.png') no-repeat;
                     background-size: 100%;
                 }
-
+                
                 // Google
                 #Google {
                     background: url('./img/Google.png') no-repeat;
