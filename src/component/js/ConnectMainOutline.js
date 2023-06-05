@@ -2,9 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 import '../scss/ConnectMainOutline.scss';
-// import ConnectHotPlace from './ConnectHotPlace';
-import ConnectFreeBoard from './ConnectFreeBoard';
-import ConnectPlayList from './ConnectPlayList';
+import ConnectGlobalChatting from './ConnectGlobalChatting';
 
 const ConnectMainOutline = () => {
    
@@ -48,7 +46,7 @@ const ConnectMainOutline = () => {
                 <div className='cmo-change-board-box'>
                     {/* 고정 메인 메뉴 전환 게시판 */}
                     <div className='cmo-change-board'>
-                        <ConnectPlayList />
+                        <ConnectGlobalChatting />
                     </div>
                 </div>
             </div>

@@ -91,8 +91,10 @@ const ConnectLogin = () => {
 
                         {/* 아이디, 비밀번호 입력 */}
                         <div className='id-pw-box'>
-                            <input className='inputBox' id='ID' placeholder='아이디' autoFocus></input>
-                            <input className='inputBox' id='PW' placeholder='비밀번호'></input>
+                            <form>
+                                <input className='inputBox' id='ID' placeholder='아이디' autoFocus></input>
+                                <input className='inputBox' id='PW' placeholder='비밀번호'></input>
+                            </form>
                         </div>
                         <div className='login-btn-box'>
                             <button className='login-btn'>로그인</button>

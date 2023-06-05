@@ -1,0 +1,100 @@
+
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    position: relative;
+    box-sizing: border-box;
+}
+
+.backDrop {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    @include disflex();
+    z-index: 1;
+    display: none;
+}
+
+// 글로벌 채팅창
+.global-chatting-wrapper {
+    border: 2px solid #000;
+    border-radius: 10px;
+    width: 450px;
+    height: 750px;
+    display: none;
+
+    position: fixed;
+    top: 10px;
+    right: 9px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 글로벌 채팅 버튼
+.global-chatting-btn-box {
+    // border: 1px solid #000;
+    width: 75px;
+    height: 75px;
+    border-radius: 10px;
+
+    position: fixed;
+    bottom: 75px;
+    right: 75px;
+
+    // 채팅 아이콘
+    .gbchatting {
+        background: url('./img/GlobalChatting.png') no-repeat;
+        background-size: 80%;
+        background-position: 7px;
+        border: 2px solid #000;
+        width: 75px;
+        height: 75px;
+        border-radius: 10px;   
+        cursor: pointer;
+
+        @include disflex();
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

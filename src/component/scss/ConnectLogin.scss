@@ -165,22 +165,29 @@ body {
                     text-align: center;
                     border-bottom: 4px solid #ddd;
                     
-                    // 입력창
-                    .inputBox {
-                        border: 4px solid #ddd;
-                        width: 80%;
-                        height: 30%;
-                        font-size: 16px;
-                        text-align: center;
-                        margin-top: 24px;
-
-                        &:focus {
-                            outline: none;
+                    // form
+                    form {
+                        width: 100%;
+                        height: 100%;
+                        
+                        // 입력창
+                        .inputBox {
+                            border: 4px solid #ddd;
+                            width: 80%;
+                            height: 30%;
+                            font-size: 16px;
+                            text-align: center;
+                            margin-top: 24px;
+                            
+                            &:focus {
+                                outline: none;
+                            }
                         }
                     }
 
+                    
                 }
-
+                
                 // 로그인 버튼 box
                 .login-btn-box {
                     width: 97%;
