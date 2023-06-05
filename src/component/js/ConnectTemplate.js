@@ -5,9 +5,9 @@ import MenuRouter from '../../route/MenuRouter';
 import '../scss/ConnectTemplate.scss';
 
 const ConnectTemplate = () => {
-  return (
+return (
     <div className='ConnectTemplate'>
-        <ConnectHeader/>
+        <ConnectHeader />
         <MenuRouter />
     </div>
   )

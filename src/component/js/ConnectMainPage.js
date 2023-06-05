@@ -1,8 +1,16 @@
 import React from 'react'
+// import { useLocation } from 'react-router-dom';
 
 import '../scss/ConnectMainPage.scss';
 
 const ConnectMainPage = () => {
+
+    // const $location = useLocation();
+
+    // if ($location.pathname === '/') {
+    //     return null;
+    // }
+
   return (
     // connect-main-wrapper
     <div className='connect-main-wrapper'>

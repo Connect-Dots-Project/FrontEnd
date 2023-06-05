@@ -4,6 +4,7 @@ import '../scss/ConnectFreeBoard.scss';
 import { Link } from 'react-router-dom';
 
 const ConnectFreeBoard = () => {
+
   return (
     <>
         {/* 자유게시판 전체 */}
@@ -83,9 +84,14 @@ const ConnectFreeBoard = () => {
                                 </span>
                             </ul>
                         </li>
+                    {/* 반복 */}        
+
+
+
+
+
                     </ul>
                 </div>
-                {/* 반복 */}
 
 
             </div>

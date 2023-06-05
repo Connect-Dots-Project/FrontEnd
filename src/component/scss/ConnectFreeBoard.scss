@@ -4,26 +4,26 @@
 .free-board-wrapper {
     width: 100%;
     height: 100%;
-
+    
     // header + mainBoard
     .fb-box {
         background: #fff;
         width: 90%;
         height: 100%;
         margin: 0 auto;
-
+        
         // 자유게시판 header
         .fb-header {
             width: 100%;
             height: 30%;
             padding: 15px;
-
+            
             // 자유게시판 header text box
             .fbh-info-box {
                 width: 100%;
                 height: 65%;
                 display: flex;
-
+                
                 // fbh-header-icon
                 .icon-box {
                     background: url('./img/Bulb.png') no-repeat;
@@ -31,7 +31,7 @@
                     width: 10%;
                     height: 100%;
                 }
-
+                
                 .fbh-text-box {
                     width: 90%;
                     height: 80%;
@@ -61,16 +61,16 @@
                 }
                 
             }
-
+            
             // 자유게시판 header best info box
             .fbh-best-info-box {
                 width: 100%;
                 height: 35%;
-
+                
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-
+                
                 .fbh-best-info-list {
                     border-radius: 10px;
                     width: 19%;
@@ -88,11 +88,11 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
-
+                        
                         &:hover {
                             opacity: 0.7;
                         }
-
+                        
                         .fbh-best-info-text {
                             font-weight: 700;
                             color: #000;
@@ -102,17 +102,18 @@
                 }
             }
         }
-
+        
         // 자유게시판 main
         .free-board-main-container {
             width: 100%;
             height: 100%;
             padding: 15px;
-
+            
             // 자유 게시판 정보 box
             .fbm-info-box {
                 width: 100%;
                 height: 100%;
+                overflow: scroll;
                 
                 // 자유게시판 정보
                 .fbm-info-list {
@@ -121,9 +122,10 @@
                     border-radius: 15px;
                     width: 100%;
                     height: 25%;
+                    margin-bottom: 20px;
                     display: flex;
                     justify-content: space-evenly;
-
+                    
                     // 자유게시판 정보 사진 box
                     .fbm-info-img-box {
                         width: 18%;

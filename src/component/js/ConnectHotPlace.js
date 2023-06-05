@@ -1,9 +1,11 @@
 import React from 'react'
-
-import '../scss/ConnectHotPlace.scss';
 import { Link } from 'react-router-dom';
 
+
+import '../scss/ConnectHotPlace.scss';
+
 const ConnectHotPlace = () => {
+
   return (
     <>
       {/* hp-wrapper */}
@@ -11,6 +13,7 @@ const ConnectHotPlace = () => {
         {/* hp-wrapper box */}
         <div className='hp-info-box'>
 
+          {/* 반복 */}
           {/* hot-place 정보 */}
           <div className='hp-info'>
               <div className='hp-info-img-text-box'>
@@ -28,15 +31,10 @@ const ConnectHotPlace = () => {
                 </div>
               </div>
           </div>
+          
 
         </div>
       </div>
-
-
-
-
-
-
     </>
   )
 }

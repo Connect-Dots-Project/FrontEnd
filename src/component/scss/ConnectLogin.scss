@@ -62,10 +62,6 @@ body {
             cursor: pointer;
 
             @include disflex();
-
-            &:hover {
-                opacity: 0.8;
-            }
         }
     }
 
@@ -92,10 +88,6 @@ body {
             cursor: pointer;
             
             @include disflex();
-            
-            &:hover {
-                opacity: 0.8;
-            }
         }
     }
 }

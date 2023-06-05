@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 
 import '../scss/ConnectHeader.scss';
 
-const ConnectHeader = () => {
+const ConnectHeader = (props) => {
 
+    // console.log(props.children);
+    // const [$mainPage, $login] = props.children;
 
   return (
     <>
@@ -14,7 +16,7 @@ const ConnectHeader = () => {
             {/* ch = connect-header */}
             <div className='ch-title-box'> 
                 {/* header 제목 */}
-                <a href='#' id='Title'>TITLE</a>
+                <Link to='/' id='Title'>TITLE</Link>
             </div>
             {/* header 메뉴 box */}
             <div className='ch-menu-box'>
