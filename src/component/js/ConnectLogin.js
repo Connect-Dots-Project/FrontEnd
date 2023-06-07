@@ -8,11 +8,17 @@ const ConnectLogin = () => {
     const openLogin = e => {
         const $loginBox = document.querySelector('.login-modal-box');
         const $back = document.querySelector('.backDrop');
-        
-        if ($loginBox && $back && $loginBox.style.display !== 'block') {
-            $loginBox.style.display = 'block';
-            $back.style.display = 'block';
+
+        if($loginBox.style.height !== '500px') {
+            $loginBox.style.animation = 'aa 1s forwards 1';
+        } else {
+            $loginBox.style.animation = 'none';
         }
+        
+        // if ($loginBox && $back && $loginBox.style.display !== 'block') {
+        //     $loginBox.style.display = 'block';
+        //     $back.style.display = 'block';
+        // }
         
         document.addEventListener('mouseup', function(e) {
             const container = document.querySelector('.login-modal-box');
@@ -35,6 +41,12 @@ const ConnectLogin = () => {
         if ($loginBox && $back && $loginBox.style.display !== 'block') {
             $loginBox.style.display = 'block';
             $back.style.display = 'block';
+        }
+
+        if($loginBox.style.height !== '500px') {
+            $loginBox.style.animation = 'aa 1s forwards 1';
+        } else {
+            $loginBox.style.animation = 'none';
         }
         
         document.addEventListener('mouseup', function(e) {
