@@ -1,9 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import '../scss/ConnectFreeBoard.scss';
 import { Link } from 'react-router-dom';
+import ConnectFreeBoardData from './ConnectFreeBoardData';
 
 const ConnectFreeBoard = () => {
+
+    // 주소 요청
+    const API_FREE_BOARD_URL = 'http://localhost/contents/free-board';
+
+    // Json
+    const [fbData, setFbData] = useState([]);
+
+    const addData = () => {
+        
+        const newFbData = {
+            freeBoardLocation: '강북구',
+            // freeBoardIdx: 1,
+            // freeBoardImg: null,
+            // freeBoardCategory: '친목',
+            // freeBoardWriteDate: '2023-06-03T14:09:38',
+            // freeBoardUpdateDate: '2023-06-03T14:09:38',
+            // freeBoardViewCount: 0,
+            // freeBoardReplyCount: 0,
+            // freeBoardLikeCount: 0,
+            // memberIdx: 1
+        };
+
+        fetch(API_FREE_BOARD_URL, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(newFbData)
+        })
+        .then(res => res.json())
+        .then(json => {
+            setFbData(json.fbData);
+        })
+    };
 
   return (
     <>
@@ -67,21 +100,7 @@ const ConnectFreeBoard = () => {
                             {/* 자유 게시판 세부 정보 box */}
                             <ul className='fbm-inr-info-box'>
                                 {/* 자유 게시판 세부 정보 */}
-                                <li className='fbm-inr-info' id='Area'>[지역]</li>
-                                <li className='fbm-inr-info' id='BoardTitle'>게시판 제목</li>
-                                <li className='fbm-inr-info' id='SaleInfo'>[세일 정보]</li>
-                                <li className='fbm-inr-info' id='Date'>2023.06.03</li>
-                                <span>
-                                    {/* 댓글 + 좋아요 box */}
-                                    <div className='reply-like-box'>
-                                        <div className='reply' id='Reply'>
-                                            <div className='reply-img'></div>
-                                        </div>
-                                        <div className='like' id='Like'>
-                                            <div className='like-img'></div>
-                                        </div>
-                                    </div>
-                                </span>
+                                <ConnectFreeBoardData addData={addData }/>
                             </ul>
                         </li>
                     {/* 반복 */}        

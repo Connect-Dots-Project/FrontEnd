@@ -132,6 +132,11 @@ const ConnectLogin = () => {
                                 <div className='img-box'id='Google'></div>
                             </Link>    
                         </li> 
+                        <li className='social-login-list naver'>
+                            <Link to={'/'}>
+                                <div className='img-box'id='Naver'></div>
+                            </Link>    
+                        </li> 
                     </ul>
                 </div>
             </footer>

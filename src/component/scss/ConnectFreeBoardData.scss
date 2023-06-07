@@ -1,0 +1,96 @@
+.fbm-inr-info-box {
+    width: 78%;
+    height: 65%;
+    margin-top: 23px;
+    position: relative;
+
+    // 세부 정보 공통 box
+    .fbm-inr-info {
+        background: #777;
+        color: #fff;
+        height: 40%;
+        font-size: 16px;
+        text-align: center;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    // 지역
+    #Area {
+        background: tomato;
+        width: 30%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    // 게시판 제목
+    #BoardTitle {
+        width: 65%;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    // 세일 정보
+    #SaleInfo {
+        width: 30%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    // 날짜
+    #Date {
+        width: 35%;
+        position: absolute;
+        bottom: 0;
+        right: 170px;
+    }
+
+    // 댓글 + 좋아요 box 
+    .reply-like-box {
+        width: 30%;
+        height: 40%;
+        display: flex;
+        padding-top: 3px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        // 댓글
+        #Reply {
+            width: 50%;
+            height: 100%;
+
+            display: flex;
+            justify-content: right;
+            align-items: center;
+
+            .reply-img {
+                background: url('./img/Reply.png') no-repeat;
+                background-size: 70%;
+                width: 50%;
+                height: 100%;
+            }
+        }
+
+        // 좋아요
+        #Like {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: right;
+            align-items: center;
+
+            .like-img {
+                background: url('./img/Like.png') no-repeat;
+                background-size: 70%;
+                width: 50%;
+                height: 100%;
+            }
+        }
+    }
+}

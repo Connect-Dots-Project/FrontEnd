@@ -37,13 +37,13 @@ const ConnectMainOutline = () => {
             <div className='cmo-container'>
                 {/* 고정 메인 메뉴 box */}
                 <ul className='cmo-menu'>
-                    <Link to={'/nb-hot-place'} className='cmo-list' id='Hot-Place' onClick={ clickList }>
+                    <Link to={'/contents/hot-place'} className='cmo-list' id='Hot-Place' onClick={ clickList }>
                         <div className='link-box'>
                             <li className='cmo-menu-list hot-place'></li>
                             <p className='cmo-text'>Hot Place</p>
                         </div>
                     </Link>
-                    <Link to={'/nb-real-time-chatting'} className='cmo-list' id='Real-time-Chatting' onClick={ clickList }>
+                    <Link to={'/contents/free-board'} className='cmo-list' id='Real-time-Chatting' onClick={ clickList }>
                         <div className='link-box'>
                             <li className='cmo-menu-list real-time-chatting'></li>
                             <p className='cmo-text'>동네 실시간 채팅</p>
@@ -67,10 +67,10 @@ const ConnectMainOutline = () => {
                 <div className='cmo-change-board-box'>
                     <div className='cmo-change-board'>
                         <Routes>
-                            <Route path='/nb-hot-place' element={ <ConnectHotPlace /> }></Route>
+                            <Route path='/contents/hot-place' element={ <ConnectHotPlace /> }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/nb-real-time-chatting' element={ <ConnectFreeBoard /> }></Route>
+                            <Route path='/contents/free-board' element={ <ConnectFreeBoard /> }></Route>
                         </Routes>
                         <Routes>
                             <Route path='/nb-making-friends' element={ <ConnectFriends /> }></Route>
@@ -83,6 +83,8 @@ const ConnectMainOutline = () => {
                         </Routes>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </>
