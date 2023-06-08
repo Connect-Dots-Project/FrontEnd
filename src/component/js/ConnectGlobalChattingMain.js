@@ -6,7 +6,7 @@ const ConnectGlobalChattingMain = () => {
   return (
     <div className='gcmain-wrapper'>
       <div className='gcmain-box'>
-        으악
+        
 
       </div>
     </div>

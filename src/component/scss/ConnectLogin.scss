@@ -29,7 +29,6 @@ body {
 .connect-header-login-wrapper {
     width: 75px;
     height: 75px;
-    border-radius: 10px;
 
     position: fixed;
     bottom: 75px;
@@ -47,49 +46,29 @@ body {
     .ch-login-box {
         width: 75px;
         height: 75px;
-        border-radius: 10px;
+        border: none;
 
         @include disflex();
 
         // 로그인
         #Login {
-            background: #000;
-            color: #fff;
+            box-shadow: 2px 2px 1px 1px #000;
             width: 100%;
             height: 100%;
-            border-radius: 10px;
+            border-radius: 5px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
 
             @include disflex();
+
+            &:active {
+                transform: scale(0.95);
+            }
         }
     }
 
-    // 회원가입 box
-    .ch-signin-box {
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
 
-        @include disflex();
-        position: absolute;
-        bottom: 75px;
-        left: 0;
-        opacity: 0;
-
-        // 회원가입
-        #Sign-in {
-            background: #000;
-            color: #fff;
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            
-            @include disflex();
-        }
-    }
 }
 
 
@@ -98,18 +77,22 @@ body {
 // 로그인 모달 클릭
 @keyframes openLoginModal {
     0% {
-        width: 0%;
-        height: 0%;
+        width: 0;
+        height: 0;
         opacity: 0;
-        transform: translate(800%, -50%);
-    } 50% {
-        width: 400px;
-        height: 0%;
-        transform: translate(-50%, -50%);
+        transform: translate(500%, -50%);
     }
+
+    50% {
+        width: 800px;
+        height: 0;
+        transform: translate(-50%, -50%);
+        border: 4px solid #000;
+    }
+
     100% {
-        width: 400px;
-        height: 500px;
+        width: 800px;
+        height: 800px;
         opacity: 1;
         transform: translate(-50%, -50%);
     }
@@ -117,20 +100,24 @@ body {
 
 @keyframes closeLoginModal {
     0% {
-        width: 400px;
-        height: 500px;
+        width: 800px;
+        height: 800px;
         opacity: 1;
         transform: translate(-50%, -50%);
-    } 50% {
-        width: 400px;
+    }
+
+    50% {
+        width: 800px;
         height: 0%;
         transform: translate(-50%, -50%);
+        border: 4px solid #000;
     }
+
     100% {
         width: 0%;
         height: 0%;
         opacity: 0;
-        transform: translate(-800%, -50%);
+        transform: translate(-500%, -50%);
     }
 }
 
@@ -140,12 +127,13 @@ body {
 
 // 로그인 모달
 .login-modal-box {
-    border: 1px solid #000;
-    background: #fff;
-    width: 400px;
-    height: 500px;
+    background: url('./img/LoginBackGround.jpg') no-repeat;
+    background-size: 100%;
+    background-position-y: -100px;
+    width: 800px;
+    height: 800px;
     overflow: hidden;
-    
+
     position: fixed;
     left: 50%;
     top: 50%;
@@ -153,58 +141,68 @@ body {
     z-index: 100;
 
     display: none;
-    
+
     // header (사용자 프로필 이미지)
     #Header {
         width: 100%;
-        height: 25%;
-        
-        // 사용자 프로필 box
-        .user-profile-box {
-            width: 33%;
-            height: 100%;
-            margin: 0 auto;
-            
-            @include disflex();
-            
-            // 사용자 프로필
-            .user-profile {
-                background: #ddd;
-                border-radius: 50%;
-                width: 80%;
-                height: 85%;
-                
-                @include disflex();
-            }
-        }
+        height: 11%;
     }
-    
+
     // container (로그인 입력창)
     #Container {
         width: 100%;
         height: 60%;
-        
+
         // 로그인 입력창
         .login-wrapper {
-            border: 4px solid #ddd;
             border-bottom: none;
-            width: 80%;
+            width: 50%;
             height: 100%;
             margin: 0 auto;
-            
+
             // 로그인 입력창 box
             .login-box {
                 width: 100%;
                 height: 100%;
-                position: relative;
-                
+
+                // 회원가입 box
+                .ch-signin-box {
+                    width: 85%;
+                    height: 10%;
+                    margin: 0 auto;
+                    border-radius: 10px;
+
+                    @include disflex();
+                    &:hover {
+                        opacity: 0.8;
+                    }
+
+                    // 회원가입
+                    #Sign-in {
+                        border: 2px solid rgb(20, 101, 173);
+                        background: rgb(82, 101, 109);
+                        color: #fff;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 10px;
+                        font-size: 16px;
+                        font-weight: 700;
+                        cursor: pointer;
+
+                        @include disflex();
+
+                        &:active {
+                            transform: scale(0.95);
+                        }
+                    }
+                }
+
                 // 아이디, 비밀번호 입력창
                 .id-pw-box {
                     width: 100%;
-                    height: 60%;
+                    height: 45%;
                     text-align: center;
-                    border-bottom: 4px solid #ddd;
-                    
+
                     // form
                     form {
                         width: 100%;
@@ -212,15 +210,22 @@ body {
 
                         // 입력창
                         .inputBox {
-                            border: 4px solid #ddd;
+                            background: none;
+                            color: #fff;
+                            border: 0px;
+                            border-bottom: 2px solid rgb(20, 101, 173);
                             width: 80%;
                             height: 30%;
-                            font-size: 16px;
-                            text-align: center;
+                            padding-left: 2%;
                             margin-top: 24px;
+                            font-size: 16px;
 
                             &:focus {
                                 outline: none;
+                            }
+                            &:hover {
+                                border: 1px solid #fff;
+                                opacity: 0.8;
                             }
                         }
                     }
@@ -230,41 +235,45 @@ body {
 
                 // 로그인 버튼 box
                 .login-btn-box {
-                    width: 97%;
-                    height: 20%;
+                    width: 85%;
+                    height: 10%;
                     margin: 0 auto;
-                    
+
                     // 로그인 버튼
                     .login-btn {
-                        background: #ddd;
+                        background: rgb(20, 101, 173);
+                        color: #fff;
+                        border-radius: 10px;
                         width: 100%;
-                        height: 85%;
-                        margin-top: 5px;
+                        height: 100%;
+                        margin: 0 auto;
                         border: none;
                         font-size: 16px;
-                        font-weight: 700;
                         text-align: center;
                         cursor: pointer;
-    
+
                         &:focus {
                             outline: none;
+                        }
+                        &:hover {
+                            opacity: 0.8;
                         }
                     }
 
                 }
-                
-                
+
+
                 // 아이디, 비밀번호 찾기
                 .search-id-pw-wrapper {
                     width: 100%;
-                    height: 20%;
-                    position: absolute;
-                    bottom: 0;
-                    
+                    height: 10%;
+                    margin-top: 35px;
+
                     // 아이디, 비밀번호 찾기 box 
                     .search-id-pw-box {
                         width: 100%;
                         height: 100%;
+                        margin: 0 auto;
 
                         display: flex;
                         justify-content: space-evenly;
@@ -272,19 +281,56 @@ body {
 
                         // 아이디, 비밀번호 찾기
                         .search-id-pw {
-                            background: #ddd;
-                            width: 100%;
+                            border: 1px solid rgb(20, 101, 173);
+                            background: rgb(82, 101, 109);
+                            border-radius: 10px;
+                            width: 40%;
                             height: 100%;
-                            @include disflex();
+
+                            &:hover {
+                                opacity: 0.8;
+                            }
+
+                            .search-id {
+                                @include disflex();
+                                width: 100%;
+                                height: 100%;
+                            }
+
+                            .search-pw {
+                                @include disflex();
+                                width: 100%;
+                                height: 100%;
+
+                            }
 
                             .search-text {
-                                color: #000;
-                                font-weight: 700;
+                                color: #fff;
                             }
                         }
+                    }
+                }
 
-                        #SearchID {
-                            border-right: 4px solid #fff;
+                .division-wrapper {
+                    width: 90%;
+                    height: 15%;
+                    margin: 0 auto;
+                    display: flex;
+                    
+                    .division-box {
+                        border-bottom: 2px solid rgb(20, 101, 173);
+                        width: 145px;
+                        height: 50%;
+                        margin: 0 auto;
+                    }
+                    
+                    .division-text-box {
+                        width: 100%;
+                        height: 100%;
+                        @include disflex();
+                        
+                        .division-text {
+                            color: #fff;
                         }
                     }
                 }
@@ -295,7 +341,8 @@ body {
     // footer
     #Footer {
         width: 100%;
-        height: 15%;
+        height: 25%;
+        margin: 0 auto;
         
         // 소셜 로그인 전체
         .social-login-wrapper {
@@ -304,43 +351,68 @@ body {
             
             // 소셜 로그인 box
             .social-login-box {
-                width: 50%;
+                width: 100%;
                 height: 100%;
                 margin: 0 auto;
-                display: flex;
                 
                 // 소셜 로그인 목록
                 .social-login-list {
-                    width: 30%;
-                    height: 100%;
+                    width: 42.5%;
+                    height: 25%;
                     margin: 0 auto;
-                    position: relative;
+                    margin-bottom: 12px;
+                    border-radius: 10px;
                     
-                    // 소셜 로그인 이미지 box
-                    .img-box {
-                        border: none;
-                        // border-radius: 50%;
-                        width: 35px;
-                        height: 35px;
-                        border: 4px solid #ddd;
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                    
+                    .social-img-text-box {
+                        background: none;
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        border-radius: 10px;
                         
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        transform: translate(50%, 50%);
+                        // 소셜 로그인 이미지 box
+                        .img-box {
+                            border: none;
+                            width: 14.5%;
+                            height: 100%;
+                            border-radius: 10px 0px 0px 10px;
+                        }
+                        
+                        .social-text {
+                            color: #000;
+                            width: 85.5%;
+                            height: 100%;
+                            font-weight: 700;
+                            border-radius: 0px 10px 10px 0px;   
+                            @include disflex();
+                        }
                     }
                 }
-                
+
                 // Kakaotalk
                 #KakaoTalk {
                     background: url('./img/kakaoTalk.png') no-repeat;
                     background-size: 100%;
                 }
-                
+
+                #KakaoTalkText {
+                    background: rgb(249, 224, 0);
+                }
+
                 // Google
                 #Google {
                     background: url('./img/Google.png') no-repeat;
-                    background-size: 100%;
+                    background-size: 110%;
+                    background-position: -4px;
+                }
+
+                #GoogleText {
+                    background-color: #fff;
                 }
 
                 // Naver
@@ -348,14 +420,17 @@ body {
                     background: url('./img/Naver.png') no-repeat;
                     background-size: 100%;
                 }
+                #NaverText {
+                    background: rgb(0, 191, 25);
+                }
             }
         }
     }
 
     // 닫기 버튼
     .closeBtn {
-        background: url('./img/CloseBtn.png') no-repeat;
-        background-size: 100%;
+        // background: url('./img/CloseBtn.png') no-repeat;
+        // background-size: 100%;
         border: none;
         width: 35px;
         height: 35px;
@@ -384,14 +459,17 @@ body {
         height: 0%;
         opacity: 0;
         transform: translate(-800%, -50%);
-    } 50% {
-        width: 400px;
+    }
+
+    50% {
+        width: 800px;
         height: 0%;
         transform: translate(-50%, -50%);
     }
+
     100% {
-        width: 400px;
-        height: 900px;
+        width: 800px;
+        height: 800px;
         opacity: 1;
         transform: translate(-50%, -50%);
     }
@@ -399,15 +477,18 @@ body {
 
 @keyframes closeSignInModal {
     0% {
-        width: 400px;
-        height: 900px;
+        width: 800px;
+        height: 800px;
         opacity: 1;
         transform: translate(-50%, -50%);
-    } 50% {
-        width: 400px;
+    }
+
+    50% {
+        width: 800px;
         height: 0%;
         transform: translate(-50%, -50%);
     }
+
     100% {
         width: 0%;
         height: 0%;
@@ -420,98 +501,122 @@ body {
 
 // 회원가입 모달
 .signin-modal-box {
-    border: 1px solid #000;
-    background: #fff;
-    width: 400px;
-    height: 900px;
-    overflow: hidden;
+    background: url('./img/SignInBackGround.png') no-repeat;
+    background-size: 100%;
+    background-position-y: -130px;
+    width: 800px;
+    height: 800px;
 
     position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    z-index: 100;
-
+    z-index: 101;
+    
     display: none;
 
     // header (사용자 프로필 이미지)
     #Header {
         width: 100%;
-        height: 150px;
-
-        // 사용자 프로필 box
-        .user-profile-box {
-            width: 40%;
-            height: 100%;
-            margin: 0 auto;
-
-            @include disflex();
-
-            // 사용자 프로필
-            .user-profile {
-                background: #ddd;
-                border-radius: 50%;
-                width: 80%;
-                height: 85%;
-
-                @include disflex();
-            }
-        }
+        height: 50px;
     }
 }
 
 // container (회원가입 입력창)
 #Container {
     width: 100%;
-    height: 650px;
-
+    height: 70%;
+    
     // 회원가입 입력창 전체
     .signin-wrapper {
-        border: 4px solid #ddd;
-        width: 80%;
+        width: 100%;
         height: 100%;
         margin: 0 auto;
         
         // 회원가입 box
         .signin-info-list {
-            border: 4px solid #ddd;
-            border-radius: 5px;
-            width: 80%;
-            height: 8%;
-            margin: 18px auto;
+            background: none;
+            width: 40%;
+            height: 10%;
+            margin: 0 auto;
+            display: flex;
+            position: relative;
             
             // 회원가입 정보 입력창
             input {
                 border: none;
+                border-bottom: 2px solid rgb(20, 101, 173);
+                background: none;
+                color: #fff;
                 width: 100%;
                 height: 100%;
                 font-size: 16px;
                 text-align: center;
-                font-weight: 700;
-
+                
                 &:focus {
                     outline: none;
+                }
+                &:hover {
+                    border: 1px solid #fff;
+                    opacity: 0.8;
+                }
+
+            }
+            
+            .certify-email-btn-box {
+                border-radius: 10px;
+                width: 130px;
+                height: 55px;
+                position: absolute;
+                top: 0;
+
+                .certify-email-btn {
+                    background: rgb(20, 101, 173);
+                    color: #fff;
+                    border-radius: 10px;
+                    border: none;
+                    width: 100%;
+                    height: 100%;
+                    font-size: 16px;
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: 0.8;
+                        border: 1px solid #fff;
+                    }
                 }
             }
         }
     }
     
 }
+
 .footer {
     width: 100%;
-    height: 10%;
-
+    height: 25%;
+    
     .signinBtn-box {
         width: 100%;
         height: 100%;
-
-        @include disflex();
-
+        display: flex;
+        justify-content: center;
+        padding-top: 20px;
+        
         #SigninBtn {
+            border-radius: 10px;
+            border: 1px solid rgb(20, 101, 173);
+            background: rgb(20, 101, 173);
+            color: #fff;
             width: 40%;
-            height: 70%;
+            height: 30%;
             font-size: 16px;
             font-weight: 700;
+            cursor: pointer;
+
+            &:hover {
+                border: 1px solid #fff;
+                opacity: 0.8;
+            }
         }
     }
 }
@@ -519,9 +624,11 @@ body {
 
 // 닫기 버튼
 .closeBtn {
-    background: url('./img/CloseBtn.png') no-repeat;
-    background-size: 100%;
+    // background: url('./img/CloseBtn.png') no-repeat;
+    // background-size: 100%;
+    background: none;
     border: none;
+    color: #fff;
     width: 35px;
     height: 35px;
     cursor: pointer;
@@ -529,4 +636,77 @@ body {
     position: absolute;
     top: 0;
     right: 0;
+}
+
+
+
+.certify-email-wrapper {
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 10px;
+    width: 350px;
+    height: 150px;
+    
+    z-index: 102;
+    display: none;
+    
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+    .certify-email-box {
+        width: 95%;
+        height: 100%;
+        margin: 0 auto;
+
+        .certify-email-input-btn-box {
+            width: 100%;
+            height: 55%;
+
+            @include disflex();
+
+            .certify-email-input {
+                border: none;
+                border-bottom: 2px solid rgb(20, 101, 173);
+                background: none;
+                width: 80%;
+                height: 50%;
+                padding-left: 1%;
+                text-align: center;
+
+                &:focus {
+                    outline: none;
+                }
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+
+        .certify-btn-box {
+            width: 100%;
+            height: 40%;
+            @include disflex();
+            
+            
+            .certify-btn {
+                border: none;
+                border-radius: 10px;
+                background: rgb(20, 101, 173);
+                color: #fff;
+                width: 80%;
+                height: 80%;
+                font-size: 16px;
+                cursor: pointer;
+                
+                &:hover {
+                    opacity: 0.8;
+                    border: 1px solid #fff;
+                }
+            }
+        }
+
+    }
+
 }
