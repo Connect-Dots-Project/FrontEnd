@@ -115,6 +115,24 @@ body {
     }
 }
 
+@keyframes closeLoginModal {
+    0% {
+        width: 400px;
+        height: 500px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    } 50% {
+        width: 400px;
+        height: 0%;
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        width: 0%;
+        height: 0%;
+        opacity: 0;
+        transform: translate(-800%, -50%);
+    }
+}
 
 
 
@@ -376,6 +394,25 @@ body {
         height: 900px;
         opacity: 1;
         transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes closeSignInModal {
+    0% {
+        width: 400px;
+        height: 900px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    } 50% {
+        width: 400px;
+        height: 0%;
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        width: 0%;
+        height: 0%;
+        opacity: 0;
+        transform: translate(800%, -50%);
     }
 }
 

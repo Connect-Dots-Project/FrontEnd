@@ -8,31 +8,35 @@ const ConnectLogin = () => {
     const openLogin = e => {
         const $loginBox = document.querySelector('.login-modal-box');
         const $back = document.querySelector('.backDrop');
-
-        if($loginBox.style.height !== '500px') {
-            $loginBox.style.animation = 'openLoginModal 1s forwards 1';
+      
+        if ($loginBox.style.height !== '500px') {
+          $loginBox.style.animation = 'openLoginModal 1s forwards 1';
         } else {
-            $loginBox.style.animation = 'none';
+          $loginBox.style.animation = 'none';
         }
-        
+      
         if ($loginBox && $back && $loginBox.style.display !== 'block') {
             $loginBox.style.display = 'block';
-            $back.style.display = 'block';
+             $back.style.display = 'block';
+        } else {
+            $loginBox.style.display = 'none';
+            $back.style.display = 'none';
         }
-        
+      
         document.addEventListener('mouseup', function(e) {
-            const container = document.querySelector('.login-modal-box');
-            const $back = document.querySelector('.backDrop');
-    
-            if (container && !container.contains(e.target)) {
-                container.style.display = 'none';
-                $back.style.display = 'none';
-            } else if (container) {
-                container.style.display = 'block';
-                $back.style.display = 'block';
-            }
+          const container = document.querySelector('.login-modal-box');
+          const $back = document.querySelector('.backDrop');
+      
+          if (container && !container.contains(e.target)) {
+            container.style.animation = 'closeLoginModal 1s forwards 1';
+            $back.style.display = 'none';
+          } else if (container) {
+            container.style.display = 'block';
+            $back.style.display = 'block';
+          }
         });
-    };
+      };
+      
 
     const openSignIn = e => {
         const $signInBox = document.querySelector('.signin-modal-box');
@@ -41,8 +45,12 @@ const ConnectLogin = () => {
         if ($signInBox && $back && $signInBox.style.display !== 'block') {
             $signInBox.style.display = 'block';
             $back.style.display = 'block';
+        } else {
+            $signInBox.style.display = 'none';
+            $back.style.display = 'none';
         }
-
+        
+        
         if($signInBox.style.height != '900px') {
             $signInBox.style.animation = 'openSignInModal 1s forwards 1';
         } else {
@@ -52,15 +60,17 @@ const ConnectLogin = () => {
         document.addEventListener('mouseup', function(e) {
             const container = document.querySelector('.signin-modal-box');
             const $back = document.querySelector('.backDrop');
-    
+            
             if (container && !container.contains(e.target)) {
-                container.style.display = 'none';
+                container.style.animation = 'closeSignInModal 1s forwards 1';
+                // container.style.display = 'none';
                 $back.style.display = 'none';
             } else if (container) {
                 container.style.display = 'block';
                 $back.style.display = 'block';
             }
         });
+        
     };
     
     const closeLogin = e => {
@@ -68,23 +78,27 @@ const ConnectLogin = () => {
         const $back = document.querySelector('.backDrop');
         
         if ($loginBox && $back && $loginBox.style.display === 'block') {
-            $loginBox.style.display = 'none';
+            $loginBox.style.animation = 'closeLoginModal 1s forwards 1';
+            // $loginBox.style.display = 'none';
             $back.style.display = 'none';
         }
     };
+    
     const closeSignIn = e => {
         const $signBox = document.querySelector('.signin-modal-box');
         const $back = document.querySelector('.backDrop');
         
         if ($signBox && $back && $signBox.style.display === 'block') {
-            $signBox.style.display = 'none';
+            $signBox.style.animation = 'closeSignInModal 1s forwards 1';
+            // $signBox.style.display = 'none';
             $back.style.display = 'none';
         }
     };
     
-
-  return (
-    <>
+   
+    
+    return (
+        <>
         <div className='backDrop'></div>
         {/* 로그인 모달 box */}
         <div className='login-modal-box'>

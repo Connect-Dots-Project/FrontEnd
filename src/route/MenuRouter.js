@@ -8,6 +8,7 @@ import { Routes, Route } from 'react-router-dom';
 import ConnectMainPage from '../component/js/ConnectMainPage';
 import ConnectLogin from '../component/js/ConnectLogin';
 import ConnectMainOutline from '../component/js/ConnectMainOutline';
+import ConnectGlobalChatting from '../component/js/ConnectGlobalChatting';
 
 const MenuRouter = () => {
 
@@ -22,6 +23,7 @@ const MenuRouter = () => {
         }></Route>
       </Routes>
       <ConnectMainOutline />
+      <ConnectGlobalChatting />
 
       {/* <Routes>
           <Route path='/nb-hot-place' element={ <ConnectHotPlace /> }></Route>
