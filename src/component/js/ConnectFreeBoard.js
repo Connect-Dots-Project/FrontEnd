@@ -53,7 +53,27 @@ const ConnectFreeBoard = () => {
                   <p className='fbh-best-info-text'>서울시 청년수당</p>
                 </Link>
               </li>
-              {/* 이하 생략 */}
+              <li className='fbh-best-info-list'>
+                <Link to={'/'} className='fbh-best-info-text-box'>
+                  <p className='fbh-best-info-text'>서울시 청년수당</p>
+                </Link>
+              </li>
+              <li className='fbh-best-info-list'>
+                <Link to={'/'} className='fbh-best-info-text-box'>
+                  <p className='fbh-best-info-text'>서울시 청년수당</p>
+                </Link>
+              </li>
+              <li className='fbh-best-info-list'>
+                <Link to={'/'} className='fbh-best-info-text-box'>
+                  <p className='fbh-best-info-text'>서울시 청년수당</p>
+                </Link>
+              </li>
+              <li className='fbh-best-info-list'>
+                <Link to={'/'} className='fbh-best-info-text-box'>
+                  <p className='fbh-best-info-text'>서울시 청년수당</p>
+                </Link>
+              </li>
+              
             </ul>
           </header>
 
