@@ -24,11 +24,12 @@ const ConnectHeader = (props) => {
                 <ul className='ch-menu'>
                     {/* header 메뉴 list */}
                     <li className='ch-menu-list'><Link to={'/'} className='list'>Home</Link></li>
-                    <li className='ch-menu-list'><Link to={'/contents/hot-place'} className='list' id='Hot-Place'>Hot Place</Link></li>
+                    <li className='ch-menu-list'><Link to={'/contents/hot-place'} className='list' id='Hot-Place'>동네 Hot Place</Link></li>
                     <li className='ch-menu-list'><Link to={'/contents/free-board'} className='list'>동네 자유게시판</Link></li>
                     <li className='ch-menu-list'><Link to={'/nb-making-friends'} className='list'>동네 친구 만들기</Link></li>
                     <li className='ch-menu-list'><Link to={'/nb-closing-sale'} className='list'>동네 마감 세일</Link></li>
                     <li className='ch-menu-list'><Link to={'/nb-store-event-info'} className='list'>편의점 행사 정보</Link></li>
+                    <li className='ch-menu-list'><Link to={'/nb'} className='list'>마이페이지</Link></li>
                 </ul>
             </div>
         </div>

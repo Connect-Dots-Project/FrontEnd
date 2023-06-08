@@ -64,64 +64,40 @@
             flex-wrap: wrap;
             justify-content: space-between;
 
-            // cm 메인 메뉴 리스트
-            .cm-menu-list {
-                border: 3px solid #aaa;
-                border-radius: 10px;
-                width: 250px;
-                height: 35%;
-                
-                position: relative;
-
-                &:hover{
-                    border: 3px solid red;
-                    background: #bbb;
-                    opacity: 0.8;
-                }
-                
-                // cm 메인 메뉴 사진
-                #list {
-                    // background: url('./img/main-ad-sample.png') no-repeat;
-                    // background-size: 100%;
-                    border-radius: 10px;
-                    width: 100%;
-                    height: 100%;
-                    
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-                
-                // cm 메인 메뉴 텍스트 box
-                .cm-menu-text-box {
-                    width: inherit;
-                    height: 30%;
-                    
-                    @include disflex();
-                    
-                    position: absolute;
-                    bottom: -30%;
-                    left: -3px;
-
-                    .cm-menu-text {
-                        color: #000;
-                        font-weight: 700;
-                    }
-                }
-                
+            
+            
+            #HotPlace {
+                background: url('../scss/img/MainPageHotPlace.png') no-repeat;
+                background-size: 100%;
+                background-position: 1px;
             }
+            #FreeBoard {
+                background: url('../scss/img/MainPageFreeBoard.png') no-repeat;
+                background-size: 100%;
+                background-position: 1px;
+            }
+            #MakingFriends {
+                background: url('../scss/img/MainPageMakingFriends.png') no-repeat;
+                background-size: 100%;
+                background-position: 1px;
+            }
+            #closingSale {
+                background: url('../scss/img/MainPageClosingSale.png') no-repeat;
+                background-size: 100%;
+                background-position: 1px;
+            }
+            #StoreEvent {
+                background: url('../scss/img/MainPageStoreEvent.png') no-repeat;
+                background-size: 100%;
+                background-position: 1px;
+            }
+            #MyPage {
+                background: url('../scss/img/MainPageMyPage.png') no-repeat;
+                background-size: 100%;
+                background-position: 1px;
+            }
+
             
         }
-        
-        
-        
-    }
-    
-
-
-
-
-
-
-
+    }    
 }

@@ -95,8 +95,8 @@ body {
 
 
 
-
-@keyframes aa {
+// 로그인 모달 클릭
+@keyframes openLoginModal {
     0% {
         width: 0%;
         height: 0%;
@@ -118,12 +118,14 @@ body {
 
 
 
+
+
 // 로그인 모달
 .login-modal-box {
+    border: 1px solid #000;
     background: #fff;
     width: 400px;
     height: 500px;
-    border: 1px solid #000;
     overflow: hidden;
     
     position: fixed;
@@ -357,15 +359,35 @@ body {
 
 
 
-
+// 회원가입 모달 클릭
+@keyframes openSignInModal {
+    0% {
+        width: 0%;
+        height: 0%;
+        opacity: 0;
+        transform: translate(-800%, -50%);
+    } 50% {
+        width: 400px;
+        height: 0%;
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        width: 400px;
+        height: 900px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
 
 
 
 // 회원가입 모달
 .signin-modal-box {
+    border: 1px solid #000;
     background: #fff;
     width: 400px;
-    height: 887px;
+    height: 900px;
+    overflow: hidden;
 
     position: fixed;
     left: 50%;
@@ -434,6 +456,25 @@ body {
                     outline: none;
                 }
             }
+        }
+    }
+    
+}
+.footer {
+    width: 100%;
+    height: 10%;
+
+    .signinBtn-box {
+        width: 100%;
+        height: 100%;
+
+        @include disflex();
+
+        #SigninBtn {
+            width: 40%;
+            height: 70%;
+            font-size: 16px;
+            font-weight: 700;
         }
     }
 }

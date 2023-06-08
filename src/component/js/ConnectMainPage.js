@@ -1,15 +1,10 @@
 import React from 'react'
-// import { useLocation } from 'react-router-dom';
 
 import '../scss/ConnectMainPage.scss';
+import { Link } from 'react-router-dom';
+import ConncetMainPageMenu from './ConncetMainPageMenu';
 
 const ConnectMainPage = () => {
-
-    // const $location = useLocation();
-
-    // if ($location.pathname === '/') {
-    //     return null;
-    // }
 
   return (
     // connect-main-wrapper
@@ -19,11 +14,11 @@ const ConnectMainPage = () => {
         <div className='cm-ad-box'>
             {/* cm 메인 광고1 */}
             <div className='cm-ad'>
-                <a href='#' id='cm-ad1'></a>
+                <Link href='#' id='cm-ad1'></Link>
             </div>
             {/* cm 메인 광고2 */}
             <div className='cm-ad'>
-                <a href='#' id='cm-ad2'></a>
+                <Link href='#' id='cm-ad2'></Link>
             </div>
         </div> {/* end cm-ad-box */}
 
@@ -33,75 +28,7 @@ const ConnectMainPage = () => {
             <div className='cm-menu-box'>
                 {/* cm 메인 메뉴 */}
                 <ul className='cm-menu'>
-
-
-
-
-
-                    {/* cm 메인 메뉴 리스트 */}
-                    <li className='cm-menu-list'>
-                        {/* cm 메인 메뉴 사진 */}
-                        <a href='#' id='list'></a>
-                        {/* cm 메인 메뉴 텍스트 box */}
-                        <div className='cm-menu-text-box'>
-                            {/* cm 메인 메뉴 텍스트 */}
-                            <a href='#' className='cm-menu-text'>동네 Hot Place</a>
-                        </div>
-                    </li>
-                    {/* cm 메인 메뉴 리스트 */}
-                    <li className='cm-menu-list'>
-                        {/* cm 메인 메뉴 사진 */}
-                        <a href='#' id='list'></a>
-                        {/* cm 메인 메뉴 텍스트 box */}
-                        <div className='cm-menu-text-box'>
-                            {/* cm 메인 메뉴 텍스트 */}
-                            <a href='#' className='cm-menu-text'>동네 실시간 채팅</a>
-                        </div>
-                    </li>
-                    {/* cm 메인 메뉴 리스트 */}
-                    <li className='cm-menu-list'>
-                        {/* cm 메인 메뉴 사진 */}
-                        <a href='#' id='list'></a>
-                        {/* cm 메인 메뉴 텍스트 box */}
-                        <div className='cm-menu-text-box'>
-                            {/* cm 메인 메뉴 텍스트 */}
-                            <a href='#' className='cm-menu-text'>동네 친구 만들기</a>
-                        </div>
-                    </li>
-                    <li className='cm-menu-list'>
-                        {/* cm 메인 메뉴 사진 */}
-                        <a href='#' id='list'></a>
-                        {/* cm 메인 메뉴 텍스트 box */}
-                        <div className='cm-menu-text-box'>
-                            {/* cm 메인 메뉴 텍스트 */}
-                            <a href='#' className='cm-menu-text'>동네 마감 세일</a>
-                        </div>
-                    </li>
-                    <li className='cm-menu-list'>
-                        {/* cm 메인 메뉴 사진 */}
-                        <a href='#' id='list'></a>
-                        {/* cm 메인 메뉴 텍스트 box */}
-                        <div className='cm-menu-text-box'>
-                            {/* cm 메인 메뉴 텍스트 */}
-                            <a href='#' className='cm-menu-text'>편의점 행사 정보</a>
-                        </div>
-                    </li>
-                    <li className='cm-menu-list'>
-                        {/* cm 메인 메뉴 사진 */}
-                        <a href='#' id='list'></a>
-                        {/* cm 메인 메뉴 텍스트 box */}
-                        <div className='cm-menu-text-box'>
-                            {/* cm 메인 메뉴 텍스트 */}
-                            <a href='#' className='cm-menu-text'>마이페이지</a>
-                        </div>
-                    </li>
-
-
-
-
-
-
-
+                    <ConncetMainPageMenu />
                 </ul>
             </div>
         </div>

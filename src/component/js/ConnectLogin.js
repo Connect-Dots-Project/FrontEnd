@@ -10,15 +10,15 @@ const ConnectLogin = () => {
         const $back = document.querySelector('.backDrop');
 
         if($loginBox.style.height !== '500px') {
-            $loginBox.style.animation = 'aa 1s forwards 1';
+            $loginBox.style.animation = 'openLoginModal 1s forwards 1';
         } else {
             $loginBox.style.animation = 'none';
         }
         
-        // if ($loginBox && $back && $loginBox.style.display !== 'block') {
-        //     $loginBox.style.display = 'block';
-        //     $back.style.display = 'block';
-        // }
+        if ($loginBox && $back && $loginBox.style.display !== 'block') {
+            $loginBox.style.display = 'block';
+            $back.style.display = 'block';
+        }
         
         document.addEventListener('mouseup', function(e) {
             const container = document.querySelector('.login-modal-box');
@@ -35,18 +35,18 @@ const ConnectLogin = () => {
     };
 
     const openSignIn = e => {
-        const $loginBox = document.querySelector('.signin-modal-box');
+        const $signInBox = document.querySelector('.signin-modal-box');
         const $back = document.querySelector('.backDrop');
         
-        if ($loginBox && $back && $loginBox.style.display !== 'block') {
-            $loginBox.style.display = 'block';
+        if ($signInBox && $back && $signInBox.style.display !== 'block') {
+            $signInBox.style.display = 'block';
             $back.style.display = 'block';
         }
 
-        if($loginBox.style.height !== '500px') {
-            $loginBox.style.animation = 'aa 1s forwards 1';
+        if($signInBox.style.height != '900px') {
+            $signInBox.style.animation = 'openSignInModal 1s forwards 1';
         } else {
-            $loginBox.style.animation = 'none';
+            $signInBox.style.animation = 'none';
         }
         
         document.addEventListener('mouseup', function(e) {
@@ -197,7 +197,7 @@ const ConnectLogin = () => {
                 </ul>
             </div>
 
-            <footer id='Footer'>
+            <footer className='footer' id='Footer'>
                 <div className='signinBtn-box'>
                     <button className='signinBtn' id='SigninBtn'>Sign Up</button>
                 </div>
