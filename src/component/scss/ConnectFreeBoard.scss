@@ -1,3 +1,84 @@
+@keyframes openWriteBoardModal {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        transform: translate(800%, -50%);
+    }
+
+    50% {
+        width: 850px;
+        height: 0;
+        transform: translate(-50%, -50%);
+        border: 4px solid #000;
+    }
+    
+    100% {
+        width: 850px;
+        height: 1024px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+    
+}
+@keyframes closeWriteBoardModal {
+    0% {
+        width: 850px;
+        height: 1024px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+    
+    50% {
+        width: 850px;
+        height: 0;
+        transform: translate(-50%, -50%);
+        border: 4px solid #000;
+    }
+    
+    100% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        transform: translate(-800%, -50%);
+    }
+}
+
+
+// 글작성 모달창
+.write-board-wrapper {
+    border: 1px solid #000;
+    background-color: aquamarine;
+    width: 850px;
+    height: 1024px;
+    z-index: 99;
+    display: none;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .write-board-close-btn-box {
+        width: 4%;
+        height: 3%;
+        position: absolute;
+        right: 0;
+    
+        .write-board-close-btn {
+            background: url('./img/CertifyEmailCloseBtn.png') no-repeat;
+            background-size: 100%;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            border: none;
+            cursor: pointer;
+        }
+    }
+}
+
+
 // 자유게시판
 .free-board-wrapper {
     width: 100%;
@@ -81,11 +162,11 @@
                     border-radius: 10px;
                     color: #fff;
                     width: 30%;
-                    height: 60%;
+                    height: 50%;
                     margin: auto 0;
                     font-size: 16px;
                     cursor: pointer;
-
+                    
                     &:hover {
                         opacity: 0.8;
                     }
@@ -96,7 +177,7 @@
             // 자유게시판 header best info box
             .fbh-best-info-box {
                 width: 100%;
-                height: 35%;
+                height: 30%;
                 
                 display: flex;
                 justify-content: space-between;
@@ -110,7 +191,7 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-
+                    
                     .fbh-best-info-text-box {
                         background: rgb(20, 101, 173);
                         border-radius: 10px;
@@ -119,7 +200,7 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
-
+                        
                         &:hover {
                             opacity: 0.8;
                         }
@@ -143,18 +224,19 @@
             .fbm-info-box {
                 width: 100%;
                 height: 100%;
-                overflow: scroll;
+                
 
                 // 자유게시판 정보
                 .fbm-info-list {
-                    background: rgb(196, 231, 243);
+                    background: none;
                     border: none;
-                    border-radius: 15px;
+                    border-radius: 10px;
                     width: 100%;
                     height: 25%;
                     margin-bottom: 20px;
                     display: flex;
                     justify-content: space-evenly;
+                    border: 1px solid #000;
 
                     // 자유게시판 정보 사진 box
                     .fbm-info-img-box {
@@ -168,19 +250,11 @@
                         // 자유게시판 정보 사진
                         .fbm-info-img {
                             border: none;
-                            background: aquamarine;
+                            background: rgb(20, 101, 173);
                             border-radius: 50%;
                             width: 80%;
                             height: 80%;
                         }
-                    }
-
-                    // 자유게시판 세부 정보 box
-                    .fbm-inr-info-box {
-                        width: 78%;
-                        height: 65%;
-                        margin-top: 23px;
-                        position: relative;
                     }
                 }
             }

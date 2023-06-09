@@ -1,26 +1,27 @@
 .fbm-inr-info-box {
-    width: 78%;
+    width: 75%;
     height: 65%;
     margin-top: 23px;
     position: relative;
-
+    
     // 세부 정보 공통 box
     .fbm-inr-info {
-        background: #777;
-        color: #fff;
+        background: none;
+        color: #000;
         height: 40%;
         font-size: 16px;
-        text-align: center;
-
+        font-weight: 700;
+        
         display: flex;
-        justify-content: center;
         align-items: center;
     }
 
     // 지역
     #Area {
-        background: tomato;
-        width: 30%;
+        background: none;
+        width: 15%;
+        font-weight: 700;
+        padding-left: 2.5%;
         position: absolute;
         top: 0;
         left: 0;
@@ -28,15 +29,15 @@
 
     // 게시판 제목
     #BoardTitle {
-        width: 65%;
+        width: 80%;
         position: absolute;
         top: 0;
         right: 0;
     }
 
-    // 세일 정보
-    #SaleInfo {
-        width: 30%;
+    // 카테고리
+    #Categories {
+        width: 15%;
         position: absolute;
         bottom: 0;
         left: 0;
@@ -44,10 +45,10 @@
 
     // 날짜
     #Date {
-        width: 35%;
+        width: 20%;
         position: absolute;
         bottom: 0;
-        right: 170px;
+        right: 333px;
     }
 
     // 댓글 + 좋아요 box 
@@ -55,42 +56,58 @@
         width: 30%;
         height: 40%;
         display: flex;
-        padding-top: 3px;
         position: absolute;
         right: 0;
         bottom: 0;
+        display: flex;
+        align-items: center;
 
         // 댓글
         #Reply {
             width: 50%;
             height: 100%;
-
             display: flex;
-            justify-content: right;
-            align-items: center;
-
+            
             .reply-img {
-                background: url('./img/Reply.png') no-repeat;
-                background-size: 70%;
+                background: url('./img/PlayListReply.png') no-repeat;
+                background-size: 50%;
+                background-position: 20px;
                 width: 50%;
                 height: 100%;
             }
+            .reply-count-box {
+                width: 50%;
+                height: 100%;
+                font-weight: 700;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
         }
-
+        
         // 좋아요
         #Like {
             width: 50%;
             height: 100%;
             display: flex;
-            justify-content: right;
-            align-items: center;
-
+            
             .like-img {
                 background: url('./img/Like.png') no-repeat;
-                background-size: 70%;
+                background-size: 50%;
+                background-position: 20px;
                 width: 50%;
                 height: 100%;
             }
+            .like-count-box {
+                width: 50%;
+                height: 100%;
+                font-weight: 700;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            
         }
     }
 }

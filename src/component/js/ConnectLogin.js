@@ -1,15 +1,187 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import '../scss/ConnectLogin.scss';
 import { Link } from 'react-router-dom';
 
 const ConnectLogin = () => {
 
+    // 상태변수로 회원가입 입력값 관리
+    const [userValue, setUserValue] = useState({
+        account: '',
+        password: '',
+        passwordCheck: '',
+        userName: '',
+        birth: '',
+        gender: '',
+        phoneNumber: '',
+        location: '',
+        introduction: ''
+    });
+    
+    // 검증 메세지에 대한 상태변수 관리
+    const [message, setMessage] = useState({
+        account: '',
+        password: '',
+        passwordCheck: '',
+        userName: '',
+        birth: '',
+        gender: '',
+        phoneNumber: '',
+        location: '',
+        introduction: ''
+    });
+    
+    
+    // 검증 완료 체크에 대한 상태변수 관리
+    const [correct, setCorrect] = useState({
+        account: false,
+        password: false,
+        passwordCheck: false,
+        userName: false,
+        birth: false,
+        gender: false,
+        phoneNumber: false,
+        location: false,
+        introduction: false
+    });
+
+
+
+    // 검증데이터를 상태변수에 저장하는 함수
+    const saveInputState = ({
+        key,
+        inputVal,
+        flag,
+        msg
+    }) => {
+        inputVal !== 'pass' && setUserValue({
+            ...userValue,
+            [key]: inputVal
+        });
+
+        setMessage({
+            ...message,
+            [key]: msg
+        });
+
+        setCorrect({
+            ...correct,
+            [key]: flag
+        });
+    };
+
+    // 이름 입력창 체인지 이벤트 핸들러
+    const nameHandler = e => {
+
+        const nameRegex = /^[가-힣]{2,5}$/;
+
+        const inputVal = e.target.value;
+
+        // 입력값 검증
+        let msg; // 검증 메시지를 저장할 변수
+        let flag; // 입력 검증체크 변수
+
+        if(!inputVal) { // 빈 칸인 경우
+            msg = '유저 이름은 필수입니다';
+            flag = false;
+        } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
+            msg = '2 ~ 5글자 사이의 한글로 작성해주세요!';
+            flag = false;
+        } else {
+            msg = '사용 가능한 이름입니다.';
+            flag = true;
+        }
+
+        saveInputState({
+            key: 'userName',
+            inputVal,
+            msg,
+            flag
+        });
+    };
+
+    // 비밀번호 입력창 체인지 이벤트 핸들러
+    const passwordHandler = e => {
+
+        // 비밀번호가 변동되면 확인란 자동 비우기
+        // document.getElementById('Password-Check').value = '';
+        document.getElementById('Password-Check').value = '';
+        // setUserValue({
+        //     ...userValue,
+        //     passwordCheck: ''
+        // });
+
+        setMessage({...message, passwordCheck: ''});
+        setCorrect({...correct, passwordCheck: false});
+
+        const inputVal = e.target.value;
+
+    const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
+
+    // 검증 시작
+    let msg, flag;
+
+    if (!e.target.value) { // 패스워드 안적은거
+        msg = '비밀번호는 필수값입니다!';
+        flag = false;
+    } else if (!pwRegex.test(e.target.value)) {
+        msg = '8글자 이상의 영문,숫자,특수문자를 포함해주세요!';
+        flag = false;
+    } else {
+        msg = '사용 가능한 비밀번호입니다.';
+        flag = true;
+    }
+
+    saveInputState({
+        key: 'password',
+        inputVal,
+        msg,
+        flag
+    });
+};
+
+
+    // 비밀번호 확인랑 검증 이벤트 핸들러
+    const passwordCheckHandler = e => {
+
+        // 검증 시작
+        let msg, flag;
+    if (!e.target.value) { // 패스워드 안적은거
+      msg = '비밀번호 확인란은 필수값입니다!';
+      flag = false;
+    } else if (userValue.password !== e.target.value) {
+      msg = '패스워드가 일치하지 않습니다.';
+      flag = false;
+    } else {
+      msg = '패스워드가 일치합니다.';
+      flag = true;
+    }
+
+    saveInputState({
+      key: 'passwordCheck',
+      inputVal: 'pass',
+      msg,
+      flag
+    });
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
     const openLogin = e => {
         const $loginBox = document.querySelector('.login-modal-box');
         const $back = document.querySelector('.backDrop');
       
-        if ($loginBox.style.height !== '500px') {
+        if ($loginBox.style.height !== '800px') {
           $loginBox.style.animation = 'openLoginModal 1s forwards 1';
         } else {
           $loginBox.style.animation = 'none';
@@ -22,55 +194,24 @@ const ConnectLogin = () => {
             $loginBox.style.display = 'none';
             $back.style.display = 'none';
         }
-      
-        document.addEventListener('mouseup', function(e) {
-          const container = document.querySelector('.login-modal-box');
-          const $back = document.querySelector('.backDrop');
-      
-          if (container && !container.contains(e.target)) {
-            container.style.animation = 'closeLoginModal 1s forwards 1';
-            $back.style.display = 'none';
-          } else if (container) {
-            container.style.display = 'block';
-            $back.style.display = 'block';
-          }
-        });
+            
     };
       
 
     const openSignIn = e => {
         const $signInBox = document.querySelector('.signin-modal-box');
-        const $back = document.querySelector('.backDrop');
         
-        if ($signInBox && $back && $signInBox.style.display !== 'block') {
+        if ($signInBox && $signInBox.style.display !== 'block') {
             $signInBox.style.display = 'block';
-            $back.style.display = 'block';
         } else {
             $signInBox.style.display = 'none';
-            $back.style.display = 'none';
         }
         
-        
-        if($signInBox.style.height != '900px') {
+        if($signInBox.style.height != '800px') {
             $signInBox.style.animation = 'openSignInModal 1s forwards 1';
         } else {
             $signInBox.style.animation = 'none';
         }
-        
-        document.addEventListener('mouseup', function(e) {
-            const container = document.querySelector('.signin-modal-box');
-            const $back = document.querySelector('.backDrop');
-            
-            if (container && !container.contains(e.target)) {
-                container.style.animation = 'closeSignInModal 1s forwards 1';
-                // container.style.display = 'none';
-                $back.style.display = 'none';
-            } else if (container) {
-                container.style.display = 'block';
-                $back.style.display = 'block';
-            }
-        });
-        
     };
     
     const closeLogin = e => {
@@ -79,38 +220,34 @@ const ConnectLogin = () => {
         
         if ($loginBox && $back && $loginBox.style.display === 'block') {
             $loginBox.style.animation = 'closeLoginModal 1s forwards 1';
-            // $loginBox.style.display = 'none';
             $back.style.display = 'none';
         }
     };
     
     const closeSignIn = e => {
         const $signBox = document.querySelector('.signin-modal-box');
-        const $back = document.querySelector('.backDrop');
         
-        if ($signBox && $back && $signBox.style.display === 'block') {
+        if ($signBox && $signBox.style.display === 'block') {
             $signBox.style.animation = 'closeSignInModal 1s forwards 1';
-            // $signBox.style.display = 'none';
-            $back.style.display = 'none';
         }
     };
 
-    // const certifyEmail = e => {
-    //     const $emailBtn = document.querySelector('.certify-email-btn');
-
-    //     if($emailBtn.style.display = 'none') {
-    //         $emailBtn.style.display = 'block';
-    //     } else {
-    //         $emailBtn.style.display = 'none';
-    //     }
-        
-
-    //     // 이메일 인증 모달
-    // }
-
+    const openCertifyEmailModal = () => {
+        const $emailModal = document.querySelector('.certify-email-wrapper');
+        $emailModal.style.display = $emailModal.style.display === 'none' ? 'block' : 'none';
+        $emailModal.style.animation = 'openCertifyEmailModal 1s forwards 1';
+    };
     
-   
-    
+    const closeCertifyEmailModal = e => {
+        const $emailModal = document.querySelector('.certify-email-wrapper');
+
+        if ($emailModal && $emailModal.style.display === 'block') {
+            $emailModal.style.animation = 'closeCertifyEmailModal 1s forwards 1';
+        }
+    };
+
+
+
     return (
         <>
         <div className='backDrop'></div>
@@ -167,12 +304,6 @@ const ConnectLogin = () => {
                             <button id='Sign-in' onClick={ openSignIn }>회원가입</button>
                         </div>
 
-
-
-
-
-
-                        
                     </div>
                 </div>
             </div>
@@ -218,21 +349,64 @@ const ConnectLogin = () => {
                 <ul className='signin-wrapper'>
                     <li className='signin-info-list'>
                         <input className='signin-info-text' placeholder='아이디 (이메일)'></input>
-                        <span>
-                            <Link to={'/'} className='certify-email-btn-box'>
-                                <button className='certify-email-btn'>이메일 인증</button>
-                            </Link>
+                        <span className='certify-email-btn-box'>
+                            <button className='certify-email-btn' onClick={ openCertifyEmailModal }>이메일 인증</button>
                         </span>
                     </li>
+
+                    {/* 비밀번호 */}
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='비밀번호'></input>
+                        <input 
+                            className='signin-info-text' 
+                            placeholder='비밀번호'
+                            type='password'
+                            onChange={ passwordHandler }
+                        ></input>
+                        {message.password && (
+                        <span style={
+                            correct.password
+                            ? {color:'yellow'}
+                            : {color:'red'}} 
+                            className='input-span'>{message.password}
+                        </span>)}
                     </li>
+                        
+                    {/* 비밀번호 확인 */}
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='비밀번호 확인'></input>
+                        <input 
+                            className='signin-info-text' 
+                            placeholder='비밀번호 확인' 
+                            id='Password-Check'
+                            onChange={ passwordCheckHandler }
+                        ></input>
+                        {message.passwordCheck && (
+                        <span id='Check-Span' style={
+                            correct.passwordCheck
+                            ? {color:'yellow'}
+                            : {color:'red'}} 
+                            className='input-span'>{message.passwordCheck}
+                        </span>)}
                     </li>
+                    
+
+
+
+                    {/* 이름 */}
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='이름'></input>
+                        <input 
+                            className='signin-info-text' 
+                            placeholder='이름' 
+                            onChange={ nameHandler }
+                        ></input>
+                        {message.userName && (
+                        <span style={
+                            correct.userName
+                            ? {color:'yellow'}
+                            : {color:'red'}} 
+                            className='input-span'>{message.userName}
+                        </span>)}
                     </li>
+
                     <li className='signin-info-list'>
                         <input className='signin-info-text' placeholder='별명'></input>
                     </li>
@@ -272,6 +446,7 @@ const ConnectLogin = () => {
         </div>
 
         <div className='certify-email-wrapper'>
+            <button className='certify-email-wrapper-close-btn' onClick={ closeCertifyEmailModal }></button>
             <div className='certify-email-box'>
                 <div className='certify-email-input-btn-box'>
                     <input type='text' className='certify-email-input' placeholder='메일로 받은 인증 코드를 입력해주세요' />
