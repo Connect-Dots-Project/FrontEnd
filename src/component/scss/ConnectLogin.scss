@@ -67,8 +67,6 @@ body {
             }
         }
     }
-
-
 }
 
 
@@ -214,7 +212,7 @@ body {
                             color: #fff;
                             border: 0px;
                             border-bottom: 2px solid rgb(20, 101, 173);
-                            width: 80%;
+                            width: 85%;
                             height: 30%;
                             padding-left: 2%;
                             margin-top: 24px;
@@ -235,7 +233,7 @@ body {
 
                 // 로그인 버튼 box
                 .login-btn-box {
-                    width: 85%;
+                    width: 87.5%;
                     height: 10%;
                     margin: 0 auto;
 
@@ -513,7 +511,7 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    z-index: 101;
+    z-index: 110;
     
     display: none;
     
@@ -620,7 +618,7 @@ body {
         display: flex;
         justify-content: center;
         
-        #SigninBtn {
+        #RequestSigninBtn {
             border-radius: 10px;
             border: none;
             background: rgb(20, 101, 173);
@@ -717,7 +715,7 @@ body {
     width: 350px;
     height: 150px;
     
-    z-index: 102;
+    z-index: 120;
     display: none;
     
     position: fixed;

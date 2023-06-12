@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import '../scss/ConnectLogin.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ConnectLogin = () => {
 
@@ -105,7 +105,7 @@ const ConnectLogin = () => {
 
         // 비밀번호가 변동되면 확인란 자동 비우기
         // document.getElementById('Password-Check').value = '';
-        document.getElementById('Password-Check').value = '';
+        document.getElementById('Input-second-password').value = '';
         // setUserValue({
         //     ...userValue,
         //     passwordCheck: ''
@@ -232,19 +232,163 @@ const ConnectLogin = () => {
         }
     };
 
-    const openCertifyEmailModal = () => {
-        const $emailModal = document.querySelector('.certify-email-wrapper');
-        $emailModal.style.display = $emailModal.style.display === 'none' ? 'block' : 'none';
-        $emailModal.style.animation = 'openCertifyEmailModal 1s forwards 1';
+
+
+    const openCertifyEmailModal = async() => {
+
+        const $emailModalWrapper = document.getElementById('EmailModalWrapper');
+        $emailModalWrapper.style.display = 'block';
+        $emailModalWrapper.style.animation = 'openCertifyEmailModal 1s forwards 1';
+
+    
+        const inputEmail = document.getElementById('Input-email');
+        
+        const res = await fetch('http://localhost:8181/connects/sign-up/email', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json'},
+            body: JSON.stringify({
+                email: inputEmail.value
+            })
+        });
+
+        const {code} = await res.json();
+
+          
+               
+        
     };
     
     const closeCertifyEmailModal = e => {
+        // setIsModalOpen(!isModalOpen);
+        
         const $emailModal = document.querySelector('.certify-email-wrapper');
-
+        
         if ($emailModal && $emailModal.style.display === 'block') {
             $emailModal.style.animation = 'closeCertifyEmailModal 1s forwards 1';
         }
     };
+    
+    const clickCertify = async() => {
+        
+        const $inputCode = document.getElementById('Input-code');
+        
+        const res = await fetch('http://localhost:8181/connects/sign-up/check', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json'},
+            body: JSON.stringify({
+                code: $inputCode.value
+            })
+        });
+        
+        const { checkResult } = await res.json();
+        
+        console.log(checkResult + '       <<<<<< sign-up/check');
+
+        if(!checkResult) {
+            alert('코드가 일치하지 않습니다!');
+            document.querySelector('.certify-email-input').value='';
+        } else {
+            // 일치했을 때
+            alert('코드가 일치합니다!');
+            closeCertifyEmailModal();
+        }
+    };
+    
+    const RequestSignin = async() => {
+
+        const $requestSigninBtn = document.getElementById('RequestSigninBtn');
+
+        const $inputEmail = document.getElementById('Input-email');
+        const $inputFirstPW = document.getElementById('Input-first-password');
+        const $inputSecondPW = document.getElementById('Input-second-password');
+        const $inputName = document.getElementById('Input-name');
+        const $inputNickname = document.getElementById('Input-nickname');
+        const $inputBirthday = document.getElementById('Input-birthday');
+        const $inputGender = document.getElementById('Input-gender');
+        const $inputPhone = document.getElementById('Input-phone');
+        const $inputLocation = document.getElementById('Input-location');
+        const $inputComment = document.getElementById('Input-comment');
+
+
+        const res = await fetch('http://localhost:8181/connects/sign-up', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json'},
+            body: JSON.stringify({
+                
+                    account: $inputEmail.value,
+                    firstPassword: $inputFirstPW.value,
+                    secondPassword: $inputSecondPW.value,
+                    name: $inputName.value,
+                    nickName: $inputNickname.value,
+                    birthDay: $inputBirthday.value,
+                    gender: $inputGender.value,
+                    phone: $inputPhone.value,
+                    location: $inputLocation.value,
+                    comment: $inputComment.value,
+                    loginMethod: "COMMON"
+                          
+            })
+        });
+        
+        console.log(res);
+
+    };
+
+
+
+
+    const redirection = useNavigate();
+
+    const REQUEST_URL = '/signin';
+
+    // 서버에 AJAX 요청
+    const fetchLogin = async() => {
+
+        // 이메일, 비밀번호 입력 태그 얻어오기
+        const $email = document.getElementById('ID');
+        const $password = document.getElementById('PW');
+
+        const res = await fetch(REQUEST_URL, {
+            method: 'POST',
+            header: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+                email: $email.value,
+                password: $password.value                
+            })
+        });
+
+        // 가입이 안되어있거나, 비밀번호가 틀린 경우
+        if(res.status === 400) {
+            // 서버에서 온 문자열 읽기
+            const text = await res.text();
+            alert(text);
+            return;
+        }
+        
+        // 서버에서 온 json 읽기
+        const { token, userName, email, role } = await res.json();
+
+        // json에 담긴 인증정보를 클라이언트에 보관
+        // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
+        // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
+        localStorage.setItem('ACCESS_TOKEN', token);
+        localStorage.setItem('LOGIN_USERNAME', userName);
+        localStorage.setItem('USER_ROLE', role);
+
+        // 홈으로 리다이렉트
+        redirection('/');
+
+    };
+
+    // 로그인 요청 핸들러
+    const loginHandler = e => {
+        e.preventDefault();
+
+        // 서버에 로그인 요청 전송
+        fetchLogin();
+    };
+
+
 
 
 
@@ -259,17 +403,34 @@ const ConnectLogin = () => {
             {/* container (로그인 입력창) */}
             <div id='Container'>
                 <div className='login-wrapper'>
-                    <div className='login-box'>
+
+                    <form 
+                        className='login-box'
+                        noValidate
+                        onSubmit={ loginHandler }>
 
                         {/* 아이디, 비밀번호 입력 */}
                         <div className='id-pw-box'>
                             <form>
-                                <input className='inputBox' id='ID' placeholder='아이디' autoFocus></input>
-                                <input className='inputBox' id='PW' placeholder='비밀번호'></input>
+                                <input 
+                                    className='inputBox' 
+                                    id='ID' 
+                                    placeholder='아이디' 
+                                    autoFocus
+                                ></input>
+                                <input 
+                                    className='inputBox' 
+                                    id='PW' 
+                                    placeholder='비밀번호'
+                                ></input>
                             </form>
                         </div>
+                        {/* <div>자동로그인</div> */}
                         <div className='login-btn-box'>
-                            <button className='login-btn'>Login</button>
+                            <button 
+                                className='login-btn'
+                                type='sumbit'
+                            >Login</button>
                         </div>
 
                         {/* 아이디, 비밀번호 찾기 */}
@@ -287,7 +448,7 @@ const ConnectLogin = () => {
                                 </li>
                             </ul>
                         </div>
-
+                        
                         <div className='division-wrapper'>
                             <div className='division-box'></div>
                                 <span>
@@ -304,7 +465,7 @@ const ConnectLogin = () => {
                             <button id='Sign-in' onClick={ openSignIn }>회원가입</button>
                         </div>
 
-                    </div>
+                    </form>
                 </div>
             </div>
 
@@ -337,7 +498,6 @@ const ConnectLogin = () => {
         {/* 회원가입 */}
         <div className='signin-modal-box'>
             <button className='closeBtn' onClick={ closeSignIn }>X</button>
-            {/* header (사용자 프로필 이미지) */}
             <header id='Header'>
                 <div className='user-profile-box'>
                     {/* <div className='user-profile'>프로필 이미지</div> */}
@@ -348,7 +508,7 @@ const ConnectLogin = () => {
             <div id='Container'>
                 <ul className='signin-wrapper'>
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='아이디 (이메일)'></input>
+                        <input id='Input-email' className='signin-info-text' placeholder='아이디 (이메일)' autoFocus></input>
                         <span className='certify-email-btn-box'>
                             <button className='certify-email-btn' onClick={ openCertifyEmailModal }>이메일 인증</button>
                         </span>
@@ -360,6 +520,7 @@ const ConnectLogin = () => {
                             className='signin-info-text' 
                             placeholder='비밀번호'
                             type='password'
+                            id='Input-first-password'
                             onChange={ passwordHandler }
                         ></input>
                         {message.password && (
@@ -376,7 +537,7 @@ const ConnectLogin = () => {
                         <input 
                             className='signin-info-text' 
                             placeholder='비밀번호 확인' 
-                            id='Password-Check'
+                            id='Input-second-password'
                             onChange={ passwordCheckHandler }
                         ></input>
                         {message.passwordCheck && (
@@ -396,6 +557,7 @@ const ConnectLogin = () => {
                         <input 
                             className='signin-info-text' 
                             placeholder='이름' 
+                            id='Input-name'
                             onChange={ nameHandler }
                         ></input>
                         {message.userName && (
@@ -408,29 +570,29 @@ const ConnectLogin = () => {
                     </li>
 
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='별명'></input>
+                        <input className='signin-info-text' placeholder='별명' id='Input-nickname'></input>
                     </li>
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='성별'></input>
+                        <input className='signin-info-text' placeholder='성별 (F / N)' id='Input-gender'></input>
                     </li>
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='생년월일'></input>
+                        <input className='signin-info-text' placeholder='생년월일 (1900-00-00)' id='Input-birthday'></input>
                     </li>
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='핸드폰 번호'></input>
+                        <input className='signin-info-text' placeholder='핸드폰 번호 (010-0000-0000)' id='Input-phone'></input>
                     </li>
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='지역'></input>
+                        <input className='signin-info-text' placeholder='지역 ex) 강남구' id='Input-location'></input>
                     </li>
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='한줄소개'></input>
+                        <input className='signin-info-text' placeholder='한줄소개' id='Input-comment'></input>
                     </li>
                 </ul>
             </div>
 
             <footer className='footer' id='Footer'>
                 <div className='signinBtn-box'>
-                    <button className='signinBtn' id='SigninBtn'>회원가입</button>
+                    <button className='signinBtn' id='RequestSigninBtn' onClick={ RequestSignin }>회원가입</button>
                 </div>
             </footer>
         </div>
@@ -445,14 +607,15 @@ const ConnectLogin = () => {
             
         </div>
 
-        <div className='certify-email-wrapper'>
+
+        <div id='EmailModalWrapper' className='certify-email-wrapper'>
             <button className='certify-email-wrapper-close-btn' onClick={ closeCertifyEmailModal }></button>
             <div className='certify-email-box'>
                 <div className='certify-email-input-btn-box'>
-                    <input type='text' className='certify-email-input' placeholder='메일로 받은 인증 코드를 입력해주세요' />
+                    <input id='Input-code' type='text' className='certify-email-input' placeholder='메일로 받은 인증 코드를 입력해주세요' />
                 </div>
                 <div className='certify-btn-box'>
-                    <button className='certify-btn'>인증하기</button>
+                    <button id='Certify-btn' className='certify-btn' onClick={ clickCertify }>인증하기</button>
                 </div>
             </div>
         </div>
