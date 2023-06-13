@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 
+
 import '../scss/ConnectHotPlace.scss';
+import ConnectWriteBoard from './ConnectWriteBoard';
 
 const ConnectHotPlace = () => {
 
@@ -67,8 +69,10 @@ const closeCreatePost = e => {
 
 
 
-                <div className='cp-main'>
-
+                <div className='cp-main-box'>
+                  <div className='cp-main'>
+                    <ConnectWriteBoard />
+                  </div>
                 </div>
 
 
@@ -76,10 +80,18 @@ const closeCreatePost = e => {
                 <footer className='cp-footer'>
                     <div className='cp-footer-text-api-box'>
                         <div className='cp-footer-text-box'>
-                            
+                            <p>장소를 선택해주세요</p>
                         </div>
                         <div className='cp-footer-api-box'>
-
+                          <input className='cp-footer-api' />
+                          <div className='storage-btn-box'>
+                            <button className='api-btn' id='Cancel'>
+                              <p>취 소</p>
+                            </button>
+                            <button className='api-btn' id='Storage'>
+                              <p>저 장</p>
+                            </button>
+                          </div>
                         </div>
 
 

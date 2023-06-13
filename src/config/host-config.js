@@ -4,3 +4,7 @@ const clientHostName = window.location.hostname;
 
 // 백엔드 서버 호스트 이름
 let backEndHostName; 
+
+if(clientHostName === 'localhost') {
+    backEndHostName = 'http://localhost:8181';
+}

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
 import '../scss/ConnectLogin.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
+import { isLogin } from '../../util/login-util';
 
 const ConnectLogin = () => {
 
@@ -178,9 +179,9 @@ const ConnectLogin = () => {
 
 
     const openLogin = e => {
-        const $loginBox = document.querySelector('.login-modal-box');
+        const $loginBox = document.getElementById('LoginModalBox');
         const $back = document.querySelector('.backDrop');
-      
+        
         if ($loginBox.style.height !== '800px') {
           $loginBox.style.animation = 'openLoginModal 1s forwards 1';
         } else {
@@ -259,7 +260,6 @@ const ConnectLogin = () => {
     };
     
     const closeCertifyEmailModal = e => {
-        // setIsModalOpen(!isModalOpen);
         
         const $emailModal = document.querySelector('.certify-email-wrapper');
         
@@ -331,32 +331,42 @@ const ConnectLogin = () => {
         });
         
         console.log(res);
-
+        // TODO : 창 닫히게 res
+        const $signBox = document.querySelector('.signin-modal-box');
+        
+        if ($signBox && $signBox.style.display === 'block') {
+            $signBox.style.animation = 'closeSignInModal 1s forwards 1';
+        }
+        
     };
-
-
-
-
+    
+    
+    
+    
     const redirection = useNavigate();
-
-    const REQUEST_URL = '/signin';
-
+    const [isLogInTest, setIsLogInTest] = useState(false);
+    
+    const REQUEST_URL = 'http://localhost:8181/connects/login';
+    
     // 서버에 AJAX 요청
     const fetchLogin = async() => {
-
+        
+        console.log('hello');
+        
         // 이메일, 비밀번호 입력 태그 얻어오기
         const $email = document.getElementById('ID');
         const $password = document.getElementById('PW');
-
+        
         const res = await fetch(REQUEST_URL, {
             method: 'POST',
-            header: { 'content-type': 'application/json' },
+            headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
-                email: $email.value,
-                password: $password.value                
+                account: $email.value,
+                password: $password.value,
+                isAutoLogin: true              
             })
         });
-
+        
         // 가입이 안되어있거나, 비밀번호가 틀린 경우
         if(res.status === 400) {
             // 서버에서 온 문자열 읽기
@@ -365,38 +375,75 @@ const ConnectLogin = () => {
             return;
         }
         
+        
+        
         // 서버에서 온 json 읽기
-        const { token, userName, email, role } = await res.json();
-
+        const { email, token } = await res.json();
+        // REFACTORING : 추후 서버에서 상태코드로 리턴할 예정
+        if(!email) {
+            alert('아이디 혹은 비밀번호가 틀렸습니다.');
+            document.getElementById('ID').value='';
+            document.getElementById('PW').value='';
+        } else {
+            setIsLogInTest(true);
+            alert('환영합니다!');
+            const $loginBox = document.querySelector('.login-modal-box');
+            const $back = document.querySelector('.backDrop');
+            
+            if ($loginBox && $back && $loginBox.style.display === 'block') {
+                $loginBox.style.animation = 'closeLoginModal 1s forwards 1';
+                $back.style.display = 'none';
+            }
+           
+      
+        }
+        
+        // TODO : 로그인에 성공한 유저의 이메일과 토큰 출력
+        console.log('--------------');
+        console.log(email);
+        console.log(token);
+        
         // json에 담긴 인증정보를 클라이언트에 보관
         // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
         // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
-        localStorage.setItem('ACCESS_TOKEN', token);
-        localStorage.setItem('LOGIN_USERNAME', userName);
-        localStorage.setItem('USER_ROLE', role);
-
+        // localStorage.setItem('ACCESS_TOKEN', token);
+        // localStorage.setItem('LOGIN_USERNAME', userName);
+        // localStorage.setItem('USER_ROLE', role);
+        
         // 홈으로 리다이렉트
-        redirection('/');
-
+        // redirection('/');
+        
+        
     };
-
-    // 로그인 요청 핸들러
-    const loginHandler = e => {
-        e.preventDefault();
-
-        // 서버에 로그인 요청 전송
-        fetchLogin();
-    };
-
-
-
-
-
-    return (
-        <>
+    
+    // // 로그인 요청 핸들러
+    // const loginHandler = async (e) => {
+        //     e.preventDefault();
+        
+        //     // 서버에 로그인 요청 전송
+        //     await fetchLogin();
+        //     //TODO : 2번 찍혀서 잠시 주석처리
+        // };
+        
+        
+        // 로그아웃 핸들러
+        const logoutHandler = e => {
+            setIsLogInTest(false);
+            localStorage.clear();
+            window.location.href = '/';
+        };
+        
+        
+        
+        
+        
+        
+        
+        return (
+            <>
         <div className='backDrop'></div>
         {/* 로그인 모달 box */}
-        <div className='login-modal-box'>
+        <div className='login-modal-box' id='LoginModalBox'>
             <button className='closeBtn' onClick={ closeLogin }>X</button>
             <header id='Header'></header>
 
@@ -404,27 +451,21 @@ const ConnectLogin = () => {
             <div id='Container'>
                 <div className='login-wrapper'>
 
-                    <form 
-                        className='login-box'
-                        noValidate
-                        onSubmit={ loginHandler }>
+                    <div className='login-box'>
 
                         {/* 아이디, 비밀번호 입력 */}
                         <div className='id-pw-box'>
-                            <form>
-                                <input 
-                                    className='inputBox' 
-                                    id='ID' 
-                                    placeholder='아이디' 
-                                    autoFocus
-                                ></input>
-                                <input 
-                                    className='inputBox' 
-                                    id='PW' 
-                                    placeholder='비밀번호'
-                                ></input>
-                            </form>
-
+                            <input 
+                                className='inputBox' 
+                                id='ID' 
+                                placeholder='아이디' 
+                                autoFocus
+                            ></input>
+                            <input 
+                                className='inputBox' 
+                                id='PW' 
+                                placeholder='비밀번호'
+                            ></input>                            
                             <div className='auto-login-check-box'>
                                 <div className='auto-login-check'>
                                     <input type='checkbox' className='auto-login'/>
@@ -436,44 +477,46 @@ const ConnectLogin = () => {
 
                         <div className='login-btn-box'>
                             <button 
+                            //TODO: 로그인 온클릭
+                                onClick={ fetchLogin }
                                 className='login-btn'
-                                type='sumbit'
                             >Login</button>
                         </div>
 
-                        {/* 아이디, 비밀번호 찾기 */}
-                        <div className='search-id-pw-wrapper'>
-                            <ul className='search-id-pw-box'>
-                                <li className='search-id-pw' id='SearchID'>
-                                    <Link to={'/nb-search-ID'} className='search-id'>
-                                        <p className='search-text'>아이디 찾기</p>
-                                    </Link>
-                                </li>
-                                <li className='search-id-pw' id='SearchPW'>
-                                    <Link to={'/nb-search-PW'} className='search-pw'>
-                                        <p className='search-text'>비밀번호 찾기</p>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        <div className='division-wrapper'>
-                            <div className='division-box'></div>
-                                <span>
-                                    <div className='division-text-box'>
-                                        <p className='division-text'>또는</p>
-                                    </div>
-                                </span>
-                            <div className='division-box'></div>
-                        </div>
+                    </div>
+                    {/* 아이디, 비밀번호 찾기 */}
+                    <div className='search-id-pw-wrapper'>
+                        <ul className='search-id-pw-box'>
+                            <li className='search-id-pw' id='SearchID'>
+                                <Link to={'/nb-search-ID'} className='search-id'>
+                                    <p className='search-text'>아이디 찾기</p>
+                                </Link>
+                            </li>
+                            <li className='search-id-pw' id='SearchPW'>
+                                <Link to={'/nb-search-PW'} className='search-pw'>
+                                    <p className='search-text'>비밀번호 찾기</p>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div className='division-wrapper'>
+                        <div className='division-box'></div>
+                            <span>
+                                <div className='division-text-box'>
+                                    <p className='division-text'>또는</p>
+                                </div>
+                            </span>
+                        <div className='division-box'></div>
+                    </div>
 
-                        {/* 회원가입 box */}
-                        <div className='ch-signin-box'>
-                            {/* 회원가입 */}
-                            <button id='Sign-in' onClick={ openSignIn }>회원가입</button>
-                        </div>
+                    {/* 회원가입 box */}
+                    <div className='ch-signin-box'>
+                        {/* 회원가입 */}
+                        <button id='Sign-in' onClick={ openSignIn }>회원가입</button>
+                    </div>
 
-                    </form>
+                    
                 </div>
             </div>
 
@@ -508,7 +551,6 @@ const ConnectLogin = () => {
             <button className='closeBtn' onClick={ closeSignIn }>X</button>
             <header id='Header'>
                 <div className='user-profile-box'>
-                    {/* <div className='user-profile'>프로필 이미지</div> */}
                 </div>
             </header>
 
@@ -604,18 +646,21 @@ const ConnectLogin = () => {
                 </div>
             </footer>
         </div>
-
-        {/* 로그인 버튼 box */}
+        
         <div className='connect-header-login-wrapper'>
-        {/* 로그인 box */}
+        {isLogInTest ? (
+            <div className='ch-logout-box'>
+                <button id='Logout' onClick={ logoutHandler }>로그아웃</button>
+            </div>
+        ) : (
             <div className='ch-login-box'>
-                {/* 로그인 */}
                 <button id='Login' onClick={ openLogin }>로그인</button>
             </div>
-            
+        )
+        }
         </div>
 
-
+        {/* 이메일 인증 모달 */}
         <div id='EmailModalWrapper' className='certify-email-wrapper'>
             <button className='certify-email-wrapper-close-btn' onClick={ closeCertifyEmailModal }></button>
             <div className='certify-email-box'>
