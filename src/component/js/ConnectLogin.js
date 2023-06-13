@@ -424,8 +424,16 @@ const ConnectLogin = () => {
                                     placeholder='비밀번호'
                                 ></input>
                             </form>
+
+                            <div className='auto-login-check-box'>
+                                <div className='auto-login-check'>
+                                    <input type='checkbox' className='auto-login'/>
+                                    <p className='checkbox-text'>자동로그인</p>
+                                </div>
+                            </div>
                         </div>
-                        {/* <div>자동로그인</div> */}
+
+
                         <div className='login-btn-box'>
                             <button 
                                 className='login-btn'
