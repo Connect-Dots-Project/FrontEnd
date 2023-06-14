@@ -36,8 +36,28 @@ const ConnectFreeBoard = () => {
         }
   };
 
+
+
+
+
+  const [isOpenInnerBoard, setIsOpenInnerBoard] = useState(false);
+
+  const openInnerBoard = e => {
+    setIsOpenInnerBoard(true);
+  };
+
+
+
+
+
+
+
+
+
+
   return (
     <>
+
       {/* 글작성 모달창 */}
       <div className='write-board-wrapper'>
         <div className='write-board-close-btn-box'>
@@ -104,29 +124,13 @@ const ConnectFreeBoard = () => {
           {/* 자유 게시판 */}
           <div className='free-board-main-container'>
             {/* 자유 게시판 box */}
-            <ul className='fbm-info-box'>
-              {/* 반복 */}
-              {/* 자유 게시판 정보 */}
-              <li className='fbm-info-list'>
-                {/* 자유 게시판 정보 사진 box */}
-                <div className='fbm-info-img-box'>
-                  {/* 자유 게시판 정보 사진 */}
-                  <div className='fbm-info-img'></div>
-                </div>
-                {/* 자유 게시판 세부 정보 box */}
-                <ul className='fbm-inr-info-box'>
-                  {/* 자유 게시판 세부 정보 */}
+            <div className='fbm-info-box'>
+        
+              {fbData.map(fb => (
+                <ConnectFreeBoardData freeBoardList={fb} openInnerBoard={ openInnerBoard }/>
+              ))}
 
-                  {fbData.map(fb => (
-                    <ConnectFreeBoardData 
-                        freeBoardLocation={fb.freeBoardLocation}
-                        freeBoardWriteDate={fb.freeBoardWriteDate} />
-                  ))}
-
-                </ul>
-              </li>
-              {/* 반복 */}
-            </ul>
+            </div>
           </div>
         </div>
       </div>

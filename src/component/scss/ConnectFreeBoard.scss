@@ -1,3 +1,455 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// 세부 게시판
+#Inner-Free-Board-Wrapper {
+    background: #bbb;
+    width: 800px;
+    height: 1018px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 2;
+
+    #Header {
+        background: url('./img/InnerFreeBoardHeader.png') no-repeat;
+        background-size: 100%;
+        background-position-y: -10px;
+        width: 100%;
+        height: 30%;
+    }
+
+
+    #Main {
+        width: 100%;
+        height: 40%;    
+        padding: 20px;
+
+        .inner-board {
+            width: 100%;
+            height: 100%;
+
+            .inner-board-header {
+                width: 100%;
+                height: 40%;
+
+                .ib-img-info-box {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+
+                    p {
+                        font-weight: 700;
+                        font-size: 16px;
+                    }
+
+                    .ib-img-box {
+                        width: 20%;
+                        height: 100%;
+                        padding-top: 10px;
+
+                        .ib-img {
+                            background: rgb(20, 101, 173);
+                            border: 2px solid #fff;
+                            border-radius: 50%;
+                            width: 100px;
+                            height: 100px;
+                            margin: 0 auto;
+                            
+                        }
+
+                        #User-Id {
+                            width: 100%;
+                            height: 25%;
+                            padding: 7px;
+                            text-align: center;
+                        }
+                    }
+
+                    .ib-info-box {
+                        width: 80%;
+                        height: 100%;
+
+                        .ib-info-location-title-box {
+                            width: 100%;
+                            height: 30%;
+                            display: flex;
+
+                            #Location {
+                                width: 20%;
+                                height: 100%;
+                                @include disflex();
+                            }
+                            
+                            #Title {
+                                width: 80%;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;
+                            }
+                            
+                        }
+                        
+                        .ib-info-category-date-box {
+                            width: 100%;
+                            height: 30%;
+                            display: flex;
+                            
+                            #Category {
+                                width: 20%;
+                                height: 100%;
+                                @include disflex();
+                            }
+                            
+                            #Date {
+                                width: 40%;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;
+                            }
+
+                            .reply-like-box {
+                                width: 35%;
+                                height: 100%;
+                                margin-left: 30px;
+                                display: flex;
+
+                                .reply-box {
+                                    width: 50%;
+                                    height: 100%;
+                                    display: flex;
+                                    
+                                    .reply-img {
+                                        background: url('./img/Reply.png') no-repeat;
+                                        background-size: 50%;
+                                        background-position: 20px;
+                                        width: 50%;
+                                        height: 100%;
+                                        cursor: pointer;
+                                    }
+                                    
+                                    #Reply-Count {
+                                        width: 50%;
+                                        height: 100%;
+                                        font-weight: 700;
+                                        display: flex;
+                                        justify-content: left;
+                                        align-items: center;
+                                    }
+                                }
+                                
+                                .like-box {
+                                    width: 50%;
+                                    height: 100%;
+                                    display: flex;
+                                    
+                                    .like-img {
+                                        background: url('./img/Like.png') no-repeat;
+                                        background-size: 50%;
+                                        background-position: 20px;
+                                        width: 50%;
+                                        height: 100%;
+                                        cursor: pointer;
+                                    }
+                                    
+                                    #Like {
+                                        width: 50%;
+                                        height: 100%;
+                                        font-weight: 700;
+                                        display: flex;
+                                        justify-content: left;
+                                        align-items: center;
+                                    }
+                                }
+                            }
+                        }
+
+                        .ib-info-modify-delete-box {
+                            width: 100%;
+                            height: 40%;
+                            display: flex;
+                            justify-content: right;
+                            align-items: center;
+
+                            .info-btn-box {
+                                width: 20%;
+                                height: 100%;
+                                @include disflex();
+                                
+                                .info-btn {
+                                    border-radius: 10px;
+                                    background: rgb(20, 101, 173);
+                                    border: none;
+                                    width: 95%;
+                                    height: 70%;
+                                    cursor: pointer;
+
+                                    &:hover {
+                                        opacity: 0.8;
+                                    }
+
+                                    p {
+                                        color: #fff;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            
+            }
+        }
+        
+        .ib-user-info-wrapper {
+            width: 100%;
+            height: 60%;
+            @include disflex();
+            
+            .ib-info-box {
+                border: 1px solid #000;
+                border-radius: 10px;
+                width: 95%;
+                height: 90%;
+                padding: 2%;
+            }
+        }
+        
+        .user-reply-wrapper {
+            width: 100%;
+            height: 30%;
+            margin-top: 20px;
+
+            .user-reply-box {
+                border-bottom: 1px solid #000;
+                width: 90%;
+                height: 100%;
+                margin: 0 auto;
+
+                .user-img-reply-register-box {
+                    width: 95%;
+                    height: 80%;
+                    margin: 0 auto;
+                    display: flex;
+
+                    .user-img-box {
+                        width: 13%;
+                        height: 100%;
+                        @include disflex();
+
+                        .user-img {
+                            border: 2px solid #fff;
+                            border-radius: 50%;
+                            background: rgb(20, 101, 173);
+                            width: 60px;
+                            height: 60px;
+                        }
+                    }
+
+                    .user-reply-register-box {
+                        width: 70%;
+                        height: 100%;
+
+                        .empty-box {
+                            height: 25%;
+                        }
+
+                        .reply-input {
+                            border: none;
+                            background: none;
+                            border-bottom: 1px solid rgb(20, 101, 173);
+                            width: 100%;
+                            height: 50%;
+                            padding-left: 1%;
+                            font-size: 16px;
+                            font-weight: 700;
+                            
+                            &:focus {
+                                outline: none;
+                            }
+                        }
+                    }
+
+                    .user-register-box {
+                        width: 17%;
+                        height: 100%;
+                        @include disflex();
+
+                        .user-register-btn {
+                            border: none;
+                            border-radius: 10px;
+                            background: rgb(20, 101, 173);
+                            width: 80%;
+                            height: 50%;
+                            cursor: pointer;
+
+                            &:hover {
+                                opacity: 0.8;
+                            }
+
+                            p {
+                                background: url('./img/Send.png') no-repeat;
+                                background-size: 50%;
+                                background-position: 20px;
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .guest-reply-wrapper {
+            width: 100%;
+            height: 53%;   
+            margin-top: 20px;
+            @include disflex();
+
+            .guest-reply-box {
+                width: 90%;
+                height: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                overflow: scroll;
+                
+                .guest-reply-info-box {
+                    width: 100%;
+                    height: 70%;
+                    display: flex;
+
+                    .guest-profile-box {
+                        width: 20%;
+                        height: 100%;
+                        justify-content: center;
+                        
+                        .profile-box {
+                            width: 100%;
+                            height: 80%;
+                            @include disflex();
+                        }
+
+                        .guest-profile {
+                            background: rgb(20, 101, 173);
+                            border: 2px solid #fff;
+                            border-radius: 50%;
+                            width: 80px;
+                            height: 80px;
+                            margin: 6px 0;
+                        }
+
+                        p {
+                            text-align: center;
+                            font-size: 16px;
+                            font-weight: 700;
+                        }
+                    }
+
+                    .guest-reply {
+                        width: 80%;
+                        height: 100%;
+                        @include disflex();
+
+                        .guest-reply-text {
+                            border: 1px solid #000;
+                            border-radius: 10px;
+                            width: 100%;
+                            height: 70%;
+                        }
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+
+
+
+
+            }
+
+        }
+        
+        
+        
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
 @keyframes openWriteBoardModal {
     0% {
         width: 0;
@@ -219,30 +671,30 @@
             width: 100%;
             height: 100%;
             padding: 15px;
-
+            
             // 자유 게시판 정보 box
             .fbm-info-box {
                 width: 100%;
                 height: 100%;
                 
-
+                
                 // 자유게시판 정보
                 .fbm-info-list {
                     background: none;
-                    border: none;
+                    border: 1px solid #000;
                     border-radius: 10px;
                     width: 100%;
                     height: 25%;
                     margin-bottom: 20px;
                     display: flex;
                     justify-content: space-evenly;
-                    border: 1px solid #000;
-
+                    cursor: pointer;
+                    
                     // 자유게시판 정보 사진 box
                     .fbm-info-img-box {
                         width: 18%;
                         height: 100%;
-
+                        
                         display: flex;
                         justify-content: center;
                         align-items: center;
