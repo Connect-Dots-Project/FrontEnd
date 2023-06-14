@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const ConnectFreeBoardDetail = ({ freeBoardDetail }) => {
 
@@ -6,9 +6,18 @@ const ConnectFreeBoardDetail = ({ freeBoardDetail }) => {
         freeBoardReplyCount, freeBoardTitle, freeBoardUpdateDate, freeBoardViewCount, freeBoardWriteDate, memberIdx
     } = freeBoardDetail;
 
+    const [isCloseInner, setIsCloseInner] = useState(true);
+
+    const closeInner = e => {
+        // const $modal = document.getElementById('Inner-Free-Board-Wrapper');
+        setIsCloseInner(false);
+    };
+
   return (
     <>
+        {isCloseInner && (
         <div id='Inner-Free-Board-Wrapper'>
+        <div className='inner-close-btn' onClick={ closeInner }>X</div>
   
           <header id='Header'></header>
   
@@ -173,7 +182,7 @@ const ConnectFreeBoardDetail = ({ freeBoardDetail }) => {
           </div>
   
         </div>
-  
+    )}
     </>
   )
 }
