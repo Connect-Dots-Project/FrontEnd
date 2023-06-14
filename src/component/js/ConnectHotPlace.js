@@ -7,6 +7,7 @@ import '../scss/ConnectHotPlace.scss';
 
 const ConnectHotPlace = () => {
 
+  // 작성창 (글쓰기)
   const [isCreateModal, setCreateModal] = useState(false);
 
   const openCreatePost = () => {
@@ -17,38 +18,112 @@ const ConnectHotPlace = () => {
     setCreateModal(false);
   }
 
+
+
+  // 행정구역 선택
+  const [isOpenSelect, setIsOpenSelect] = useState(false);
+
+  const openSelect = () => {
+    setIsOpenSelect(true);
+  };
+  
+  const closeSelect = () => {
+    const $adsModal = document.getElementById('ADS-Modal');
+    $adsModal.classList.add('closing');
+    
+    setTimeout(() => {
+      setIsOpenSelect(false);
+      $adsModal.classList.remove('closing');
+    }, 1000);
+  };
+
+
+
   return (
     <>
       {isCreateModal && <ConnectCreatePost closeCreatePost={ closeCreatePost }/>}
 
+      {isOpenSelect && (
+        <div className='administration-select-wrapper' id='ADS-Modal'>
+          <div id='Header'>
+            <h1>구역을 선택해주세요</h1>
+            <button id='AdsCloseBtn' onClick={ closeSelect }><p>X</p></button>
+          </div>
 
-      <div className='administration-select-wrapper'>
-        
-      </div>
+
+
+          <div className='ads-main-box'>
+            <ul className='ads-main'>
+
+            </ul>
+          </div>
+
+
+
+        </div>
+      )}
 
       <div className='hp-wrapper'>
         <div className='hp-info-header'>
 
-          <div>행정구역 선택</div>
-          <div>보기방식 선택</div>
+          <div className='hp-info-select-box'>
 
-          <input /><span><button><p>검색</p></button></span>
-
-
-
-
-
-
-
-
+            <div className='select-btn-box'>
+              <button className='select-btn' id='ADS' onClick={ openSelect }>
+                <p>행정구역 선택</p>
+              </button>
+              <button className='select-btn' id='View-Method'>
+                <p>보기방식 선택</p>
+              </button>
+            </div>
 
 
 
 
+            <div className='search-wrapper'>
+              <div className='search-box'>
+                <div className='input-box'>
+                  <input type='text' id='Input'/>
+                </div>
+                <span>
+                  <div className='search-btn-box'>
+                    <button id='Search-Btn'><p></p></button>
+                  </div>
+                </span>
+              </div>
+            </div>  
+
+            <div className='create-post-box'>
+              <button 
+                className='info-write-btn' 
+                onClick={ openCreatePost }>
+                  <p>글쓰기</p>
+              </button>
+            </div>
 
 
 
-          <button className='info-write-btn' onClick={ openCreatePost }>글쓰기</button>
+
+
+
+
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         </div>
