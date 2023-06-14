@@ -11,7 +11,7 @@ const ConnectFreeBoard = () => {
         freeBoardTitle: "title1",
         freeBoardContent: "content1",
         freeBoardImg: null,
-        freeBoardLocation: "강북구",
+        freeBoardLocation: "강남구",
         freeBoardCategory: "친목",
         freeBoardWriteDate: "2023.06.03",
         freeBoardUpdateDate: "2023.06.03",

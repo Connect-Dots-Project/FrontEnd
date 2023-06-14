@@ -3,8 +3,20 @@
     justify-content: center;
     align-items: center;
 }
+body {
+    position: relative;
+}
 
+.administration-select-wrapper {
+    border: 1px solid #000;
+    width: 480px;
+    height: 100px;
 
+    position: absolute;
+    top: 0;
+    left: -50%;
+
+}
 
 // hp-wrapper
 .hp-wrapper {

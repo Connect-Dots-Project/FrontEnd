@@ -21,10 +21,48 @@ const ConnectHotPlace = () => {
     <>
       {isCreateModal && <ConnectCreatePost closeCreatePost={ closeCreatePost }/>}
 
+
+      <div className='administration-select-wrapper'>
+        
+      </div>
+
       <div className='hp-wrapper'>
         <div className='hp-info-header'>
+
+          <div>행정구역 선택</div>
+          <div>보기방식 선택</div>
+
+          <input /><span><button><p>검색</p></button></span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <button className='info-write-btn' onClick={ openCreatePost }>글쓰기</button>
+
+
         </div>
+
+
+
+
+
+
+
+
+
+
+
 
         {/* hp-wrapper box */}
         <div className='hp-info-box'>
