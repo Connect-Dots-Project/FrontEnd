@@ -17,10 +17,14 @@ const ConnectFreeBoardData = ({ freeBoardList }) => {
         setIsOpenInnerBoard(true);
     };
 
+    const closeInnerBoardModal = e => {
+        setIsOpenInnerBoard(false);
+    };
+
   return (
 
     <>
-    {isOpenInnerBoard && <ConnectFreeBoardDetail freeBoardDetail={ freeBoardList }/>}
+    {isOpenInnerBoard && <ConnectFreeBoardDetail freeBoardDetail={ freeBoardList } closeInnerBoardModal={ closeInnerBoardModal } />}
 
     <button className='fbm-info-list' onClick={ openInnerBoardModal }>
         <div className='fbm-info-img-box'>

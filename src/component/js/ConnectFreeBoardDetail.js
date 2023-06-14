@@ -1,23 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const ConnectFreeBoardDetail = ({ freeBoardDetail }) => {
+const ConnectFreeBoardDetail = ({ freeBoardDetail, closeInnerBoardModal }) => {
 
     const {freeBoardCategory, freeBoardContent, freeBoardIdx, freeBoardImg, freeBoardLikeCount, freeBoardLocation ,
         freeBoardReplyCount, freeBoardTitle, freeBoardUpdateDate, freeBoardViewCount, freeBoardWriteDate, memberIdx
     } = freeBoardDetail;
 
-    const [isCloseInner, setIsCloseInner] = useState(true);
+    const [isCloseInner, setCreateModal] = useState(true);
 
-    const closeInner = e => {
-        // const $modal = document.getElementById('Inner-Free-Board-Wrapper');
-        setIsCloseInner(false);
-    };
+    useEffect(() => {
+        
+    }, [isCloseInner]);
 
+    
   return (
     <>
         {isCloseInner && (
         <div id='Inner-Free-Board-Wrapper'>
-        <div className='inner-close-btn' onClick={ closeInner }>X</div>
+        <div className='inner-close-btn' onClick={ closeInnerBoardModal }>X</div>
   
           <header id='Header'></header>
   
