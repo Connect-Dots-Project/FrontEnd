@@ -1,0 +1,275 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes openCreatePostModal {
+    0% {
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+        transform: translate(500%, -50%);
+    }
+
+    50% {
+        width: 1000px;
+        height: 0px;
+        transform: translate(-50%, -50%);
+        border: 4px solid #000;
+    }
+
+    100% {
+        width: 1000px;
+        height: 900px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes closeCreatePostModal {
+    0% {
+        width: 1000px;
+        height: 900px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        width: 1000px;
+        height: 0%;
+        transform: translate(-50%, -50%);
+        border: 4px solid #000;
+    }
+
+    100% {
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+        transform: translate(-500%, -50%);
+    }
+}
+
+
+.create-post-wrapper {
+    background: #eee;
+    border: 1px solid rgb(20, 101, 173);
+    width: 1000px;
+    height: 900px;
+    overflow: hidden;
+    
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    animation: openCreatePostModal 1s forwards 1;
+    
+    &.closing {
+        animation: closeCreatePostModal 1s forwards 1;
+    }
+    
+    .cp-close-btn {
+        border: none;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+    }
+    
+    .header-main-footer-box {
+        width: 90%;
+        height: 100%;
+        margin: 0 auto; 
+        
+        .cp-header {
+            width: 100%;
+            height: 30%;
+            
+            .cp-header-text-tag-box {
+                width: 100%;
+                height: 100%;
+                
+                .cp-header-text-box {
+                    width: 100%;
+                    height: 20%;
+                    border-bottom: 1px solid #000;
+                    @include disflex();
+                    
+                    .cp-header-text {
+                        font-size: 20px;
+                        font-weight: 700;
+                    }
+                }
+                
+                
+                .cp-header-tag-box {
+                    width: 100%;
+                    height: 80%;
+                    padding-left: 27px;
+                    
+                    display: flex;
+                    justify-content: left;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    
+                    .cp-header-tag {
+                        background:rgb(57, 199, 255);
+                        border: none;
+                        border-radius: 10px;
+                        color: #000;
+                        width: 110px;
+                        height: 35px;
+                        margin: 5px;
+                        cursor: pointer;
+                        @include disflex();
+
+                        &:hover {
+                            opacity: 0.8;
+                        }
+
+                        p {
+                            font-weight: 700;
+                        }
+                    }   
+                }
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .cp-main-box {
+            border: 1px solid #000;
+            border-radius: 5px;
+            width: 100%;
+            height: 45%;
+
+            @include disflex();
+
+            .cp-main {
+                border: 1px solid #000;
+                width: 98%;
+                height: 97%;
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .cp-footer {
+            width: 100%;
+            height: 25%;
+
+            .cp-footer-text-api-box {
+                width: 100%;
+                height: 100%;
+
+                .cp-footer-text-box {
+                    width: 100%;
+                    height: 25%;
+                    
+                    p {
+                        width: 100%;
+                        height: 100%;
+                        font-size: 20px;
+                        font-weight: 700;
+                        @include disflex();
+                    }
+                }
+
+                .cp-footer-api-box {
+                    width: 100%;
+                    height: 75%;
+                    text-align: center;
+
+                    .cp-footer-api {
+                        border: 1px solid #000;
+                        border-radius: 10px;
+                        width: 100%;
+                        height: 55%;
+                        padding-left: 1%;
+                        font-size: 16px;
+                        font-weight: 700;
+
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+
+                    .storage-btn-box {
+                        width: 100%;
+                        height: 45%;
+                        align-items: center;
+
+                        display: flex;
+                        justify-content: right;
+
+                        .api-btn {
+                            border: none;
+                            border-radius: 10px;
+                            width: 15%;
+                            height: 60%;
+                            border: none;
+                            cursor: pointer;
+
+                            &:hover {
+                                opacity: 0.8;
+                            }
+                        }
+                        
+                        #Cancel {
+                            border: 1px solid #000;
+                            background: #fff;
+                        }
+
+                        #Storage {
+                            margin-left: 20px;
+                            background: rgb(57, 199, 255);
+                            color: #fff;
+                        }
+
+                        p {
+                            font-weight: 700;
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

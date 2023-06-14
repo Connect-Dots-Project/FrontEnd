@@ -1,128 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
+import ConnectCreatePost from './ConnectCreatePost';
 
 
 import '../scss/ConnectHotPlace.scss';
-import ConnectWriteBoard from './ConnectWriteBoard';
 
 const ConnectHotPlace = () => {
 
+  const [isCreateModal, setCreateModal] = useState(false);
+
   const openCreatePost = () => {
-    const $postModal = document.querySelector('.create-post-wrapper');
-    $postModal.style.display = $postModal.style.display === 'none' ? 'block' : 'none';
-    $postModal.style.animation = 'openCreatePostModal 1s forwards 1';
-};
+    setCreateModal(true);
+  };
 
-const closeCreatePost = e => {
-    const $postModal = document.querySelector('.create-post-wrapper');
-    if ($postModal && $postModal.style.display === 'block') {
-        $postModal.style.animation = 'closeCreatePostModal 1s forwards 1';
-    }
-};
-
+  const closeCreatePost = () => {
+    setCreateModal(false);
+  }
 
   return (
     <>
-      {/* 모달창 */}
-      <div className='create-post-wrapper'>
-      <button className='cp-close-btn' onClick={ closeCreatePost }>X</button>
-            <div className='header-main-footer-box'>
-                
-                <header className='cp-header'>
-                    <div className='cp-header-text-tag-box'>
-                        <div className='cp-header-text-box'>
-                            <p className='cp-header-text'>지역을 선택해주세요</p>
-                        </div>
-
-                        <ul className='cp-header-tag-box'>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                            <li className='cp-header-tag'><p>강남구</p></li>
-                        </ul>
-                        
-                    </div>
-
-                </header>
-
-
-
-
-                <div className='cp-main-box'>
-                  <div className='cp-main'>
-                    <ConnectWriteBoard />
-                  </div>
-                </div>
-
-
-
-                <footer className='cp-footer'>
-                    <div className='cp-footer-text-api-box'>
-                        <div className='cp-footer-text-box'>
-                            <p>장소를 선택해주세요</p>
-                        </div>
-                        <div className='cp-footer-api-box'>
-                          <input className='cp-footer-api' />
-                          <div className='storage-btn-box'>
-                            <button className='api-btn' id='Cancel'>
-                              <p>취 소</p>
-                            </button>
-                            <button className='api-btn' id='Storage'>
-                              <p>저 장</p>
-                            </button>
-                          </div>
-                        </div>
-
-
-
-
-                    </div>
-
-                </footer>
-
-
-
-            </div>
-
-
-
-        </div>
-
-
-
-
-
-
-
+      {isCreateModal && <ConnectCreatePost closeCreatePost={ closeCreatePost }/>}
 
       <div className='hp-wrapper'>
         <div className='hp-info-header'>
           <button className='info-write-btn' onClick={ openCreatePost }>글쓰기</button>
         </div>
-
-
-
 
         {/* hp-wrapper box */}
         <div className='hp-info-box'>
