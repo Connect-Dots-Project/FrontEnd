@@ -72,10 +72,25 @@ const ConnectHotPlace = () => {
               <button className='select-btn' id='ADS' onClick={ openSelect }>
                 <p>행정구역 선택</p>
               </button>
-              <button className='select-btn' id='View-Method'>
-                <p>보기방식 선택</p>
-              </button>
+
+              <div className='board-map-change-box'>
+
+                <button 
+                  className='select-btn' 
+                  id='View-Method-Board'
+                ><p>게시판 보기</p>
+
+                </button>
+                <button className='select-btn' id='View-Method-Map'>
+                  <p>지도 보기</p>
+                </button>
+
+              </div>
+
+
+
             </div>
+
 
 
 
@@ -138,28 +153,36 @@ const ConnectHotPlace = () => {
 
 
 
-
-        {/* hp-wrapper box */}
-        <div className='hp-info-box'>
-          {/* 반복 */}
-          {/* hot-place 정보 */}
-          <div className='hp-info'>
-            <div className='hp-info-img-text-box'>
-              <Link to='/' className='hp-info-img-box'>
-                <div className='info-img'></div>
-              </Link>
-              <div className='hp-text-box'>
-                <div className='hp-text'>
-                  <p>강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남</p>
-                </div>
-                <div className='like-box'>
-                  <button className='like' id='Like'></button>
-                  <p className='like-count'>100</p>
+        {/* {!isSelectMap && ( */}
+          <div className='hp-info-box'>
+            <div className='hp-info'>
+              <div className='hp-info-img-text-box'>
+                <Link to='/' className='hp-info-img-box'>
+                  <div className='info-img'></div>
+                </Link>
+                <div className='hp-text-box'>
+                  <div className='hp-text'>
+                    <p>강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남</p>
+                  </div>
+                  <div className='like-box'>
+                    <button className='like' id='Like'></button>
+                    <p className='like-count'>100</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+            {/* )} */}
+
+
+
+
+
+
+
+
+
+
       </div>
 
     </>

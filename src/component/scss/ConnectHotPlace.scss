@@ -156,34 +156,67 @@ body {
         width: 100%;
         height: 15%;
         border-bottom: 4px solid rgb(20, 101, 173);
+        border: 1px solid #000;
 
         .hp-info-select-box {
-            width: 95%;
+            width: 100%;
             height: 100%;
             margin: 0 auto;
             display: flex;
 
             .select-btn-box {
-                width: 40%;
+                width: 50%;
                 height: 100%;
+                border: 1px solid #000;
 
                 @include disflex();
+
+                .board-map-change-box {
+                    width: 50%;
+                    height: 50%;
+                    position: relative;
+
+                    #View-Method-Board {
+                        width: 60%;
+                        height: 100%;
+
+                        position: absolute;
+                        top: 25%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                    
+                    #View-Method-Map {
+                        width: 60%;
+                        height: 100%;
+
+                        position: absolute;
+                        top: 25%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        z-index: 1;
+                    }
+
+
+
+
+
+
+
+
+                }
 
                 .select-btn {
                     border: none;  
                     background: rgb(20, 101, 173);
                     color: #fff;
                     border-radius: 10px;
-                    width: 40%;
+                    width: 30%;
                     height: 50%;
                     margin: 10px;
                     font-size: 16px;
                     font-weight: 700;
                     cursor: pointer;
-
-                    &:hover {
-                        opacity: 0.8;
-                    }
                 }
             }
 

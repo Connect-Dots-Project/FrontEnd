@@ -1,11 +1,11 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
 import { Link, Route, Routes } from 'react-router-dom';
-import ConnectFreeBoard from './ConnectFreeBoard';
 import ConnectHotPlace from './ConnectHotPlace';
+import ConnectFreeBoard from './ConnectFreeBoard';
+import ConnectPlayList from './ConnectPlayList';
 import ConnectStoreInfo from './ConnectStoreInfo';
 import ConnectSales from './ConnectSales';
-import ConnectFriends from './ConnectFriends';
 
 import '../scss/ConnectMainOutline.scss';
 import ConnectLiveChatting from './ConnectLiveChatting';
@@ -77,7 +77,7 @@ const ConnectMainOutline = () => {
                             <Route path='/nb-live-chatting' element={ <ConnectLiveChatting /> }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/nb-playlist' element={ <ConnectFriends /> }></Route>
+                            <Route path='/nb-playlist' element={ <ConnectPlayList /> }></Route>
                         </Routes>
                         <Routes>
                             <Route path='/nb-closing-sale' element={ <ConnectSales /> }></Route>
