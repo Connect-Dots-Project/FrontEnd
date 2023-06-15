@@ -6,11 +6,20 @@ import ConnectFreeBoardDetail from './ConnectFreeBoardDetail';
 
 const ConnectFreeBoardData = ({ freeBoardList }) => {
 
-    const {freeBoardCategory, freeBoardContent, freeBoardIdx, freeBoardImg, freeBoardLikeCount, freeBoardLocation ,
-        freeBoardReplyCount, freeBoardTitle, freeBoardUpdateDate, freeBoardViewCount, freeBoardWriteDate, memberIdx
+    const {
+        freeBoardIdx
+        ,freeBoardTitle
+        ,freeBoardImg
+        ,freeBoardCategory
+        ,freeBoardLocation
+        ,freeBoardWriteDate
+        ,freeBoardUpdateDate
+        ,freeBoardViewCount
+        ,freeBoardReplyCount
+        ,freeBoardLikeCount
+        ,freeBoardMemberIdx
     } = freeBoardList;
 
-    
     const [isOpenInnerBoard, setIsOpenInnerBoard] = useState(false);
 
     const openInnerBoardModal = e => {
@@ -24,7 +33,7 @@ const ConnectFreeBoardData = ({ freeBoardList }) => {
   return (
 
     <>
-    {isOpenInnerBoard && <ConnectFreeBoardDetail freeBoardDetail={ freeBoardList } closeInnerBoardModal={ closeInnerBoardModal } />}
+    {isOpenInnerBoard && <ConnectFreeBoardDetail freeBoardIdx={ freeBoardList.freeBoardIdx } closeInnerBoardModal={ closeInnerBoardModal } />}
 
     <button className='fbm-info-list' onClick={ openInnerBoardModal }>
         <div className='fbm-info-img-box'>

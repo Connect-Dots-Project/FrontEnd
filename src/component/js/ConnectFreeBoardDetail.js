@@ -1,16 +1,57 @@
 import React, { useEffect, useState } from 'react'
 
-const ConnectFreeBoardDetail = ({ freeBoardDetail, closeInnerBoardModal }) => {
+const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
-    const {freeBoardCategory, freeBoardContent, freeBoardIdx, freeBoardImg, freeBoardLikeCount, freeBoardLocation ,
-        freeBoardReplyCount, freeBoardTitle, freeBoardUpdateDate, freeBoardViewCount, freeBoardWriteDate, memberIdx
-    } = freeBoardDetail;
+
+  const [fbData, setFbData] = useState({});
+
+  const [replayList, setSeplayList] = useState([]);
+
+  const [memberNickname, setMemberNickname] = useState('');
+  const [memberProfile, setMemberProfile] = useState('');
+  
+
+
+  useEffect(() => {
+
+    const url = 'http://localhost:8181/contents/free-board/' + freeBoardIdx;
+
+    fetch(url, {
+      method: 'GET'
+    })
+    .then(res => res.json())
+    .then(result => {
+      setMemberNickname(result.memberNickname);
+      setMemberProfile(result.memberProfile);
+      setSeplayList(result.replyList);
+      setFbData(result.freeBoardResponseDTO);
+      
+    });
+
+  }, []);
+
 
     const [isCloseInner, setCreateModal] = useState(true);
 
     useEffect(() => {
         
     }, [isCloseInner]);
+
+    const fbDelete = () => {
+
+      // fetch(url, {
+      //   method: 'DELETE'
+      // })
+      // .then(res => res.json())
+      // .then(result => console.log(result))
+    };
+
+
+
+
+
+
+
 
     
   return (
@@ -28,38 +69,38 @@ const ConnectFreeBoardDetail = ({ freeBoardDetail, closeInnerBoardModal }) => {
                 <div className='ib-img-info-box'>
                   <div className='ib-img-box'>
                     <div className='ib-img'></div>
-                    <div id='User-Id'>[유저 아이디]</div>
+                    <div id='User-Id'>{memberNickname}</div>
                   </div>
   
                   <div className='ib-info-box'>
   
                     <div className='ib-info-location-title-box'>
                       <div id='Location'>
-                        <p>[지역]</p>
+                        <p>{fbData.freeBoardLocation}</p>
                       </div>
                       <div id='Title'>
-                        <p>[게시글 제목]</p>
+                        <p>{fbData.freeBoardTitle}</p>
                       </div>
                     </div>
   
                     <div className='ib-info-category-date-box'>
                       <div id='Category'>
-                        <p>[카테고리]</p>
+                        <p>{fbData.freeBoardCategory}</p>
                       </div>
                       <div id='Date'>
-                        <p>[2023.06.14]</p>
+                        <p>{fbData.freeBoardWriteDate}</p>
                       </div>
   
                       <div className='reply-like-box'>
   
                           <div className='reply-box'>
                             <div className='reply-img'></div>
-                            <div id='Reply-Count'>100</div>
+                            <div id='Reply-Count'>{fbData.freeBoardReplyCount}</div>
                           </div>
   
                           <div className='like-box'>
                             <div className='like-img'></div>
-                            <div id='Like'>50</div>
+                            <div id='Like'>{fbData.freeBoardLikeCount}</div>
                           </div>
   
                       </div>
@@ -71,7 +112,7 @@ const ConnectFreeBoardDetail = ({ freeBoardDetail, closeInnerBoardModal }) => {
                         <button id='Modify-Btn' className='info-btn'><p>수정</p></button>
                       </div>
                       <div className='info-btn-box'>
-                        <button id='Delete-Btn' className='info-btn'><p>삭제</p></button>
+                        <button id='Delete-Btn' className='info-btn' onClick={fbDelete}><p>삭제</p></button>
                       </div>
                     </div>
                   </div>
@@ -80,11 +121,7 @@ const ConnectFreeBoardDetail = ({ freeBoardDetail, closeInnerBoardModal }) => {
   
               <div className='ib-user-info-wrapper'>
                 <div className='ib-info-box'> 
-                  <p>임시 텍스트</p>
-                  <p>임시 텍스트</p>
-                  <p>임시 텍스트</p>
-                  <p>임시 텍스트</p>
-                  <p>임시 텍스트</p>
+                  <p>{fbData.freeBoardContent}</p>
                 </div>
               </div> 
   
@@ -114,64 +151,24 @@ const ConnectFreeBoardDetail = ({ freeBoardDetail, closeInnerBoardModal }) => {
               <div className='guest-reply-wrapper'>
                 <div className='guest-reply-box'>
   
-                  <div className='guest-reply-info-box'>
+                  {replayList.map(reply => (
+                          <div className='guest-reply-info-box'>
   
-                    <div className='guest-profile-box'>
-                      <div className='profile-box'>
-                        <div className='guest-profile'></div>
-                      </div>
-                      <p>유저 아이디</p>
-                    </div>
-  
-                    <div className='guest-reply'>
-                      <div className='guest-reply-text'>
-  
-                      </div>
-                    </div>
-  
-                  </div>
-  
-  
-  
-  
-                  <div className='guest-reply-info-box'>
-  
-                    <div className='guest-profile-box'>
-                      <div className='profile-box'>
-                        <div className='guest-profile'></div>
-                      </div>
-                      <p>유저 아이디</p>
-                    </div>
-  
-                    <div className='guest-reply'>
-                      <div className='guest-reply-text'>
-  
-                      </div>
-                    </div>
-  
-                  </div>
-  
-  
-  
-  
-  
-  
-                  <div className='guest-reply-info-box'>
-  
-                    <div className='guest-profile-box'>
-                      <div className='profile-box'>
-                        <div className='guest-profile'></div>
-                      </div>
-                      <p>유저 아이디</p>
-                    </div>
-  
-                    <div className='guest-reply'>
-                      <div className='guest-reply-text'>
-  
-                      </div>
-                    </div>
-  
-                  </div>
+                          <div className='guest-profile-box'>
+                            <div className='profile-box'>
+                              <div className='guest-profile'></div>
+                            </div>
+                            <p>{reply.freeBoardReplyMemberDTO.memberNickname}</p>
+                          </div>
+        
+                          <div className='guest-reply'>
+                            <div className='guest-reply-text'>
+                              {reply.freeBoardReplyContent}
+                            </div>
+                          </div>
+        
+                        </div>
+                    ))}
   
                 </div>
                 
