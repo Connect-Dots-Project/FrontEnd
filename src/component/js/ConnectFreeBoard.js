@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import '../scss/ConnectFreeBoard.scss';
 import { Link } from 'react-router-dom';
@@ -6,22 +6,23 @@ import ConnectFreeBoardData from './ConnectFreeBoardData';
 import ConnectCreatePost from './ConnectCreatePost';
 
 const ConnectFreeBoard = () => {
-  const [fbData, setFbData] = useState([
-    {
-        freeBoardIdx: 1,
-        freeBoardTitle: "title1",
-        freeBoardContent: "content1",
-        freeBoardImg: null,
-        freeBoardLocation: "강남구",
-        freeBoardCategory: "친목",
-        freeBoardWriteDate: "2023.06.03",
-        freeBoardUpdateDate: "2023.06.03",
-        freeBoardViewCount: 0,
-        freeBoardReplyCount: 0,
-        freeBoardLikeCount: 0,
-        memberIdx: 1 
-    }
-  ]);
+  
+  const [fbData, setFbData] = useState([]);
+
+  useEffect(() => {
+    // TODO : 조회 완료
+    // TODO : 조회된 값을 넘겨줘서 붙여야 함
+
+    fetch('http://localhost:8181/contents/free-board',{
+      method: 'GET'
+    })
+    .then(res => res.json())
+    .then(result => {
+      setFbData([...result]);
+    });
+
+  }, []);
+
 
     const [isOpenInnerBoard, setIsOpenInnerBoard] = useState(false);
 
