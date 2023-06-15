@@ -4,25 +4,28 @@ import ConnectCreatePost from './ConnectCreatePost';
 
 
 import '../scss/ConnectHotPlace.scss';
+import ConnectTotalMap from './ConnectTotalMap';
 
 const ConnectHotPlace = () => {
 
+  
+  
   // 작성창 (글쓰기)
   const [isCreateModal, setCreateModal] = useState(false);
-
+  
   const openCreatePost = () => {
     setCreateModal(true);
   };
-
+  
   const closeCreatePost = () => {
     setCreateModal(false);
   }
-
-
-
+  
+  
+  
   // 행정구역 선택
   const [isOpenSelect, setIsOpenSelect] = useState(false);
-
+  
   const openSelect = () => {
     setIsOpenSelect(true);
   };
@@ -36,8 +39,15 @@ const ConnectHotPlace = () => {
       $adsModal.classList.remove('closing');
     }, 1000);
   };
-
-
+  
+  const [showMap, setShowMap] = useState(false);
+  
+  const openChangeMap = () => {
+    setShowMap(!showMap);
+  };
+  
+  
+  
 
   return (
     <>
@@ -76,14 +86,12 @@ const ConnectHotPlace = () => {
               <div className='board-map-change-box'>
 
                 <button 
-                  className='select-btn' 
-                  id='View-Method-Board'
-                ><p>게시판 보기</p>
-
+                    className='select-btn' 
+                    id='View-Method-Board'
+                    onClick={ openChangeMap }
+                  ><p>{showMap ? '게시글 보기' : '지도 보기'}</p>
                 </button>
-                <button className='select-btn' id='View-Method-Map'>
-                  <p>지도 보기</p>
-                </button>
+                
 
               </div>
 
@@ -152,38 +160,38 @@ const ConnectHotPlace = () => {
 
 
 
-
-        {/* {!isSelectMap && ( */}
-          <div className='hp-info-box'>
-            <div className='hp-info'>
-              <div className='hp-info-img-text-box'>
-                <Link to='/' className='hp-info-img-box'>
-                  <div className='info-img'></div>
-                </Link>
-                <div className='hp-text-box'>
-                  <div className='hp-text'>
-                    <p>강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남</p>
-                  </div>
-                  <div className='like-box'>
-                    <button className='like' id='Like'></button>
-                    <p className='like-count'>100</p>
-                  </div>
+        {showMap ? (
+        <ConnectTotalMap />
+      ) : (
+        <div className='hp-info-box'>
+          <div className='hp-info'>
+            <div className='hp-info-img-text-box'>
+              <Link to='/' className='hp-info-img-box'>
+                <div className='info-img'></div>
+              </Link>
+              <div className='hp-text-box'>
+                <div className='hp-text'>
+                  <p>강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남</p>
+                </div>
+                <div className='like-box'>
+                  <button className='like' id='Like'></button>
+                  <p className='like-count'>100</p>
                 </div>
               </div>
             </div>
           </div>
-            {/* )} */}
-
-
-
-
-
-
+        </div>
+      )}
 
 
 
 
       </div>
+
+
+
+
+
 
     </>
   );
