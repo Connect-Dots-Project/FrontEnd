@@ -8,6 +8,7 @@ import ConnectSales from './ConnectSales';
 import ConnectFriends from './ConnectFriends';
 
 import '../scss/ConnectMainOutline.scss';
+import ConnectLiveChatting from './ConnectLiveChatting';
 
 const ConnectMainOutline = () => {
 
@@ -46,19 +47,19 @@ const ConnectMainOutline = () => {
                     <Link to={'/contents/free-board'} className='cmo-list' id='Real-time-Chatting' onClick={ clickList }>
                         <div className='link-box'>
                             <li className='cmo-menu-list real-time-chatting'></li>
-                            <p className='cmo-text'>동네 실시간 채팅</p>
+                            <p className='cmo-text'>동네 자유 게시판</p>
                         </div>
                     </Link>
-                    <Link to={'/nb-making-friends'} className='cmo-list' id='Making-Friends' onClick={ clickList }>
+                    <Link to={'/nb-playlist'} className='cmo-list' id='Making-Friends' onClick={ clickList }>
                         <div className='link-box'>
                             <li className='cmo-menu-list making-friends'></li>
-                            <p className='cmo-text'>동네 친구 만들기</p>
+                            <p className='cmo-text'>동네 플레이 리스트</p>
                         </div>
                     </Link>
                     <Link to={'/nb-closing-sale'} className='cmo-list' id='Closing-sale' onClick={ clickList }>
                         <div className='link-box'>
                             <li className='cmo-menu-list closing-sale'></li>
-                            <p className='cmo-text'>동네 마감 세일</p>
+                            <p className='cmo-text'>동네 편의점 정보</p>
                         </div>
                     </Link>
                 </ul>
@@ -73,7 +74,10 @@ const ConnectMainOutline = () => {
                             <Route path='/contents/free-board' element={ <ConnectFreeBoard /> }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/nb-making-friends' element={ <ConnectFriends /> }></Route>
+                            <Route path='/nb-live-chatting' element={ <ConnectLiveChatting /> }></Route>
+                        </Routes>
+                        <Routes>
+                            <Route path='/nb-playlist' element={ <ConnectFriends /> }></Route>
                         </Routes>
                         <Routes>
                             <Route path='/nb-closing-sale' element={ <ConnectSales /> }></Route>

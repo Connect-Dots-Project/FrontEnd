@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import '../scss/ConnectFreeBoard.scss';
 import { Link } from 'react-router-dom';
 import ConnectFreeBoardData from './ConnectFreeBoardData';
+import ConnectCreatePost from './ConnectCreatePost';
 
 const ConnectFreeBoard = () => {
   const [fbData, setFbData] = useState([
@@ -22,32 +23,23 @@ const ConnectFreeBoard = () => {
     }
   ]);
 
-  const openWriteBoardModal = e => {
-    const $writeBoard = document.querySelector('.write-board-wrapper');
+    const [isOpenInnerBoard, setIsOpenInnerBoard] = useState(false);
 
-    $writeBoard.style.display = $writeBoard.style.display === 'none' ? 'block' : 'none';
-    $writeBoard.style.animation = 'openWriteBoardModal 1s forwards 1';
-  };
-  
-  const closeWriteBoardModal = e => {
-    const $closeWriteBoard = document.querySelector('.write-board-wrapper');
-        if ($closeWriteBoard && $closeWriteBoard.style.display === 'block') {
-            $closeWriteBoard.style.animation = 'closeWriteBoardModal 1s forwards 1';
-        }
-  };
+    const openInnerBoard = e => {
+      setIsOpenInnerBoard(true);
+    };
 
 
 
+    const [isOpenWriteBoard, setIsOpenWriteBoard] = useState(false);
 
-
-  const [isOpenInnerBoard, setIsOpenInnerBoard] = useState(false);
-
-  const openInnerBoard = e => {
-    setIsOpenInnerBoard(true);
-  };
-
-
-
+    const openWriteBoard = e => {
+      setIsOpenWriteBoard(true);
+    };
+    
+    const closeWriteBoard = e => {
+      setIsOpenWriteBoard(false);
+    };
 
 
 
@@ -58,16 +50,9 @@ const ConnectFreeBoard = () => {
   return (
     <>
 
-      {/* 글작성 모달창 */}
-      <div className='write-board-wrapper'>
-        <div className='write-board-close-btn-box'>
-          <button className='write-board-close-btn' onClick={ closeWriteBoardModal }></button>
-        </div>
-        <div className=''>
+      {isOpenWriteBoard && <ConnectCreatePost closeWriteBoard={ closeWriteBoard }/>}
 
-        </div>
-      </div>
-
+      
 
       {/* 자유게시판 전체 */}
       <div className='free-board-wrapper'>    
@@ -86,7 +71,7 @@ const ConnectFreeBoard = () => {
                 </div>
               </div>
               <div className='write-btn-box'>
-                <button className='write-btn' onClick={ openWriteBoardModal }>글쓰기</button>
+                <button className='write-btn' onClick={ openWriteBoard }>글쓰기</button>
               </div>
 
             </div>

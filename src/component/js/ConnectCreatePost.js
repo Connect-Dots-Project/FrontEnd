@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 
-const ConnectCreatePost = ({ closeCreatePost }) => {
+const ConnectCreatePost = ({ closeCreatePost, closeWriteBoard }) => {
 
     const [isCreateModal, setCreateModal] = useState(true);
 
@@ -22,7 +22,17 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
             setCreateModal(false);
             closeCreatePost();
         }, 1000);
-    };
+      };
+      
+      const cancelBtn = e => {
+        const $modal = document.getElementById('CreatePostModal');
+        $modal.classList.add('closing');
+
+        setTimeout(() => {
+            setCreateModal(false);
+            closeCreatePost();
+        }, 1000);
+      };
 
   return (
     <>
@@ -59,7 +69,7 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
                         <div className='cp-footer-api-box'>
                           <input className='cp-footer-api' />
                           <div className='storage-btn-box'>
-                            <button className='api-btn' id='Cancel'>
+                            <button className='api-btn' id='Cancel' onClick={ cancelBtn }>
                               <p>취 소</p>
                             </button>
                             <button className='api-btn' id='Storage'>

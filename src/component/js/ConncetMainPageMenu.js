@@ -20,6 +20,17 @@ const ConncetMainPageMenu = () => {
         </li>
 
         {/* cm 메인 메뉴 리스트 */}
+        <li className='cm-menu-list' id='LiveChat'>
+            {/* cm 메인 메뉴 사진 */}
+            <Link to='/' id='list'></Link>
+            {/* cm 메인 메뉴 텍스트 box */}
+            <div className='cm-menu-text-box'>
+                {/* cm 메인 메뉴 텍스트 */}
+                <Link to='/' className='cm-menu-text'>동네 실시간 채팅</Link>
+            </div>
+        </li>
+
+        {/* cm 메인 메뉴 리스트 */}
         <li className='cm-menu-list' id='FreeBoard'>
             {/* cm 메인 메뉴 사진 */}
             <Link to='/contents/free-board' id='list'></Link>
@@ -30,16 +41,6 @@ const ConncetMainPageMenu = () => {
             </div>
         </li>
 
-        {/* cm 메인 메뉴 리스트 */}
-        <li className='cm-menu-list' id='MakingFriends'>
-            {/* cm 메인 메뉴 사진 */}
-            <Link to='/' id='list'></Link>
-            {/* cm 메인 메뉴 텍스트 box */}
-            <div className='cm-menu-text-box'>
-                {/* cm 메인 메뉴 텍스트 */}
-                <Link to='/' className='cm-menu-text'>동네 친구 만들기</Link>
-            </div>
-        </li>
 
         {/* cm 메인 메뉴 리스트 */}
         <li className='cm-menu-list' id='closingSale'>
@@ -48,7 +49,7 @@ const ConncetMainPageMenu = () => {
             {/* cm 메인 메뉴 텍스트 box */}
             <div className='cm-menu-text-box'>
                 {/* cm 메인 메뉴 텍스트 */}
-                <Link to='/' className='cm-menu-text'>동네 마감 세일</Link>
+                <Link to='/' className='cm-menu-text'>동네 플레이 리스트</Link>
             </div>
         </li>
 
