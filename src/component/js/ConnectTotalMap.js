@@ -3,7 +3,7 @@ import { Map, MapMarker, MapInfoWindow } from 'react-kakao-maps-sdk';
 
 const ConnectTotalMap = () => {
   const [hpData, setHpData] = useState([]);
-  const [hoveredLocation, setHoveredLocation] = useState(null);
+  // const [hoveredLocation, setHoveredLocation] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
 
   useEffect(() => {
@@ -22,20 +22,13 @@ const ConnectTotalMap = () => {
     setSelectedLocation(location);
   };
 
-  const handleMarkerMouseEnter = (location) => {
-    setHoveredLocation(location);
-  };
-
-  const handleMarkerMouseLeave = () => {
-    setHoveredLocation(null);
-  };
 
   const locations = hpData.map((item) => {
-    const { hotplaceName, hotplaceLatitude, hotplaceLongitude, hotplaceAddress, hotplaceImage } = item;
+    const { hotplaceName, hotplaceLatitude, hotplaceLongitude, hotplaceFullAddress, hotplaceImage } = item;
     return {
       title: hotplaceName,
       latlng: { lat: parseFloat(hotplaceLatitude), lng: parseFloat(hotplaceLongitude) },
-      address: hotplaceAddress,
+      address: hotplaceFullAddress,
       image: hotplaceImage,
     };
   });
@@ -49,8 +42,6 @@ const ConnectTotalMap = () => {
           title={loc.title}
           clickable={true}
           onClick={() => handleMarkerClick(loc)}
-          onMouseEnter={() => handleMarkerMouseEnter(loc)}
-          onMouseLeave={handleMarkerMouseLeave}
           image={{
             src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
             size: { width: 24, height: 35 },
@@ -59,19 +50,10 @@ const ConnectTotalMap = () => {
       ))}
       {selectedLocation && (
         <MapInfoWindow position={selectedLocation.latlng} onClose={() => setSelectedLocation(null)}>
-          <div style={{ backgroundColor: 'white', padding: '10px', borderRadius: '5px' }}>
-            <img src={selectedLocation.image} alt={selectedLocation.title} style={{ width: '200px', height: '150px', marginBottom: '10px' }} />
+          <div style={{ width: '240px', height: '200px', backgroundColor: 'white', padding: '10px', borderRadius: '5px' }}>
             <h4>{selectedLocation.title}</h4>
+            <img src={selectedLocation.image} style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} />
             <p>{selectedLocation.address}</p>
-          </div>
-        </MapInfoWindow>
-      )}
-      {hoveredLocation && (
-        <MapInfoWindow position={hoveredLocation.latlng} onClose={() => setHoveredLocation(null)}>
-          <div style={{ backgroundColor: 'white', padding: '10px', borderRadius: '5px' }}>
-            <img src={hoveredLocation.image} alt={hoveredLocation.title} style={{ width: '200px', height: '150px', marginBottom: '10px' }} />
-            <h4>{hoveredLocation.title}</h4>
-            <p>{hoveredLocation.address}</p>
           </div>
         </MapInfoWindow>
       )}

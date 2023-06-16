@@ -7,6 +7,8 @@ const ConnectWriteBoard = () => {
         console.log(event.editor.getData());
       };
 
+    
+
 
   return (
     <div>
@@ -15,6 +17,7 @@ const ConnectWriteBoard = () => {
         events={{
           change: handleEditorChange,
         }}
+        autoFocus
       />
     </div>
   )
