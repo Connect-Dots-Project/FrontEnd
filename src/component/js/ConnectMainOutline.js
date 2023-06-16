@@ -47,7 +47,6 @@ const ConnectMainOutline = () => {
 
 
 
-
     const $location = useLocation();
 
     if ($location.pathname === '/') {
