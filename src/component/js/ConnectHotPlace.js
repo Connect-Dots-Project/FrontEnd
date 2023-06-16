@@ -6,7 +6,7 @@ import ConnectCreatePost from './ConnectCreatePost';
 import '../scss/ConnectHotPlace.scss';
 import ConnectTotalMap from './ConnectTotalMap';
 
-const ConnectHotPlace = () => {
+const ConnectHotPlace = ({ closeCreatePost }) => {
 
   // 핫플레이스 게시물 렌더링
   const [hpData, setHpData] = useState([]);
@@ -43,10 +43,7 @@ const ConnectHotPlace = () => {
     setCreateModal(true);
   };
   
-  const closeCreatePost = () => {
-    setCreateModal(false);
-  }
-  
+ 
   
   
   // 행정구역 선택
@@ -117,30 +114,29 @@ const ConnectHotPlace = () => {
                     onClick={ openChangeMap }
                   ><p>{showMap ? '게시글 보기' : '지도 보기'}</p>
                 </button>
-                
 
               </div>
-
-
-
             </div>
 
 
-
-
-
-            <div className='search-wrapper'>
-              <div className='search-box'>
-                <div className='input-box'>
-                  <input type='text' id='Input'/>
-                </div>
-                <span>
-                  <div className='search-btn-box'>
-                    <button id='Search-Btn'><p></p></button>
+              <div className='search-wrapper'>
+              {!showMap && (
+                <div className='search-box'>
+                  <div className='input-box'>
+                    <input type='text' id='Input'/>
                   </div>
-                </span>
-              </div>
+                  <span>
+                    <div className='search-btn-box'>
+                      <button id='Search-Btn'><p></p></button>
+                    </div>
+                  </span>
+                </div>
+              )}
             </div>  
+
+
+
+
 
             <div className='create-post-box'>
               <button 
@@ -150,30 +146,7 @@ const ConnectHotPlace = () => {
               </button>
             </div>
 
-
-
-
-
-
-
-
           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         </div>
 

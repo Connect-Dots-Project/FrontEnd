@@ -4,7 +4,7 @@ const ConnectSales = () => {
   return (
     <>
 
-    <div>123</div>
+    <div>ConnectSales</div>
 
 
 

@@ -4,7 +4,8 @@ import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 import Location from './Location';
 
-const ConnectCreatePost = ({ closeCreatePost, closeWriteBoard }) => {
+
+const ConnectCreatePost = ({ closeCreatePost }) => {
   const [isCreateModal, setCreateModal] = useState(true);
   const [hotplaceImg, setHotplaceImg] = useState('');
   const [hotplaceContent, setHotplaceContent] = useState('');
@@ -13,6 +14,7 @@ const ConnectCreatePost = ({ closeCreatePost, closeWriteBoard }) => {
   const [hotplaceLongitude, setHotplaceLongitude] = useState('');
   const [hotplaceName, setHotplaceName] = useState('');
   const [hotplaceFullAddress, setHotplaceFullAddress] = useState('');
+
 
   const [selectedLocation, setSelectedLocation] = useState('');
 
