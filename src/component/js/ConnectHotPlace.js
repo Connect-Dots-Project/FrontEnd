@@ -8,7 +8,33 @@ import ConnectTotalMap from './ConnectTotalMap';
 
 const ConnectHotPlace = ({ closeCreatePost }) => {
 
-  
+  // 핫플레이스 게시물 렌더링
+  const [hpData, setHpData] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8181/contents/hot-place', {
+      method: 'GET',
+    })
+    .then(res => res.json())
+    .then(result => {
+      const list = [...result.hotplaceList];
+
+      setHpData(list);
+
+    });
+
+  }, []); 
+
+  // 좋아요 카운팅
+  const [hotplaceLikeCount, setLikeCount] = useState(0);
+  const increase = () => { setLikeCount(hotplaceLikeCount + 1 );};
+  // const increase = (hotplaceId) => {
+  //   setLikeCount((prevState) => ({
+  //     ...prevState,
+  //     [hotplaceId]: (prevState[hotplaceId] || 0) + 1,
+  //   }));
+  // };
+
   
   // 작성창 (글쓰기)
   const [isCreateModal, setCreateModal] = useState(false);
@@ -137,22 +163,28 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
         <ConnectTotalMap />
       ) : (
         <div className='hp-info-box'>
-          <div className='hp-info'>
-            <div className='hp-info-img-text-box'>
-              <Link to='/' className='hp-info-img-box'>
-                <div className='info-img'></div>
-              </Link>
-              <div className='hp-text-box'>
-                <div className='hp-text'>
-                  <p>강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남강남</p>
-                </div>
-                <div className='like-box'>
-                  <button className='like' id='Like'></button>
-                  <p className='like-count'>100</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {hpData.map(hp => (
+                        <div className='hp-info'>
+                          <div className='hp-info-img-text-box'>
+                            <Link to='/' className='hp-info-img-box'>
+                              <div className='info-img'>{hp.hotplaceImg}</div>
+                            </Link>
+                            <div className='hp-text-box'>
+                              <div className='hp-text'>
+                                <p>{hp.hotplaceContent}</p>
+                              </div>
+                              <div className='like-box'>
+                                <button className='like' id='Like'></button>
+                                <p className='like-count' onClick={ increase }>{hp.hotplaceLikeCount}</p>
+                                {/* <p className='like-count' onClick={() => increase(hp.hotplaceId)}>
+                                    {hotplaceLikeCount[hp.hotplaceId] || 0}</p> */}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+            ))}
+
+
         </div>
       )}
 
