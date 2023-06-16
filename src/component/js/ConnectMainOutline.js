@@ -14,6 +14,7 @@ const ConnectMainOutline = () => {
 
     const [isChangeOutline, setIsChangeOutline] = useState(true);
     const [isChangeStore, setIsChangeStore] = useState(true);
+    const [isClosePost, setIsClosePost] = useState(true);
 
     const closeChangeMenu = e => {
         const $menuClose = document.getElementById('CmoMenu');
@@ -31,6 +32,14 @@ const ConnectMainOutline = () => {
     const openChangeMenu = e => {
         setIsChangeOutline(true);
     };
+
+
+   const closeCreatePost = e => {
+    setIsClosePost(false);
+   };
+
+
+
 
 
 
@@ -68,7 +77,7 @@ const ConnectMainOutline = () => {
                 </div>
                 )}
 
-
+                    
 
 
 
@@ -119,10 +128,10 @@ const ConnectMainOutline = () => {
                 <div className='cmo-change-board-box'>
                     <div className='cmo-change-board'>
                         <Routes>
-                            <Route path='/contents/hot-place' element={ <ConnectHotPlace /> }></Route>
+                            <Route path='/contents/hot-place' element={ <ConnectHotPlace closeCreatePost={closeCreatePost}/> }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/contents/free-board' element={ <ConnectFreeBoard /> }></Route>
+                            <Route path='/contents/free-board' element={ <ConnectFreeBoard closeCreatePost={closeCreatePost}/> }></Route>
                         </Routes>
                         <Routes>
                             <Route path='/nb-live-chatting' element={ <ConnectLiveChatting /> }></Route>

@@ -166,7 +166,7 @@ body {
             .select-btn-box {
                 width: 50%;
                 height: 100%;
-
+                
                 @include disflex();
 
                 .board-map-change-box {
@@ -217,10 +217,10 @@ body {
                     cursor: pointer;
                 }
             }
-
+            
             .search-wrapper {
-                width: 40%;
-                height: 100%;
+                width: 40% !important;
+                height: 100% !important;
                 @include disflex();
                 
                 .search-box {

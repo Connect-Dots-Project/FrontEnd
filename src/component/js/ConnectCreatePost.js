@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 
-const ConnectCreatePost = ({ closeCreatePost, closeWriteBoard }) => {
+const ConnectCreatePost = ({ closeCreatePost }) => {
 
     const [isCreateModal, setCreateModal] = useState(true);
 

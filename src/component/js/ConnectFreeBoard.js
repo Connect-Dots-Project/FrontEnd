@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import ConnectFreeBoardData from './ConnectFreeBoardData';
 import ConnectCreatePost from './ConnectCreatePost';
 
-const ConnectFreeBoard = () => {
+const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [fbData, setFbData] = useState([
     {
         freeBoardIdx: 1,
@@ -50,7 +50,7 @@ const ConnectFreeBoard = () => {
   return (
     <>
 
-      {isOpenWriteBoard && <ConnectCreatePost closeWriteBoard={ closeWriteBoard }/>}
+      {isOpenWriteBoard && <ConnectCreatePost closeCreatePost={ closeCreatePost }/>}
 
       
 
