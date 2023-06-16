@@ -202,7 +202,7 @@ const ConnectHotPlace = () => {
                               </div>
                               <div className='like-box'>
                                 <button className='like' id='Like'></button>
-                                <p className='like-count' onClick={ increase }>{hotplaceLikeCount}</p>
+                                <p className='like-count' onClick={ increase }>{hp.hotplaceLikeCount}</p>
                                 {/* <p className='like-count' onClick={() => increase(hp.hotplaceId)}>
                                     {hotplaceLikeCount[hp.hotplaceId] || 0}</p> */}
                               </div>
