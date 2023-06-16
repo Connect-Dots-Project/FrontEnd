@@ -6,6 +6,7 @@ import ConnectFreeBoardDetail from './ConnectFreeBoardDetail';
 
 const ConnectFreeBoardData = ({ freeBoardList }) => {
 
+    
     const {
         freeBoardIdx
         ,freeBoardTitle

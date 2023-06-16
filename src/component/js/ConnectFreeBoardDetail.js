@@ -11,7 +11,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
   const [memberProfile, setMemberProfile] = useState('');
   
 
-
   useEffect(() => {
 
     const url = 'http://localhost:8181/contents/free-board/' + freeBoardIdx;
