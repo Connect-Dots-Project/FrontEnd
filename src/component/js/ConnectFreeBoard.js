@@ -7,6 +7,7 @@ import ConnectCreatePost from './ConnectCreatePost';
 
 const ConnectFreeBoard = () => {
   
+  
   const [fbData, setFbData] = useState([]);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const ConnectFreeBoard = () => {
     });
 
   }, []);
-
+  
 
     const [isOpenInnerBoard, setIsOpenInnerBoard] = useState(false);
 
