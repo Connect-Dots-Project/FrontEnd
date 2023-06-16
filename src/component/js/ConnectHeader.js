@@ -16,7 +16,9 @@ const ConnectHeader = (props) => {
             {/* ch = connect-header */}
             <div className='ch-title-box'> 
                 {/* header 제목 */}
-                <Link to='/' id='Title'>TITLE</Link>
+                <Link to='/' id='Title'>
+                    <div id='MainLogo'></div>
+                </Link>
             </div>
             {/* header 메뉴 box */}
             <div className='ch-menu-box'>

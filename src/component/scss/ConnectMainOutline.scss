@@ -35,7 +35,6 @@
     width: 100%;
     height: 1918px;
     overflow: hidden;
-    border: 1px solid #000;
 
     // 고정 메인 header
     .cmo-h1-box {
@@ -44,28 +43,26 @@
         height: 70px;
         border: none;
         border-bottom: 1px solid #000;
-
-        @include disflex();
-
+        display: flex;
+        align-items: center;    
         
         // 고정 메인 header text
         h1 {
             font-size: 35px;
             font-weight: 700;
+            margin-left: 5%;
         }
     }
     
     // 고정 메인 container
     .cmo-container {
-        background: #D9D9D9;
+        // background: #D9D9D9;
         width: 100%;
         height: 1918px;
         position: relative;
-        border: 1px solid #000;
         
         .store-menu-modal-wrapper {
             // background: aquamarine;
-            border: 1px solid #000;
             width: 100%;
             height: 250px;
 
@@ -82,6 +79,7 @@
             display: flex;
             justify-content: space-evenly;
             align-items: center;
+            border-bottom: 1px solid #000;
             
             // 고정 메인 메뉴
             .cmo-list {
@@ -114,11 +112,7 @@
                         margin-bottom: 30px;
                         overflow: hidden;
 
-                        &:hover {
-                            transform: scale(1.1);
-                            transition: 0.5s;
-                            border-radius: 0px;
-                        }
+                        
                     }
                 }
                 
@@ -135,33 +129,33 @@
 
             // Hot-Place 글자색 변경
             #Hot-Place {
-                color: red;
+                color: #ff6701;
             }
             
             // hot-place 배경
             .hot-place {
-                background: url('./img/kakaoTalk.png') no-repeat;
+                background: url('./img/HotPlace.png') no-repeat;
                 background-size: 100%;
                 background-position: 50%;
             }
             
             // 동네 실시간 채팅 배경
             .real-time-chatting {
-                background: yellow;
+                background: url('./img/FreeBoard.png') no-repeat;
                 background-size: 100%;
                 background-position: 50%;
             }
             
             // 동네 친구 만들기 배경
             .making-friends {
-                background: green;
+                background: url('./img/PlayList.png') no-repeat;
                 background-size: 100%;
                 background-position: 50%;
             }
             
             // 동네 마감 세일 배경
             .closing-sale {
-                background: blue;
+                background: url('./img/Store.png') no-repeat;
                 background-size: 100%;
                 background-position: 50%;
             }
@@ -172,7 +166,6 @@
         .cmo-change-board-box {
             width: 100%;
             height: 1918px;
-            border: 1px solid #000;
             
             overflow: hidden;
             

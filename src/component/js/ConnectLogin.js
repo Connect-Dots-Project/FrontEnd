@@ -406,9 +406,9 @@ const ConnectLogin = () => {
         // json에 담긴 인증정보를 클라이언트에 보관
         // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
         // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
-        // localStorage.setItem('ACCESS_TOKEN', token);
-        // localStorage.setItem('LOGIN_USERNAME', userName);
-        // localStorage.setItem('USER_ROLE', role);
+        localStorage.setItem('ACCESS_TOKEN', token);
+        localStorage.setItem('LOGIN_USERNAME', 'test1');
+        localStorage.setItem('USER_ROLE', 'role');
         
         // 홈으로 리다이렉트
         // redirection('/');

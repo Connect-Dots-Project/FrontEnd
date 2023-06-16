@@ -375,85 +375,11 @@
                             width: 100%;
                             height: 70%;
                         }
-
                     }
-
-
-
-
-
-
-
-
-
-
-
-
                 }
-
-
-
-
-
             }
-
         }
-        
-        
-        
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
@@ -549,11 +475,12 @@
 .free-board-wrapper {
     width: 100%;
     height: 100%;
-
+    background: #fff;
+    
     // header + mainBoard
     .fb-box {
-        background: #fff;
-        width: 90%;
+        // background: #fff;
+        width: 100%;
         height: 100%;
         margin: 0 auto;
         
@@ -632,9 +559,14 @@
                     margin: auto 0;
                     font-size: 16px;
                     cursor: pointer;
+                    box-shadow: 2px 2px 5px 0px #444;
+                    
+                    transition-duration: 0.5s;
                     
                     &:hover {
-                        opacity: 0.8;
+                        box-shadow: 5px 5px 5px 0px #444;
+                        opacity: 0.9;
+                        transform: translateY(-10px);
                     }
                 }
                 
@@ -653,10 +585,20 @@
                     border-radius: 10px;
                     width: 19%;
                     height: 100%;
+                    box-shadow: 2px 2px 5px 0px #444;
                     
                     display: flex;
                     justify-content: center;
                     align-items: center;
+
+                    transition-duration: 0.5s;
+                    
+                    &:hover {
+                        box-shadow: 5px 5px 5px 0px #444;
+                        opacity: 0.9;
+                        transform: translateY(-10px);
+                    }
+                    
                     
                     .fbh-best-info-text-box {
                         background: rgb(20, 101, 173);
@@ -667,10 +609,7 @@
                         justify-content: center;
                         align-items: center;
                         
-                        &:hover {
-                            opacity: 0.8;
-                        }
-
+                        
                         .fbh-best-info-text {
                             color: #fff;
                             font-size: 16px;
@@ -691,11 +630,13 @@
                 width: 100%;
                 height: 100%;
                 overflow: scroll;
+                padding: 10px;
                 
                 // 자유게시판 정보
                 .fbm-info-list {
-                    background: none;
-                    border: 1px solid #000;
+                    background: rgb(209, 233, 255);
+                    border: none;
+                    box-shadow: 2px 2px 5px 0px #444;
                     border-radius: 10px;
                     width: 100%;
                     height: 130px;
@@ -703,6 +644,7 @@
                     display: flex;
                     justify-content: space-evenly;
                     cursor: pointer;
+                    
                     
                     // 자유게시판 정보 사진 box
                     .fbm-info-img-box {
@@ -718,8 +660,8 @@
                             border: none;
                             background: rgb(20, 101, 173);
                             border-radius: 50%;
-                            width: 80%;
-                            height: 80%;
+                            width: 100px;
+                            height: 100px;
                         }
                     }
                 }

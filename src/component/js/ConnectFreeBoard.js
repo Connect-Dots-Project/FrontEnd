@@ -44,7 +44,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
       .then((res) => res.json())
       .then((result) => {
         setFbData((prevData) => [...prevData, ...result]);
-        setPage((prevPage) => prevPage + 1);
+        // setPage((prevPage) => prevPage + 1);
         setIsLoading(false);
         isFetchingRef.current = false;
       });
@@ -119,14 +119,14 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
           <div
             className="free-board-main-container"
-            onScroll={handleScroll}
-            ref={containerRef}
+            // onScroll={handleScroll}
+            // ref={containerRef}
           >
             <div className="fbm-info-box">
               {fbData.map((fb) => (
                 <ConnectFreeBoardData freeBoardList={fb} />
               ))}
-              {isLoading && <p>Loading...</p>}
+              {/* {isLoading && <p>Loading...</p>} */}
             </div>
           </div>
         </div>
