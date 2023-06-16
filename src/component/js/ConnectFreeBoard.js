@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import '../scss/ConnectFreeBoard.scss';
 import { Link } from 'react-router-dom';
 import ConnectFreeBoardData from './ConnectFreeBoardData';
 import ConnectCreatePost from './ConnectCreatePost';
+
 
 const ConnectFreeBoard = () => {
   
@@ -52,7 +53,7 @@ const ConnectFreeBoard = () => {
   return (
     <>
 
-      {isOpenWriteBoard && <ConnectCreatePost closeWriteBoard={ closeWriteBoard }/>}
+      {isOpenWriteBoard && <ConnectCreatePost closeCreatePost={ closeCreatePost }/>}
 
       
 

@@ -225,6 +225,13 @@
                         padding-left: 1%;
                         font-size: 16px;
                         font-weight: 700;
+                        position: relative;
+                        
+                        &:hover {
+                            height: 800px;
+                            transition: 0.5s;
+                            transform: translateY(-80%);
+                        }
                         
                         &:focus {
                             outline: none;

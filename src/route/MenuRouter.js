@@ -22,6 +22,7 @@ const MenuRouter = () => {
           </>
         }></Route>
       </Routes>
+      
       <ConnectMainOutline />
       <ConnectGlobalChatting />
 

@@ -1,0 +1,332 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.store-info-wrapper {
+    width: 100%;
+    height: 567px;
+
+    .store-info-box {
+        width: 100%;
+        height: 100%;
+
+        .store-info-header {
+            border-bottom: 4px solid #fff;
+            width: 100%;
+            height: 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            p {
+                font-size: 19px;
+                font-weight: 700;
+            }
+
+            .info-view-all {
+                width: 33.3%;
+                height: 100%;
+                @include disflex();
+            }
+            
+            .one-plus-one {
+                border-left: 4px solid #fff;
+                border-right: 4px solid #fff;
+                width: 33%;
+                height: 100%;
+                @include disflex();
+            }
+            
+            .two-plus-one {
+                width: 33%;
+                height: 100%;
+                @include disflex();
+            }
+        }
+
+        .store-info-filter-wrapper {
+            width: 100%;
+            height: 508px;
+
+            .store-info-filter-box {
+                width: 100%;    
+                height: 100%;
+
+                .store-info-filter {
+                    width: 100%;
+                    height: 20%;
+                    display: flex;
+                    align-items: center;
+
+                    .price-btn-box {
+                        width: 50%;
+                        height: 100%;
+                        @include disflex();
+
+                        .price-btn {
+                            border: none;
+                            border-radius: 10px;
+                            background: rgb(20, 101, 173);
+                            width: 30%;
+                            height: 50%;
+                            cursor: pointer;
+
+                            &:hover {
+                                opacity: 0.8;
+                            }
+
+                            p {
+                                font-weight: 700;
+                                color: #fff;
+                                font-size: 16px;
+                            }
+                        }
+                    }
+
+                    .search-box {
+                        width: 50%;
+                        height: 100%;
+
+                        .input-btn-box {
+                            width: 100%;
+                            height: 100%;
+                            @include disflex();
+
+                            .store-info-input {
+                                border: 2px solid rgb(20, 101, 173);
+                                border-radius: 10px 0px 0px 10px;
+                                width: 60%;
+                                height: 50%;
+                                padding-left: 2%;
+                                font-size: 16px;
+                                font-weight: 700;
+
+                                &:focus {
+                                    outline: none;
+                                }
+                            }                            
+
+                            .search-btn-box {
+                                border: 2px solid rgb(20, 101, 173);
+                                border-left: none;
+                                border-radius: 0px 10px 10px 0px;
+                                width: 15%;
+                                height: 50%;    
+                                
+                                .search-btn {
+                                    border: none;
+                                    border-radius: 0px 10px 10px 0px;
+                                    background: url('./img/Search.png') no-repeat;
+                                    background-size: 40%;   
+                                    background-position: 18px;
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .store-info-main-wrapper {
+                    width: 100%;
+                    height: 395px;
+                    margin-top: 10px;
+
+                    .store-info-main-box {
+                        width: 100%;
+                        height: 100%;
+
+                        .store-info-list-box {
+                            width: 95%;
+                            height: 100%;
+                            margin: 0 auto;
+
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: space-evenly;
+
+                            .store-info-list {
+                                background: rgb(167, 255, 226);
+                                border: 1px solid rgb(20, 101, 173);
+                                border-radius: 20px;
+                                width: 30%;
+                                height: 70%;
+                                margin-bottom: 20px;
+
+                                .list-header {
+                                    border-radius: 20px 20px 0px 0px;
+                                    width: 100%;
+                                    height: 60%;
+                                    
+                                    .info-img-box {
+                                        border-radius: 20px 20px 0px 0px;
+                                        width: 100%;
+                                        height: 100%;
+                                        @include disflex();
+                                        
+                                        .info-img {
+                                            background: url('./img/LoginBackGround.jpg') no-repeat;
+                                            background-size: 100%;
+                                            border-radius: 20px;
+                                            width: 85%;
+                                            height: 85%;
+                                        }
+                                    }
+                                }
+
+                                .list-main {
+                                    width: 100%;
+                                    height: 25%;
+                                    @include disflex();
+
+                                    .info-name-box {
+                                        background: tomato;
+                                        border-radius: 10px;
+                                        width: 85%;
+                                        height: 60%;
+                                        @include disflex();
+
+                                        p {
+                                            font-size: 16px;
+                                            font-weight: 700;
+                                        }
+                                    }
+                                }
+
+                                .list-footer {
+                                    border-radius: 0px 0px 20px 20px;
+                                    width: 100%;
+                                    height: 15%;
+                                    @include disflex();
+                                    
+                                    .info-price-box {
+                                        background: violet;
+                                        border-radius: 10px;
+                                        width: 50%;
+                                        height: 70%;
+                                        @include disflex();
+
+                                        p {
+                                            font-size: 16px;
+                                            font-weight: 700;
+                                        }
+
+
+                                    }
+
+                                }
+
+
+
+
+
+
+
+                            }
+
+
+
+
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

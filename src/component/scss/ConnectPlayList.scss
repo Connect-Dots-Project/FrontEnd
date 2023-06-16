@@ -19,13 +19,13 @@
         // playlist header 
         .plb-header {
             width: 100%;
-            height: 30%;
+            height: 20%;
             padding: 15px;
             
             // 메인text + 검색창 box
             .plb-header-text-search-box {
                 width: 100%;
-                height: 60%;
+                height: 100%;
                 margin-bottom: 10px;
                 display: flex;
 
@@ -51,283 +51,144 @@
                     font-size: 26px;
                     padding-left: 3%;
                 }
-
+                
                 // 플리 서브 Title
                 p {
                     width: 100%;
                     height: 60%;
                     padding-left: 4%;
                 }
-
-                // 검색창
-                .plb-search-box {
-                    width: 50%;
-                    height: 100%;
-
-                    display: flex;
-                    justify-content: center;
-
-                    .plb-search {
-                        border-radius: 20px;
-                        width: 90%;
-                        height: 40%;
-
-                        @include disflex();
-
-                        .search-logo {
-                            border: 2px solid #bbb;
-                            border-right: none;
-                            border-radius: 20px 0px 0px 20px;
-                            width: 15%;
-                            height: 100%;
-                            position: relative;
-
-                            &::before {
-                                content: '';
-                                background: url('./img/SearchLogo.png')no-repeat;
-                                background-size: 40%;
-                                background-position: 15px;
-                                border-radius: 20px 0px 0px 20px;
-                                width: 100%;
-                                height: 100%;
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                            }
-
-                        }
-                        
-                        // 입력창
-                        .search-text {
-                            border: 2px solid #bbb;
-                            border-right: none;
-                            width: 70%;
-                            height: 100%;
-                            padding-left: 2%;
-                            font-size: 16px;
-                            font-weight: 700;
-
-                            &:focus {
-                                outline: none;
-                            }
-                        }
-
-                        .search-btn {
-                            background: url('./img/Search.png') no-repeat;
-                            background-size: 35%;
-                            background-position: 20px;
-                            border-radius: 0px 20px 20px 0px;
-                            border: 2px solid #bbb;
-                            border-left: none;
-                            width: 15%;
-                            height: 100%;
-                            position: relative;
-                            cursor: pointer;
-                        }
-                    }
-                }
+                
             }
-
-            // header menu box
-            .plb-header-menu-box {
-                width: 100%;
-                height: 35%;
-
-                .plb-info-box {
-                    width: 100%;
-                    height: 100%;
-
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-
-                    .plb-info-list {
-                        border-radius: 10px;
-                        width: 19%;
-                        height: 100%;
-
-                        @include disflex();
-
-                        .plb-info-text-box {
-                            border-radius: 10px;
-                            width: 100%;
-                            height: 100%;
-                            background: #bbb;
-
-                            @include disflex();
-
-                            &:hover {
-                                opacity: 0.7;
-                            }
-
-                            .plb-info-text {
-                                font-weight: 700;
-                                color: #000;
-                                font-size: 16px;
-                            }
-                        }
-                    }
-                }
-            }
+            
         }
 
         // playlist container
         .plb-container-box {
             width: 100%;
-            height: 100%;
+            height: 80%;
 
             // plb-container
             .plb-container {
-                width: 95%;
+                width: 100%;
                 height: 100%;
                 margin: 0 auto;
+                @include disflex();
 
-                // plb-playlist box
-                .plb-playlist-box {
-                    border-radius: 10px;
-                    background: rgb(228, 248, 255);
-                    width: 100%;
-                    height: 25%;
+                .plb-list-wrapper {
+                    width: 95%;
+                    height: 95%;
+                    margin: 0 auto;
+                    overflow: scroll;
+
                     display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-evenly;
 
-                    // playlist img
-                    .plb-img-box {
-                        width: 20%;
-                        height: 100%;
-
-                        @include disflex();
-
-                        // plb-img
-                        .plb-img {
-                            background: url('./img/PlayLogo.png') no-repeat;
-                            background-size: 96%;
-                            width: 60%;
-                            height: 60%;
-                        }
+                    .plb-list:hover #Hidden-Playbtn {
+                        display: block;
+                        animation: showPlaybtn 0.5s forwards 1;
                     }
                     
-                    // playlist-info-box
-                    .playlist-info-box {
-                        width: 80%;
-                        height: 60%;
-                        margin: auto 0;
-                        display: flex;
-
-                        // playlist-info-title-btn-playing-box
-                        .playlist-info-title-btn-playing-box {
-                            width: 70%;
-                            height: 100%;
-                        }
-                        
-                        // playlist-info-title
-                        .playlist-info-title {
-                            background: #888;
-                            width: 100%;
-                            height: 40%;
-                            margin-bottom: 13px;
-                            color: #fff;
-
-                            @include disflex();
-                        }
-                        
-                        // playlist-btn-playing-box
-                        .playlist-btn-playing-box {
-                            width: 100%;
-                            height: 45%;
-                            display: flex;
-                            justify-content: space-between;
-                            
-                            // playlist-plauBtn 
-                            .playlist-playBtn {
-                                background: url('./img/PlayBtn.png') no-repeat;
-                                background-size: 90%;
-                                border: none;
-                                width: 10%;
-                                height: 100%;
-                                cursor: pointer;
-                            }
-                            
-                            // playlist-info-playing-music
-                            .playlist-info-playing-music {
-                                background: #888;
-                                color: #fff;
-                                width: 90%;
-                                height: 100%;
-
-                                @include disflex();
-                            }
-                        }
-                        
-                        // pl-like-reply-bookmark-box
-                        .pl-like-reply-bookmark-box {
-                            width: 30%;
-                            height: 100%;
-
-                            // pl-btn
-                            .pl-btn {
-                                border: none;
-                            }
-
-                            .like-box {
-                                width: 100%;
-                                height: 50%;
-                                position: relative;
-                                
-                                #Like {
-                                    background: url('./img/Like.png') no-repeat;
-                                    background-size: 75%;
-                                    width: 20%;
-                                    height: 100%;
-                                    position: absolute;
-                                    top: 0;
-                                    right: 10px;
-                                    cursor: pointer;
-                                }
-                            }
-                            
-                            // pl-reply-bookmark-box
-                            .pl-reply-bookmark-box {
-                                width: 100%;
-                                height: 50%;
-                                display: flex;
-                                
-                                .reply-box {
-                                    width: 100%;
-                                    height: 100%;
-                                    position: relative;
-    
-                                    #Reply {
-                                        background: url('./img/PlayListReply.png') no-repeat;
-                                        background-size: 30%;
-                                        width: 100%;
-                                        height: 100%;
-                                        position: absolute;
-                                        top: 7px;
-                                        left: 43px;
-                                        cursor: pointer;
-                                    }
-                                }
-                                
-                                .bookmark-box {
-                                    width: 100%;
-                                    height: 100%;
-                                    position: relative;
-                                    
-                                    #Bookmark {
-                                        background: url('./img/BookMark.png') no-repeat;
-                                        background-size: 30%;
-                                        width: 100%;
-                                        height: 100%;
-                                        position: absolute;
-                                        top: 7px;
-                                        left: 43px;
-                                        cursor: pointer;
-                                    }
-                                }
-                            }
+                    @keyframes showPlaybtn {
+                        0% {
+                            opacity: 0;
+                            transform: translateY(0);
+                        } 100% {
+                            opacity: 1;
+                            transform: translateY(-72px);
                         }
                     }
+
+                    .plb-list {
+                        background: rgb(168, 255, 249);
+                        border-radius: 20px;
+                        width: 30%;
+                        height: 65%;
+                        margin-bottom: 20px;
+                        cursor: pointer;
+                        position: relative;
+
+                        
+                        #Hidden-Playbtn {
+                            background: url('./img/HiddenPlayBtn.png') no-repeat;
+                            background-size: 100%;
+                            border: 1px solid #000;
+                            border-radius: 50%;
+                            width: 50px;
+                            height: 50px;
+                            display: none;
+
+                            position: absolute;
+                            bottom: 20px;
+                            right: 20px;
+                            z-index: 11;
+                        }
+
+                        
+                        .pl-img-box {
+                            border-radius: 20px 20px 0px 0px;
+                            width: 100%;
+                            height: 70%;
+                            @include disflex();
+                            
+                            .pl-img {
+                                background: #fff;
+                                border-radius: 20px;
+                                width: 85%;
+                                height: 90%;
+                            }
+
+
+                        }
+                        
+                        .pl-name-box {
+                            border-radius: 0px 0px 20px 20px;
+                            width: 100%;
+                            height: 30%;
+                            
+                            .pl-name {
+                                border-radius: 0px 0px 20px 20px;
+                                width: 100%;
+                                height: 100%;
+                                @include disflex();
+
+                                p {
+                                    font-size: 16px;
+                                    font-weight: 700;
+                                }
+                                
+                            }
+
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+                    }
+
+
+
                 }
+
+
+
+
+
+
+
+
+
+
+                
             }
         }
     }

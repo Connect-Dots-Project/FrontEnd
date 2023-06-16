@@ -4,25 +4,25 @@ import ConnectCreatePost from './ConnectCreatePost';
 
 
 import '../scss/ConnectHotPlace.scss';
+import ConnectTotalMap from './ConnectTotalMap';
 
-const ConnectHotPlace = () => {
+const ConnectHotPlace = ({ closeCreatePost }) => {
 
+  
+  
   // 작성창 (글쓰기)
   const [isCreateModal, setCreateModal] = useState(false);
-
+  
   const openCreatePost = () => {
     setCreateModal(true);
   };
-
-  const closeCreatePost = () => {
-    setCreateModal(false);
-  }
-
-
-
+  
+ 
+  
+  
   // 행정구역 선택
   const [isOpenSelect, setIsOpenSelect] = useState(false);
-
+  
   const openSelect = () => {
     setIsOpenSelect(true);
   };
@@ -36,8 +36,15 @@ const ConnectHotPlace = () => {
       $adsModal.classList.remove('closing');
     }, 1000);
   };
-
-
+  
+  const [showMap, setShowMap] = useState(false);
+  
+  const openChangeMap = () => {
+    setShowMap(!showMap);
+  };
+  
+  
+  
 
   return (
     <>
@@ -72,26 +79,38 @@ const ConnectHotPlace = () => {
               <button className='select-btn' id='ADS' onClick={ openSelect }>
                 <p>행정구역 선택</p>
               </button>
-              <button className='select-btn' id='View-Method'>
-                <p>보기방식 선택</p>
-              </button>
+
+              <div className='board-map-change-box'>
+
+                <button 
+                    className='select-btn' 
+                    id='View-Method-Board'
+                    onClick={ openChangeMap }
+                  ><p>{showMap ? '게시글 보기' : '지도 보기'}</p>
+                </button>
+
+              </div>
             </div>
 
 
-
-
-            <div className='search-wrapper'>
-              <div className='search-box'>
-                <div className='input-box'>
-                  <input type='text' id='Input'/>
-                </div>
-                <span>
-                  <div className='search-btn-box'>
-                    <button id='Search-Btn'><p></p></button>
+              <div className='search-wrapper'>
+              {!showMap && (
+                <div className='search-box'>
+                  <div className='input-box'>
+                    <input type='text' id='Input'/>
                   </div>
-                </span>
-              </div>
+                  <span>
+                    <div className='search-btn-box'>
+                      <button id='Search-Btn'><p></p></button>
+                    </div>
+                  </span>
+                </div>
+              )}
             </div>  
+
+
+
+
 
             <div className='create-post-box'>
               <button 
@@ -101,30 +120,7 @@ const ConnectHotPlace = () => {
               </button>
             </div>
 
-
-
-
-
-
-
-
           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         </div>
 
@@ -137,12 +133,10 @@ const ConnectHotPlace = () => {
 
 
 
-
-
-        {/* hp-wrapper box */}
+        {showMap ? (
+        <ConnectTotalMap />
+      ) : (
         <div className='hp-info-box'>
-          {/* 반복 */}
-          {/* hot-place 정보 */}
           <div className='hp-info'>
             <div className='hp-info-img-text-box'>
               <Link to='/' className='hp-info-img-box'>
@@ -160,7 +154,17 @@ const ConnectHotPlace = () => {
             </div>
           </div>
         </div>
+      )}
+
+
+
+
       </div>
+
+
+
+
+
 
     </>
   );
