@@ -14,7 +14,7 @@
         height: 100%;
 
         .store-info-header {
-            border-bottom: 4px solid #fff;
+            border-bottom: 4px solid #1247ad;
             width: 100%;
             height: 10%;
             display: flex;
@@ -49,18 +49,18 @@
 
         .store-info-filter-wrapper {
             width: 100%;
-            height: 508px;
+            height: 1537px;
 
             .store-info-filter-box {
                 width: 100%;    
                 height: 100%;
-
+                
                 .store-info-filter {
                     width: 100%;
-                    height: 20%;
+                    height: 100px;
                     display: flex;
                     align-items: center;
-
+                    
                     .price-btn-box {
                         width: 50%;
                         height: 100%;
@@ -70,12 +70,16 @@
                             border: none;
                             border-radius: 10px;
                             background: rgb(20, 101, 173);
+                            box-shadow: 1px 1px 3px 1px #444;
                             width: 30%;
                             height: 50%;
+                            margin: auto 40px;
+                            transition-duration: 0.3s;
                             cursor: pointer;
 
                             &:hover {
                                 opacity: 0.8;
+                                background: #ff6701;
                             }
 
                             p {
@@ -149,12 +153,20 @@
                             justify-content: space-evenly;
 
                             .store-info-list {
-                                background: rgb(167, 255, 226);
-                                border: 1px solid rgb(20, 101, 173);
+                                background: #1465ad;
+                                border: 1px solid #1465ad;
                                 border-radius: 20px;
                                 width: 30%;
                                 height: 70%;
                                 margin-bottom: 20px;
+                                box-shadow: 2px 2px 5px 1px #444;
+                                transition-duration: 0.3s;
+
+                                &:hover {
+                                    transform: scale(0.95);
+                                    opacity: 0.9;
+                                }
+                                
 
                                 .list-header {
                                     border-radius: 20px 20px 0px 0px;
@@ -162,15 +174,15 @@
                                     height: 60%;
                                     
                                     .info-img-box {
-                                        border-radius: 20px 20px 0px 0px;
+                                        border-radius: 10px 10px 0px 0px;
                                         width: 100%;
                                         height: 100%;
                                         @include disflex();
                                         
                                         .info-img {
-                                            background: url('./img/LoginBackGround.jpg') no-repeat;
+                                            background: url('./img/StoreList.png') no-repeat;
                                             background-size: 100%;
-                                            border-radius: 20px;
+                                            border-radius: 10px;
                                             width: 85%;
                                             height: 85%;
                                         }
@@ -179,12 +191,12 @@
 
                                 .list-main {
                                     width: 100%;
-                                    height: 25%;
+                                    height: 20%;
                                     @include disflex();
 
                                     .info-name-box {
-                                        background: tomato;
-                                        border-radius: 10px;
+                                        background: #fff;
+                                        border-radius: 5px;
                                         width: 85%;
                                         height: 60%;
                                         @include disflex();
@@ -203,9 +215,9 @@
                                     @include disflex();
                                     
                                     .info-price-box {
-                                        background: violet;
-                                        border-radius: 10px;
-                                        width: 50%;
+                                        background: #fff;
+                                        border-radius: 5px;
+                                        width: 85%;
                                         height: 70%;
                                         @include disflex();
 
@@ -213,106 +225,14 @@
                                             font-size: 16px;
                                             font-weight: 700;
                                         }
-
-
                                     }
-
                                 }
-
-
-
-
-
-
-
                             }
-
-
-
-
                         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     }
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
             }
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
 

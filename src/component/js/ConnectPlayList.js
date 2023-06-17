@@ -5,6 +5,28 @@ import { Link } from 'react-router-dom';
 
 const ConnectPlayList = () => {
 
+    const renderPlaylistItems = () => {
+        const playlistItems = [];
+    
+        for (let i = 0; i < 24; i++) {
+          playlistItems.push(
+            <div className='plb-list' key={i}>
+              <div id='Hidden-Playbtn'></div>
+              <div className='pl-img-box'>
+                <div className='pl-img'></div>
+              </div>
+              <div className='pl-name-box'>
+                <div className='pl-name'>
+                  <p>플레이 리스트 이름</p>
+                </div>
+              </div>
+            </div>
+          );
+        }
+    
+        return playlistItems;
+      };
+
   return (
     <>
         {/* playlist */}
@@ -32,87 +54,8 @@ const ConnectPlayList = () => {
 
                         <div className='plb-list-wrapper'>
 
-                            <div className='plb-list'>
-                                <div id='Hidden-Playbtn'></div>
-                                <div className='pl-img-box'>
-                                    <div className='pl-img'></div>
-                                </div>
+                            {renderPlaylistItems()}
 
-                                <div className='pl-name-box'>
-                                    <div className='pl-name'>
-                                        <p>플레이 리스트 이름</p>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div className='plb-list'>
-                                <div id='Hidden-Playbtn'></div>
-                                <div className='pl-img-box'>
-                                    <div className='pl-img'></div>
-                                </div>
-
-                                <div className='pl-name-box'>
-                                    <div className='pl-name'>
-                                        <p>플레이 리스트 이름</p>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div className='plb-list'>
-                                <div id='Hidden-Playbtn'></div>
-                                <div className='pl-img-box'>
-                                    <div className='pl-img'></div>
-                                </div>
-
-                                <div className='pl-name-box'>
-                                    <div className='pl-name'>
-                                        <p>플레이 리스트 이름</p>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div className='plb-list'>
-                                <div id='Hidden-Playbtn'></div>
-                                <div className='pl-img-box'>
-                                    <div className='pl-img'></div>
-                                </div>
-
-                                <div className='pl-name-box'>
-                                    <div className='pl-name'>
-                                        <p>플레이 리스트 이름</p>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div className='plb-list'>
-                                <div id='Hidden-Playbtn'></div>
-                                <div className='pl-img-box'>
-                                    <div className='pl-img'></div>
-                                </div>
-
-                                <div className='pl-name-box'>
-                                    <div className='pl-name'>
-                                        <p>플레이 리스트 이름</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className='plb-list'>
-                                <div id='Hidden-Playbtn'></div>
-                                <div className='pl-img-box'>
-                                    <div className='pl-img'></div>
-                                </div>
-
-                                <div className='pl-name-box'>
-                                    <div className='pl-name'>
-                                        <p>플레이 리스트 이름</p>
-                                    </div>
-                                </div>
-                            </div>
 
                             
                         </div>

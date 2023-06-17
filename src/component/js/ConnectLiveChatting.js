@@ -33,6 +33,8 @@ const ConnectLiveChatting = () => {
             }
         });
     };
+
+    
     
     
     
@@ -58,26 +60,27 @@ const ConnectLiveChatting = () => {
                         <p>#해시태그</p>
                       </div>
                     </div>
-                    <div className='like-box'>
+                    {/* <div className='like-box'>
                       <div className='like'></div>
                       <p className='count'>100</p>
                     </div>
                     <div className='reply-box'>
                       <div className='reply'></div>
                       <p className='count'>50</p>
-                    </div>
+                    </div> */}
                   </div>
                   <div className='lc-info-text-img-box'>
                     <div className='text-box'>
                       <div className='info-text'>
                         임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트
                         임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트
-                        임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 
+                        임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 
+                        임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 임시 텍스트 
                       </div>
                     </div>
-                    <div className='img-box'>
+                    {/* <div className='img-box'>
                       <div className='info-img'></div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </button>

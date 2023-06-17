@@ -106,55 +106,19 @@ body {
             height: 100%;
             margin: 0 auto;
         }
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 // hp-wrapper
 .hp-wrapper {
-    width: 95%;
+    width: 100%;
     height: 100%;
     margin: 0 auto;
-
+    
     .hp-info-header {
         width: 100%;
-        height: 15%;
+        height: 90px;
+        background: #fff;
         border-bottom: 4px solid rgb(20, 101, 173);
 
         .hp-info-select-box {
@@ -168,18 +132,18 @@ body {
                 height: 100%;
                 
                 @include disflex();
-
+                
                 .board-map-change-box {
                     width: 50%;
                     height: 50%;
                     position: relative;
-
+                    
                     #View-Method-Board {
                         width: 60%;
                         height: 100%;
-
+                        
                         position: absolute;
-                        top: 25%;
+                        top: 28%;
                         left: 50%;
                         transform: translate(-50%, -50%);
                     }
@@ -187,23 +151,15 @@ body {
                     #View-Method-Map {
                         width: 60%;
                         height: 100%;
-
+                        
                         position: absolute;
                         top: 25%;
                         left: 50%;
                         transform: translate(-50%, -50%);
                         z-index: 1;
                     }
-
-
-
-
-
-
-
-
                 }
-
+                
                 .select-btn {
                     border: none;  
                     background: rgb(20, 101, 173);
@@ -215,6 +171,15 @@ body {
                     font-size: 16px;
                     font-weight: 700;
                     cursor: pointer;
+                    transition-duration: 0.5s;
+                    box-shadow: 2px 2px 2px 1px #444;
+                    
+                    &:hover {
+                        opacity: 0.9;
+                        background: #ff6701;
+                    }
+                    
+                    
                 }
             }
             
@@ -232,11 +197,11 @@ body {
                     .input-box {
                         border: none;
                         width: 80%;
-                        height: 100%;
+                        height: 41px;
                         border-radius: 10px 0px 0px 10px;
                         
                         #Input {
-                            border: 2px solid rgb(20, 101, 173);
+                            border: 2px solid #ff6701;
                             border-right: none;
                             border-radius: 10px 0px 0px 10px;
                             width: 100%;
@@ -258,7 +223,7 @@ body {
                     height: 41px;
                     
                     #Search-Btn {
-                        border: 2px solid rgb(20, 101, 173);
+                        border: 2px solid #ff6701;
                         border-radius: 0px 10px 10px 0px;
                         width: 100%;
                         height: 100%;
@@ -289,14 +254,16 @@ body {
 
                 .info-write-btn {
                     border: none;
-                    background: rgb(20, 101, 173);
+                    background: #1465ad;
+                    box-shadow: 1px 1px 2px 1px #444;
                     border-radius: 10px;
                     width: 70%;
                     height: 50%;
                     cursor: pointer;
+                    transition-duration: 0.3s;
 
                     &:hover {
-                        opacity: 0.8;
+                        opacity: 0.9;
                     }
 
                     p {
@@ -306,21 +273,7 @@ body {
                     }
                 }
             }
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
 
         .hp-info-write-btn {
             width: 100px;
@@ -335,8 +288,10 @@ body {
 
     // hot-place 정보 box
     .hp-info-box {
+        background: #fff;
         width: 100%;
-        height: 100%;
+        height: 1505px;
+        padding: 15px;
         overflow: scroll;
         
         display: flex;
@@ -345,12 +300,20 @@ body {
         
         // hot-place 정보
         .hp-info {
-            background: #fff;
+            background: #eeeeee;
+            box-shadow: 2px 2px 5px 1px #444;
             width: 49%;
-            height: 55%;
+            height: 300px;
             padding: 10px;
             padding-bottom: 0;
             margin-bottom: 20px;
+            border-radius: 10px;
+            transition-duration: 0.3s;
+
+            &:hover {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
             
             // hot-place img + text
             .hp-info-img-text-box {
@@ -361,20 +324,22 @@ body {
                 .hp-info-img-box {
                     width: 100%;
                     height: 80%;
-                    background: tomato;
                     
                     // hot-place img
                     .info-img {
                         width: 100%;
                         height: 70%;
                         margin-bottom: 3%;
-                        background: aquamarine;
+                        border: none;
+                        background: url('./img/ad1.jpg')no-repeat;
+                        background-size: 100%;
+                        border-radius: 5px 5px 0px 0px;
                     }
                     
                 }
                 
                 .hp-text-box {
-                    border-top: 3px solid #000;
+                    border-top: 3px solid #1465ad;
                     width: 100%;
                     height: 25%;    
                     padding: 10px;

@@ -34,30 +34,33 @@ const ConnectTotalMap = () => {
   });
 
   return (
-    <Map center={{ lat: 37.4996237314472, lng: 127.03051594993698 }} style={{ width: '800px', height: '600px' }} level={3}>
-      {locations.map((loc) => (
-        <MapMarker
-          key={`${loc.title}-${loc.latlng}`}
-          position={loc.latlng}
-          title={loc.title}
-          clickable={true}
-          onClick={() => handleMarkerClick(loc)}
-          image={{
-            src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
-            size: { width: 24, height: 35 },
-          }}
-        />
-      ))}
-      {selectedLocation && (
-        <MapInfoWindow position={selectedLocation.latlng} onClose={() => setSelectedLocation(null)}>
-          <div style={{ width: '240px', height: '200px', backgroundColor: 'white', padding: '10px', borderRadius: '5px' }}>
-            <h4>{selectedLocation.title}</h4>
-            <img src={selectedLocation.image} style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} />
-            <p>{selectedLocation.address}</p>
-          </div>
-        </MapInfoWindow>
-      )}
-    </Map>
+    <>
+        <Map center={{ lat: 37.4996237314472, lng: 127.03051594993698 }} style={{ width: '855px', height: '700px', border: '1px solid #000', borderBottom: '5px solid #1247ad' }} level={3}>
+          {locations.map((loc) => (
+            <MapMarker
+            key={`${loc.title}-${loc.latlng}`}
+            position={loc.latlng}
+            title={loc.title}
+            clickable={true}
+            onClick={() => handleMarkerClick(loc)}
+            image={{
+              src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
+              size: { width: 24, height: 35 },
+            }}
+            />
+            ))}
+          {selectedLocation && (
+            <MapInfoWindow position={selectedLocation.latlng} onClose={() => setSelectedLocation(null)}>
+              <div style={{ width: '240px', height: '200px', backgroundColor: 'white', padding: '10px', borderRadius: '5px' }}>
+                <h4>{selectedLocation.title}</h4>
+                <img src={selectedLocation.image} style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} />
+                <p>{selectedLocation.address}</p>
+              </div>
+            </MapInfoWindow>
+          )}
+          </Map>
+
+    </>
   );
 };
 

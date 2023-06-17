@@ -72,7 +72,7 @@ const ConnectStoreInfo = () => {
 
                       <div className='list-footer'>
                         <div className='info-price-box'>
-                          <p>삼천만원</p>
+                          <p>6,000원</p>
                         </div>
                       </div>
                     </div>
@@ -93,7 +93,7 @@ const ConnectStoreInfo = () => {
 
                       <div className='list-footer'>
                         <div className='info-price-box'>
-                          <p>삼천만원</p>
+                          <p>6,000원</p>
                         </div>
                       </div>
                     </div>
@@ -114,7 +114,7 @@ const ConnectStoreInfo = () => {
 
                       <div className='list-footer'>
                         <div className='info-price-box'>
-                          <p>삼천만원</p>
+                          <p>6,000원</p>
                         </div>
                       </div>
                     </div>
@@ -135,7 +135,7 @@ const ConnectStoreInfo = () => {
 
                       <div className='list-footer'>
                         <div className='info-price-box'>
-                          <p>삼천만원</p>
+                          <p>6,000원</p>
                         </div>
                       </div>
                     </div>
