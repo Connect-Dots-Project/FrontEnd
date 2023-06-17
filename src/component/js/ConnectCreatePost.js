@@ -9,12 +9,11 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
   const [isCreateModal, setCreateModal] = useState(true);
   const [hotplaceImg, setHotplaceImg] = useState('');
   const [hotplaceContent, setHotplaceContent] = useState('');
-  const [kakaoMap, setKakaoMap] = useState([]);
   const [hotplaceLatitude, setHotplaceLatitude] = useState('');
   const [hotplaceLongitude, setHotplaceLongitude] = useState('');
   const [hotplaceName, setHotplaceName] = useState('');
   const [hotplaceFullAddress, setHotplaceFullAddress] = useState('');
-
+  const [kakaoLocation, setKakaoLocation] = useState('');
 
   const [selectedLocation, setSelectedLocation] = useState('');
 
@@ -82,14 +81,14 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
 
     const requestData = {
       location: selectedLocation,
-      hotplaceImg: hotplaceImg,
-      hotplaceContent: hotplaceContent,
+      hotplaceImg,
+      hotplaceContent,
       memberIdx: 1,
-      hotplaceLatitude: hotplaceLatitude,
-      hotplaceLongitude: hotplaceContent,
-      hotplaceName: hotplaceName,
-      hotplaceFullAddress: hotplaceFullAddress,
-      kakaoLocation: 'ddd',
+      hotplaceLatitude,
+      hotplaceLongitude,
+      hotplaceName,
+      hotplaceFullAddress,
+      kakaoLocation,
     };
 
     
@@ -114,48 +113,61 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
           <button className='cp-close-btn' onClick={closeModal}>
             X
           </button>
-          <div className='header-main-footer-box'>
-            <header className='cp-header'>
-              <div className='cp-header-text-tag-box'>
-                <div className='cp-header-text-box'>
-                  <p className='cp-header-text'>지역을 선택해주세요</p>
-                </div>
 
-                <div className="connect-create-post">
-                  <ul className="cp-header-tag-box">
-                    {districtItems}
-                  </ul>
-                </div>
-
-              </div>
-            </header>
-
-            <div className='cp-main-box'>
-              <div className='cp-main'>
-                <ConnectWriteBoard />
-              </div>
-            </div>
-
-            <footer className='cp-footer'>
-              <div className='cp-footer-text-api-box'>
-                <div className='cp-footer-text-box'>
-                  <p>장소를 선택해주세요</p>
-                </div>
-                <div className='cp-footer-api-box'>
-                  <button className='api-btn' id='Cancel' onClick={cancelBtn}>
-                    <p>취 소</p>
-                  </button>
-                  <button className='api-btn' id='Storage' onClick={submitHandler}>
-                    <p>저 장</p>
-                  </button>
-                  <div className='cp-footer-api'>
-                    <Location />
+          <form onSubmit={submitHandler}>
+            <div className='header-main-footer-box'>
+              <header className='cp-header'>
+                <div className='cp-header-text-tag-box'>
+                  <div className='cp-header-text-box'>
+                    <p className='cp-header-text'>지역을 선택해주세요</p>
                   </div>
-                  <div className='storage-btn-box'></div>
+
+                  <div className="connect-create-post">
+                    <ul className="cp-header-tag-box">
+                      {districtItems}
+                    </ul>
+                  </div>
+
+                </div>
+              </header>
+
+              <div className='cp-main-box'>
+                <div className='cp-main'>
+                  <ConnectWriteBoard 
+                    setHotplaceImg={setHotplaceImg}
+                    setHotplaceContent={setHotplaceContent} 
+                  />
                 </div>
               </div>
-            </footer>
-          </div>
+
+              <footer className='cp-footer'>
+                <div className='cp-footer-text-api-box'>
+                  <div className='cp-footer-text-box'>
+                    <p>장소를 선택해주세요</p>
+                  </div>
+                  <div className='cp-footer-api-box'>
+                    <button className='api-btn' id='Cancel' onClick={cancelBtn}>
+                      <p>취 소</p>
+                    </button>
+                    <button type="submit" className='api-btn' id='Storage'>
+                      <p>저 장</p>
+                    </button>
+                    <div className='cp-footer-api'>
+                      <Location
+                        setHotplaceLatitude={setHotplaceLatitude}
+                        setHotplaceLongitude={setHotplaceLongitude}
+                        setHotplaceName={setHotplaceName}
+                        setHotplaceFullAddress={setHotplaceFullAddress}
+                        setKakaoLocation={setKakaoLocation}
+                      />
+                    </div>
+                    <div className='storage-btn-box'></div>
+                  </div>
+                </div>
+              </footer>
+            </div>
+          </form>
+
         </div>
       )}
     </>
