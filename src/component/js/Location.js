@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Map, MapMarker, MapInfoWindow } from 'react-kakao-maps-sdk';
-import '../scss/Location.scss'
+import '../scss/Location.scss';
 
 const Location = ({
   setHotplaceLatitude,
@@ -70,35 +70,44 @@ const Location = ({
     }
   };
 
+  const handleSearchClick = e => {
+    e.preventDefault();
+    searchPlace();
+    document.getElementById('keywordInput').value = '';
+  };
+  
   const searchPlace = () => {
     setKeyword(document.getElementById('keywordInput').value);
   };
+  
 
   const handleMarkerClick = (place) => {
-    const kakaoLocation = place.address_name.split(" ")[1];
+    const kakaoLocation = place.address_name.split(' ')[1];
 
     // 전달할 값 설정
     setHotplaceLatitude(place.y);
     setHotplaceLongitude(place.x);
     setHotplaceName(place.place_name);
     setHotplaceFullAddress(place.address_name);
-    setKakaoLocation(kakaoLocation)
+    setKakaoLocation(kakaoLocation);
 
     setSelectedPlace(place);
     setShowSelectedArea(true);
   };
 
-  
 
   return (
     <>
       {isLocationVisible && (
         <div className="location-container">
           <div className="map-container">
-            <div id="map" style={{ width: '100%', height: '800px' }}></div>
-            <div>
+             {/* 이부분!!!!!!!!!!!!!!!!!!!!!!!!!!  marginTop: '100px' scss파일 확인*/}
+            <div id="map" style={{ width: '100%', height: '500px', marginTop: '100px' }}></div> 
+            <div className="search-bar">
               <input type="text" id="keywordInput" onKeyPress={handleKeyPress} />
-              <button onClick={searchPlace}>Search</button>
+              <button className="search-button" onClick={handleSearchClick}>
+                검색
+              </button>
             </div>
           </div>
           {showSelectedArea && (
@@ -111,7 +120,6 @@ const Location = ({
           )}
         </div>
       )}
-      
     </>
   );
 };

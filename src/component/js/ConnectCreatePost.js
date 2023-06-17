@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 import Location from './Location';
+import { Height } from '@mui/icons-material';
 
 
 const ConnectCreatePost = ({ closeCreatePost }) => {
@@ -145,14 +146,10 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
                   <div className='cp-footer-text-box'>
                     <p>장소를 선택해주세요</p>
                   </div>
+
                   <div className='cp-footer-api-box'>
-                    <button className='api-btn' id='Cancel' onClick={cancelBtn}>
-                      <p>취 소</p>
-                    </button>
-                    <button type="submit" className='api-btn' id='Storage'>
-                      <p>저 장</p>
-                    </button>
-                    <div className='cp-footer-api'>
+                    {/* 위치랑 버튼 크기가 깨져용 ㅠㅠ 우짜즁... */}
+                    <div className='cp-footer-api' style={{background:'red'}}>
                       <Location
                         setHotplaceLatitude={setHotplaceLatitude}
                         setHotplaceLongitude={setHotplaceLongitude}
@@ -160,9 +157,22 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
                         setHotplaceFullAddress={setHotplaceFullAddress}
                         setKakaoLocation={setKakaoLocation}
                       />
+
+                      
+                      {/* 버튼 */}
+                      <div className='storage-btn-box'>
+                        <button className='api-btn' id='Cancel' onClick={cancelBtn}>
+                          <p>취 소</p>
+                        </button>
+                        <button type="submit" className='api-btn' id='Storage'>
+                          <p>저 장</p>
+                        </button>
+                      </div>
+
+
                     </div>
-                    <div className='storage-btn-box'></div>
-                  </div>
+                    </div>
+
                 </div>
               </footer>
             </div>
