@@ -108,11 +108,13 @@
                         width: 30%;
                         height: 300px;
                         margin-bottom: 20px;
+                        transition-duration: 0.5s;
                         cursor: pointer;
                         position: relative;
 
                         &:hover {
                             opacity: 0.8;
+                            transform: scale(0.95);
                         }
 
                         

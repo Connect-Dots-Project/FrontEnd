@@ -2,15 +2,32 @@ import React from 'react'
 
 import '../scss/ConnectPlayList.scss';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import ConnectViewPlayList from './ConnectViewPlayList';
 
 const ConnectPlayList = () => {
 
+  const [isOpenViewPlayList, setIsOpenViewPlayList] = useState(false);
+
+  const openList = e => {
+    setIsOpenViewPlayList(true);
+  };
+
+  const closeList = e => {
+    setIsOpenViewPlayList(false);
+  };
+
+
+
+
+
+
+
     const renderPlaylistItems = () => {
         const playlistItems = [];
-    
         for (let i = 0; i < 24; i++) {
           playlistItems.push(
-            <div className='plb-list' key={i}>
+            <button className='plb-list' onClick={ openList }>
               <div id='Hidden-Playbtn'></div>
               <div className='pl-img-box'>
                 <div className='pl-img'></div>
@@ -20,15 +37,16 @@ const ConnectPlayList = () => {
                   <p>플레이 리스트 이름</p>
                 </div>
               </div>
-            </div>
+            </button>
           );
         }
-    
         return playlistItems;
       };
 
   return (
-    <>
+    <>  
+        {isOpenViewPlayList && <ConnectViewPlayList closeList={ closeList }/>}
+
         {/* playlist */}
         <div className='playlist-board-wrapper'>
             <div className='plb-box'>
@@ -53,11 +71,7 @@ const ConnectPlayList = () => {
                     <div className='plb-container'>
 
                         <div className='plb-list-wrapper'>
-
                             {renderPlaylistItems()}
-
-
-                            
                         </div>
 
 
