@@ -86,9 +86,38 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
 
           <div className='ads-main-box'>
-            <ul className='ads-main'>
+            <div className='ads-main'>
+              <ul className='ads-list-box'>
 
-            </ul>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구</p></li>
+                <li className='ads-list'><p>강남구25</p></li>
+
+
+              </ul>
+            </div>
           </div>
 
 

@@ -50,8 +50,9 @@ body {
 
 // 행정구역 선택 모달
 .administration-select-wrapper {
-    border-right: 1px solid #000;
-    background: tomato;
+    border-right: 1px solid #1465ad;
+    background: url('./img/AdsSelect.png') no-repeat;
+    background-size: 110%;
     width: 470px;
     height: 1025px;
     animation: openSelect 0.5s forwards 1;
@@ -59,7 +60,7 @@ body {
     
     position: fixed;
     top: 0%;
-    left: 0%;
+    left: 50%;
     z-index: 1;
     
     &.closing {
@@ -73,8 +74,8 @@ body {
         position: relative;
         
         h1 {
-            border-bottom: 1px solid #000;
-            width: 90%;
+            border-bottom: 2px solid #1465ad;
+            width: 85%;
             height: 100%;
             margin: 0 auto;
             font-size: 20px;
@@ -96,15 +97,46 @@ body {
     }
 
     .ads-main-box {
-        background: skyblue;
         width: 100%;
         height: 95%;
         
         .ads-main {
-            background: violet;
-            width: 70%;
+            width: 35%;
             height: 100%;
             margin: 0 auto;
+
+            .ads-list-box {
+                width: 100%;
+                height: 886px;
+
+                .ads-list {
+                    border-bottom: 2px solid #1465ad;
+                    width: 100%;
+                    height: 3.95%;
+                    transition-duration: 0.3s;
+                    @include disflex();
+
+                    &:hover {
+                        border-bottom: 2px solid #ff6701;
+                        border-radius: 0px 0px 20px 0px;
+                        opacity: 0.8;
+                        width: 120%;
+                        // transform: translateX(-15px);
+                    }
+                    &:hover p {
+                        color: #ff6701;
+                    }
+                    
+                    p {
+                        width: 50%;
+                        height: 100%;
+                        font-size: 16px;
+                        font-weight: 700;
+                        @include disflex();
+
+                    }
+                }
+            }
         }
     }
 }
