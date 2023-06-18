@@ -8,20 +8,30 @@
 #keywordInput {
   width: 300px;
   height: 40px;
-  padding: 0 10px;
+  padding-left: 1%;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #ff6701;
+  border-right: none;
+  border-radius: 10px 0px 0px 10px;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .search-button {
   height: 40px;
-  margin-left: 10px;
   padding: 0 20px;
   font-size: 16px;
-  background-color: #4285f4;
+  background-color: #1465ad;
+  border-radius: 0px 10px 10px 0px;
   color: #fff;
   border: none;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .selected-place-info {
@@ -49,4 +59,11 @@
   font-size: 16px;
   margin-bottom: 5px;
   text-align: left;
+}
+
+#map {
+  border-bottom: 2px solid #1465ad;
+  border-radius: 10px 10px 0px 0px;
+  width: 896px;
+  height: 650px;
 }

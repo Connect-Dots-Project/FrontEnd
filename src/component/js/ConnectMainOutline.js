@@ -5,42 +5,63 @@ import ConnectHotPlace from './ConnectHotPlace';
 import ConnectFreeBoard from './ConnectFreeBoard';
 import ConnectPlayList from './ConnectPlayList';
 import ConnectStoreInfo from './ConnectStoreInfo';
-import ConnectSales from './ConnectSales';
 import ConnectLiveChatting from './ConnectLiveChatting';
 
 import '../scss/ConnectMainOutline.scss';
+import ConnectStoreSales from './ConnectStoreSales';
 
 const ConnectMainOutline = () => {
 
     const [isChangeOutline, setIsChangeOutline] = useState(true);
     const [isChangeStore, setIsChangeStore] = useState(true);
     const [isClosePost, setIsClosePost] = useState(true);
-
+    
     const closeChangeMenu = e => {
         const $menuClose = document.getElementById('CmoMenu');
         
         if($menuClose) {
             $menuClose.style.animation = 'closeOutline 2s forwards 1';
         }
-
+        
         setTimeout(() => {
             setIsChangeOutline(false);
             setIsChangeStore(false);
-        }, 1500);
+        }, 1000);
     };
     
     const openChangeMenu = e => {
         setIsChangeOutline(true);
     };
+    
+    
+    const closeCreatePost = e => {
+        setIsClosePost(false);
+    };
+    
 
-
-   const closeCreatePost = e => {
-    setIsClosePost(false);
-   };
-
-
-
-
+    
+    
+    const [isClickColorHotPlace, setIsClickColorHotPlace] = useState(false);
+    const [isClickColorFreeBoard, setIsClickColorFreeBoard] = useState(false);
+    const [isClickColorPlaylist, setIsClickColorPlaylist] = useState(false);
+    
+    const clickChangeColorHandlerHotPlace = () => {
+        setIsClickColorHotPlace(!isClickColorHotPlace);
+    };
+    
+    const clickChangeColorHandlerFreeBoard = () => {
+        setIsClickColorFreeBoard(!isClickColorFreeBoard);
+    };
+    
+    const clickChangeColorHandlerPlaylist = () => {
+        setIsClickColorPlaylist(!isClickColorPlaylist);
+    };
+    
+    
+    const [activeButton, setActiveButton] = useState(null);
+    const clickChangeColorHandler = (buttonId) => {
+        setActiveButton(buttonId);
+    };
 
 
 
@@ -69,10 +90,10 @@ const ConnectMainOutline = () => {
                 {!isChangeStore && (
                     <div
                         className={`store-menu-modal-wrapper ${
-                            isChangeOutline ? 'openAnimation' : 'closeAnimation'
+                            isChangeOutline ? 'aaaa' : 'closeAnimation'
                         }`}
                         id='StoreModal'
-                    ><ConnectSales />
+                    ><ConnectStoreSales closeChangeMenu={ closeChangeMenu }/>
                 </div>
                 )}
 
@@ -87,24 +108,43 @@ const ConnectMainOutline = () => {
                     <Link to={'/contents/hot-place'} className='cmo-list' id='Hot-Place'>
                         {isChangeOutline && (
                             <div className='link-box'>
-                                <li className='cmo-menu-list hot-place'></li>
-                                <p className='cmo-text'>Hot Place</p>
+                                <div className='list-box'>
+                                    <button
+                                        className={`cmo-menu-list hot-place list ${
+                                        activeButton === 'Hot-Place' ? 'normal-border' : 'clicked-border'
+                                        }`}
+                                        onClick={() => clickChangeColorHandler('Hot-Place')}
+                                    ></button>
+                                    <p className='cmo-text'>Hot Place</p>
+                                </div>
                             </div>
                         )}
                     </Link>
                     <Link to={'/contents/free-board'} className='cmo-list' id='Real-time-Chatting'>
                         {isChangeOutline && (
                             <div className='link-box'>
-                                <li className='cmo-menu-list real-time-chatting'></li>
-                                <p className='cmo-text'>동네 자유 게시판</p>
+                                <div className='list-box'>
+                                    <button className={`cmo-menu-list real-time-chatting list ${
+                                        activeButton === 'Real-time-Chatting' ? 'normal-border' : 'clicked-border'
+                                        }`}
+                                        onClick={() => clickChangeColorHandler('Real-time-Chatting')}
+                                        ></button>
+                                    <p className='cmo-text'>동네 자유 게시판</p>
+                                </div>
                             </div>
                         )}
                     </Link>
                     <Link to={'/nb-playlist'} className='cmo-list' id='Making-Friends'>
                         {isChangeOutline && (
                             <div className='link-box'>
-                                <li className='cmo-menu-list making-friends'></li>
-                                <p className='cmo-text'>동네 플레이 리스트</p>
+                                <div className='list-box'>
+                                    <button className={`cmo-menu-list making-friends list ${
+                                        activeButton === 'Making-Friends' ? 'normal-border' : 'clicked-border'
+                                        }`}
+                                        onClick={() => clickChangeColorHandler('Making-Friends')}
+                                        ></button>
+                                    <p className='cmo-text'>동네 플레이 리스트</p>
+                                </div>
                             </div>
                         )}
                     </Link>
@@ -113,8 +153,14 @@ const ConnectMainOutline = () => {
                         <button onClick={ closeChangeMenu } className='cmo-change-btn'>
                             {isChangeOutline && (
                                 <div className='link-box'>
-                                    <li className='cmo-menu-list closing-sale'></li>
-                                    <p className='cmo-text'>동네 편의점 정보</p>
+                                    <div className='list-box'>
+                                        <button className={`cmo-menu-list closing-sale list ${
+                                        activeButton === 'Closing-sale' ? 'normal-border' : 'clicked-border'
+                                        }`}
+                                        onClick={() => clickChangeColorHandler('Closing-sale')}
+                                        ></button>
+                                        <p className='cmo-text'>동네 편의점 정보</p>
+                                    </div>
                                 </div>
                             )}
                         </button>
@@ -142,7 +188,7 @@ const ConnectMainOutline = () => {
                             <Route path='/contents/csv' element={ <ConnectStoreInfo /> }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/nb-closing-sale' element={ <ConnectSales /> }></Route>
+                            <Route path='/nb-closing-sale' element={ <ConnectStoreSales /> }></Route>
                         </Routes>
                     </div>
                 </div>
