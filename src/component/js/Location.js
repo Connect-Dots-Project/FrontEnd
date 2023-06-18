@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Map, MapMarker, MapInfoWindow } from 'react-kakao-maps-sdk';
 import '../scss/Location.scss';
 
-const Location = () => {
+const Location = ({
+  setHotplaceLatitude,
+  setHotplaceLongitude,
+  setHotplaceName,
+  setHotplaceFullAddress,
+  setKakaoLocation
+}) => {
   const [map, setMap] = useState(null);
   const [keyword, setKeyword] = useState('');
   const [places, setPlaces] = useState([]);
@@ -64,40 +70,44 @@ const Location = () => {
     }
   };
 
+  const handleSearchClick = e => {
+    e.preventDefault();
+    searchPlace();
+    document.getElementById('keywordInput').value = '';
+  };
+  
   const searchPlace = () => {
     setKeyword(document.getElementById('keywordInput').value);
   };
+  
 
   const handleMarkerClick = (place) => {
-    const kakaoLocation = place.address_name.split(" ")[1];
+    const kakaoLocation = place.address_name.split(' ')[1];
 
-    console.log('장소명:', place.place_name);
-    console.log('주소:', place.address_name);
-    console.log('카카오행정구역:', kakaoLocation);
-    console.log('위도:', place.y);
-    console.log('경도:', place.x);
+    // 전달할 값 설정
+    setHotplaceLatitude(place.y);
+    setHotplaceLongitude(place.x);
+    setHotplaceName(place.place_name);
+    setHotplaceFullAddress(place.address_name);
+    setKakaoLocation(kakaoLocation);
+
     setSelectedPlace(place);
     setShowSelectedArea(true);
   };
 
-  const handleClose = () => {
-    setSelectedPlace(null);
-    setShowSelectedArea(false);
-  };
-
-  const handleLocationClose = () => {
-    setIsLocationVisible(false);
-  };
 
   return (
     <>
       {isLocationVisible && (
         <div className="location-container">
           <div className="map-container">
-            <div id="map" style={{ width: '100%', height: '400px' }}></div>
-            <div>
+             {/* 이부분!!!!!!!!!!!!!!!!!!!!!!!!!!  marginTop: '100px' scss파일 확인*/}
+            <div id="map" style={{ width: '100%', height: '500px', marginTop: '100px' }}></div> 
+            <div className="search-bar">
               <input type="text" id="keywordInput" onKeyPress={handleKeyPress} />
-              <button onClick={searchPlace}>Search</button>
+              <button className="search-button" onClick={handleSearchClick}>
+                검색
+              </button>
             </div>
           </div>
           {showSelectedArea && (
@@ -110,20 +120,8 @@ const Location = () => {
           )}
         </div>
       )}
-      {!isLocationVisible && showSelectedArea && (
-        <div className="selected-place-info-fixed">
-          <div className="selected-place-name">
-            * 장소명: {selectedPlace && selectedPlace.place_name}
-          </div>
-          <div>* 주소: {selectedPlace && selectedPlace.address_name}</div>
-        </div>
-      )}
-      {!isLocationVisible && showSelectedArea && (
-        <button className="close-btn" onClick={handleClose}>닫기</button>
-      )}
-
     </>
   );
 };
 
-export default Location;                           
+export default Location;
