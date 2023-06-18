@@ -7,15 +7,13 @@
 @keyframes closeOutline {
     0% {    
         width: 100%;
-        transform: translateY(0);
-        opacity: 1;
+        transform: translateX(0);
     } 50% {
-        width: 0;
-        transform: translateY(0);
+        width: 100%;
+        transform: translateX(-1500px);
     } 100% {
         width: 0;
-        transform: translateY(-50%);
-        opacity: 0;
+        transform: translateX(-1500px);
     }
 }
 
@@ -29,6 +27,14 @@
 .aaaa {
     animation: bbb 1s forwards 1;
 }
+
+.normal-border {
+    border: 4px solid #ff6701;
+}
+.clicked-border {
+    border: 4px solid #1456ad;
+}
+
 
 // 고정 메인 전체
 .connect-main-outline-wrapper {
@@ -94,6 +100,22 @@
                     height: 70%;
                     position: absolute;
                     top: 30px;
+
+                    .list-box {
+                        border-radius: 50%;
+                        width: 100%;
+                        height: 100%;
+                        overflow: hidden;
+                        
+                        .list {
+                            transition-duration: 0.5s ;
+                            cursor: pointer;
+                            &:hover {
+                                border: 4px solid;
+                                transform: scale(1.2);
+                            }                            
+                        }
+                    }
                     
                     // text
                     .cmo-text {
@@ -105,7 +127,7 @@
                     }
                     
                     .cmo-menu-list {
-                        border: 2px solid #1456ad;
+                        // border: 4px solid #1456ad;
                         border-radius: 50%;
                         width: 100%;
                         height: 100%;
