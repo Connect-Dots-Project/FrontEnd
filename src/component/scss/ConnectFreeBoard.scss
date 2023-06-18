@@ -564,9 +564,9 @@
                     transition-duration: 0.5s;
                     
                     &:hover {
+                        background: #ff6701;
                         box-shadow: 5px 5px 5px 0px #444;
                         opacity: 0.9;
-                        transform: translateY(-10px);
                     }
                 }
                 
@@ -586,12 +586,11 @@
                     width: 19%;
                     height: 100%;
                     box-shadow: 2px 2px 5px 0px #444;
+                    transition-duration: 0.5s;
                     
                     display: flex;
                     justify-content: center;
                     align-items: center;
-
-                    transition-duration: 0.5s;
                     
                     &:hover {
                         box-shadow: 5px 5px 5px 0px #444;
@@ -600,15 +599,22 @@
                     }
                     
                     
+                    
                     .fbh-best-info-text-box {
                         background: rgb(20, 101, 173);
                         border-radius: 10px;
                         width: 100%;
                         height: 100%;
+                        transition-duration: 0.5s;
                         display: flex;
                         justify-content: center;
                         align-items: center;
                         
+                        &:hover {
+                            box-shadow: 5px 5px 5px 0px #444;
+                            opacity: 0.9;
+                            background: #ff6701;
+                        }
                         
                         .fbh-best-info-text {
                             color: #fff;

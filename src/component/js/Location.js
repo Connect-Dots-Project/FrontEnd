@@ -102,7 +102,7 @@ const Location = ({
         <div className="location-container">
           <div className="map-container">
              {/* 이부분!!!!!!!!!!!!!!!!!!!!!!!!!!  marginTop: '100px' scss파일 확인*/}
-            <div id="map" style={{ width: '100%', height: '500px', marginTop: '100px' }}></div> 
+            <div id="map"></div> 
             <div className="search-bar">
               <input type="text" id="keywordInput" onKeyPress={handleKeyPress} />
               <button className="search-button" onClick={handleSearchClick}>

@@ -117,11 +117,11 @@ body {
                     @include disflex();
 
                     &:hover {
+                        // border-radius: 0px 0px 20px 0px;
+                        // width: 120%;
                         border-bottom: 2px solid #ff6701;
-                        border-radius: 0px 0px 20px 0px;
-                        opacity: 0.8;
-                        width: 120%;
-                        // transform: translateX(-15px);
+                        opacity: 0.9;
+                        transform: translateX(20px);
                     }
                     &:hover p {
                         color: #ff6701;
@@ -296,6 +296,7 @@ body {
 
                     &:hover {
                         opacity: 0.9;
+                        background: #ff6701;
                     }
 
                     p {
@@ -325,7 +326,7 @@ body {
         height: 1505px;
         padding: 15px;
         overflow: scroll;
-        
+
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;

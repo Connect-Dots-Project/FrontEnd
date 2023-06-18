@@ -35,7 +35,7 @@ const ConnectTotalMap = () => {
 
   return (
     <>
-        <Map center={{ lat: 37.4996237314472, lng: 127.03051594993698 }} style={{ width: '855px', height: '700px', border: '1px solid #000', borderBottom: '5px solid #1247ad' }} level={3}>
+        <Map center={{ lat: 37.4996237314472, lng: 127.03051594993698 }} style={{ width: '864px', height: '700px', borderBottom: '4px solid #1247ad' }} level={3}>
           {locations.map((loc) => (
             <MapMarker
             key={`${loc.title}-${loc.latlng}`}

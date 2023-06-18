@@ -90,31 +90,30 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
               <ul className='ads-list-box'>
 
                 <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구25</p></li>
-
+                <li className='ads-list'><p>강동구</p></li>
+                <li className='ads-list'><p>강북구</p></li>
+                <li className='ads-list'><p>강서구</p></li>
+                <li className='ads-list'><p>관악구</p></li>
+                <li className='ads-list'><p>광진구</p></li>
+                <li className='ads-list'><p>구로구</p></li>
+                <li className='ads-list'><p>금천구</p></li>
+                <li className='ads-list'><p>노원구</p></li>
+                <li className='ads-list'><p>도봉구</p></li>
+                <li className='ads-list'><p>동대문구</p></li>
+                <li className='ads-list'><p>동작구</p></li>
+                <li className='ads-list'><p>마포구</p></li>
+                <li className='ads-list'><p>서대문구</p></li>
+                <li className='ads-list'><p>서초구</p></li>
+                <li className='ads-list'><p>성동구</p></li>
+                <li className='ads-list'><p>성북구</p></li>
+                <li className='ads-list'><p>송파구</p></li>
+                <li className='ads-list'><p>양천구</p></li>
+                <li className='ads-list'><p>영등포구</p></li>
+                <li className='ads-list'><p>용산구</p></li>
+                <li className='ads-list'><p>은평구</p></li>
+                <li className='ads-list'><p>종로구</p></li>
+                <li className='ads-list'><p>중구</p></li>
+                <li className='ads-list'><p>중랑구</p></li>
 
               </ul>
             </div>
