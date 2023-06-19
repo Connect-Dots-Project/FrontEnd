@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import '../scss/ConnectStoreSales.scss';
 
 const ConnectStoreSales = () => {
+  
   const [isClickBackBtn, setIsClickBackBtn] = useState(false);
   // const navigate = useNavigate();
+
 
   const clickBackBtn = e => {
 
@@ -33,7 +35,7 @@ return (
       </div>
 
       <div className='ss-select-list-box'>
-        <Link to={'/'} className='ss-select-list'>
+        {/* <Link to={'/'} className='ss-select-list'>
           <div className='ss-list-img-text-box'>
             <div className='ss-list-img-wrapper'>
               <div className='ss-list-img-box'>
@@ -44,9 +46,9 @@ return (
               <p className='ss-list-text'>전체보기</p>
             </div>
           </div>
-        </Link>
+        </Link> */}
 
-        <Link to={'/'} className='ss-select-list'>
+        <Link to={'/contents/cvs'} className='ss-select-list'>
           <div className='ss-list-img-text-box'>
             <div className='ss-list-img-wrapper'>
               <div className='ss-list-img-box'>
@@ -59,7 +61,7 @@ return (
           </div>
         </Link>
 
-        <Link to={'/'} className='ss-select-list'>
+        <Link to={'/contents/cvs'} className='ss-select-list'>
           <div className='ss-list-img-text-box'>
             <div className='ss-list-img-wrapper'>
               <div className='ss-list-img-box'>
@@ -72,7 +74,7 @@ return (
           </div>
         </Link>
 
-        <Link to={'/'} className='ss-select-list'>
+        <Link to={'/contents/cvs'} className='ss-select-list'>
           <div className='ss-list-img-text-box'>
             <div className='ss-list-img-wrapper'>
               <div className='ss-list-img-box'>
@@ -80,7 +82,7 @@ return (
               </div>
             </div>
             <div className='ss-list-text-box'>
-              <p className='ss-list-text'>SevenEleven</p>
+              <p className='ss-list-text'>7-Eleven</p>
             </div>
           </div>
         </Link>

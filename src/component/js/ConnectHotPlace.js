@@ -37,10 +37,10 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   
   // 작성창 (글쓰기)
-  const [isCreateModal, setCreateModal] = useState(false);
+  const [isCreateModal, setIsCreateModal] = useState(false);
   
   const openCreatePost = () => {
-    setCreateModal(true);
+    setIsCreateModal(true);
   };
   
  

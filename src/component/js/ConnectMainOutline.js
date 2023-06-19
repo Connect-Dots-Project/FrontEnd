@@ -90,7 +90,7 @@ const ConnectMainOutline = () => {
                 {!isChangeStore && (
                     <div
                         className={`store-menu-modal-wrapper ${
-                            isChangeOutline ? 'aaaa' : 'closeAnimation'
+                            isChangeOutline ? 'closeOutline' : 'closeAnimation'
                         }`}
                         id='StoreModal'
                     ><ConnectStoreSales />
@@ -149,7 +149,7 @@ const ConnectMainOutline = () => {
                         )}
                     </Link>
 
-                    <Link to={'/contents/csv'} className='cmo-list' id='Closing-sale'>
+                    <Link to={'/contents/cvs'} className='cmo-list' id='Closing-sale'>
                         <button onClick={ closeChangeMenu } className='cmo-change-btn'>
                             {isChangeOutline && (
                                 <div className='link-box'>
@@ -185,7 +185,7 @@ const ConnectMainOutline = () => {
                             <Route path='/nb-playlist' element={ <ConnectPlayList /> }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/contents/csv' element={ <ConnectStoreInfo /> }></Route>
+                            <Route path='/contents/cvs' element={ <ConnectStoreInfo /> }></Route>
                         </Routes>
                         <Routes>
                             <Route path='/nb-closing-sale' element={<ConnectStoreSales />} />

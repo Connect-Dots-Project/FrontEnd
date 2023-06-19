@@ -31,7 +31,7 @@ const ConnectHeader = (props) => {
                     <li className='ch-menu-list'><Link to={'/nb-live-chatting'} className='list'>실시간 채팅</Link></li>
                     <li className='ch-menu-list'><Link to={'/nb-playlist'} className='list'>플레이 리스트</Link></li>
                     {/* <li className='ch-menu-list'><Link to={'/nb-closing-sale'} className='list'>동네 마감 세일</Link></li> */}
-                    <li className='ch-menu-list'><Link to={'/contents/csv'} className='list'>편의점 정보</Link></li>
+                    <li className='ch-menu-list'><Link to={'/contents/cvs'} className='list'>편의점 정보</Link></li>
                     <li className='ch-menu-list'><Link to={'/nb'} className='list'>마이페이지</Link></li>
                 </ul>
             </div>

@@ -61,7 +61,7 @@
             height: 100%;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-evenly;
             
             .ss-select-list {
                 width: 180px;
@@ -103,11 +103,11 @@
                                 }
                             }
                             
-                            #ViewAllStoreList {
-                                background: url('./img/ViewAllStoreList.png') no-repeat;
-                                background-size: 150%;
-                                background-position-x: -50px;
-                            }
+                            // #ViewAllStoreList {
+                            //     background: url('./img/ViewAllStoreList.png') no-repeat;
+                            //     background-size: 150%;
+                            //     background-position-x: -50px;
+                            // }
                             #GS25 {
                                 border: 2px solid #1456ad;
                                 background: url('./img/GS25.png') no-repeat;
@@ -127,17 +127,7 @@
                                 background-size: 100%;
                                 background-position-y: 20px; 
                             }
-                            
-                            
-                            
-
-
-
-
-
-                        }
-                        
-                        
+                        }                        
                     }
                     
                     .ss-list-text-box {
@@ -153,51 +143,8 @@
                             color: #000;
                         }
                     }
-
-
                 }
-
-
-
-
-
             }
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
