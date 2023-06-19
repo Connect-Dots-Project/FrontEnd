@@ -1,10 +1,85 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../scss/ConnectLiveChatting.scss';
 import ConnectGlobalChattingHeader from './ConnectGlobalChattingHeader';
 import ConnectGlobalChattingMain from './ConnectGlobalChattingMain';
 import ConnectGlobalChattingFooter from './ConnectGlobalChattingFooter';
 
+import ConnectGlobalChatting from './ConnectGlobalChatting';
+import axios from 'axios';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+
+
 const ConnectLiveChatting = () => {
+
+  const [roomId, setRoomId] = useState('');
+  const [room, setRoom] = useState({});
+  const [sender, setSender] = useState('');
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    localStorage.setItem('wschat.roomId', 'testRoom');
+    localStorage.setItem('wschat.sender', 'testSender');
+
+    setRoomId(localStorage.getItem('wschat.roomId'));
+    setSender(localStorage.getItem('wschat.sender'));
+    setMessage('go');
+    connect();
+
+  }, []);
+
+    // 접속할 때 웹소켓 연결하기
+
+  var sock = null;
+  var ws = null;
+    
+  const connect = () => {
+    sock = new SockJS('http://localhost:8181/contents/chat/live');
+    ws = Stomp.over(sock);
+
+    ws.connect(
+      {},
+      frame => {
+        ws.subscribe('/topic/chat/room/testRoom', message => {
+          console.log('-----------sub들어옴!!---------');
+          setMessage('돼라!!!!!!!!!!!!!');
+          const recv = JSON.parse(message.body);
+          console.log('-----------00-------------');
+          console.log(recv);
+          console.log('-----------00-------------');
+          recvMessage(recv);
+        });
+        ws.send(
+          '/app/chat/message',
+          {},
+          JSON.stringify({ type: 'TALK', roomId, sender, message })
+        );
+      }
+    )
+  };
+
+
+  const recvMessage = (recv) => {
+    setMessages((prevMessages) => [
+      {
+        type: recv.type,
+        sender: recv.type === 'ENTER' ? '[알림]' : recv.sender,
+        message: recv.message,
+      },
+      ...prevMessages,
+    ]);
+  };
+
+
+
+
+
+
+
+
+
+
     
     const [isOpenChat, setIsOpenChat] = useState(false);
     
