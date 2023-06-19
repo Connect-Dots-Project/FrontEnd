@@ -435,6 +435,8 @@ body {
                             width: 14.5%;
                             height: 100%;
                             border-radius: 10px 0px 0px 10px;
+                            position: relative;
+                            bottom: 5px;
                         }
                         
                         .social-text {
@@ -447,17 +449,17 @@ body {
                         }
                     }
                 }
-
+                
                 // Kakaotalk
                 #KakaoTalk {
                     background: url('./img/kakaoTalk.png') no-repeat;
                     background-size: 100%;
                 }
-
+                
                 #KakaoTalkText {
                     background: rgb(249, 224, 0);
                 }
-
+                
                 // Google
                 #Google {
                     background: url('./img/Google.png') no-repeat;
@@ -480,7 +482,7 @@ body {
             }
         }
     }
-
+    
     // 닫기 버튼
     .closeBtn {
         // background: url('./img/CloseBtn.png') no-repeat;
@@ -703,7 +705,7 @@ body {
     width: 35px;
     height: 35px;
     cursor: pointer;
-
+    
     position: absolute;
     top: 0;
     right: 0;
@@ -722,7 +724,7 @@ body {
         opacity: 0;
         transform: translate(-50%, -50%);
     }
-
+    
     50% {
         width: 350px;
         height: 0;

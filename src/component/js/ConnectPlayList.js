@@ -74,22 +74,6 @@ const ConnectPlayList = () => {
                             {renderPlaylistItems()}
                         </div>
 
-
-
-
-
-
-
-                    
-
-
-
-
-
-
-
-
-
                     </div>
                 </div>
 

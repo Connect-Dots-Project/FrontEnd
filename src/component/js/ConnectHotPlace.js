@@ -37,10 +37,10 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   
   // 작성창 (글쓰기)
-  const [isCreateModal, setCreateModal] = useState(false);
+  const [isCreateModal, setIsCreateModal] = useState(false);
   
   const openCreatePost = () => {
-    setCreateModal(true);
+    setIsCreateModal(true);
   };
   
  
@@ -93,31 +93,30 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
               <ul className='ads-list-box'>
 
                 <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강남구25</p></li>
-
+                <li className='ads-list'><p>강동구</p></li>
+                <li className='ads-list'><p>강북구</p></li>
+                <li className='ads-list'><p>강서구</p></li>
+                <li className='ads-list'><p>관악구</p></li>
+                <li className='ads-list'><p>광진구</p></li>
+                <li className='ads-list'><p>구로구</p></li>
+                <li className='ads-list'><p>금천구</p></li>
+                <li className='ads-list'><p>노원구</p></li>
+                <li className='ads-list'><p>도봉구</p></li>
+                <li className='ads-list'><p>동대문구</p></li>
+                <li className='ads-list'><p>동작구</p></li>
+                <li className='ads-list'><p>마포구</p></li>
+                <li className='ads-list'><p>서대문구</p></li>
+                <li className='ads-list'><p>서초구</p></li>
+                <li className='ads-list'><p>성동구</p></li>
+                <li className='ads-list'><p>성북구</p></li>
+                <li className='ads-list'><p>송파구</p></li>
+                <li className='ads-list'><p>양천구</p></li>
+                <li className='ads-list'><p>영등포구</p></li>
+                <li className='ads-list'><p>용산구</p></li>
+                <li className='ads-list'><p>은평구</p></li>
+                <li className='ads-list'><p>종로구</p></li>
+                <li className='ads-list'><p>중구</p></li>
+                <li className='ads-list'><p>중랑구</p></li>
 
               </ul>
             </div>
@@ -197,16 +196,40 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
         <div className='hp-info-box'>
           {hpData.map(hp => (
                         <div className='hp-info'>
+
+                        <div className='hp-info-modify-delete-box'>
+                          <div className='info-modify-box'>
+                            <button className='info-modify-btn'></button>
+                          </div>
+                          <div className='info-delete-box'>
+                            <button className='info-delete-btn'></button>
+                          </div>
+                        </div>
+                        
                           <div className='hp-info-img-text-box'>
                             <Link to='/' className='hp-info-img-box'>
                               <div className='info-img'>
                                 <img src={`http://localhost:8181/contents/hot-place/img/${hp.hotplaceImg}`} alt='핫플레이스, 같이 놀러가자!' />
                               </div>
                             </Link>
-                            <div className='hp-text-box'>
-                              <div className='hp-text'>
-                                <p>{hp.hotplaceContent}</p>
+
+                            <div className='hp-text-wrapper'>
+
+                              <div className='hp-text-box'>
+                                <div className='hp-text'>
+                                  <p>{hp.hotplaceContent}</p>
+                                </div>
+
+                                <div className='hp-writer-date-box'>
+                                  <div className='hp-writer-box'>
+                                    <p className='hp-writer-text'>[작성자]</p>
+                                  </div>
+                                  <div className='hp-date-box'>
+                                    <p className='hp-date-text'>[2023.06.19]</p>
+                                  </div>
+                                </div>
                               </div>
+
                               <div className='like-box'>
                                 <button className='like' id='Like'></button>
                                 <p className='like-count' onClick={ increase }>{hp.hotplaceLikeCount}</p>

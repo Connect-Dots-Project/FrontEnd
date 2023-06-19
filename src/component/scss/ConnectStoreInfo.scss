@@ -136,9 +136,9 @@
 
                 .store-info-main-wrapper {
                     width: 100%;
-                    height: 395px;
+                    height: 1431px;
                     margin-top: 10px;
-
+                    
                     .store-info-main-box {
                         width: 100%;
                         height: 100%;
@@ -147,21 +147,22 @@
                             width: 95%;
                             height: 100%;
                             margin: 0 auto;
-
+                            overflow: scroll;
+                            
                             display: flex;
                             flex-wrap: wrap;
                             justify-content: space-evenly;
-
+                            
                             .store-info-list {
                                 background: #1465ad;
                                 border: 1px solid #1465ad;
                                 border-radius: 20px;
-                                width: 30%;
-                                height: 70%;
-                                margin-bottom: 20px;
+                                width: 240px;
+                                height: 310px;
+                                margin-bottom: 50px;
                                 box-shadow: 2px 2px 5px 1px #444;
                                 transition-duration: 0.3s;
-
+                                
                                 &:hover {
                                     transform: scale(0.95);
                                     opacity: 0.9;
