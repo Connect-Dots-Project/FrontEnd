@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import { Link, useNavigate } from 'react-router-dom';
 
 import '../scss/ConnectStoreSales.scss';
 
 const ConnectStoreSales = () => {
   const [isClickBackBtn, setIsClickBackBtn] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const clickBackBtn = e => {
 
@@ -13,9 +14,10 @@ const ConnectStoreSales = () => {
     $clickBackBtn.style.animation = 'clickBackBtn 2s forwards 1';
     
     setTimeout(() => {
-      $clickBackBtn.style.animation = null;
+      // $clickBackBtn.style.animation = null;
       setIsClickBackBtn(true);
-      navigate('/');
+      window.location.href = '/';
+      // navigate('/');
     }, 1000);
   };
 

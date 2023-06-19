@@ -193,14 +193,38 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
         <div className='hp-info-box'>
           {hpData.map(hp => (
                         <div className='hp-info'>
+
+                        <div className='hp-info-modify-delete-box'>
+                          <div className='info-modify-box'>
+                            <button className='info-modify-btn'></button>
+                          </div>
+                          <div className='info-delete-box'>
+                            <button className='info-delete-btn'></button>
+                          </div>
+                        </div>
+                        
                           <div className='hp-info-img-text-box'>
                             <Link to='/' className='hp-info-img-box'>
                               <div className='info-img'>{hp.hotplaceImg}</div>
                             </Link>
-                            <div className='hp-text-box'>
-                              <div className='hp-text'>
-                                <p>{hp.hotplaceContent}</p>
+
+                            <div className='hp-text-wrapper'>
+
+                              <div className='hp-text-box'>
+                                <div className='hp-text'>
+                                  <p>{hp.hotplaceContent}</p>
+                                </div>
+
+                                <div className='hp-writer-date-box'>
+                                  <div className='hp-writer-box'>
+                                    <p className='hp-writer-text'>[작성자]</p>
+                                  </div>
+                                  <div className='hp-date-box'>
+                                    <p className='hp-date-text'>[2023.06.19]</p>
+                                  </div>
+                                </div>
                               </div>
+
                               <div className='like-box'>
                                 <button className='like' id='Like'></button>
                                 <p className='like-count' onClick={ increase }>{hp.hotplaceLikeCount}</p>
