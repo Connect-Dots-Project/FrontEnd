@@ -68,6 +68,9 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const openChangeMap = () => {
     setShowMap(!showMap);
   };
+
+
+  
   
   
   
@@ -196,7 +199,9 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                         <div className='hp-info'>
                           <div className='hp-info-img-text-box'>
                             <Link to='/' className='hp-info-img-box'>
-                              <div className='info-img'>{hp.hotplaceImg}</div>
+                              <div className='info-img'>
+                                <img src={`http://localhost:8181/contents/hot-place/img/${hp.hotplaceImg}`} alt='핫플레이스, 같이 놀러가자!' />
+                              </div>
                             </Link>
                             <div className='hp-text-box'>
                               <div className='hp-text'>
