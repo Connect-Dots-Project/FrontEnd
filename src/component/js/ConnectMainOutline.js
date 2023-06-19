@@ -93,7 +93,7 @@ const ConnectMainOutline = () => {
                             isChangeOutline ? 'aaaa' : 'closeAnimation'
                         }`}
                         id='StoreModal'
-                    ><ConnectStoreSales closeChangeMenu={ closeChangeMenu }/>
+                    ><ConnectStoreSales />
                 </div>
                 )}
 
@@ -188,7 +188,7 @@ const ConnectMainOutline = () => {
                             <Route path='/contents/csv' element={ <ConnectStoreInfo /> }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/nb-closing-sale' element={ <ConnectStoreSales /> }></Route>
+                            <Route path='/nb-closing-sale' element={<ConnectStoreSales />} />
                         </Routes>
                     </div>
                 </div>
