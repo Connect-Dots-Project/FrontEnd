@@ -1,0 +1,150 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes clickBackBtn {
+    0% {    
+        width: 100%;
+        transform: translateX(0);
+    } 50% {
+        width: 100%;
+        transform: translateX(1500px);
+    } 100% {
+        width: 0;
+        transform: translateX(1500px);
+    }
+}
+
+@keyframes aaa {
+    0% {
+        opacity: 0;
+    } 100% {
+        opacity: 1;
+    }
+}
+
+.backbtn-animation {
+    animation: clickBackBtn 2s forwards 1;
+}
+
+#StoreSalesWrapper {
+    border-bottom: 1px solid #000;
+    width: 100%;
+    height: 250px;
+
+    .store-sales-box {
+        width: 100%;            
+        height: 100%;
+        position: relative;
+
+        .back-btn-box {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            
+            #BackBtn {
+                background: url('./img/StoreBackBtn.png') no-repeat;
+                background-size: 100%;
+                border: none;
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+            }
+        }
+
+        .ss-select-list-box {
+            width: 90%;
+            height: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-evenly;
+            
+            .ss-select-list {
+                width: 180px;
+                height: 250px;
+
+                .ss-list-img-text-box {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+
+                    .ss-list-img-wrapper {
+                        width: 100%;
+                        height: 100%;
+                        position: relative;
+                        
+                        @include disflex();
+                        
+                        .ss-list-img-box {
+                            background: none;
+                            width: 100%;
+                            height: 180px;
+                            border-radius: 50%;
+                            overflow: hidden;
+                            position: absolute;
+                            top: 25px;
+                            
+                            .ss-list-img {
+                                background: none;
+                                border: none;
+                                border-radius: 50%;
+                                width: 180px;
+                                height: 180px;
+                                transition-duration: 0.5s;
+                                cursor: pointer;
+                                
+                                &:hover {
+                                    transform: scale(1.2);
+                                    opacity: 0.9;
+                                }
+                            }
+                            
+                            // #ViewAllStoreList {
+                            //     background: url('./img/ViewAllStoreList.png') no-repeat;
+                            //     background-size: 150%;
+                            //     background-position-x: -50px;
+                            // }
+                            #GS25 {
+                                border: 2px solid #1456ad;
+                                background: url('./img/GS25.png') no-repeat;
+                                background-size: 100%;
+                                background-position-y: 7px; 
+                                background-position-x: 2px;
+                            }
+                            #CU {
+                                border: 2px solid #1456ad;
+                                background: url('./img/CU.png') no-repeat;
+                                background-size: 100%;
+                                background-position-y: 23px; 
+                            }
+                            #SevenEleven {
+                                border: 2px solid #1456ad;
+                                background: url('./img/SevenEleven.png') no-repeat;
+                                background-size: 100%;
+                                background-position-y: 20px; 
+                            }
+                        }                        
+                    }
+                    
+                    .ss-list-text-box {
+                        width: 100%;
+                        height: 10%;
+                        position: absolute;
+                        bottom: 10px;
+                        
+                        @include disflex();
+
+                        .ss-list-text {
+                            font-weight: 700;
+                            color: #000;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
