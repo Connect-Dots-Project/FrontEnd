@@ -96,7 +96,7 @@ const ConnectLiveChatting = () => {
         type: recv.type,
         sender: recv.type === 'ENTER' ? '[알림]' : recv.sender,
         message: recv.message,
-      }
+      },
     ]);
 
   };
@@ -183,35 +183,51 @@ const ConnectLiveChatting = () => {
     {isOpenChat && 
          (
     <div className='test1234'>
-      <div className='gcheader-wrapper'>
-      <div className='gcheader-img-box'>방장 사진 + 닉네임 들어갈 예정</div>
-      <div className='gcheader-accessor-box'>
-        <div className='gcheader-accessor' style={{ height: '100px' }}>
-            현재 방에 참여한 유저들의 사진 + 닉네임 들어갈 예정
-        </div>
+      <div className='lcheader-wrapper'>
+      <div className='lcheader-img-box'>
+        <div className='lcheader-img'>방장 사진 + 닉네임 들어갈 예정</div>
+      </div>
+      <div className='lcheader-accessor-box'>
+        <div className='lcheader-accessor'>현재 방에 참여한 유저들의 사진 + 닉네임 들어갈 예정</div>
       </div>
     </div>
 
       {/* main */}
-      <div className='gcmain-wrapper'>
-        채팅창
-        <div className='gcmain-box' style={{ height: '500px' }}>
-            <ul>
-              <li>이곳이 채팅창</li>
+      <div className='lcmain-wrapper'>
+        <div className='lcmain-box'>
+            <div className='lcmain-chatlist-wrapper'>
+
+              <div className='lcmain-chatlist-header'>이곳이 채팅창</div>
               {messages.map((message) => (
-                <li className="list-group-item">
-                  {message.sender} - {message.message}
+                <li className="list-group-item" style={{listStyle: 'none'}}>
+                  <div style={{border: '1px solid red'}}>
+                    <div style={{display: 'inline'}}>{message.sender}</div> - <div style={{display: 'inline'}}>{message.message}</div>
+                  </div>
                 </li>
               ))}
-            </ul> 
+
+              <div className='lcmain-chatlist-box'>
+
+                <div className='lcmain-chatlist-profile-box'>
+                  <div className='lcmain-chatlist-profile'>프로필</div>
+                </div>
+
+
+
+
+
+
+
+              </div>
+            </div> 
         </div>
       </div>
 
       {/* footer  */}
 
       {/* footer 채팅창 */}
-      <div className='gcfooter-wrapper'>
-        <div className='gcfooter-box'>
+      <div className='lcfooter-wrapper'>
+        <div className='lcfooter-box'>
 
           {/* 채팅창 + 전송 버튼 box */}
           <div className='input-text-btn-box'>

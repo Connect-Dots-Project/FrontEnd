@@ -207,7 +207,93 @@
     }
 }
 
+.test1234 {
+    width: 865px;
+    height: 800px;
 
+    .lcheader-wrapper {
+        border: 1px solid #000;
+        width: 100%;
+        height: 150px;
+        display: flex;
+
+        .lcheader-img-box {
+            border-right: 1px solid #000;
+            width: 30%;
+            height: 100%;
+
+            .lcheader-img {
+                width: 100%;
+                height: 100%;
+                @include disflex();
+            }
+        }
+
+        .lcheader-accessor-box {
+            background: tomato;
+            width: 70%;
+            height: 100%;
+
+            .lcheader-accessor {
+                width: 100%;
+                height: 100%;
+                @include disflex();
+            }
+
+        }
+    }
+}
+
+.lcmain-wrapper {
+    width: 100%;
+    height: 500px;
+
+    .lcmain-box {
+        border: 1px solid #000;
+        width: 100%;
+        height: 100%;
+
+        .lcmain-chatlist-wrapper {
+            width: 100%;
+            height: 100%;
+
+            .lcmain-chatlist-header {
+                border: 1px solid #000;
+                width: fit-content;
+                height: fit-content;
+                padding: 10px;
+            }
+
+            .lcmain-chatlist-box {
+                border: 1px solid #000;
+                width: 95%;
+                height: 100%;
+                margin: 0 auto;
+                display: flex;
+
+                .lcmain-chatlist-profile-box {
+                    border: 1px solid #000;
+                    width: 75px;
+                    height: 75px;
+                    @include disflex();
+                    
+                    .lcmain-chatlist-profile {
+                        border: 1px solid #000;
+                        border-radius: 50%;
+                        width: 60px;
+                        height: 60px;
+                        @include disflex();
+                    }
+                }
+
+                
+            }
+
+        }
+
+    }
+
+}
 
 
 
