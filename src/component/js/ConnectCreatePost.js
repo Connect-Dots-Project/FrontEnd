@@ -62,18 +62,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
     }, 1000);
   };
 
-  useEffect(() => {
-    if (selectedHotplace) {
-      setHotplaceImg(selectedHotplace.hotplaceImg);
-      setHotplaceContent(selectedHotplace.hotplaceContent);
-      setHotplaceLatitude(selectedHotplace.hotplaceLatitude);
-      setHotplaceLongitude(selectedHotplace.hotplaceLongitude);
-      setHotplaceName(selectedHotplace.hotplaceName);
-      setHotplaceFullAddress(selectedHotplace.hotplaceFullAddress);
-      setKakaoLocation(selectedHotplace.kakaoLocation);
-      setSelectedLocation(selectedHotplace.selectedLocation);
-    }
-  }, [selectedHotplace]);
+  
 
 
 
@@ -81,9 +70,9 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
     e.preventDefault();
 
     const requestData = {
+      hotplaceIdx: selectedHotplace.hotplaceIdx,
       location: selectedLocation,
       hotplaceContent,
-      // TODO: 변경 필요
       memberIdx: 1,
       hotplaceLatitude,
       hotplaceLongitude,
@@ -92,21 +81,20 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
       kakaoLocation,
     };
 
-    const hotplaceJsonBlob = new Blob([JSON.stringify(requestData)], { type: 'application/json' });
+    const jsonString = JSON.stringify(requestData);
+  const jsonDataBlob = new Blob([jsonString], { type: 'application/json' });
 
-    const hotplaceFormData = new FormData();
-    hotplaceFormData.append('hotplace', hotplaceJsonBlob);
-    hotplaceFormData.append('hotplaceImg', hotplaceImg);
+  const hotplaceFormData = new FormData();
+  hotplaceFormData.append('hotplace', jsonDataBlob);
+  hotplaceFormData.append('hotplaceImg', hotplaceImg);
 
     if (isEditMode) {
-      const url = `http://localhost:8181/contents/hot-place/${selectedHotplace.hotplaceIdx}`;
-
-      fetch(url, {
-        method: 'PUT',
+      fetch('http://localhost:8181/contents/hot-place', {
+        method: 'PATCH',
         body: hotplaceFormData,
       })
         .then((res) => res.json())
-        .then((result) => console.log(result.isModified));
+        .then((result) => console.log(result));
     } else {
       fetch('http://localhost:8181/contents/hot-place', {
         method: 'POST',
