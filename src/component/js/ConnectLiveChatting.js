@@ -197,28 +197,26 @@ const ConnectLiveChatting = () => {
         <div className='lcmain-box'>
             <div className='lcmain-chatlist-wrapper'>
 
-              <div className='lcmain-chatlist-header'>이곳이 채팅창</div>
-              {messages.map((message) => (
-                <li className="list-group-item" style={{listStyle: 'none'}}>
-                  <div style={{border: '1px solid red'}}>
-                    <div style={{display: 'inline'}}>{message.sender}</div> - <div style={{display: 'inline'}}>{message.message}</div>
-                  </div>
+              {/* <div className='lcmain-chatlist-header'>이곳이 채팅창</div> */}
+              
+              <div className="list-group-item">
+              {/* {messages.map((message) => ( */}
+                <li className='list-group'>
+                  <p>▶</p><div className='message' id='Sender'>{message.sender}뽀로로</div><p>◀</p><div className='message' id='Message'>{message.message}님이 입장하셨습니다!</div>
                 </li>
-              ))}
+              {/* ))} */}
+              </div>
 
-              <div className='lcmain-chatlist-box'>
+              <div className='lcmain-chatlist-header'></div>
+
+
+              {/* <div className='lcmain-chatlist-box'>
 
                 <div className='lcmain-chatlist-profile-box'>
                   <div className='lcmain-chatlist-profile'>프로필</div>
                 </div>
 
-
-
-
-
-
-
-              </div>
+              </div> */}
             </div> 
         </div>
       </div>

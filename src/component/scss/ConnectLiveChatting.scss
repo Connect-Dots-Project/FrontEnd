@@ -256,6 +256,79 @@
         .lcmain-chatlist-wrapper {
             width: 100%;
             height: 100%;
+            border: 1px solid red;
+
+            .list-group-item {
+                width: 70%;
+                height: 50px;
+                margin: 0 auto;
+                margin-top: 20px;
+                border-radius: 25px;
+                animation: light 2s forwards infinite;
+                
+                @keyframes light {
+                    0% {
+                        box-shadow: 1px 1px 3px 1px #1247ad;
+                    } 50% {
+                        box-shadow: -1px -1px 3px 1px #ff6701;
+                    } 100% {
+                        box-shadow: 1px 1px 3px 1px #1247ad;
+                    }
+                }
+                
+                .list-group {
+                    width: 90%;
+                    height: 50px;
+                    margin: 0 auto;
+                    font-size: 16px;
+                    font-weight: 700;
+                    display: flex;
+                    @include disflex();       
+
+
+                    .message {
+                        height: 100%;
+                        @include disflex();             
+                    }
+                    
+                    p {
+                        width: 2.5%;
+                        height: 100%;
+                        @include disflex();             
+                    }
+                    
+                    #Sender {
+                        width: fit-content;
+                        font-size: 20px;
+                        @include disflex();             
+                    }
+                    
+                    #Message {
+                        width: 45%;
+                        @include disflex();             
+                    }
+
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             .lcmain-chatlist-header {
                 border: 1px solid #000;
