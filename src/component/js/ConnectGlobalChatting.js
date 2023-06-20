@@ -66,6 +66,7 @@ const ConnectGlobalChatting = ({}) => {
               <div className='gcheader-wrapper'>
                 <div className='gcheader-img-box'></div>
                 <div className='gcheader-accessor-box'>
+                  asdfasdfadsfadsf
                   <div className='gcheader-accessor'>
                   </div>
                 </div>
