@@ -3,7 +3,7 @@ import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 import Location from './Location';
 
-const ConnectCreatePost = ({ closeCreatePost }) => {
+const ConnectCreatePost = ({ closeCreatePost, selectedHotplace }) => {
   const [isCreateModal, setCreateModal] = useState(true);
   const [hotplaceImg, setHotplaceImg] = useState('');
   const [hotplaceContent, setHotplaceContent] = useState('');
@@ -65,6 +65,14 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
       closeCreatePost();
     }, 1000);
   };
+
+
+  
+
+
+
+
+
 
   const submitHandler = e => {
     e.preventDefault();

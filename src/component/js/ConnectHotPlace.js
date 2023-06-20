@@ -14,6 +14,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   useEffect(() => {
     fetch('http://localhost:8181/contents/hot-place', {
       method: 'GET',
+      headers: {'content-type' : 'application/json'}
     })
     .then(res => res.json())
     .then(result => {
@@ -42,6 +43,32 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const openCreatePost = () => {
     setIsCreateModal(true);
   };
+
+
+  // 글 삭제
+  const deleteHotplace = (hotplaceIdx) => {
+    console.log(hotplaceIdx);
+
+    fetch(`http://localhost:8181/contents/hot-place/${hotplaceIdx}`, {
+      method: 'DELETE'
+    })
+      .then(res => res.json())
+      .then(result => console.log(result));
+
+    window.location.reload();
+  };
+
+  const modifyHotplace = (hotplaceIdx) => {
+    fetch(`http://localhost:8181/contents/hot-place`, {
+      method: 'PUT'
+    })
+      .then(res => res.json())
+      .then(result => console.log(result));
+
+  }
+
+
+  
   
  
   
@@ -77,7 +104,12 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   return (
     <>
-      {isCreateModal && <ConnectCreatePost closeCreatePost={ closeCreatePost }/>}
+      {isCreateModal && (
+        <ConnectCreatePost
+          closeCreatePost={closeCreatePost}
+          selectedHotplace={selectedHotplace}
+        />
+      )}
 
       {isOpenSelect && (
         <div className='administration-select-wrapper' id='ADS-Modal'>
@@ -195,14 +227,14 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       ) : (
         <div className='hp-info-box'>
           {hpData.map(hp => (
-                        <div className='hp-info'>
+                        <div className='hp-info' key={hp.hotplaceIdx}>
 
                         <div className='hp-info-modify-delete-box'>
                           <div className='info-modify-box'>
-                            <button className='info-modify-btn'></button>
+                            <button className='info-modify-btn' onClick={() => openModifyHotplace(hp)}></button>
                           </div>
                           <div className='info-delete-box'>
-                            <button className='info-delete-btn'></button>
+                            <button className='info-delete-btn' onClick={() => deleteHotplace(hp.hotplaceIdx)}></button>
                           </div>
                         </div>
                         
@@ -225,7 +257,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                                     <p className='hp-writer-text'>[작성자]</p>
                                   </div>
                                   <div className='hp-date-box'>
-                                    <p className='hp-date-text'>[2023.06.19]</p>
+                                    <p className='hp-date-text'>[{hp.hotplaceWriteDate}]</p>
                                   </div>
                                 </div>
                               </div>
