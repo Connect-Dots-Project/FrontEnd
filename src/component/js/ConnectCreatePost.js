@@ -3,7 +3,7 @@ import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 import Location from './Location';
 
-const ConnectCreatePost = ({ closeCreatePost, selectedHotplace }) => {
+const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
   const [isCreateModal, setCreateModal] = useState(true);
   const [hotplaceImg, setHotplaceImg] = useState('');
   const [hotplaceContent, setHotplaceContent] = useState('');
@@ -28,16 +28,12 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace }) => {
     <li
       key={district}
       className={`cp-header-tag ${selectedLocation === district ? 'selected' : ''}`}
+      style={{ backgroundColor: selectedLocation === district ? 'orange' : '' }}
       onClick={() => handleLocationClick(district)}
     >
       <p>{district}</p>
     </li>
   ));
-
-  const addKakaoMap = kakaoMap => {
-    const selectedKakaoMap = {};
-    console.log(kakaoMap);
-  };
 
   useEffect(() => {
     if (isCreateModal) {
@@ -66,20 +62,28 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace }) => {
     }, 1000);
   };
 
+  useEffect(() => {
+    if (selectedHotplace) {
+      setHotplaceImg(selectedHotplace.hotplaceImg);
+      setHotplaceContent(selectedHotplace.hotplaceContent);
+      setHotplaceLatitude(selectedHotplace.hotplaceLatitude);
+      setHotplaceLongitude(selectedHotplace.hotplaceLongitude);
+      setHotplaceName(selectedHotplace.hotplaceName);
+      setHotplaceFullAddress(selectedHotplace.hotplaceFullAddress);
+      setKakaoLocation(selectedHotplace.kakaoLocation);
+      setSelectedLocation(selectedHotplace.selectedLocation);
+    }
+  }, [selectedHotplace]);
 
-  
 
 
-
-
-
-
-  const submitHandler = e => {
+  const submitHandler = (e) => {
     e.preventDefault();
 
     const requestData = {
       location: selectedLocation,
       hotplaceContent,
+      // TODO: 변경 필요
       memberIdx: 1,
       hotplaceLatitude,
       hotplaceLongitude,
@@ -94,14 +98,25 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace }) => {
     hotplaceFormData.append('hotplace', hotplaceJsonBlob);
     hotplaceFormData.append('hotplaceImg', hotplaceImg);
 
-    fetch('http://localhost:8181/contents/hot-place', {
-      method: 'POST',
-      body: hotplaceFormData
-    })
-      .then(res => res.json())
-      .then(result => console.log(result.isWrite));
+    if (isEditMode) {
+      const url = `http://localhost:8181/contents/hot-place/${selectedHotplace.hotplaceIdx}`;
 
-    window.location.reload();
+      fetch(url, {
+        method: 'PUT',
+        body: hotplaceFormData,
+      })
+        .then((res) => res.json())
+        .then((result) => console.log(result.isModified));
+    } else {
+      fetch('http://localhost:8181/contents/hot-place', {
+        method: 'POST',
+        body: hotplaceFormData,
+      })
+        .then((res) => res.json())
+        .then((result) => console.log(result.isWrite));
+    }
+
+    // window.location.reload();
   };
 
   return (
@@ -110,7 +125,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace }) => {
         <div className='create-post-wrapper' id='CreatePostModal'>
           <button className='cp-close-btn' onClick={closeModal}>X</button>
 
-          <form onSubmit={submitHandler} encType="multipart/form-data">
+          <form onSubmit={submitHandler} encType='multipart/form-data'>
             <div className='header-main-footer-box'>
               <header className='cp-header'>
                 <div className='cp-header-text-tag-box'>
@@ -118,8 +133,8 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace }) => {
                     <p className='cp-header-text' id='SelectLocation'>지역을 선택해주세요</p>
                   </div>
 
-                  <div className="connect-create-post">
-                    <ul className="cp-header-tag-box">
+                  <div className='connect-create-post'>
+                    <ul className='cp-header-tag-box'>
                       {districtItems}
                     </ul>
                   </div>
@@ -142,17 +157,14 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace }) => {
                   </div>
 
                   <div className='cp-footer-api-box'>
-
                     <div className='storage-btn-box'>
                       <button className='api-btn' id='Cancel' onClick={cancelBtn}>
                         <p>취소</p>
                       </button>
-                      <button type="submit" className='api-btn' id='Storage'>
-                        <p>저장</p>
+                      <button type='submit' className='api-btn' id='Storage'>
+                        <p>{isEditMode ? '수정하기' : '작성'}</p>
                       </button>
                     </div>
-
-                    {/* 위치랑 버튼 크기가 깨져용 ㅠㅠ 우짜즁... */}
 
                     <div className='cp-footer-api'>
                       <Location

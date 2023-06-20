@@ -67,7 +67,15 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   }
 
+  // 글 수정, 선택한 핫플 게시판
+  const [selectedHotplace, setSelectedHotplace] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
 
+  const openModifyHotplace = (hp) => {
+    setSelectedHotplace(hp);
+    setIsCreateModal(true);
+    setIsEditMode(true);
+  };
   
   
  
@@ -106,8 +114,9 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     <>
       {isCreateModal && (
         <ConnectCreatePost
-          closeCreatePost={closeCreatePost}
-          selectedHotplace={selectedHotplace}
+        closeCreatePost={closeCreatePost}
+        selectedHotplace={selectedHotplace}
+        isEditMode={isEditMode}
         />
       )}
 
