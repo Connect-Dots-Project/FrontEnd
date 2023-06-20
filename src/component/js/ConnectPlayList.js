@@ -1,4 +1,5 @@
-import React from 'react'
+// import React from 'react'
+import React, { useEffect } from 'react';
 
 import '../scss/ConnectPlayList.scss';
 import { Link } from 'react-router-dom';
@@ -8,6 +9,7 @@ import ConnectViewPlayList from './ConnectViewPlayList';
 const ConnectPlayList = () => {
 
   const [isOpenViewPlayList, setIsOpenViewPlayList] = useState(false);
+  const [playlistItems, setPlaylistItems] = useState([]);
 
   const openList = e => {
     setIsOpenViewPlayList(true);
@@ -17,31 +19,52 @@ const ConnectPlayList = () => {
     setIsOpenViewPlayList(false);
   };
 
+  useEffect(() => {
+    const fetchPlaylistItems = async () => {
+      try {
+        const response = await fetch('/contents/music-board');
+        console.log(response);      
+        const data = await response.json();
+        setPlaylistItems(data);
+      } catch (error) {
+        console.error('Error fetching playlist items:', error);
+      }
+    };
 
+    fetchPlaylistItems();
+  }, []);
 
+  const fetchRenderPlaylistItems = async (i) => {
+    try {
+      const response = await fetch(`/contents/music-board/${i}`);
+      console.log(response);
+      const data = await response.json();
+      setPlaylistItems(data);
+    } catch (error) {
+      console.error('Error fetching playlist items:', error);
+    }
+  };
 
-
-
-
-    const renderPlaylistItems = () => {
-        const playlistItems = [];
-        for (let i = 0; i < 24; i++) {
-          playlistItems.push(
-            <button className='plb-list' onClick={ openList }>
-              <div id='Hidden-Playbtn'></div>
-              <div className='pl-img-box'>
-                <div className='pl-img'></div>
-              </div>
-              <div className='pl-name-box'>
-                <div className='pl-name'>
-                  <p>플레이 리스트 이름</p>
-                </div>
-              </div>
-            </button>
-          );
-        }
-        return playlistItems;
-      };
+const renderPlaylistItems = () => {
+  const playlistItems = [];
+  for (let i = 1; i < 11; i++) {
+    fetchRenderPlaylistItems(i);
+    playlistItems.push(
+      <button className="plb-list" onClick={openList}>
+        <div id="Hidden-Playbtn"></div>
+        <div className="pl-img-box">
+          <div className="pl-img" src={playlistItems.musicboardTrackImage} alt="앨범 이미지"></div>
+        </div>
+        <div className="pl-name-box">
+          <div className="pl-name">
+          <p>{playlistItems.musicboardTrack}</p>
+          </div>
+        </div>
+      </button>,
+    );
+  }
+  return playlistItems;
+};
 
   return (
     <>  
@@ -74,38 +97,9 @@ const ConnectPlayList = () => {
                             {renderPlaylistItems()}
                         </div>
 
-
-
-
-
-
-
-                    
-
-
-
-
-
-
-
-
-
                     </div>
                 </div>
-
-
-
-
-
             </div>
-
-
-
-
-
-
-
-
         </div>
     </>
   )

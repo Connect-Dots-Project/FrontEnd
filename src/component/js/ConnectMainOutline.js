@@ -10,6 +10,8 @@ import ConnectLiveChatting from './ConnectLiveChatting';
 import '../scss/ConnectMainOutline.scss';
 import ConnectStoreSales from './ConnectStoreSales';
 
+import { useHistory } from 'react-router-dom';
+
 const ConnectMainOutline = () => {
 
     const [isChangeOutline, setIsChangeOutline] = useState(true);
@@ -74,6 +76,13 @@ const ConnectMainOutline = () => {
         return null;
     }
 
+
+    // const YourComponent = () => {
+    //   const history = useHistory();
+    
+    //   const handleClick = () => {
+    //     history.push('/spotify-login');
+    //   };
 
 
    
