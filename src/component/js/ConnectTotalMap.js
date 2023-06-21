@@ -18,6 +18,7 @@ const ConnectTotalMap = () => {
       });
   }, []);
 
+
   const handleMarkerClick = (location) => {
     setSelectedLocation(location);
   };

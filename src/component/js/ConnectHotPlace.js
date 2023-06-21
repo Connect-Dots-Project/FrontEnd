@@ -10,6 +10,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   // 핫플레이스 게시물 렌더링
   const [hpData, setHpData] = useState([]);
+  // console.log(hpData);
 
   useEffect(() => {
     fetch('http://localhost:8181/contents/hot-place', {
@@ -25,6 +26,45 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     });
 
   }, []); 
+
+  // 행정구역으로 핫플레이스 게시물 목록 조회하기
+  const handleLocationClick = (kakaoLocation) => {
+    fetch(`http://localhost:8181/contents/hot-place/${kakaoLocation}`, {
+      method: 'GET',
+      headers: { 'content-type': 'application/json' }
+    })
+      .then(res => res.json())
+      .then(result => {
+        const list = [...result.hotplaceList];
+        setHpData(list);
+      });
+  };
+
+
+
+  // const [selectedLocation, setSelectedLocation] = useState(null);
+
+  // const handleLocationClick = (kakaoLocation) => {
+  //   setSelectedLocation(kakaoLocation);
+  // };
+
+  // useEffect(() => {
+  //   if (selectedLocation) {
+  //     fetch(`http://localhost:8181/contents/hot-place/${selectedLocation}`, {
+  //       method: 'GET',
+  //       headers: { 'content-type': 'application/json' }
+  //     })
+  //       .then(res => res.json())
+  //       .then(result => {
+  //         const list = [...result.hotplaceList];
+  //         setHpData(list);
+  //       });
+  //   }
+  // }, [selectedLocation]);
+
+
+
+
 
   // 좋아요 카운팅
   const [hotplaceLikeCount, setLikeCount] = useState(0);
@@ -60,7 +100,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   const modifyHotplace = (hotplaceIdx) => {
     fetch(`http://localhost:8181/contents/hot-place`, {
-      method: 'PUT'
+      method: 'PATCH'
     })
       .then(res => res.json())
       .then(result => console.log(result));
@@ -77,6 +117,8 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     setIsCreateModal(true);
     setIsEditMode(true);
   };
+
+  
   
   
  
@@ -134,32 +176,12 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
             <div className='ads-main'>
               <ul className='ads-list-box'>
 
-                <li className='ads-list'><p>강남구</p></li>
-                <li className='ads-list'><p>강동구</p></li>
-                <li className='ads-list'><p>강북구</p></li>
-                <li className='ads-list'><p>강서구</p></li>
-                <li className='ads-list'><p>관악구</p></li>
-                <li className='ads-list'><p>광진구</p></li>
-                <li className='ads-list'><p>구로구</p></li>
-                <li className='ads-list'><p>금천구</p></li>
-                <li className='ads-list'><p>노원구</p></li>
-                <li className='ads-list'><p>도봉구</p></li>
-                <li className='ads-list'><p>동대문구</p></li>
-                <li className='ads-list'><p>동작구</p></li>
-                <li className='ads-list'><p>마포구</p></li>
-                <li className='ads-list'><p>서대문구</p></li>
-                <li className='ads-list'><p>서초구</p></li>
-                <li className='ads-list'><p>성동구</p></li>
-                <li className='ads-list'><p>성북구</p></li>
-                <li className='ads-list'><p>송파구</p></li>
-                <li className='ads-list'><p>양천구</p></li>
-                <li className='ads-list'><p>영등포구</p></li>
-                <li className='ads-list'><p>용산구</p></li>
-                <li className='ads-list'><p>은평구</p></li>
-                <li className='ads-list'><p>종로구</p></li>
-                <li className='ads-list'><p>중구</p></li>
-                <li className='ads-list'><p>중랑구</p></li>
-
+              {/* 행정구역 */}
+              {hpData.map(hp => ( 
+                <li className='ads-list' key={hp.hotplaceIdx} onClick={() => handleLocationClick(hp.kakaoLocation)}> 
+                  <p>{hp.kakaoLocation}</p> 
+                </li> 
+              ))}
               </ul>
             </div>
           </div>
@@ -263,6 +285,10 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                                 </div>
 
                                 <div className='hp-writer-date-box'>
+                                  {/* TODO : 행정구역 추가했어용 ㅠㅠ  */}
+                                  <div className='hp-writer-box'>
+                                    <p className='hp-writer-text'>[{hp.kakaoLocation}]</p>
+                                  </div>
                                   <div className='hp-writer-box'>
                                     <p className='hp-writer-text'>[작성자]</p>
                                   </div>

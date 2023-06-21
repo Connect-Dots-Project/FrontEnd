@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 import Location from './Location';
-import ConnectModifyBoard from './ConnectModifyBoard';
 
 const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
 
