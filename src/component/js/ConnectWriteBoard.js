@@ -32,12 +32,14 @@ const ConnectWriteBoard = ({ setHotplaceContent, setHotplaceImg }) => {
           alt='img'
         />
         <label className='hotplace-img-label' htmlFor='hotplace-img-tag'>
-          {/* <div className='plus-btn'>+</div> */}
+          핫플레이스 사진을 공유해주세요 🥳
         </label>
         <input
           type='file'
           id='hotplace-img-tag'
           ref={$fileTag}
+          style={{display: 'none'}}
+          accept='image/*'
           onChange={showHotplaceHandler}
         />
       </div>

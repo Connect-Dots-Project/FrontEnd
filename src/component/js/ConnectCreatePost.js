@@ -3,7 +3,7 @@ import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 import Location from './Location';
 
-const ConnectCreatePost = ({ closeCreatePost }) => {
+const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
   const [isCreateModal, setCreateModal] = useState(true);
   const [hotplaceImg, setHotplaceImg] = useState('');
   const [hotplaceContent, setHotplaceContent] = useState('');
@@ -28,16 +28,12 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
     <li
       key={district}
       className={`cp-header-tag ${selectedLocation === district ? 'selected' : ''}`}
+      style={{ backgroundColor: selectedLocation === district ? 'orange' : '' }}
       onClick={() => handleLocationClick(district)}
     >
       <p>{district}</p>
     </li>
   ));
-
-  const addKakaoMap = kakaoMap => {
-    const selectedKakaoMap = {};
-    console.log(kakaoMap);
-  };
 
   useEffect(() => {
     if (isCreateModal) {
@@ -66,10 +62,15 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
     }, 1000);
   };
 
-  const submitHandler = e => {
+  
+
+
+
+  const submitHandler = (e) => {
     e.preventDefault();
 
     const requestData = {
+      hotplaceIdx: selectedHotplace.hotplaceIdx,
       location: selectedLocation,
       hotplaceContent,
       memberIdx: 1,
@@ -80,20 +81,30 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
       kakaoLocation,
     };
 
-    const hotplaceJsonBlob = new Blob([JSON.stringify(requestData)], { type: 'application/json' });
+    const jsonString = JSON.stringify(requestData);
+  const jsonDataBlob = new Blob([jsonString], { type: 'application/json' });
 
-    const hotplaceFormData = new FormData();
-    hotplaceFormData.append('hotplace', hotplaceJsonBlob);
-    hotplaceFormData.append('hotplaceImg', hotplaceImg);
+  const hotplaceFormData = new FormData();
+  hotplaceFormData.append('hotplace', jsonDataBlob);
+  hotplaceFormData.append('hotplaceImg', hotplaceImg);
 
-    fetch('http://localhost:8181/contents/hot-place', {
-      method: 'POST',
-      body: hotplaceFormData
-    })
-      .then(res => res.json())
-      .then(result => console.log(result.isWrite));
+    if (isEditMode) {
+      fetch('http://localhost:8181/contents/hot-place', {
+        method: 'PATCH',
+        body: hotplaceFormData,
+      })
+        .then((res) => res.json())
+        .then((result) => console.log(result));
+    } else {
+      fetch('http://localhost:8181/contents/hot-place', {
+        method: 'POST',
+        body: hotplaceFormData,
+      })
+        .then((res) => res.json())
+        .then((result) => console.log(result.isWrite));
+    }
 
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
@@ -102,7 +113,7 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
         <div className='create-post-wrapper' id='CreatePostModal'>
           <button className='cp-close-btn' onClick={closeModal}>X</button>
 
-          <form onSubmit={submitHandler} encType="multipart/form-data">
+          <form onSubmit={submitHandler} encType='multipart/form-data'>
             <div className='header-main-footer-box'>
               <header className='cp-header'>
                 <div className='cp-header-text-tag-box'>
@@ -110,8 +121,8 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
                     <p className='cp-header-text' id='SelectLocation'>지역을 선택해주세요</p>
                   </div>
 
-                  <div className="connect-create-post">
-                    <ul className="cp-header-tag-box">
+                  <div className='connect-create-post'>
+                    <ul className='cp-header-tag-box'>
                       {districtItems}
                     </ul>
                   </div>
@@ -134,17 +145,14 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
                   </div>
 
                   <div className='cp-footer-api-box'>
-
                     <div className='storage-btn-box'>
                       <button className='api-btn' id='Cancel' onClick={cancelBtn}>
                         <p>취소</p>
                       </button>
-                      <button type="submit" className='api-btn' id='Storage'>
-                        <p>저장</p>
+                      <button type='submit' className='api-btn' id='Storage'>
+                        <p>{isEditMode ? '수정하기' : '작성'}</p>
                       </button>
                     </div>
-
-                    {/* 위치랑 버튼 크기가 깨져용 ㅠㅠ 우짜즁... */}
 
                     <div className='cp-footer-api'>
                       <Location
