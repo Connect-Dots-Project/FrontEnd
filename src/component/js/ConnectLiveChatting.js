@@ -15,7 +15,7 @@ import { setWebSocket, getWebSocket } from './ConnectWebSocket';
 
 // 함수 -> 태그 -> useEffect
 
-const ConnectLiveChatting = () => {
+const ConnectLiveChatting = (props) => {
   const [roomId, setRoomId] = useState(''); // 방 번호
   const [sender, setSender] = useState(''); // 보내는 사람
   const [message, setMessage] = useState(''); // 메시지
@@ -67,6 +67,8 @@ const ConnectLiveChatting = () => {
   // 메세지를 보내는 함수
   const sendMessage = () => {
 
+    // TODO : 스크롤 맨 밑으로 내리는 기능 추가
+
     if(!ws.current) {
       alert('npe');
       return;
@@ -94,7 +96,7 @@ const ConnectLiveChatting = () => {
       ...prevMessages,
       {
         type: recv.type,
-        sender: recv.type === 'ENTER' ? '[알림]' : recv.sender,
+        sender: recv.type === 'ENTER' ? '알림' : recv.sender,
         message: recv.message,
       },
     ]);
@@ -169,10 +171,47 @@ const ConnectLiveChatting = () => {
         // });
 
     };
+    
 
-    
-    
-    
+    const chatlistWrapperRef = useRef(null);
+
+  useEffect(() => {
+    const chatlistWrapperElement = chatlistWrapperRef.current;
+    if (chatlistWrapperElement) {
+      chatlistWrapperElement.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (chatlistWrapperElement) {
+        chatlistWrapperElement.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [chatlistWrapperRef.current]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleScroll = () => {
+    const chatlistWrapperElement = chatlistWrapperRef.current;
+    if (
+      chatlistWrapperElement &&
+      chatlistWrapperElement.scrollTop + chatlistWrapperElement.clientHeight === chatlistWrapperElement.scrollHeight
+    ) {
+      // 스크롤이 맨 아래에 도달한 경우에만 새로운 메시지가 도착했다고 가정
+      // 새로운 메시지가 도착했을 때 다시 스크롤을 맨 아래로 이동
+      scrollToBottom();
+    }
+  };
+
+  const scrollToBottom = () => {
+    const chatlistWrapperElement = chatlistWrapperRef.current;
+    if (chatlistWrapperElement) {
+      chatlistWrapperElement.scrollTop = chatlistWrapperElement.scrollHeight;
+    }
+  };
+
+
 
 
 
@@ -196,26 +235,30 @@ const ConnectLiveChatting = () => {
       {/* main */}
       <div className='lcmain-wrapper'>
         <div className='lcmain-box'>
-            <div className='lcmain-chatlist-wrapper'>
+            <div className='lcmain-chatlist-wrapper' ref={chatlistWrapperRef}>
 
               {/* <div className='lcmain-chatlist-header'>이곳이 채팅창</div> */}
+              {/* <div className='lcmain-chatlist-header'></div> */}
               
-              <div className="list-group-item">
-              {/* {messages.map((message) => ( */}
-                <li className='list-group'>
-                  <p>▶</p>
-                  <div 
-                    className='message' 
-                    id='Sender'>{message.sender}아아아아아아아아아아아아아</div>
-                  <p>◀</p>
-                  <div 
-                    className='message' 
-                    id='Message'>{message.message}님이 입장하셨습니다!</div>
-                </li>
-              {/* ))} */}
-              </div>
 
-              <div className='lcmain-chatlist-header'></div>
+
+              {messages.map((message, index) => (
+                <div className="list-group-item" key={index}>
+                
+                  <li className='list-group'>
+                    <p>[</p>
+                    <div 
+                      className='message' 
+                      id='Sender'>{message.sender}</div>
+                    <p>]</p>
+                    <div 
+                      className='message' 
+                      id='Message'>{message.message}</div>
+                  </li>
+
+                </div>
+              ))} 
+
 
 
               {/* <div className='lcmain-chatlist-box'>
@@ -249,14 +292,13 @@ const ConnectLiveChatting = () => {
                     sendMessage();
                   }
                 }}
-                style={{ height: '100px' }}
               />
             {/* 채팅창 전송 버튼 */}
             {/* 채팅창 전송 버튼 box */}
             </div>
             <div className='input-btn-box'>
               {/* 채팅창 전송 버튼 */}
-              <button className='input-btn' onClick={sendMessage} style={{ height: '100px' }}></button>
+              <button className='input-btn' onClick={sendMessage}>보내기</button>
             </div>
           </div>
         </div>
