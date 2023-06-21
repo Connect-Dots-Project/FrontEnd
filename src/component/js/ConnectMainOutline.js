@@ -15,7 +15,7 @@ const ConnectMainOutline = () => {
     const [isChangeOutline, setIsChangeOutline] = useState(true);
     const [isChangeStore, setIsChangeStore] = useState(true);
     const [isClosePost, setIsClosePost] = useState(true);
-    
+
     const closeChangeMenu = e => {
         const $menuClose = document.getElementById('CmoMenu');
         
@@ -37,8 +37,6 @@ const ConnectMainOutline = () => {
     const closeCreatePost = e => {
         setIsClosePost(false);
     };
-    
-
     
     
     const [isClickColorHotPlace, setIsClickColorHotPlace] = useState(false);
@@ -64,19 +62,12 @@ const ConnectMainOutline = () => {
     };
 
 
-
-
-
-
     const $location = useLocation();
 
     if ($location.pathname === '/') {
         return null;
     }
 
-
-
-   
   return (
     <>
 
@@ -86,7 +77,6 @@ const ConnectMainOutline = () => {
             </header>
 
             <div className='cmo-container'>
-
                 {!isChangeStore && (
                     <div
                         className={`store-menu-modal-wrapper ${
@@ -96,15 +86,7 @@ const ConnectMainOutline = () => {
                     ><ConnectStoreSales />
                 </div>
                 )}
-
-                    
-
-
-
-
-
-
-                    <ul className='cmo-menu' id='CmoMenu'>
+                <ul className='cmo-menu' id='CmoMenu'>
                     <Link to={'/contents/hot-place'} className='cmo-list' id='Hot-Place'>
                         {isChangeOutline && (
                             <div className='link-box'>
@@ -148,8 +130,7 @@ const ConnectMainOutline = () => {
                             </div>
                         )}
                     </Link>
-
-                    <Link to={'/contents/cvs'} className='cmo-list' id='Closing-sale'>
+                    <Link to={'/contents/cvs/GS25'} className='cmo-list' id='Closing-sale'>
                         <button onClick={ closeChangeMenu } className='cmo-change-btn'>
                             {isChangeOutline && (
                                 <div className='link-box'>
@@ -166,8 +147,6 @@ const ConnectMainOutline = () => {
                         </button>
                     </Link>
                 </ul>
-
-
 
                 {/* 고정 메인 메뉴 전환 게시판 box */}
                 <div className='cmo-change-board-box'>
@@ -186,6 +165,9 @@ const ConnectMainOutline = () => {
                         </Routes>
                         <Routes>
                             <Route path='/contents/cvs' element={ <ConnectStoreInfo /> }></Route>
+                        </Routes>
+                        <Routes>
+                            <Route path='/contents/cvs/:cvsname' element={ <ConnectStoreInfo /> }></Route>
                         </Routes>
                         <Routes>
                             <Route path='/nb-closing-sale' element={<ConnectStoreSales />} />

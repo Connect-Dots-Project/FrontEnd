@@ -4,6 +4,7 @@ import ConnectHotPlace from './ConnectHotPlace';
 import ConnectFreeBoard from './ConnectFreeBoard';
 
 import '../scss/ConnectMainPageMenu.scss';
+import ConnectStoreSales from "./ConnectStoreSales";
 
 const ConncetMainPageMenu = () => {
   return (
@@ -41,7 +42,7 @@ const ConncetMainPageMenu = () => {
             </div>
         </li>
 
-
+        {/* 음악 API 게시판이 들어가게끔 수정 필요함*/}
         {/* cm 메인 메뉴 리스트 */}
         <li className='cm-menu-list' id='closingSale'>
             {/* cm 메인 메뉴 사진 */}
@@ -56,7 +57,7 @@ const ConncetMainPageMenu = () => {
         {/* cm 메인 메뉴 리스트 */}
         <li className='cm-menu-list' id='StoreEvent'>
             {/* cm 메인 메뉴 사진 */}
-            <Link to='/' id='list'></Link>
+            <Link to='/contents/cvs/GS25' id='list'></Link>
             {/* cm 메인 메뉴 텍스트 box */}
             <div className='cm-menu-text-box'>
                 {/* cm 메인 메뉴 텍스트 */}
@@ -80,7 +81,7 @@ const ConncetMainPageMenu = () => {
             <Route path='/contents/hot-place' element={ <ConnectHotPlace /> }></Route>
             <Route path='/contents/making-friends' element={ <ConnectHotPlace /> }></Route>
             <Route path='/contents/closing-sale' element={ <ConnectHotPlace /> }></Route>
-            <Route path='/contents/store-sale' element={ <ConnectHotPlace /> }></Route>
+            <Route path='/contents/cvs' element={ <ConnectStoreSales /> }></Route>
             <Route path='/contents/my-page' element={ <ConnectHotPlace /> }></Route>
         </Routes>
     </>
