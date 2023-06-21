@@ -11,6 +11,7 @@ import '../scss/ConnectMainOutline.scss';
 import ConnectStoreSales from './ConnectStoreSales';
 
 import { useHistory } from 'react-router-dom';
+import SpotifyLogin from './SpotifyLogin';
 
 const ConnectMainOutline = () => {
 
@@ -191,7 +192,11 @@ const ConnectMainOutline = () => {
                             <Route path='/nb-live-chatting' element={ <ConnectLiveChatting /> }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/nb-playlist' element={ <ConnectPlayList /> }></Route>
+                            <Route path='/nb-playlist' element={
+                                <>
+                                   <SpotifyLogin /> 
+                                   <ConnectPlayList /> 
+                                </>}></Route>
                         </Routes>
                         <Routes>
                             <Route path='/contents/csv' element={ <ConnectStoreInfo /> }></Route>
