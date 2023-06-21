@@ -72,6 +72,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const openModifyHotplace = (hp) => {
+    // console.log(hp);
     setSelectedHotplace(hp);
     setIsCreateModal(true);
     setIsEditMode(true);
