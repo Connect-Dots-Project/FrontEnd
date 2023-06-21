@@ -185,7 +185,8 @@ const ConnectLiveChatting = () => {
     <div className='test1234'>
       <div className='lcheader-wrapper'>
       <div className='lcheader-img-box'>
-        <div className='lcheader-img'>방장 사진 + 닉네임 들어갈 예정</div>
+        <div className='lcheader-img'>방장 사진</div>
+        <div className='lcheader-nickname'><p>닉네임</p></div>
       </div>
       <div className='lcheader-accessor-box'>
         <div className='lcheader-accessor'>현재 방에 참여한 유저들의 사진 + 닉네임 들어갈 예정</div>
@@ -202,7 +203,14 @@ const ConnectLiveChatting = () => {
               <div className="list-group-item">
               {/* {messages.map((message) => ( */}
                 <li className='list-group'>
-                  <p>▶</p><div className='message' id='Sender'>{message.sender}뽀로로</div><p>◀</p><div className='message' id='Message'>{message.message}님이 입장하셨습니다!</div>
+                  <p>▶</p>
+                  <div 
+                    className='message' 
+                    id='Sender'>{message.sender}아아아아아아아아아아아아아</div>
+                  <p>◀</p>
+                  <div 
+                    className='message' 
+                    id='Message'>{message.message}님이 입장하셨습니다!</div>
                 </li>
               {/* ))} */}
               </div>

@@ -10,44 +10,44 @@
     width: 100%;
     height: 1595px;
     background: #fff;
-    
+
     .live-chatting-box {
         width: 100%;
         height: 100%;
-        
+
         .lc-info-tag-box {
             background: #fff;
             width: 100%;
             height: 100%;
             margin: 0 auto;
             display: flex;
-            
-            .lc-info-box  {
+
+            .lc-info-box {
                 width: 70%;
                 height: 100%;
                 overflow: scroll;
-                
+
                 .lc-info-wrapper {
                     border: none;
                     box-shadow: 2px 2px 5px 1px #444;
                     border-radius: 5px;
                     background: #eeeeee;
                     width: 95%;
-                    height: 170px;  
+                    height: 170px;
                     margin: 10px auto;
                     cursor: pointer;
-                    
+
                     @include disflex();
 
                     &:hover {
                         opacity: 0.9;
                     }
-                    
+
                     .info-box {
                         width: 95%;
                         height: 90%;
                     }
-                    
+
                     .lc-info-tag-like-reply-box {
                         width: 100%;
                         height: 25%;
@@ -57,13 +57,13 @@
                         p {
                             font-weight: 700;
                         }
-                        
+
                         .tag-box {
                             width: 50%;
                             height: 100%;
                             display: flex;
                             align-items: center;
-                            
+
                             .tag {
                                 background: rgb(20, 101, 173);
                                 width: 100%;
@@ -75,7 +75,7 @@
                                 &:hover {
                                     background: #ff6701;
                                 }
-                                
+
                                 p {
                                     font-weight: 700;
                                     color: #fff;
@@ -89,7 +89,7 @@
                         //     height: 100%;
                         //     align-items: center;
                         //     display: flex;
-                            
+
                         //     .like {
                         //         background: url('./img/Like.png') no-repeat;
                         //         background-size: 60%;
@@ -99,13 +99,13 @@
                         //         cursor: pointer;
                         //     }
                         // }
-                        
+
                         // .reply-box {
                         //     width: 25%;
                         //     height: 100%;
                         //     align-items: center;
                         //     display: flex;
-                            
+
                         //     .reply {
                         //         background: url('./img/Reply.png') no-repeat;
                         //         background-size: 60%;
@@ -116,12 +116,12 @@
                         //     }
                         // }
                     }
-                    
+
                     .lc-info-text-img-box {
                         width: 100%;
                         height: 75%;
                         display: flex;
-                        
+
                         .text-box {
                             width: 100%;
                             height: 100%;
@@ -130,12 +130,12 @@
                                 background: #fff;
                                 border-radius: 0px 5px 5px 5px;
                                 width: 100%;
-                                height: 100%;   
+                                height: 100%;
                                 font-weight: 700;
                                 font-size: 16px;
                             }
                         }
-                        
+
                         // .img-box {
                         //     width: 25%;
                         //     height: 100%;
@@ -154,7 +154,7 @@
             .lc-tag-wrapper {
                 background: #fff;
                 width: 30%;
-                height: 100%;   
+                height: 100%;
                 display: flex;
                 justify-content: center;
                 border-left: 4px solid #1247ad;
@@ -180,7 +180,7 @@
                     .ic-tag-list-box {
                         width: 90%;
                         height: 90%;
-                        margin: 8px auto; 
+                        margin: 8px auto;
 
                         .ic-tag-list {
                             background: rgb(20, 101, 173);
@@ -188,7 +188,7 @@
                             height: 35px;
                             margin-bottom: 10px;
                             cursor: pointer;
-                            transition-duration: 0.3s; 
+                            transition-duration: 0.3s;
                             @include disflex();
 
                             &:hover {
@@ -223,14 +223,23 @@
             height: 100%;
 
             .lcheader-img {
-                width: 100%;
-                height: 100%;
+                border-bottom: 1px dashed #000;
+                width: 90%;
+                height: 75%;
+                margin: 0 auto;
+                @include disflex();
+            }
+            .lcheader-nickname {
+                width: 90%;
+                height: 25%;
+                margin: 0 auto;
+                font-weight: 700;
                 @include disflex();
             }
         }
 
         .lcheader-accessor-box {
-            background: tomato;
+            background: aquamarine;
             width: 70%;
             height: 100%;
 
@@ -264,18 +273,22 @@
                 margin: 0 auto;
                 margin-top: 20px;
                 border-radius: 25px;
-                animation: light 2s forwards infinite;
-                
+                animation: light 3.5s forwards infinite;
+
                 @keyframes light {
                     0% {
-                        box-shadow: 1px 1px 3px 1px #1247ad;
-                    } 50% {
+                        box-shadow: 1px 1px 1px 1px #1247ad;
+                    }
+
+                    50% {
                         box-shadow: -1px -1px 3px 1px #ff6701;
-                    } 100% {
-                        box-shadow: 1px 1px 3px 1px #1247ad;
+                    }
+
+                    100% {
+                        box-shadow: 1px 1px 1px 1px #1247ad;
                     }
                 }
-                
+
                 .list-group {
                     width: 90%;
                     height: 50px;
@@ -283,29 +296,29 @@
                     font-size: 16px;
                     font-weight: 700;
                     display: flex;
-                    @include disflex();       
+                    @include disflex();
 
 
                     .message {
                         height: 100%;
-                        @include disflex();             
+                        @include disflex();
                     }
-                    
+
                     p {
                         width: 2.5%;
                         height: 100%;
-                        @include disflex();             
+                        @include disflex();
                     }
-                    
+
                     #Sender {
                         width: fit-content;
                         font-size: 20px;
-                        @include disflex();             
+                        @include disflex();
                     }
-                    
+
                     #Message {
                         width: 45%;
-                        @include disflex();             
+                        @include disflex();
                     }
 
                 }
@@ -349,7 +362,7 @@
                     width: 75px;
                     height: 75px;
                     @include disflex();
-                    
+
                     .lcmain-chatlist-profile {
                         border: 1px solid #000;
                         border-radius: 50%;
@@ -359,7 +372,7 @@
                     }
                 }
 
-                
+
             }
 
         }
@@ -367,17 +380,3 @@
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
