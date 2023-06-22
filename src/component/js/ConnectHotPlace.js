@@ -14,6 +14,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   useEffect(() => {
     fetch('http://localhost:8181/contents/hot-place', {
       method: 'GET',
+      headers: {'content-type' : 'application/json'}
     })
     .then(res => res.json())
     .then(result => {
@@ -37,11 +38,45 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   
   // 작성창 (글쓰기)
-  const [isCreateModal, setCreateModal] = useState(false);
+  const [isCreateModal, setIsCreateModal] = useState(false);
   
   const openCreatePost = () => {
-    setCreateModal(true);
+    setIsCreateModal(true);
   };
+
+
+  // 글 삭제
+  const deleteHotplace = (hotplaceIdx) => {
+    console.log(hotplaceIdx);
+
+    fetch(`http://localhost:8181/contents/hot-place/${hotplaceIdx}`, {
+      method: 'DELETE'
+    })
+      .then(res => res.json())
+      .then(result => console.log(result));
+
+    window.location.reload();
+  };
+
+  const modifyHotplace = (hotplaceIdx) => {
+    fetch(`http://localhost:8181/contents/hot-place`, {
+      method: 'PUT'
+    })
+      .then(res => res.json())
+      .then(result => console.log(result));
+
+  }
+
+  // 글 수정, 선택한 핫플 게시판
+  const [selectedHotplace, setSelectedHotplace] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const openModifyHotplace = (hp) => {
+    setSelectedHotplace(hp);
+    setIsCreateModal(true);
+    setIsEditMode(true);
+  };
+  
   
  
   
@@ -68,13 +103,22 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const openChangeMap = () => {
     setShowMap(!showMap);
   };
+
+
+  
   
   
   
 
   return (
     <>
-      {isCreateModal && <ConnectCreatePost closeCreatePost={ closeCreatePost }/>}
+      {isCreateModal && (
+        <ConnectCreatePost
+        closeCreatePost={closeCreatePost}
+        selectedHotplace={selectedHotplace}
+        isEditMode={isEditMode}
+        />
+      )}
 
       {isOpenSelect && (
         <div className='administration-select-wrapper' id='ADS-Modal'>
@@ -192,15 +236,41 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       ) : (
         <div className='hp-info-box'>
           {hpData.map(hp => (
-                        <div className='hp-info'>
+                        <div className='hp-info' key={hp.hotplaceIdx}>
+
+                        <div className='hp-info-modify-delete-box'>
+                          <div className='info-modify-box'>
+                            <button className='info-modify-btn' onClick={() => openModifyHotplace(hp)}></button>
+                          </div>
+                          <div className='info-delete-box'>
+                            <button className='info-delete-btn' onClick={() => deleteHotplace(hp.hotplaceIdx)}></button>
+                          </div>
+                        </div>
+                        
                           <div className='hp-info-img-text-box'>
                             <Link to='/' className='hp-info-img-box'>
-                              <div className='info-img'>{hp.hotplaceImg}</div>
-                            </Link>
-                            <div className='hp-text-box'>
-                              <div className='hp-text'>
-                                <p>{hp.hotplaceContent}</p>
+                              <div className='info-img'>
+                                <img src={`http://localhost:8181/contents/hot-place/img/${hp.hotplaceImg}`} alt='핫플레이스, 같이 놀러가자!' />
                               </div>
+                            </Link>
+
+                            <div className='hp-text-wrapper'>
+
+                              <div className='hp-text-box'>
+                                <div className='hp-text'>
+                                  <p>{hp.hotplaceContent}</p>
+                                </div>
+
+                                <div className='hp-writer-date-box'>
+                                  <div className='hp-writer-box'>
+                                    <p className='hp-writer-text'>[작성자]</p>
+                                  </div>
+                                  <div className='hp-date-box'>
+                                    <p className='hp-date-text'>[{hp.hotplaceWriteDate}]</p>
+                                  </div>
+                                </div>
+                              </div>
+
                               <div className='like-box'>
                                 <button className='like' id='Like'></button>
                                 <p className='like-count' onClick={ increase }>{hp.hotplaceLikeCount}</p>

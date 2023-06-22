@@ -17,15 +17,8 @@
     }
 }
 
-@keyframes bbb {
-    0% {    
-        opacity: 0;
-    } 100% {
-        opacity: 1;
-    }
-}
 .aaaa {
-    animation: bbb 1s forwards 1;
+    animation: closeOutline 1s forwards 1;
 }
 
 .normal-border {

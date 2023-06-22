@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-
 import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 import Location from './Location';
-import { Height } from '@mui/icons-material';
 
-
-const ConnectCreatePost = ({ closeCreatePost }) => {
+const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
   const [isCreateModal, setCreateModal] = useState(true);
   const [hotplaceImg, setHotplaceImg] = useState('');
   const [hotplaceContent, setHotplaceContent] = useState('');
@@ -15,7 +12,6 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
   const [hotplaceName, setHotplaceName] = useState('');
   const [hotplaceFullAddress, setHotplaceFullAddress] = useState('');
   const [kakaoLocation, setKakaoLocation] = useState('');
-
   const [selectedLocation, setSelectedLocation] = useState('');
 
   const handleLocationClick = (location) => {
@@ -32,22 +28,13 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
     <li
       key={district}
       className={`cp-header-tag ${selectedLocation === district ? 'selected' : ''}`}
+      style={{ backgroundColor: selectedLocation === district ? 'orange' : '' }}
       onClick={() => handleLocationClick(district)}
     >
       <p>{district}</p>
     </li>
   ));
 
-  const addKakaoMap = kakaoMap => {
-    const selectedKakaoMap = {
-      
-    }
-    console.log(kakaoMap);
-  };
-
-
-  
-  
   useEffect(() => {
     if (isCreateModal) {
       const $modal = document.getElementById('CreatePostModal');
@@ -75,14 +62,16 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
     }, 1000);
   };
 
+  
 
 
-  const submitHandler = e => {
+
+  const submitHandler = (e) => {
     e.preventDefault();
 
     const requestData = {
+      hotplaceIdx: selectedHotplace.hotplaceIdx,
       location: selectedLocation,
-      hotplaceImg,
       hotplaceContent,
       memberIdx: 1,
       hotplaceLatitude,
@@ -92,28 +81,39 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
       kakaoLocation,
     };
 
-    
-    fetch('http://localhost:8181/contents/hot-place', {
-      method: 'POST',
-      headers: {'content-type': 'application/json' },
-      body: JSON.stringify(requestData)
-    })
-    .then (res => res.json())
-    .then (result => console.log(result.isWrite));
-    // closeModal();
-    // redirection('/contents/hot-place');
-    window.location.reload(); 
-    // TODO: 새로고침 없이 바뀌는 걸로 수정해야 함
-  }
+    const jsonString = JSON.stringify(requestData);
+  const jsonDataBlob = new Blob([jsonString], { type: 'application/json' });
 
-  
+  const hotplaceFormData = new FormData();
+  hotplaceFormData.append('hotplace', jsonDataBlob);
+  hotplaceFormData.append('hotplaceImg', hotplaceImg);
+
+    if (isEditMode) {
+      fetch('http://localhost:8181/contents/hot-place', {
+        method: 'PATCH',
+        body: hotplaceFormData,
+      })
+        .then((res) => res.json())
+        .then((result) => console.log(result));
+    } else {
+      fetch('http://localhost:8181/contents/hot-place', {
+        method: 'POST',
+        body: hotplaceFormData,
+      })
+        .then((res) => res.json())
+        .then((result) => console.log(result.isWrite));
+    }
+
+    // window.location.reload();
+  };
+
   return (
     <>
       {isCreateModal && (
         <div className='create-post-wrapper' id='CreatePostModal'>
           <button className='cp-close-btn' onClick={closeModal}>X</button>
 
-          <form onSubmit={submitHandler}>
+          <form onSubmit={submitHandler} encType='multipart/form-data'>
             <div className='header-main-footer-box'>
               <header className='cp-header'>
                 <div className='cp-header-text-tag-box'>
@@ -121,20 +121,19 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
                     <p className='cp-header-text' id='SelectLocation'>지역을 선택해주세요</p>
                   </div>
 
-                  <div className="connect-create-post">
-                    <ul className="cp-header-tag-box">
+                  <div className='connect-create-post'>
+                    <ul className='cp-header-tag-box'>
                       {districtItems}
                     </ul>
                   </div>
-
                 </div>
               </header>
 
               <div className='cp-main-box'>
                 <div className='cp-main'>
-                  <ConnectWriteBoard 
+                  <ConnectWriteBoard
                     setHotplaceImg={setHotplaceImg}
-                    setHotplaceContent={setHotplaceContent} 
+                    setHotplaceContent={setHotplaceContent}
                   />
                 </div>
               </div>
@@ -146,7 +145,15 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
                   </div>
 
                   <div className='cp-footer-api-box'>
-                    {/* 위치랑 버튼 크기가 깨져용 ㅠㅠ 우짜즁... */}
+                    <div className='storage-btn-box'>
+                      <button className='api-btn' id='Cancel' onClick={cancelBtn}>
+                        <p>취소</p>
+                      </button>
+                      <button type='submit' className='api-btn' id='Storage'>
+                        <p>{isEditMode ? '수정하기' : '작성'}</p>
+                      </button>
+                    </div>
+
                     <div className='cp-footer-api'>
                       <Location
                         setHotplaceLatitude={setHotplaceLatitude}
@@ -155,27 +162,12 @@ const ConnectCreatePost = ({ closeCreatePost }) => {
                         setHotplaceFullAddress={setHotplaceFullAddress}
                         setKakaoLocation={setKakaoLocation}
                       />
-
-                      
-                      {/* 버튼 */}
-                      <div className='storage-btn-box'>
-                        <button className='api-btn' id='Cancel' onClick={cancelBtn}>
-                          <p>취 소</p>
-                        </button>
-                        <button type="submit" className='api-btn' id='Storage'>
-                          <p>저 장</p>
-                        </button>
-                      </div>
-
-
                     </div>
-                    </div>
-
+                  </div>
                 </div>
               </footer>
             </div>
           </form>
-
         </div>
       )}
     </>

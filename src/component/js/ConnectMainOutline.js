@@ -18,7 +18,7 @@ const ConnectMainOutline = () => {
     const [isChangeOutline, setIsChangeOutline] = useState(true);
     const [isChangeStore, setIsChangeStore] = useState(true);
     const [isClosePost, setIsClosePost] = useState(true);
-    
+
     const closeChangeMenu = e => {
         const $menuClose = document.getElementById('CmoMenu');
         
@@ -40,8 +40,6 @@ const ConnectMainOutline = () => {
     const closeCreatePost = e => {
         setIsClosePost(false);
     };
-    
-
     
     
     const [isClickColorHotPlace, setIsClickColorHotPlace] = useState(false);
@@ -67,19 +65,12 @@ const ConnectMainOutline = () => {
     };
 
 
-
-
-
-
     const $location = useLocation();
 
     if ($location.pathname === '/') {
         return null;
     }
 
-
-
-   
   return (
     <>
 
@@ -89,25 +80,16 @@ const ConnectMainOutline = () => {
             </header>
 
             <div className='cmo-container'>
-
                 {!isChangeStore && (
                     <div
                         className={`store-menu-modal-wrapper ${
-                            isChangeOutline ? 'aaaa' : 'closeAnimation'
+                            isChangeOutline ? 'closeOutline' : 'closeAnimation'
                         }`}
                         id='StoreModal'
-                    ><ConnectStoreSales closeChangeMenu={ closeChangeMenu }/>
+                    ><ConnectStoreSales />
                 </div>
                 )}
-
-                    
-
-
-
-
-
-
-                    <ul className='cmo-menu' id='CmoMenu'>
+                <ul className='cmo-menu' id='CmoMenu'>
                     <Link to={'/contents/hot-place'} className='cmo-list' id='Hot-Place'>
                         {isChangeOutline && (
                             <div className='link-box'>
@@ -151,8 +133,7 @@ const ConnectMainOutline = () => {
                             </div>
                         )}
                     </Link>
-
-                    <Link to={'/contents/csv'} className='cmo-list' id='Closing-sale'>
+                    <Link to={'/contents/cvs/GS25'} className='cmo-list' id='Closing-sale'>
                         <button onClick={ closeChangeMenu } className='cmo-change-btn'>
                             {isChangeOutline && (
                                 <div className='link-box'>
@@ -170,8 +151,6 @@ const ConnectMainOutline = () => {
                     </Link>
                 </ul>
 
-
-
                 {/* 고정 메인 메뉴 전환 게시판 box */}
                 <div className='cmo-change-board-box'>
                     <div className='cmo-change-board'>
@@ -182,7 +161,7 @@ const ConnectMainOutline = () => {
                             <Route path='/contents/free-board' element={ <ConnectFreeBoard closeCreatePost={closeCreatePost}/> }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/nb-live-chatting' element={ <ConnectLiveChatting /> }></Route>
+                            <Route path='/nb-live-chatting' element={ <ConnectLiveChatting closeCreatePost={closeCreatePost}/> }></Route>
                         </Routes>
                         <Routes>
                             <Route path='/nb-playlist' element={
@@ -190,10 +169,13 @@ const ConnectMainOutline = () => {
                                 }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/contents/csv' element={ <ConnectStoreInfo /> }></Route>
+                            <Route path='/contents/cvs' element={ <ConnectStoreInfo /> }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/nb-closing-sale' element={ <ConnectStoreSales /> }></Route>
+                            <Route path='/contents/cvs/:cvsname' element={ <ConnectStoreInfo /> }></Route>
+                        </Routes>
+                        <Routes>
+                            <Route path='/nb-closing-sale' element={<ConnectStoreSales />} />
                         </Routes>
                     </div>
                 </div>

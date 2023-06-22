@@ -13,7 +13,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
   useEffect(() => {
 
-    const url = 'http://localhost:8181/contents/free-board/' + freeBoardIdx;
+    const url = 'http://localhost:8181/contents/free-board/detail/' + freeBoardIdx;
 
     fetch(url, {
       method: 'GET'
