@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
+const { kakao } = window;
 
 const ConnectTotalMap = () => {
-	const [location, setLoacation] = useState(null); // 현재 위치를 저장할 상태
+	const [location, setLoacation] = useState(null);
 
 	useEffect(() => {
-		navigator.geolocation.getCurrentPosition(successHandler, errorHandler); // 성공시 successHandler, 실패시 errorHandler 함수가 실행된다.
+		navigator.geolocation.getCurrentPosition(successHandler, errorHandler); 
 	}, []);
 
 	const successHandler = (response) => {
 		console.log(response); 
 		const { latitude, longitude } = response.coords;
 		setLoacation({ latitude, longitude });
-    alert(`현재 위치: 위도 ${latitude}, 경도 ${longitude}`);
+    // alert(`현재 위치: 위도 ${latitude}, 경도 ${longitude}`);
 	};
 
 
