@@ -15,6 +15,7 @@ const SpotifyLogin = ({ code }) => {
         if (response.ok) {
           console.log('Token request successful');
           const data = await response.json();
+          console.log('datadata :',data);
           const token = data.token;
           console.log('Received token:', token);
         } else {

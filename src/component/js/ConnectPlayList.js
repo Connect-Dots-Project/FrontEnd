@@ -1,4 +1,3 @@
-// import React from 'react'
 import React, { useEffect } from 'react';
 
 import '../scss/ConnectPlayList.scss';
@@ -10,6 +9,7 @@ const ConnectPlayList = () => {
 
   const [isOpenViewPlayList, setIsOpenViewPlayList] = useState(false);
   const [playlistItems, setPlaylistItems] = useState([]);
+  
 
   const openList = e => {
     setIsOpenViewPlayList(true);
@@ -22,49 +22,40 @@ const ConnectPlayList = () => {
   useEffect(() => {
     const fetchPlaylistItems = async () => {
       try {
-        const response = await fetch('/contents/music-board');
-        console.log(response);      
-        const data = await response.json();
-        setPlaylistItems(data);
+        const response = await fetch('http://localhost:8181/contents/music-board', {
+          method: 'GET'
+        });
+        const result = await response.json();
+        console.log('resulttttttt: ', result);
+        setPlaylistItems(result);
       } catch (error) {
         console.error('Error fetching playlist items:', error);
       }
     };
-
+  
     fetchPlaylistItems();
   }, []);
+  
+  
 
-  const fetchRenderPlaylistItems = async (i) => {
-    try {
-      const response = await fetch(`/contents/music-board/${i}`);
-      console.log(response);
-      const data = await response.json();
-      setPlaylistItems(data);
-    } catch (error) {
-      console.error('Error fetching playlist items:', error);
-    }
-  };
 
-const renderPlaylistItems = () => {
-  const playlistItems = [];
-  for (let i = 1; i < 11; i++) {
-    fetchRenderPlaylistItems(i);
-    playlistItems.push(
+  const renderPlaylistItems = () => {
+    return playlistItems.map((e) => (
       <button className="plb-list" onClick={openList}>
         <div id="Hidden-Playbtn"></div>
         <div className="pl-img-box">
-          <div className="pl-img" src={playlistItems.musicboardTrackImage} alt="앨범 이미지"></div>
+          <img className="pl-img" src={e.musicBoardTrackImage} alt="앨범 이미지" />
         </div>
         <div className="pl-name-box">
           <div className="pl-name">
-          <p>{playlistItems.musicboardTrack}</p>
+            <p>{e.musicBoardTrack}</p>
           </div>
         </div>
-      </button>,
-    );
-  }
-  return playlistItems;
-};
+      </button>
+    ));
+  };
+  
+  
 
   return (
     <>  
@@ -92,10 +83,9 @@ const renderPlaylistItems = () => {
                 {/* playlist container */}
                 <div className='plb-container-box'>
                     <div className='plb-container'>
-
-                        <div className='plb-list-wrapper'>
-                            {renderPlaylistItems()}
-                        </div>
+                    <div className='plb-list-wrapper'>
+                      {renderPlaylistItems()}
+                    </div>
 
                     </div>
                 </div>
