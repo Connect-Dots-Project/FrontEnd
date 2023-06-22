@@ -8,6 +8,13 @@ import ConnectTotalMap from './ConnectTotalMap';
 
 const ConnectHotPlace = ({ closeCreatePost }) => {
 
+
+  const regions = [
+    '강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구',
+    '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구',
+    '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
+  ];
+
   // 핫플레이스 게시물 렌더링
   const [hpData, setHpData] = useState([]);
   // console.log(hpData);
@@ -175,13 +182,11 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
           <div className='ads-main-box'>
             <div className='ads-main'>
               <ul className='ads-list-box'>
-
-              {/* 행정구역 */}
-              {hpData.map(hp => ( 
-                <li className='ads-list' key={hp.hotplaceIdx} onClick={() => handleLocationClick(hp.kakaoLocation)}> 
-                  <p>{hp.kakaoLocation}</p> 
-                </li> 
-              ))}
+                {regions.map(e => ( 
+                  <li className='ads-list' onClick={() => handleLocationClick(e)}> 
+                    <p>{e}</p> 
+                  </li> 
+                ))}
               </ul>
             </div>
           </div>
