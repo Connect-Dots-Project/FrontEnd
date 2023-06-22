@@ -11,14 +11,21 @@ body {
 
 #ViewPlayListModal {
     background: #eeefff;
+<<<<<<< HEAD
     width: 2000px;
     height: 950px;
 
+=======
+    width: 800px;
+    height: 1078px;
+    
+>>>>>>> c8eeb9313bfcc5fcb23c2c22aab90fe837bb4ba4
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+<<<<<<< HEAD
     display: flex;
 
     .view-play-list-modal-left {
@@ -58,6 +65,9 @@ body {
 
     }
 
+=======
+    
+>>>>>>> c8eeb9313bfcc5fcb23c2c22aab90fe837bb4ba4
     .view-play-list-modal {
         width: 50%;
         height: 100%;
@@ -82,7 +92,40 @@ body {
             }
         }
 
+<<<<<<< HEAD
         
+=======
+        .list-img-box {
+            width: 100%;
+            height: 75%;
+
+            .list-img {
+                // background: url('./img/ViewPlayListHeader.png') no-repeat;
+                background-size: 160%;
+                background-position-x: -250px;
+                width: 100%;
+                height: 100%;
+                border: 1px solid #000;
+                position: relative;
+                .pl-img{
+                    width: 100%;
+                    height: 100%;
+                }
+                p {
+                    width: 100%;
+                    height: 10%;
+                    font-size: 50px;
+                    font-weight: 700;
+                    border: 1px solid #000;
+
+                    @include disflex();
+                    position: absolute;
+                    bottom: 0;
+                }
+            }
+
+        }
+>>>>>>> c8eeb9313bfcc5fcb23c2c22aab90fe837bb4ba4
 
         .view-play-list-main-wrapper {
             width: 100%;

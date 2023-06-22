@@ -1,32 +1,94 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+// import { Link, useNavigate } from 'react-router-dom';
 
 import '../scss/ConnectStoreSales.scss';
 
-const ConnectStoreSales = ({ closeChangeMenu }) => {
+const ConnectStoreSales = () => {
+  const [activeButton, setActiveButton] = useState(null);
+  const [isClickBackBtn, setIsClickBackBtn] = useState(false);
 
-  const [isOpenStoreMenu, setIsOpenStoreMenu] = useState(true);
 
-  const openChangeMenu = e => {
+  // const navigate = useNavigate();
 
-    const $aaa = document.getElementById('AA');
-    $aaa.style.background = 'black';
-    
-    setIsOpenStoreMenu(false);
+  const clickBackBtn = e => {
+
+    const $clickBackBtn = document.getElementById('StoreSalesWrapper');
+    $clickBackBtn.style.animation = 'clickBackBtn 2s forwards 1';
+
+    setTimeout(() => {
+      // $clickBackBtn.style.animation = null;
+      setIsClickBackBtn(true);
+      window.location.href = '/';
+      // navigate('/');
+    }, 1000);
   };
 
-
   return (
-    <>
+  <>
+    <div id='StoreSalesWrapper'>
+    <div className='store-sales-box'>
+      <div className='back-btn-box'>
+        <button id='BackBtn' onClick={clickBackBtn}></button>
+      </div>
 
-    {closeChangeMenu && (
-      <button id='AA' onClick={ openChangeMenu }>ConnectStoreSales</button>
-    )}
+      <div className='ss-select-list-box'>
+        {/* <Link to={'/'} className='ss-select-list'>
+          <div className='ss-list-img-text-box'>
+            <div className='ss-list-img-wrapper'>
+              <div className='ss-list-img-box'>
+                <button className='ss-list-img' id='ViewAllStoreList'></button>
+              </div>
+            </div>
+            <div className='ss-list-text-box'>
+              <p className='ss-list-text'>전체보기</p>
+            </div>
+          </div>
+        </Link> */}
 
+        <Link to={'/contents/cvs/GS25'} className='ss-select-list'>
+          <div className='ss-list-img-text-box'>
+            <div className='ss-list-img-wrapper'>
+              <div className='ss-list-img-box'>
+                <button className='ss-list-img' id='GS25'></button>
+              </div>
+            </div>
+            <div className='ss-list-text-box'>
+              <p className='ss-list-text'>GS25</p>
+            </div>
+          </div>
+        </Link>
 
+        <Link to={'/contents/cvs/CU'} className='ss-select-list'>
+          <div className='ss-list-img-text-box'>
+            <div className='ss-list-img-wrapper'>
+              <div className='ss-list-img-box'>
+                <button className='ss-list-img' id='CU'></button>
+              </div>
+            </div>
+            <div className='ss-list-text-box'>
+              <p className='ss-list-text'>CU</p>
+            </div>
+          </div>
+        </Link>
 
-    
-    </>
-  )
-}
+        <Link to={'/contents/cvs/7-eleven'} className='ss-select-list' >
+          <div className='ss-list-img-text-box'>
+            <div className='ss-list-img-wrapper'>
+              <div className='ss-list-img-box'>
+                <button className='ss-list-img' id='SevenEleven'></button>
+              </div>
+            </div>
+            <div className='ss-list-text-box'>
+              <p className='ss-list-text'>7-Eleven</p>
+            </div>
+          </div>
+        </Link>
+      </div>
+    </div>
+    </div>
+  </>
+  );
+};
 
-export default ConnectStoreSales
+export default ConnectStoreSales;

@@ -8,15 +8,11 @@ import ConnectCreatePost from './ConnectCreatePost';
 
 const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [fbData, setFbData] = useState([]);
 
   const containerRef = useRef(null);
   const isFetchingRef = useRef(false);
-
-  useEffect(() => {
-    fetchData();
-  }, [page]);
 
   useEffect(() => {
     fetchInitialData();
@@ -24,7 +20,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   const fetchInitialData = () => {
     setIsLoading(true);
-    fetch('http://localhost:8181/contents/free-board', {
+    fetch(`http://localhost:8181/contents/free-board/${page}`, {
       method: 'GET',
     })
       .then((res) => res.json())
@@ -38,13 +34,12 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(`http://localhost:8181/contents/free-board?page=${page}`, {
+    fetch(`http://localhost:8181/contents/free-board/${page}`, {
       method: 'GET',
     })
       .then((res) => res.json())
       .then((result) => {
         setFbData((prevData) => [...prevData, ...result]);
-        // setPage((prevPage) => prevPage + 1);
         setIsLoading(false);
         isFetchingRef.current = false;
       });
@@ -52,7 +47,8 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
-    if (scrollHeight - scrollTop === clientHeight) {
+    if (scrollHeight - scrollTop < clientHeight) {
+      setPage(page + 1);
       fetchData();
     }
   };
@@ -119,14 +115,15 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
           <div
             className="free-board-main-container"
-            // onScroll={handleScroll}
-            // ref={containerRef}
           >
-            <div className="fbm-info-box">
+            <div className="fbm-info-box"
+            onScroll={handleScroll}
+            ref={containerRef}
+            >
               {fbData.map((fb) => (
-                <ConnectFreeBoardData freeBoardList={fb} />
+                <ConnectFreeBoardData key={fb.id} freeBoardList={fb} />
               ))}
-              {/* {isLoading && <p>Loading...</p>} */}
+              {isLoading && <p>Loading...</p>}
             </div>
           </div>
         </div>

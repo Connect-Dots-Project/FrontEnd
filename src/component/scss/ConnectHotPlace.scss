@@ -114,6 +114,7 @@ body {
                     width: 100%;
                     height: 3.95%;
                     transition-duration: 0.3s;
+                    cursor: pointer;
                     @include disflex();
 
                     &:hover {
@@ -326,11 +327,13 @@ body {
         height: 1505px;
         padding: 15px;
         overflow: scroll;
-
+        
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
         
+        
+
         // hot-place 정보
         .hp-info {
             background: #eeeeee;
@@ -342,10 +345,67 @@ body {
             margin-bottom: 20px;
             border-radius: 10px;
             transition-duration: 0.3s;
-
+            position: relative;
+            
             &:hover {
                 transform: scale(0.95);
                 opacity: 0.8;
+            }
+            &:hover .hp-info-modify-delete-box .info-modify-box .info-modify-btn {
+                display: block;
+            }
+            &:hover .hp-info-modify-delete-box .info-delete-box .info-delete-btn {
+                display: block;
+            }
+
+            .hp-info-modify-delete-box {
+                width: 80px;
+                height: 30px;
+                position: absolute;
+                right: 10px;
+                display: flex;
+
+                .info-modify-box {
+                    width: 50%;
+                    height: 100%;
+                    transition-duration: 0.3s; 
+                    @include disflex();
+                    
+                    .info-modify-btn {
+                        background: url('./img/Modify.png') no-repeat;
+                        background-size: 100%;
+                        border: none;
+                        width: 25px;
+                        height: 25px;
+                        cursor: pointer;
+                        display: none;
+
+                        &:hover {
+                            transform: scale(1.1);
+                        }
+                    }
+                }
+                
+                .info-delete-box {
+                    width: 50%;
+                    height: 100%;
+                    transition-duration: 0.3s; 
+                    @include disflex();
+                    
+                    .info-delete-btn {
+                        background: url('./img/Delete.png') no-repeat;
+                        background-size: 100%;
+                        border: none;
+                        width: 25px;
+                        height: 25px;
+                        cursor: pointer;
+                        display: none;
+
+                        &:hover {
+                            transform: scale(1.1);
+                        }
+                    }
+                }
             }
             
             // hot-place img + text
@@ -356,44 +416,93 @@ body {
                 // hot-place img box
                 .hp-info-img-box {
                     width: 100%;
-                    height: 80%;
+                    height: 70%;
                     
                     // hot-place img
                     .info-img {
                         width: 100%;
-                        height: 70%;
+                        height: 60%;
                         margin-bottom: 3%;
                         border: none;
-                        background: url('./img/ad1.jpg')no-repeat;
+                        overflow: hidden;
+                        // background: url('./img/ad1.jpg')no-repeat;
                         background-size: 100%;
                         border-radius: 5px 5px 0px 0px;
                     }
                     
                 }
                 
-                .hp-text-box {
+                .hp-text-wrapper {
                     border-top: 3px solid #1465ad;
                     width: 100%;
-                    height: 25%;    
-                    padding: 10px;
+                    height: 35%;    
                     display: flex;
                     justify-content: space-between;
                     position: relative;
                     
-                    .hp-text {
-                        width: 75%;
+                    .hp-text-box {
+                        width: 80%;
                         height: 100%;
-                        font-size: 16px;
+                        
+                        .hp-text {
+                            width: 95%;
+                            height: 50%;
+                            font-size: 16px;
+                            font-weight: 700;
+                            border-bottom: 1px dashed #1465ad;
+                            @include disflex();
+                        }
+                        
+                        .hp-writer-date-box {
+                            width: 95%;
+                            height: 50%;
+                            display: flex;
+                            
+                            .hp-writer-box {
+                                width: 50%;
+                                height: 100%;
+                                @include disflex();
+                                
+                                .hp-writer-text {
+                                    width: 100%;
+                                    height: 100%;
+                                    font-size: 16px;
+                                    font-weight: 700;
+                                    display: flex;
+                                    justify-content: left;
+                                    align-items: center;
+                                    @include disflex();
+                                }
+                            }
+                            
+                            .hp-date-box {
+                                width: 50%;
+                                height: 100%;
+                                @include disflex();
+                                
+                                .hp-date-text {
+                                    width: 100%;
+                                    height: 100%;
+                                    font-size: 16px;
+                                    font-weight: 700;
+                                    display: flex;
+                                    justify-content: left;
+                                    align-items: center;
+                                }
+                            }
+                        }
                     }
+                    
                     .like-box {
                         width: 20%;
                         height: 100%;
+                        padding-top: 50px;
                         position: relative;
-
+                        
                         display: flex;
                         justify-content: center;
                         align-items: center;
-
+                        
                         .like-count {
                             width: 50%;
                             height: 100%;
@@ -401,7 +510,7 @@ body {
                             line-height: 3.3em;
                             font-weight: 700;
                         }
-
+                        
                         #Like {
                             background: url('./img/Like.png') no-repeat;
                             background-size: 100%;
