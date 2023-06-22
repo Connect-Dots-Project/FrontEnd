@@ -15,7 +15,7 @@ import { setWebSocket, getWebSocket } from './ConnectWebSocket';
 
 // 함수 -> 태그 -> useEffect
 
-const ConnectLiveChatting = (props) => {
+const ConnectLiveChatting = (props, closeCreatePost) => {
   const [roomId, setRoomId] = useState(''); // 방 번호
   const [sender, setSender] = useState(''); // 보내는 사람
   const [message, setMessage] = useState(''); // 메시지
@@ -211,17 +211,116 @@ const ConnectLiveChatting = (props) => {
     }
   };
 
+  const [isOpenWriteChat, setIsOpenWriteChat] = useState(false);
+  
+  const openWriteChat = () => {
+      setIsOpenWriteChat(true);
+  };
+
+  const closeWriteChat = e => {
+
+    setIsOpenWriteChat(false);
+  };
+  
+    
+
+  const [isOpenWriteInput, setIsOpenWriteInput] = useState(false);
+
+  const clickTag = e => {
+    
+    setIsOpenWriteInput(!isOpenWriteInput);
+  };
 
 
+const inputTagRef = useRef(null);
+const inputBtnRef = useRef(null);
+const inputBtnTextRef = useRef(null);
 
+useEffect(() => {
+  const inputTag = inputTagRef.current;
+  const inputBtn = inputBtnRef.current;
+  const inputBtnText = inputBtnTextRef.current;
+
+  if (isOpenWriteInput && inputTag && inputBtn) {
+    inputTag.style.display = 'block';
+    inputTag.style.animation = 'openClickTagBtn 0.5s forwards 1';
+    inputBtn.style.animation = 'openTag 1s forwards 1';
+    inputBtn.style.background = '#fff';
+    inputBtnText.style.color = '#1465ad';
+    inputBtnText.style.fontWeight = '700';
+  } 
+}, [isOpenWriteInput]);
 
 
 
     return (
     <>
+    {isOpenWriteChat && (
+
+      <div id='WriteChatModal'>
+      <div className='write-chat-modal-box'>
+
+        <div className='wc-header'>
+          <div className='wc-tag-box'>
+            <button id='ClickTag' onClick={ clickTag } ref={inputBtnRef}>
+              <p ref={inputBtnTextRef}>#</p>
+            </button>
+
+            {isOpenWriteInput && (
+              <input 
+              className='wc-tag' 
+              id='Input-Tag'
+              placeholder='태그를 적어주세요'
+              ref={inputTagRef}/>
+            )}
+
+          </div>
+        </div>
+
+        <div className='wc-main'>
+          <div className='wc-content-box'>
+            <textarea 
+              className='wc-content' 
+              placeholder='내용을 입력해주세요 (최대 150자)'
+              wrap='hard'
+            />
+          </div>
+        </div>
+
+        <div className='wc-footer'>
+          <div className='wc-btn-box'>
+
+            <div className='wc-btn-box'>
+              <button 
+                id='Cancel' 
+                className='wc-btn' 
+                onClick={ closeWriteChat }
+              >
+                <p>취 소</p>    
+              </button>
+            </div>
+            <div className='wc-btn-box'>
+              <button id='Register' className='wc-btn'><p>등 록</p></button>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    )}
+
+
+
+
+
+
+
+
     {isOpenChat && 
-         (
-    <div className='test1234'>
+      (
+        <div className='test1234'>
       <div className='lcheader-wrapper'>
       <div className='lcheader-img-box'>
         <div className='lcheader-img'>방장 사진</div>
@@ -231,6 +330,8 @@ const ConnectLiveChatting = (props) => {
         <div className='lcheader-accessor'>현재 방에 참여한 유저들의 사진 + 닉네임 들어갈 예정</div>
       </div>
     </div>
+
+
 
       {/* main */}
       <div className='lcmain-wrapper'>
@@ -307,15 +408,51 @@ const ConnectLiveChatting = (props) => {
     )
     }
 
+
+
+
+
+
         <div className='live-chatting-wrapper'>
         <div className='live-chatting-box'>
           <div className='lc-info-tag-box'>
             <div className='lc-info-box'>
 
+
+              <div className='info-header-box'>
+                <div className='info-header'>
+                  
+                  <div className='info-img-box'>
+                    <div className='info-img'></div>
+                  </div>
+
+                  <div className='info-text-box'>
+                    <div className='info-main-text-box'>
+                      <p>메인 텍스트</p>
+                    </div>
+                    <div className='info-sub-text-box'>
+                      <p>서브 텍스트</p>
+                    </div>
+                  </div>
+
+                  <div className='write-btn-box'>
+                    <button 
+                      id='Write-Btn' 
+                      onClick={ openWriteChat }
+                    >
+                     <p>글쓰기</p>
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
+
               {/* 게시판 1개 */}
               <button className='lc-info-wrapper' 
               data-value='room1'
               onClick={(e) => handleClick(e.currentTarget.getAttribute('data-value')) }>
+
                 <div className='info-box'>
                   <div className='lc-info-tag-like-reply-box'>
                     <div className='tag-box'>

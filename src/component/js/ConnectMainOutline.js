@@ -158,7 +158,7 @@ const ConnectMainOutline = () => {
                             <Route path='/contents/free-board' element={ <ConnectFreeBoard closeCreatePost={closeCreatePost}/> }></Route>
                         </Routes>
                         <Routes>
-                            <Route path='/nb-live-chatting' element={ <ConnectLiveChatting /> }></Route>
+                            <Route path='/nb-live-chatting' element={ <ConnectLiveChatting closeCreatePost={closeCreatePost}/> }></Route>
                         </Routes>
                         <Routes>
                             <Route path='/nb-playlist' element={ <ConnectPlayList /> }></Route>
