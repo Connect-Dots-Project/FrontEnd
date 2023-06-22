@@ -9,10 +9,12 @@ const ConnectPlayList = () => {
 
   const [isOpenViewPlayList, setIsOpenViewPlayList] = useState(false);
   const [playlistItems, setPlaylistItems] = useState([]);
+  const [idx, setIdx] = useState('');
   
 
-  const openList = e => {
+  const openList = (idx) => {
     setIsOpenViewPlayList(true);
+    setIdx(idx);
   };
 
   const closeList = e => {
@@ -41,7 +43,7 @@ const ConnectPlayList = () => {
 
   const renderPlaylistItems = () => {
     return playlistItems.map((e) => (
-      <button className="plb-list" onClick={openList}>
+      <button className="plb-list" onClick={() => openList(e.musicBoardIdx)}>
         <div id="Hidden-Playbtn"></div>
         <div className="pl-img-box">
           <img className="pl-img" src={e.musicBoardTrackImage} alt="앨범 이미지" />
@@ -59,7 +61,7 @@ const ConnectPlayList = () => {
 
   return (
     <>  
-        {isOpenViewPlayList && <ConnectViewPlayList closeList={ closeList }/>}
+        {isOpenViewPlayList && <ConnectViewPlayList closeList={ closeList } playListId={idx}/>}
 
         {/* playlist */}
         <div className='playlist-board-wrapper'>

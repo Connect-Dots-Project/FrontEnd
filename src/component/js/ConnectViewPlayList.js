@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../scss/ConnectViewPlayList.scss';
 
-const ConnectViewPlayList = ({ closeList }) => {
+const ConnectViewPlayList = ({ closeList, playListId }) => {
   const [playListItems, setPlayListItem] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(null);
@@ -20,14 +20,16 @@ const ConnectViewPlayList = ({ closeList }) => {
       }
     };
 
-    const playListIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    // const playListIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const fetchData = async () => {
-      await fetchPlaylistItems(playListIds[1]); 
+      await fetchPlaylistItems(playListId); 
     };
 
     fetchData();
   }, []);
 
+
+  //음악 재생 
   const handlePlayButtonClick = async (index) => {
 
     const previewUrl = playListItems[index]?.musicBoardPreviewUrl;
@@ -105,7 +107,7 @@ const ConnectViewPlayList = ({ closeList }) => {
                     <div className='list-info'>
                       <div className='list-info-title'><p>{playListItems[i]?.musicBoardTitle}</p></div>
                       <div className='list-info-singer'><p>{playListItems[i]?.musicBoardArtist}</p></div>
-                      <div className='list-info-previewUrl'><p>{playListItems[i]?.musicBoardPreviewUrl}</p></div>
+                      {/* <div className='list-info-previewUrl'><p>{playListItems[i]?.musicBoardPreviewUrl}</p></div> */}
                     </div>
                     <div className='list-play-btn-box'>
                     <button className='list-play-/btn'>{isPlaying && currentTrackIndex === i ? '일시정지' : '재생'}</button>
