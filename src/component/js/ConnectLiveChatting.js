@@ -15,7 +15,7 @@ import { setWebSocket, getWebSocket } from './ConnectWebSocket';
 
 // 함수 -> 태그 -> useEffect
 
-const ConnectLiveChatting = (props, closeCreatePost) => {
+const ConnectLiveChatting = (props) => {
   const [roomId, setRoomId] = useState(''); // 방 번호
   const [sender, setSender] = useState(''); // 보내는 사람
   const [message, setMessage] = useState(''); // 메시지
