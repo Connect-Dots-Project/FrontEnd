@@ -11,7 +11,7 @@ import '../scss/ConnectMainOutline.scss';
 import ConnectStoreSales from './ConnectStoreSales';
 
 import { useHistory } from 'react-router-dom';
-import SpotifyLogin from './SpotifyLogin';
+
 
 const ConnectMainOutline = () => {
 
@@ -77,13 +77,6 @@ const ConnectMainOutline = () => {
         return null;
     }
 
-
-    // const YourComponent = () => {
-    //   const history = useHistory();
-    
-    //   const handleClick = () => {
-    //     history.push('/spotify-login');
-    //   };
 
 
    
@@ -193,10 +186,8 @@ const ConnectMainOutline = () => {
                         </Routes>
                         <Routes>
                             <Route path='/nb-playlist' element={
-                                <>
-                                   <SpotifyLogin /> 
                                    <ConnectPlayList /> 
-                                </>}></Route>
+                                }></Route>
                         </Routes>
                         <Routes>
                             <Route path='/contents/csv' element={ <ConnectStoreInfo /> }></Route>

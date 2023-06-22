@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, Routes } from 'react-router-dom';
-import SpotifyLogin from './SpotifyLogin';
+
 
 import '../scss/ConnectHeader.scss';
 import { Route } from '@mui/icons-material';

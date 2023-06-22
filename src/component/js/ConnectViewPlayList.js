@@ -33,7 +33,7 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
   const handlePlayButtonClick = async (index) => {
 
     const previewUrl = playListItems[index]?.musicBoardPreviewUrl;
-
+  
     if (!previewUrl) {
       alert('지원하지 않는 음악입니다.');
       return;
@@ -58,7 +58,9 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
       setIsPlaying(false);
       setCurrentTrackIndex(null);
     }
+    
   }
+
 };
 
   
@@ -97,7 +99,7 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
                 <div className='vpl-main-list-wrapper'>
                   <div className='vpl-main-list-box'>
 
-                  {Array.from({ length: 51 }, (_, i) => (
+                  {Array.from({ length: 50 }, (_, i) => (
                   <button className='vpl-main-list' onClick={() => handlePlayButtonClick(i)} key={i}>
                     <div className='list-info-img-box'>
                       <div className='list-info-img'>
