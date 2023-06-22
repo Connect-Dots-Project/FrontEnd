@@ -22,40 +22,46 @@ const ConnectPlayList = () => {
   };
 
   useEffect(() => {
-    const fetchPlaylistItems = async () => {
-      try {
-        const response = await fetch('http://localhost:8181/contents/music-board', {
-          method: 'GET'
-        });
-        const result = await response.json();
-        console.log('resulttttttt: ', result);
+  const fetchPlaylistItems = async () => {
+    try {
+      const response = await fetch('http://localhost:8181/contents/music-board', {
+        method: 'GET'
+      });
+      const result = await response.json();
+      
+      // 서버에서 가져온 데이터가 배열인지 확인
+      if (Array.isArray(result)) {
         setPlaylistItems(result);
-      } catch (error) {
-        console.error('Error fetching playlist items:', error);
+      } else {
+        console.error('Playlist items data is not an array:', result);
       }
-    };
-  
-    fetchPlaylistItems();
-  }, []);
-  
-  
-
-
-  const renderPlaylistItems = () => {
-    return playlistItems.map((e) => (
-      <button className="plb-list" onClick={() => openList(e.musicBoardIdx)}>
-        <div id="Hidden-Playbtn"></div>
-        <div className="pl-img-box">
-          <img className="pl-img" src={e.musicBoardTrackImage} alt="앨범 이미지" />
-        </div>
-        <div className="pl-name-box">
-          <div className="pl-name">
-            <p>{e.musicBoardTrack}</p>
-          </div>
-        </div>
-      </button>
-    ));
+    } catch (error) {
+      console.error('Error fetching playlist items:', error);
+    }
   };
+
+  fetchPlaylistItems();
+}, []);
+
+  
+  
+
+
+  // const renderPlaylistItems = () => {
+  //   return playlistItems.map((e) => (
+  //     <button className="plb-list" onClick={() => openList(e.musicBoardIdx)}>
+  //       <div id="Hidden-Playbtn"></div>
+  //       <div className="pl-img-box">
+  //         <img className="pl-img" src={e.musicBoardTrackImage} alt="앨범 이미지" />
+  //       </div>
+  //       <div className="pl-name-box">
+  //         <div className="pl-name">
+  //           <p>{e.musicBoardTrack}</p>
+  //         </div>
+  //       </div>
+  //     </button>
+  //   ));
+  // };
   
   
 
@@ -84,16 +90,40 @@ const ConnectPlayList = () => {
 
                 {/* playlist container */}
                 <div className='plb-container-box'>
-                    <div className='plb-container'>
+                  <div className='plb-container'>
                     <div className='plb-list-wrapper'>
-                      {renderPlaylistItems()}
-                    </div>
+
+
+
+
+
+                      {playlistItems.map((e) => (
+                        <button className="plb-list" onClick={() => openList(e.musicBoardIdx)}>
+                          <div id="Hidden-Playbtn"></div>
+                          <div className="pl-img-box">
+                            <img className="pl-img" src={e.musicBoardTrackImage} alt="앨범 이미지" />
+                          </div>
+                          <div className="pl-name-box">
+                            <div className="pl-name">
+                              <p>{e.musicBoardTrack}</p>
+                            </div>
+                          </div>
+                        </button>))}
+
+
+
+
+
+
 
 
                     </div>
-                </div>
-            </div>
-        </div>
+
+
+                  </div>
+              </div>
+          </div>
+      </div>
     </>
   )
 }
