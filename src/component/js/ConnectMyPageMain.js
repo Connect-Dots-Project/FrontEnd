@@ -1,9 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import '../scss/ConnectMyPageMain.scss';
-import { Link } from 'react-router-dom';
+import ConnectUserSettingLocation from './ConnectUserSettingLocation';
+import ConnectUserLike from './ConnectUserLike';
+import ConnectUserActivity from './ConnectUserActivity';
 
 const ConnectMyPageMain = () => {
+
+    const [isOpenActivity, setIsOpenActivity] = useState(false);    
+    const [isOpenLike, setIsOpenLike] = useState(false);    
+    const [isOpenLocation, setIsOpenLocation] = useState(false);    
+
+    const openActivity = e => {
+        setIsOpenActivity(true);
+        setIsOpenLike(false);
+        setIsOpenLocation(false);
+    };
+    
+    const openLike = e => {
+        setIsOpenLike(true);
+        setIsOpenActivity(false);
+        setIsOpenLocation(false);
+    };
+    
+    const openLocation = e => {
+        setIsOpenLocation(true);
+        setIsOpenActivity(false);
+        setIsOpenLike(false);
+    };
+
+
     return (
         <>
         
@@ -41,24 +67,33 @@ const ConnectMyPageMain = () => {
                                     </div>
 
                                     <div className='mp-user-info-menu-box'>
-                                        <Link to={'/'} className='mp-user-activity-wrapper'>
+                                        <button 
+                                            className='mp-user-activity-wrapper'
+                                            onClick={ openActivity }
+                                        >
                                             <div className='mp-user-activity-box'>
                                                 <div className='mp-user-activity'></div>
                                             </div>
                                             <p>나의 활동</p>
-                                        </Link>
-                                        <Link to={'/'} className='mp-user-like-wrapper'>
+                                        </button>
+                                        <button 
+                                            className='mp-user-like-wrapper'
+                                            onClick={ openLike }
+                                        >
                                             <div className='mp-user-like-box'>
                                                 <div className='mp-user-like'></div>
                                             </div>
                                             <p>좋아요</p>
-                                        </Link>
-                                        <Link to={'/'} className='mp-user-setting-location-wrapper'>
+                                        </button>
+                                        <button 
+                                            className='mp-user-setting-location-wrapper'
+                                            onClick={ openLocation }
+                                        >
                                             <div className='mp-user-setting-location-box'>
                                                 <div className='mp-user-setting-location'></div>
                                             </div>
                                             <p>내 위치 설정</p>
-                                        </Link>
+                                        </button>
                                     </div>
 
                                 </div>
@@ -73,8 +108,10 @@ const ConnectMyPageMain = () => {
                         <div className='mp-change-menu-box'>
                             <div className='mp-change-menu'>
 
-
-
+                                {isOpenActivity && <ConnectUserActivity />}
+                                {isOpenLike && <ConnectUserLike />}
+                                {isOpenLocation && <ConnectUserSettingLocation />}
+                                
                             </div>
                         </div>
                     </div>
