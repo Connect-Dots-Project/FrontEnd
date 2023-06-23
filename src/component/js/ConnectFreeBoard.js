@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import '../scss/ConnectFreeBoard.scss';
 import ConnectFreeBoardData from './ConnectFreeBoardData';
 import ConnectCreatePost from './ConnectCreatePost';
+import ConnectFreeBoardWriteModal from './ConnectFreeBoardWrtieModal';
 
 const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -65,7 +66,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   return (
     <>
-      {isOpenWriteBoard && <ConnectCreatePost closeCreatePost={closeCreatePost} />}
+      {isOpenWriteBoard && <ConnectFreeBoardWriteModal closeCreatePost={closeCreatePost} />}
 
       <div className="free-board-wrapper">
         <div className="fb-box">
