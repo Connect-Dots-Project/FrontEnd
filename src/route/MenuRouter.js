@@ -9,6 +9,7 @@ import ConnectMainPage from '../component/js/ConnectMainPage';
 import ConnectLogin from '../component/js/ConnectLogin';
 import ConnectMainOutline from '../component/js/ConnectMainOutline';
 import ConnectGlobalChatting from '../component/js/ConnectGlobalChatting';
+import ConnectMyPageMain from '../component/js/ConnectMyPageMain';
 
 const MenuRouter = () => {
 
@@ -25,6 +26,9 @@ const MenuRouter = () => {
       
       <ConnectMainOutline />
       <ConnectGlobalChatting />
+
+      
+      
 
       {/* <Routes>
           <Route path='/nb-hot-place' element={ <ConnectHotPlace /> }></Route>
