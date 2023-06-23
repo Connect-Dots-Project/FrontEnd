@@ -25,8 +25,8 @@ const ConnectUserActivity = () => {
     };
 
     const handleWrittenBoardClick = () => {
-        setIsWrittenBoardClicked(true);
-    };        
+        setIsWrittenBoardClicked(prevState => !prevState);
+      };      
 
     return (
 
@@ -54,46 +54,37 @@ const ConnectUserActivity = () => {
                                 </button>
                             </div>
 
+                        <div className='ua-header-user-written-box'>
+                            <div className='user-written-info-box'>
 
-                            <div id='UaHeaderUserWrittenWrapper'>
-                                <div className='ua-header-user-written-box'>
-
-                                <div className='user-written-info-box'>
-                                <div
-                                    className={`user-written-board-box ${
+                            <div
+                                className={`user-written-board-box ${
                                     isWrittenBoardClicked ? 'openClicked' : 'closeClicked'
-                                    }`}
-                                    onClick={handleWrittenBoardClick}
+                                }`}
+                                onClick={handleWrittenBoardClick}
                                 >
-                                    <div className='user-written-board'>
+                                <div className="user-written-board">
                                     <p>내가 쓴 글</p>
-                                    </div>
+                                </div>
                                 </div>
                                 {isOpenFreeBoard && (
-                                <div
+                                    <div
                                     className={`user-written-reply-box ${
-                                    isWrittenBoardClicked ? 'closeClicked' : 'openClicked'
+                                        isWrittenBoardClicked ? 'closeClicked' : 'openClicked'
                                     }`}
                                     onClick={handleWrittenBoardClick}
-                                >
-
-                                        
-                                    <div className='user-written-reply' ref={replyRef}>
-                                        <p>내가 쓴 댓글</p>
-                                    </div>
-                                    </div>
+                                    >
+                                <div className="user-written-reply" ref={replyRef}>
+                                    <p>내가 쓴 댓글</p>
+                                </div>
+                                </div>
                                 )}
-
-                                </div>            
-
-
-
                                 </div>
                             </div>
-
-
-
                         </div>
+
+
+
                     </div>
                 </div>
 
