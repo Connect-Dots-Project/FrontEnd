@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 
-import '../scss/ConnectMyPageMain.scss';
 import ConnectUserSettingLocation from './ConnectUserSettingLocation';
 import ConnectUserLike from './ConnectUserLike';
 import ConnectUserActivity from './ConnectUserActivity';
+
+import '../scss/ConnectMyPageMain.scss';
 
 const ConnectMyPageMain = () => {
 

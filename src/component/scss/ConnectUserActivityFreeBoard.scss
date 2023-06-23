@@ -1,0 +1,166 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#UaHeaderUserWrittenWrapper {
+    width: 50%;
+    height: 100%;
+    
+    .ua-header-user-written-box {
+        width: 100%;
+        height: 100%;
+        
+        .user-written-info-box {
+            width: 60%;
+            height: 100%;
+            display: flex;
+            
+            .user-written-board-box {
+                width: 50%;
+                height: 100%;
+                cursor: pointer;
+                @include disflex();
+
+                .user-written-board {
+                    width: 100%;
+                    height: 50%;
+                    @include disflex();
+
+                    &:hover {
+                        font-weight: 700;
+                    }
+                    
+                    
+                    p {
+                        font-size: 12px;
+                    }
+                }
+            }
+            
+            .user-written-reply-box {
+                width: 50%;
+                height: 100%;
+                cursor: pointer;
+                @include disflex();
+                
+                .user-written-reply {
+                    border-left: 1px solid #000;
+                    width: 100%;
+                    height: 50%;
+                    @include disflex();
+
+                    &:hover {
+                        font-weight: 700;
+                    }
+                    
+                    p {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#UserActivityFreeBoardWrapper {
+    width: 100%;
+    height: 100%;
+    
+    .user-activity-free-board {
+        width: 100%;
+        height: 100%;
+        @include disflex();
+        
+        .user-info-list-box {
+            width: 90%;
+            height: 80%;
+            overflow: scroll;
+            padding-top: 1px;
+            
+            .user-info-list {
+                border-radius: 5px;
+                box-shadow: 1px 1px 2px 1px #444;
+                width: 99%;
+                height: 25%;
+                margin-bottom: 20px;
+                transition-duration: 0.3s;
+                cursor: pointer;
+                display: flex;
+
+                &:hover {
+                    opacity: 0.9;
+                    animation: vibe 0.2s forwards 2;
+                }
+                @keyframes vibe {
+                    0% {
+                        transform: rotate(0.5deg);
+                    } 50% {
+                        transform: rotate(-0.5deg);
+                    } 100% {
+                        transform: rotate(0);
+                    }
+                }
+                
+                p {
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+                
+                .ui-category {
+                    width: 15%;
+                    height: 100%;
+                    @include disflex();
+                    
+                    p {
+                        border-radius: 5px;
+                        background: #1465ad;
+                        color: #fff;
+                        width: 80%;
+                        height: 50%;
+                        @include disflex();
+                    }
+                }
+                .ui-location {
+                    width: 15%;
+                    height: 100%;
+                    @include disflex();
+
+                    p {
+                        border-radius: 5px;
+                        background: #ff6701;
+                        color: #fff;
+                        width: 80%;
+                        height: 50%;
+                        @include disflex();
+                    }
+                }
+                .ui-title {
+                    width: 50%;
+                    height: 100%;
+                    @include disflex();
+                }
+                .ui-date {
+                    width: 20%;
+                    height: 100%;
+                    @include disflex();
+
+                    p {
+                        font-weight: normal;
+                    }
+                }
+
+            }
+        }
+
+    }
+}
+
+.openClicked {
+    font-weight: 700;
+}
+
+.closeClicked {
+    font-weight: normal;
+}
