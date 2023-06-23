@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
@@ -10,22 +11,38 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
   const [memberNickname, setMemberNickname] = useState('');
   const [memberProfile, setMemberProfile] = useState('');
   
+  const redirection = useNavigate();
 
   useEffect(() => {
 
-    const url = 'http://localhost:8181/contents/free-board/detail/' + freeBoardIdx;
+    const fetchData = async() => {
 
-    fetch(url, {
-      method: 'GET'
-    })
-    .then(res => res.json())
-    .then(result => {
-      setMemberNickname(result.memberNickname);
-      setMemberProfile(result.memberProfile);
-      setSeplayList(result.replyList);
-      setFbData(result.freeBoardResponseDTO);
-      
-    });
+      const url = 'http://localhost:8181/contents/free-board/detail/' + freeBoardIdx;
+
+      try{
+        const res = await fetch(url, {
+          method: 'GET'
+        });
+
+        if(res.status === 403) {
+          window.location.reload();
+          return;
+        }
+
+        const result = await res.json();
+    
+        setMemberNickname(result.memberNickname);
+        setMemberProfile(result.memberProfile);
+        setSeplayList(result.replyList);
+        setFbData(result.freeBoardResponseDTO);
+
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+    
+    fetchData();
 
   }, []);
 

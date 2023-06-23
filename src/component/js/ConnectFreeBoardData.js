@@ -24,7 +24,34 @@ const ConnectFreeBoardData = ({ freeBoardList }) => {
     const [isOpenInnerBoard, setIsOpenInnerBoard] = useState(false);
 
     const openInnerBoardModal = e => {
-        setIsOpenInnerBoard(true);
+
+        const fetchData = async() => {
+
+            const url = 'http://localhost:8181/contents/free-board/detail/' + freeBoardIdx;
+      
+            try{
+              const res = await fetch(url, {
+                method: 'GET'
+              });
+      
+              if(res.status === 403) {
+                setIsOpenInnerBoard(false);
+                alert('로그인 해야해요;');
+              } else {
+                setIsOpenInnerBoard(true);
+              }
+      
+      
+            } catch (error) {
+              console.log(error);
+            }
+      
+          }
+        
+        fetchData();
+        return;
+
+        
     };
 
     const closeInnerBoardModal = e => {
