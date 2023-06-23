@@ -143,8 +143,9 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
         </div>
       </div>
       <audio ref={audioRef} />
-    </>
+      </>
   );
 };
+
 
 export default ConnectViewPlayList;

@@ -11,21 +11,15 @@ body {
 
 #ViewPlayListModal {
     background: #eeefff;
-<<<<<<< HEAD
     width: 2000px;
     height: 950px;
 
-=======
-    width: 800px;
-    height: 1078px;
-    
->>>>>>> c8eeb9313bfcc5fcb23c2c22aab90fe837bb4ba4
+
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-<<<<<<< HEAD
     display: flex;
 
     .view-play-list-modal-left {
@@ -65,9 +59,7 @@ body {
 
     }
 
-=======
-    
->>>>>>> c8eeb9313bfcc5fcb23c2c22aab90fe837bb4ba4
+
     .view-play-list-modal {
         width: 50%;
         height: 100%;
@@ -92,9 +84,7 @@ body {
             }
         }
 
-<<<<<<< HEAD
-        
-=======
+
         .list-img-box {
             width: 100%;
             height: 75%;
@@ -125,7 +115,7 @@ body {
             }
 
         }
->>>>>>> c8eeb9313bfcc5fcb23c2c22aab90fe837bb4ba4
+
 
         .view-play-list-main-wrapper {
             width: 100%;
@@ -268,7 +258,7 @@ body {
                                         height: 70%;
                                         overflow: hidden;
                                         display: flex;
-                                        justify-content: left;
+                                        justify-content: center;
                                         align-items: center;
 
                                         p {
@@ -280,7 +270,7 @@ body {
                                         width: 100%;
                                         height: 25%;
                                         display: flex;
-                                        justify-content: left;
+                                        justify-content: center;
                                         align-items: center;
 
                                         p {
