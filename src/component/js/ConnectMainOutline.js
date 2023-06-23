@@ -9,6 +9,7 @@ import ConnectLiveChatting from './ConnectLiveChatting';
 
 import '../scss/ConnectMainOutline.scss';
 import ConnectStoreSales from './ConnectStoreSales';
+import ConnectMyPageMain from "./ConnectMyPageMain";
 
 
 const ConnectMainOutline = () => {
@@ -193,6 +194,9 @@ const ConnectMainOutline = () => {
                             </Routes>
                             <Routes>
                                 <Route path='/nb-closing-sale' element={<ConnectStoreSales />} />
+                            </Routes>
+                            <Routes>
+                                <Route path='/nb' element={<ConnectMyPageMain />} />
                             </Routes>
                         </div>
                     </div>
