@@ -4,7 +4,10 @@ import ConnectWriteBoard from './ConnectWriteBoard';
 import Location from './Location';
 
 const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
+
   const [isCreateModal, setCreateModal] = useState(true);
+
+  // 초기값 설정
   const [hotplaceImg, setHotplaceImg] = useState('');
   const [hotplaceContent, setHotplaceContent] = useState('');
   const [hotplaceLatitude, setHotplaceLatitude] = useState('');
@@ -62,17 +65,35 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
     }, 1000);
   };
 
+
+
+
+  useEffect(() => {
+    if (isEditMode && selectedHotplace) {
+
+      // console.log('------------------useEffect--------------------');
+  //     setHotplaceImg(selectedHotplace.hotplaceImg);
+  //     setHotplaceContent(selectedHotplace.hotplaceContent);
+  //     setHotplaceLatitude(selectedHotplace.hotplaceLatitude);
+  //     setHotplaceLongitude(selectedHotplace.hotplaceLongitude);
+  //     setHotplaceName(selectedHotplace.hotplaceName);
+  //     setHotplaceFullAddress(selectedHotplace.hotplaceFullAddress);
+  //     setKakaoLocation(selectedHotplace.kakaoLocation);
+      setSelectedLocation(selectedHotplace.location);
+      
+    }
+  });
+
   
-
-
-
+  
   const submitHandler = (e) => {
+  
     e.preventDefault();
-
+    
+    
     const requestData = {
-      hotplaceIdx: selectedHotplace.hotplaceIdx,
       location: selectedLocation,
-      hotplaceContent,
+      hotplaceContent ,
       memberIdx: 1,
       hotplaceLatitude,
       hotplaceLongitude,
@@ -80,8 +101,10 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
       hotplaceFullAddress,
       kakaoLocation,
     };
-
-    const jsonString = JSON.stringify(requestData);
+    
+    if (isEditMode) requestData.hotplaceIdx = selectedHotplace.hotplaceIdx;
+  
+  const jsonString = JSON.stringify(requestData);
   const jsonDataBlob = new Blob([jsonString], { type: 'application/json' });
 
   const hotplaceFormData = new FormData();
@@ -104,7 +127,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
         .then((result) => console.log(result.isWrite));
     }
 
-    // window.location.reload();
+    window.location.reload();
   };
 
   return (
@@ -131,10 +154,16 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
               <div className='cp-main-box'>
                 <div className='cp-main'>
-                  <ConnectWriteBoard
-                    setHotplaceImg={setHotplaceImg}
-                    setHotplaceContent={setHotplaceContent}
-                  />
+                  
+                    <ConnectWriteBoard
+                      // wbHotplaceImg={selectedHotplace.hotplaceImg}
+                      // wbHotplaceContent={selectedHotplace.hotplaceContent}
+              
+                      setHotplaceImg = {setHotplaceImg}
+                      setHotplaceContent = {setHotplaceContent}
+               
+                    />
+                
                 </div>
               </div>
 
