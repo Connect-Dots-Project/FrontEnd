@@ -3,8 +3,10 @@ import { Map, MapMarker, MapInfoWindow } from 'react-kakao-maps-sdk';
 
 const ConnectTotalMap = () => {
   const [hpData, setHpData] = useState([]);
-  // const [hoveredLocation, setHoveredLocation] = useState(null);
+//   console.log(hpData);
+//   console.log('-------------------------------------');
   const [selectedLocation, setSelectedLocation] = useState(null);
+//   console.log(selectedLocation);
 
   useEffect(() => {
     fetch('http://localhost:8181/contents/hot-place', {
@@ -24,13 +26,14 @@ const ConnectTotalMap = () => {
   };
 
 
-  const locations = hpData.map((item) => {
-    const { hotplaceName, hotplaceLatitude, hotplaceLongitude, hotplaceFullAddress, hotplaceImage } = item;
+  const locations = hpData.map(hp => {
+	// console.log(hp);
+    const { hotplaceName, hotplaceLatitude, hotplaceLongitude, hotplaceFullAddress, hotplaceImg } = hp;
     return {
-      title: hotplaceName,
+	  hotplaceName: hotplaceName,
       latlng: { lat: parseFloat(hotplaceLatitude), lng: parseFloat(hotplaceLongitude) },
-      address: hotplaceFullAddress,
-      image: hotplaceImage,
+      hotplaceFullAddress: hotplaceFullAddress,
+      hotplaceImg: hotplaceImg,
     };
   });
 
@@ -51,12 +54,21 @@ const ConnectTotalMap = () => {
             />
             ))}
           {selectedLocation && (
-            <MapInfoWindow position={selectedLocation.latlng} onClose={() => setSelectedLocation(null)}>
+			  <MapInfoWindow position={selectedLocation.latlng} onClose={() => setSelectedLocation(null)}>
+				  
               <div style={{ width: '240px', height: '200px', backgroundColor: 'white', padding: '10px', borderRadius: '5px' }}>
-                <h4>{selectedLocation.title}</h4>
-                <img src={selectedLocation.image} style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} />
-                <p>{selectedLocation.address}</p>
+                <h4>{selectedLocation.hotplaceName}</h4>
+
+				{/* 이미지 aws s3 저장 */}
+				<img src={selectedLocation.hotplaceImg}  style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} />
+                
+				{/* 이미지 로컬 저장 */}
+				{/* <img src={`http://localhost:8181/contents/hot-place/img/${selectedLocation.hotplaceImg}`} alt='핫플레이스, 같이 놀러가자!' style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} /> */}
+                
+			   
+			    <p>{selectedLocation.hotplaceFullAddress}</p>
               </div>
+				
             </MapInfoWindow>
           )}
           </Map>

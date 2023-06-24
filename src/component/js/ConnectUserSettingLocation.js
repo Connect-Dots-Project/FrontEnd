@@ -30,11 +30,15 @@ const ConnectUserSettingLocation = () => {
                 <div className='user-setting-location-wrapper'>
                     {location && (
                         <Map 
-                        center={{ lat: location.latitude, lng: location.longitude }} 
-                        style={{ width: '485px', height: '360px' }} 
-                        level={3}
+                            center={{ lat: location.latitude, lng: location.longitude }} 
+                            style={{ width: '485px', height: '360px' }} 
+                            level={3}
                         >
-                            <MapMarker position={{ lat: location.latitude, lng: location.longitude }} />
+                            <MapMarker 
+                                position={{ lat: location.latitude, lng: location.longitude }}
+                                
+                            />
+                        
                         </Map>
                     )}
                 </div>
