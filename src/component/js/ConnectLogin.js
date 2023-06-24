@@ -623,7 +623,7 @@ const ConnectLogin = () => {
                         <input className='signin-info-text' placeholder='별명' id='Input-nickname'></input>
                     </li>
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='성별 (F / N)' id='Input-gender'></input>
+                        <input className='signin-info-text' placeholder='성별 (F / M)' id='Input-gender'></input>
                     </li>
                     <li className='signin-info-list'>
                         <input className='signin-info-text' placeholder='생년월일 (1900-00-00)' id='Input-birthday'></input>
