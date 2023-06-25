@@ -20,9 +20,56 @@ const ConnectLiveChatting = (props) => {
   const [sender, setSender] = useState(''); // 보내는 사람
   const [message, setMessage] = useState(''); // 메시지
   const [messages, setMessages] = useState([]);
+  const [roomList, setRoomList] = useState([]); // 채팅방 목록
+
+
+
+  const [inputHashtag, setInputHashtag] = useState('');
+  const [inputContent, setInputContent] = useState('');
+
+
+  // 입력한 content 값
+  const inputContentHandler = (e) => {
+    const { value } = e.target;
+    setInputContent(value);
+  }
+
+  // 입력한 hashtag 값
+  const inputHashtagHandler = (e) => {
+    const { value } = e.target;
+    setInputHashtag(value);
+  }
+
+
+
+
+
+
 
   let sock = null;
   let ws = useRef(null);
+
+
+  useEffect(() => {
+    findAll();
+  },[]);
+
+
+  // 채팅방 목록을 불러오는 함수
+  const findAll = () => {
+    
+    fetch(`http://localhost:8181/contents/chat`, {
+      method: 'GET',
+      headers: {'content-type': 'application/json'}
+    })
+      .then((res) => {return res.json();})
+      .then((result) => {
+
+        const findList = [...result.livechatList];
+        setRoomList(findList);
+      });
+
+  }
 
 
   // 웹소켓을 연결합니다.
@@ -125,7 +172,36 @@ const ConnectLiveChatting = (props) => {
 
 
 
+  // 채팅 방을 생성하는 함수
+  const createLiveChat = () => {
+    console.log('--------------------------------');
 
+    fetch('http://localhost:8181/contents/chat',{
+      method: 'POST',
+      headers: { 'content-type': 'application/json'},
+      body: JSON.stringify({
+          content: inputContent,
+          hashTag: inputHashtag,
+          nickname: '한강1234123123'
+      })
+    })
+    .then(res => {
+      console.log(res);
+      console.log(res.isCreate);
+
+      if (res.status === 401) {
+        alert('토큰 없음');
+        return
+      } else if (res.status === 500) {
+        alert('서버 문제');
+        return
+      }
+
+      closeWriteChat(false);
+
+    })
+
+  }
 
 
 
@@ -145,31 +221,8 @@ const ConnectLiveChatting = (props) => {
 
     const [isOpenChat, setIsOpenChat] = useState(false);
 
-    // TODO : 채팅창 css 필요.
     const openChathandler = e => {
-        // const $chattingBox = document.querySelector('test1234');
-        
-        // if ($chattingBox.style.height !== '500px') {
-        //     $chattingBox.style.animation = 'openGlobalChattingModal 1s forwards 1';
-        // } else {
-        //     $chattingBox.style.animation = 'none';
-        // }
-        
-        // if ($chattingBox && $chattingBox.style.display !== 'block') {
-        //     $chattingBox.style.display = 'block';
-        // }
         setIsOpenChat(!isOpenChat);
-
-        // document.addEventListener('mouseup', function(e) {
-        //     const container = document.querySelector('test1234');
-            
-        //     if (container && !container.contains(e.target)) {
-        //         container.style.animation = 'closeGlobalChattingModal 1s forwards 1';
-        //     } else if (container) {
-        //         container.style.display = 'block';
-        //     }
-        // });
-
     };
     
 
@@ -271,6 +324,8 @@ useEffect(() => {
               className='wc-tag' 
               id='Input-Tag'
               placeholder='태그를 적어주세요'
+              value={inputHashtag}
+              onChange={inputHashtagHandler}
               ref={inputTagRef}/>
             )}
 
@@ -283,6 +338,8 @@ useEffect(() => {
               className='wc-content' 
               placeholder='내용을 입력해주세요 (최대 150자)'
               wrap='hard'
+              value={inputContent}
+              onChange={inputContentHandler}
             />
           </div>
         </div>
@@ -300,7 +357,7 @@ useEffect(() => {
               </button>
             </div>
             <div className='wc-btn-box'>
-              <button id='Register' className='wc-btn'><p>등 록</p></button>
+              <button id='Register' className='wc-btn' onClick={ createLiveChat }><p>등 록</p></button>
             </div>
 
           </div>
@@ -447,8 +504,31 @@ useEffect(() => {
                 </div>
               </div>
 
+              {roomList.map(room => (
+                <button className='lc-info-wrapper'
+                  data-value={room.memberNickname}
+                  onClick={(e) => handleClick(e.currentTarget.getAttribute('data-value'))}
+                >
+                  <div className='info-box'>
+                    <div className='lc-info-tag-like-reply-box'>
+                      <div className='tag-box'>
+                        <div className='tag'>
+                          <p>{room.hashtag}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='lc-info-text-img-box'>
+                      <div className='text-box'>
+                        <div className='info-text'>
+                          {room.content}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ))}
 
-              {/* 게시판 1개 */}
+              {/* TODO : 게시판 1개 백업용 */}
               <button className='lc-info-wrapper' 
               data-value='room1'
               onClick={(e) => handleClick(e.currentTarget.getAttribute('data-value')) }>
@@ -481,86 +561,6 @@ useEffect(() => {
                   </div>
                 </div>
               </button>
-
-
-
-              {/* 게시판 2개 */}
-              <button className='lc-info-wrapper' 
-              data-value='room2'
-              onClick={(e) => handleClick(e.currentTarget.getAttribute('data-value')) }>
-                <div className='info-box'>
-                  <div className='lc-info-tag-like-reply-box'>
-                    <div className='tag-box'>
-                      <div className='tag'>
-                        <p>#해시태그</p>
-                      </div>
-                    </div>
-                    {/* <div className='like-box'>
-                      <div className='like'></div>
-                      <p className='count'>100</p>
-                    </div>
-                    <div className='reply-box'>
-                      <div className='reply'></div>
-                      <p className='count'>50</p>
-                    </div> */}
-                  </div>
-                  <div className='lc-info-text-img-box'>
-                    <div className='text-box'>
-                      <div className='info-text'>
-                      채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고
-                      채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고
-                      채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고
-                      </div>
-                    </div>
-                    {/* <div className='img-box'>
-                      <div className='info-img'></div>
-                    </div> */}
-                  </div>
-                </div>
-              </button>
-
-
-              
-              {/* 게시판 2개 */}
-              <button className='lc-info-wrapper' 
-              data-value='room3'
-              onClick={(e) => handleClick(e.currentTarget.getAttribute('data-value')) }>
-                <div className='info-box'>
-                  <div className='lc-info-tag-like-reply-box'>
-                    <div className='tag-box'>
-                      <div className='tag'>
-                        <p>#해시태그</p>
-                      </div>
-                    </div>
-                    {/* <div className='like-box'>
-                      <div className='like'></div>
-                      <p className='count'>100</p>
-                    </div>
-                    <div className='reply-box'>
-                      <div className='reply'></div>
-                      <p className='count'>50</p>
-                    </div> */}
-                  </div>
-                  <div className='lc-info-text-img-box'>
-                    <div className='text-box'>
-                      <div className='info-text'>
-                      채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고
-                      채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고
-                      채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고
-                      </div>
-                    </div>
-                    {/* <div className='img-box'>
-                      <div className='info-img'></div>
-                    </div> */}
-                  </div>
-                </div>
-              </button>
-
-
-
-
-
-
 
 
 
