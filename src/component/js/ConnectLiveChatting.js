@@ -183,6 +183,7 @@ const ConnectLiveChatting = (props) => {
           content: inputContent,
           hashTag: inputHashtag,
           nickname: '한강1234123123'
+          // TODO : 닉네임을 없애야 한다 토큰으로 nickname 작성할 예정
       })
     })
     .then(res => {
