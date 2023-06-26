@@ -61,7 +61,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
-    if (scrollHeight - scrollTop <= clientHeight) {
+    if (scrollHeight - scrollTop <= clientHeight * 1.3) {
       setPage(page + 1);
       fetchData();
     }
