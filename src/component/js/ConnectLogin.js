@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-
+import React, {useEffect, useState} from 'react'
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
 import { isLogin } from '../../util/login-util';
+
 
 const ConnectLogin = () => {
 
@@ -197,7 +197,7 @@ const ConnectLogin = () => {
             $signInBox.style.display = 'none';
         }
 
-        if($signInBox.style.height != '800px') {
+        if($signInBox.style.height !== '800px') {
             $signInBox.style.animation = 'openSignInModal 1s forwards 1';
         } else {
             $signInBox.style.animation = 'none';
@@ -330,11 +330,20 @@ const ConnectLogin = () => {
 
     const redirection = useNavigate();
     const [isLogInTest, setIsLogInTest] = useState(false);
+    // 페이지 로드 시, 로컬 스토리지에서 로그인 상태를 확인하여 설정
+
+    useEffect(() => {
+        const storedLoggedInStatus = localStorage.getItem('isLogInTest');
+        if (storedLoggedInStatus === 'true') {
+            setIsLogInTest(true);
+        }
+    }, []);
 
     const REQUEST_URL = 'http://localhost:8181/connects/login';
 
     // 서버에 AJAX 요청
     const fetchLogin = async() => {
+
 
         console.log('hello');
 
@@ -345,12 +354,13 @@ const ConnectLogin = () => {
         const res = await fetch(REQUEST_URL, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
+            credentials : 'include',
             body: JSON.stringify({
                 account: $email.value,
                 password: $password.value,
                 isAutoLogin: true
-            })
-        });
+             })
+         });
 
         // 가입이 안되어있거나, 비밀번호가 틀린 경우
         if(res.status === 400) {
@@ -391,8 +401,9 @@ const ConnectLogin = () => {
         // json에 담긴 인증정보를 클라이언트에 보관
         // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
         // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
+        localStorage.setItem('isLogInTest', 'true');
         localStorage.setItem('ACCESS_TOKEN', token);
-        localStorage.setItem('LOGIN_USERNAME', 'test1');
+        localStorage.setItem('LOGIN_USERNAME', email);
         localStorage.setItem('USER_ROLE', 'role');
 
         // 홈으로 리다이렉트
@@ -402,12 +413,13 @@ const ConnectLogin = () => {
 
     // // 로그인 요청 핸들러
     // const loginHandler = async (e) => {
-        //     e.preventDefault();
-
-        //     // 서버에 로그인 요청 전송
-        //     await fetchLogin();
-        //     //TODO : 2번 찍혀서 잠시 주석처리
-        // };
+    //         e.preventDefault();
+    //
+    //         // 서버에 로그인 요청 전송
+    //         // await fetchLogin();
+    //         fetchLogin();
+    //         //TODO : 2번 찍혀서 잠시 주석처리
+    //     };
 
 
         // 로그아웃 핸들러
