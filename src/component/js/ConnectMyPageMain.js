@@ -5,6 +5,7 @@ import ConnectUserLike from './ConnectUserLike';
 import ConnectUserActivity from './ConnectUserActivity';
 
 import '../scss/ConnectMyPageMain.scss';
+import { async } from 'q';
 
 const ConnectMyPageMain = () => {
 
@@ -17,6 +18,7 @@ const ConnectMyPageMain = () => {
         setIsOpenActivity(true);
         setIsOpenLike(false);
         setIsOpenLocation(false);
+        getHotPlace();
     };
     
     const openLike = e => {
@@ -38,6 +40,71 @@ const ConnectMyPageMain = () => {
     const closeModify = e => {
         setIsOpenModify(false);
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const getHotPlace = () => {
+
+        const myToken = localStorage.getItem('Authorization');
+        console.log(myToken);
+
+        fetch(`http://localhost:8181/member/mypage/myactive/hotplace`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization' : myToken
+            },
+            credentials: 'include'
+        }) 
+        .then(res => res.json())
+        .then(response => {
+            console.log(response);
+        })
+
+
+
+
+
+
+
+    };  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     return (

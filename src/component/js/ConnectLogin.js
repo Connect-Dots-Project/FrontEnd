@@ -9,6 +9,35 @@ import { isLogin } from '../../util/login-util';
 
 const ConnectLogin = () => {
 
+    const [isOpenSignInList, setIsOpenSignList] = useState(false);
+    const [isOpenSignIn, setIsOpenSignIn] = useState(false);
+
+    const openSignInList = e => {
+        setIsOpenSignList(true);
+    };  
+
+    const openSignInBtn = e => {
+        setIsOpenSignIn(true);
+    };
+
+    const handleCheckboxChange = (event) => {
+        const checkboxes = document.querySelectorAll('input[name="gender"]');
+        
+        checkboxes.forEach((checkbox) => {
+            if (checkbox !== event.target) {
+                checkbox.checked = false;
+            }
+        });
+    };
+
+    const autoHyphen = (e) => {
+        e.target.value = e.target.value
+          .replace(/[^0-9]/g, '')
+          .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
+          .replace(/(\-{1,2})$/g, '');
+      };
+    
+
     // 상태변수로 회원가입 입력값 관리
     const [userValue, setUserValue] = useState({
         account: '',
@@ -205,6 +234,7 @@ const ConnectLogin = () => {
         } else {
             $signInBox.style.animation = 'none';
         }
+        setIsOpenSignIn(true);
     };
 
     const closeLogin = e => {
@@ -260,6 +290,7 @@ const ConnectLogin = () => {
     const clickCertify = async() => {
 
         const $inputCode = document.getElementById('Input-code');
+        const $signInEmail = document.getElementById('SignInEmail');
 
         const res = await fetch('http://localhost:8181/connects/sign-up/check', {
             method: 'POST',
@@ -280,6 +311,13 @@ const ConnectLogin = () => {
             // 일치했을 때
             alert('코드가 일치합니다!');
             closeCertifyEmailModal();
+
+            if ($signInEmail) {
+                $signInEmail.style.transform = 'translateY(-250px)';
+                $signInEmail.style.transition = '0.3s';
+            }
+              
+            setIsOpenSignList(true);
         }
     };
 
@@ -451,7 +489,26 @@ const ConnectLogin = () => {
             window.location.href = '/';
         };
 
-
+        const checkNickname = async (event) => {
+            const inputNickname = event.target.value;
+          
+            // 중복 검사를 위해 서버로 요청을 보냄
+            const response = await fetch('http://localhost:8181/connects/sign-up/check', {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ nickname: inputNickname }),
+            });
+          
+            const { isDuplicate } = await response.json();
+          
+            if (isDuplicate) {
+              // 중복된 별명이 있을 경우 처리 로직
+              console.log('중복된 별명입니다!');
+            } else {
+              // 중복된 별명이 없을 경우 처리 로직
+              console.log('사용 가능한 별명입니다!');
+            }
+          };
 
         return (
             <>
@@ -572,86 +629,121 @@ const ConnectLogin = () => {
             {/* container (회원가입 입력창) */}
             <div id='Container'>
                 <ul className='signin-wrapper'>
-                    <li className='signin-info-list'>
-                        <input id='Input-email' className='signin-info-text' placeholder='아이디 (이메일)' autoFocus></input>
-                        <span className='certify-email-btn-box'>
-                            <button className='certify-email-btn' onClick={ openCertifyEmailModal }>이메일 인증</button>
-                        </span>
-                    </li>
+                    
+                    {isOpenSignIn && (
+                        <li className='signin-info-list' id='SignInEmail'>
+                            <input id='Input-email' className='signin-info-text' placeholder='아이디 (이메일)' autoFocus></input>
+                                <span className='certify-email-btn-box'>
+                                    <button className='certify-email-btn' onClick={ openCertifyEmailModal }>이메일 인증</button>
+                                </span>
+                        </li>
+                    )}
 
-                    {/* 비밀번호 */}
-                    <li className='signin-info-list'>
-                        <input
-                            className='signin-info-text'
-                            placeholder='비밀번호'
-                            type='password'
-                            id='Input-first-password'
-                            onChange={ passwordHandler }
-                        ></input>
-                        {message.password && (
-                        <span style={
-                            correct.password
-                            ? {color:'yellow'}
-                            : {color:'red'}}
-                            className='input-span'>{message.password}
-                        </span>)}
-                    </li>
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-a'>
+                                <input
+                                    className='signin-info-text'
+                                    placeholder='비밀번호'
+                                    type='password'
+                                    id='Input-first-password'
+                                    onChange={ passwordHandler }
+                                    ></input>
+                                {message.password && (
+                                    <span style={
+                                        correct.password
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.password}
+                                </span>)}
+                            </li>
+                        )}
 
-                    {/* 비밀번호 확인 */}
-                    <li className='signin-info-list'>
-                        <input
-                            className='signin-info-text'
-                            placeholder='비밀번호 확인'
-                            id='Input-second-password'
-                            onChange={ passwordCheckHandler }
-                        ></input>
-                        {message.passwordCheck && (
-                        <span id='Check-Span' style={
-                            correct.passwordCheck
-                            ? {color:'yellow'}
-                            : {color:'red'}}
-                            className='input-span'>{message.passwordCheck}
-                        </span>)}
-                    </li>
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-b'>
+                                <input
+                                    className='signin-info-text'
+                                    placeholder='비밀번호 확인'
+                                    id='Input-second-password'
+                                    onChange={ passwordCheckHandler }
+                                    ></input>
+                                {message.passwordCheck && (
+                                    <span id='Check-Span' style={
+                                        correct.passwordCheck
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.passwordCheck}
+                                </span>)}
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-c'>
+                                <input
+                                    className='signin-info-text'
+                                    placeholder='이름'
+                                    id='Input-name'
+                                    onChange={ nameHandler }
+                                    ></input>
+                                {message.userName && (
+                                    <span style={
+                                        correct.userName
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.userName}
+                                </span>)}
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-d'>
+                                <input 
+                                    className='signin-info-text' 
+                                    placeholder='별명' 
+                                    id='Input-nickname' 
+                                    onChange={checkNickname}
+                                ></input>
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                        <li className='signin-info-list fade-in-e'>
+                            <label htmlFor='Input-gender'><p id='GenderText'>성별 :</p>
+                                <input type='checkbox' id='Input-gender' name='gender' value='F' onChange={handleCheckboxChange} /><p>F</p>
+                                <input type='checkbox' id='Input-gender' name='gender' value='M' onChange={handleCheckboxChange} /><p>M</p>
+                            </label>
+                        </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-f'>
+                                <input className='signin-info-text' placeholder='생년월일 (1900-00-00)' id='Input-birthday'></input>
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-g'>
+                                <input 
+                                    className='signin-info-text' 
+                                    placeholder='핸드폰 번호 (010-0000-0000)' 
+                                    id='Input-phone'
+                                    onChange={autoHyphen}
+                                ></input>
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-h'>
+                                <input className='signin-info-text' placeholder='지역 ex) 강남구' id='Input-location'></input>
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-i'>
+                                <input className='signin-info-text' placeholder='한줄소개' id='Input-comment'></input>
+                            </li>
+                        )}
 
 
-
-
-                    {/* 이름 */}
-                    <li className='signin-info-list'>
-                        <input
-                            className='signin-info-text'
-                            placeholder='이름'
-                            id='Input-name'
-                            onChange={ nameHandler }
-                        ></input>
-                        {message.userName && (
-                        <span style={
-                            correct.userName
-                            ? {color:'yellow'}
-                            : {color:'red'}}
-                            className='input-span'>{message.userName}
-                        </span>)}
-                    </li>
-
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='별명' id='Input-nickname'></input>
-                    </li>
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='성별 (F / M)' id='Input-gender'></input>
-                    </li>
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='생년월일 (1900-00-00)' id='Input-birthday'></input>
-                    </li>
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='핸드폰 번호 (010-0000-0000)' id='Input-phone'></input>
-                    </li>
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='지역 ex) 강남구' id='Input-location'></input>
-                    </li>
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='한줄소개' id='Input-comment'></input>
-                    </li>
                 </ul>
             </div>
 
