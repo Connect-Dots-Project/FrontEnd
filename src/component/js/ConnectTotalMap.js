@@ -3,16 +3,32 @@ import { Map, MapMarker, MapInfoWindow } from 'react-kakao-maps-sdk';
 
 const ConnectTotalMap = () => {
   const [hpData, setHpData] = useState([]);
+  const [page, setPage] = useState(0);
 //   console.log(hpData);
 //   console.log('-------------------------------------');
   const [selectedLocation, setSelectedLocation] = useState(null);
 //   console.log(selectedLocation);
 
+
+const REQUEST_URL = 'http://localhost:8181/contents/hot-place';
+const MyToken = localStorage.getItem('Authorization');
+
   useEffect(() => {
-    fetch('http://localhost:8181/contents/hot-place', {
+    fetch(REQUEST_URL+`/${page}`, {
       method: 'GET',
+      headers: {
+        'Authorization' : MyToken
+      },
+      credentials: 'include'
     })
-      .then((res) => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          alert('회원가입이 필요한 서비스입니다.');
+          window.location.href = '/';
+        } else {
+          return res.json();
+        }
+      })
       .then((result) => {
         const list = [...result.hotplaceList];
         console.log(list);
