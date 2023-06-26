@@ -5,6 +5,10 @@ import Location from './Location';
 
 const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
 
+  const REQUEST_URL = 'http://localhost:8181/contents/hot-place';
+
+  const MyToken = localStorage.getItem('Authorization');
+
   const [isCreateModal, setCreateModal] = useState(true);
 
   // 초기값 설정
@@ -16,6 +20,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   const [hotplaceFullAddress, setHotplaceFullAddress] = useState('');
   const [kakaoLocation, setKakaoLocation] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
+
 
   const handleLocationClick = (location) => {
     setSelectedLocation(location);
@@ -112,15 +117,23 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   hotplaceFormData.append('hotplaceImg', hotplaceImg);
 
     if (isEditMode) {
-      fetch('http://localhost:8181/contents/hot-place', {
+      fetch(REQUEST_URL, {
         method: 'PATCH',
+        headers: {
+          'Authorization' : MyToken
+        },
+        credentials: 'include',
         body: hotplaceFormData,
       })
         .then((res) => res.json())
         .then((result) => console.log(result));
     } else {
-      fetch('http://localhost:8181/contents/hot-place', {
+      fetch(REQUEST_URL, {
         method: 'POST',
+        headers: {
+          'Authorization' : MyToken
+        },
+        credentials: 'include',
         body: hotplaceFormData,
       })
         .then((res) => res.json())
