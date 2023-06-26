@@ -84,34 +84,32 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
       
       // TODO : 게시글 제목 입력이 없음.
       const requestData = {
-        location: selectedLocation,
-        hotplaceContent ,
-        memberIdx: 1,
-        hotplaceLatitude,
-        hotplaceLongitude,
-        hotplaceName,
-        hotplaceFullAddress,
-        kakaoLocation,
+        freeBoardTitle: '제목을 입력해야합니다.',
+        freeBoardContent: hotplaceContent,
+        freeBoardLocation: '강남구',
+        freeBoardCategory: selectedLocation
       };
+
+
+
       
       if (isEditMode) requestData.hotplaceIdx = selectedHotplace.hotplaceIdx;
     
     const jsonString = JSON.stringify(requestData);
     const jsonDataBlob = new Blob([jsonString], { type: 'application/json' });
   
-    const hotplaceFormData = new FormData();
-    hotplaceFormData.append('hotplace', jsonDataBlob);
-    hotplaceFormData.append('freeBoardImg', hotplaceImg);
+    const freeBoardFormData = new FormData();
+    freeBoardFormData.append('freeBoard', jsonDataBlob);
+    freeBoardFormData.append('freeBoardImg', hotplaceImg);
 
       if (isEditMode) {
         fetch('http://localhost:8181/contents/free-board', {
           method: 'PATCH',
           headers: {
-            'content-type': 'application/json',
             'Authorization' : getLoginUserInfo().token
           },
           credentials: 'include',
-          // body: hotplaceFormData,
+          body: freeBoardFormData
         })
           .then((res) => res.json())
           .then((result) => console.log(result));
@@ -119,11 +117,10 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
         fetch('http://localhost:8181/contents/free-board', {
           method: 'POST',
           headers: {
-            'content-type': 'application/json',
             'Authorization' : getLoginUserInfo().token
           },
-          credentials: 'include'
-          // body: hotplaceFormData,
+          credentials: 'include',
+          body: freeBoardFormData
         })
           .then((res) => res.json())
           .then((result) => console.log(result.isWrite));
@@ -133,38 +130,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     };
 
 
-    const createFreeBoard = () => {
-
-      const requestData = {
-        freeBoardImg: hotplaceImg,
-        freeBoardTitle: '제목을 입력해야합니다.',
-        freeBoardContent: hotplaceContent,
-        freeBoardLocation: '강남구',
-        freeBoardCategory: selectedLocation
-      };
-
-      const jsonString = JSON.stringify(requestData);
-      const jsonDataBlob = new Blob([jsonString], { type: 'application/json' });
-
-      const freeboardFormData = new FormData();
-      freeboardFormData.append('freeBoard', jsonDataBlob);
-      freeboardFormData.append('freeBoardImg', freeBoardImg);
-      
-      console.log(getLoginUserInfo().token);
-
-      fetch('http://localhost:8181/contents/free-board', {
-          method: 'POST',
-          headers: {
-            'content-type' : 'application/json',
-            'Authorization' : getLoginUserInfo().token
-          },
-          credentials: 'include',
-          body: freeboardFormData
-        })
-        .then((res) => res.json())
-        .then((result) => console.log(result.isWrite));
-    };
-
+  
   
     return (
       <>
@@ -210,12 +176,10 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                         <button className='api-btn' id='Cancel' onClick={cancelBtn}>
                           <p>취소</p>
                         </button>
-                        <button className='api-btn' id='Storage' onClick={ createFreeBoard }>
-                          {/* <p>{isEditMode ? '수정하기' : '작성'}</p> */}
-                          <p>등록하기</p>
+                        <button type='submit' className='api-btn' id='Storage'>
+                          <p>{isEditMode ? '수정하기' : '작성'}</p>
                         </button>
                       </div>
-  
                       
                     </div>
                   </div>
