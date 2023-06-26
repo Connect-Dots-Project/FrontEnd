@@ -10,6 +10,7 @@ import ConnectGlobalChatting from './ConnectGlobalChatting';
 import axios from 'axios';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+import { getLoginUserInfo } from '../../util/login-util';
 
 import { setWebSocket, getWebSocket } from './ConnectWebSocket';
 
@@ -57,10 +58,16 @@ const ConnectLiveChatting = (props) => {
 
   // 채팅방 목록을 불러오는 함수
   const findAll = () => {
+    const myToken = localStorage.getItem('Authorization');
+    console.log(myToken);
     
     fetch(`http://localhost:8181/contents/chat`, {
       method: 'GET',
-      headers: {'content-type': 'application/json'}
+      headers: {
+        'content-type': 'application/json',
+        'Authorization' : myToken
+    },
+      credentials: 'include' // 쿠키가 필요하다면 추가하기
     })
       .then((res) => {return res.json();})
       .then((result) => {
@@ -68,6 +75,10 @@ const ConnectLiveChatting = (props) => {
         const findList = [...result.livechatList];
         setRoomList(findList);
       });
+
+      console.log('--------------------');
+      console.log(getLoginUserInfo());
+      console.log('--------------------');
 
   }
 
@@ -157,10 +168,7 @@ const ConnectLiveChatting = (props) => {
 
   const handleClick = (idx) => {
     setRoomId(idx);
-
-    // TODO : 보내는 사람을 해당 유저의 닉네임으로 바꿔야함.
-    const name = prompt('닉네임을 입력하세요');
-    setSender(name);
+    setSender(localStorage.getItem('NICKNAME'));
 
     // TODO : 기존의 채팅창에서 다른 방으로 클릭할 때
     // 연결은 되지만 창이 안 열림.
@@ -174,18 +182,26 @@ const ConnectLiveChatting = (props) => {
 
   // 채팅 방을 생성하는 함수
   const createLiveChat = () => {
+
+    const myToken = localStorage.getItem('Authorization');
     console.log('--------------------------------');
 
     fetch('http://localhost:8181/contents/chat',{
       method: 'POST',
-      headers: { 'content-type': 'application/json'},
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization' : myToken
+    },
+    credentials: 'include', // 쿠키가 필요하다면 추가하기
       body: JSON.stringify({
           content: inputContent,
           hashTag: inputHashtag,
-          nickname: '한강1234123123'
           // TODO : 닉네임을 없애야 한다 토큰으로 nickname 작성할 예정
       })
     })
+
+
+
     .then(res => {
       console.log(res);
       console.log(res.isCreate);
@@ -528,42 +544,6 @@ useEffect(() => {
                   </div>
                 </button>
               ))}
-
-              {/* TODO : 게시판 1개 백업용 */}
-              <button className='lc-info-wrapper' 
-              data-value='room1'
-              onClick={(e) => handleClick(e.currentTarget.getAttribute('data-value')) }>
-
-                <div className='info-box'>
-                  <div className='lc-info-tag-like-reply-box'>
-                    <div className='tag-box'>
-                      <div className='tag'>
-                        <p>#해시태그</p>
-                      </div>
-                    </div>
-                    {/* <div className='like-box'>
-                      <div className='like'></div>
-                      <p className='count'>100</p>
-                    </div>
-                    <div className='reply-box'>
-                      <div className='reply'></div>
-                      <p className='count'>50</p>
-                    </div> */}
-                  </div>
-                  <div className='lc-info-text-img-box'>
-                    <div className='text-box'>
-                      <div className='info-text'>
-                      채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고
-                      </div>
-                    </div>
-                    {/* <div className='img-box'>
-                      <div className='info-img'></div>
-                    </div> */}
-                  </div>
-                </div>
-              </button>
-
-
 
             </div>
 

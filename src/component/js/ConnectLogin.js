@@ -4,7 +4,7 @@ import { CookiesProvider } from 'react-cookie';
 
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
-import { isLogin } from '../../util/login-util';
+import { getLoginUserInfo, isLogin, setLoginUserInfo } from '../../util/login-util';
 
 
 const ConnectLogin = () => {
@@ -347,27 +347,20 @@ const ConnectLogin = () => {
     // 서버에 AJAX 요청
     const fetchLogin = async() => {
 
-        
-
         // 이메일, 비밀번호 입력 태그 얻어오기
         const $email = document.getElementById('ID');
         const $password = document.getElementById('PW');
-
-
-        const MyToken = localStorage.getItem('Authorization');
-        // localStorage.setItem('Authorization', token);
 
         const res = await fetch(REQUEST_URL, {
             method: 'POST',
             headers: { 
                 'content-type': 'application/json',
-                'Authorization' : MyToken
         },
             credentials: 'include', // 쿠키가 필요하다면 추가하기
             body: JSON.stringify({
                 account: $email.value,
                 password: $password.value,
-                isAutoLogin: true              
+                isAutoLogin: true
             })
         });
 
@@ -380,11 +373,12 @@ const ConnectLogin = () => {
             return;
         }
 
-
         // 서버에서 온 json 읽기
-        const { email } = await res.json();
+        const { account, nickname } = await res.json();
         // REFACTORING : 추후 서버에서 상태코드로 리턴할 예정
-        if(!email) {
+
+
+        if(!account) {
             alert('아이디 혹은 비밀번호가 틀렸습니다.');
             document.getElementById('ID').value='';
             document.getElementById('PW').value='';
@@ -399,36 +393,23 @@ const ConnectLogin = () => {
                 $back.style.display = 'none';
             }
 
+            const token = res.headers.get('Authorization');
+
+            console.log(token);
+            console.log(nickname);
+            console.log(account);
+
+            localStorage.setItem('ACCESS_TOKEN', token);
+            localStorage.setItem('ACCOUNT', account);
+            localStorage.setItem('NICKNAME', nickname);
+            
+            // TODO : setLoginUserInfo 가 안 됨
+            // setLoginUserInfo(token, account, nickname);
 
         }
 
-
-        const token = res.headers.get('Authorization');
-        localStorage.setItem('Authorization', token);
-
-        console.log(res.headers);
-        console.log(res.headers.get);
-        console.log(document.cookie);
-
-        // TODO: 쿠키 가져오기
-
-
-        console.log(token);
-        console.log(localStorage.getItem('Authorization'));
-
         
-        // TODO : 로그인에 성공한 유저의 이메일과 토큰 출력
-        console.log('--------------');
-        console.log(email);
-        
-        // json에 담긴 인증정보를 클라이언트에 보관
-        // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
-        // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
-        // localStorage.setItem('ACCESS_TOKEN', token);
-        // localStorage.setItem('LOGIN_USERNAME', 'test1');
-        // localStorage.setItem('USER_ROLE', 'role');
-
-        // 홈으로 리다이렉트
+        // T
         // redirection('/');
 
     };
