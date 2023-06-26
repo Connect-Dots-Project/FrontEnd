@@ -6,6 +6,7 @@ import '../scss/ConnectFreeBoard.scss';
 import ConnectFreeBoardData from './ConnectFreeBoardData';
 import ConnectCreatePost from './ConnectCreatePost';
 import ConnectFreeBoardWriteModal from './ConnectFreeBoardWrtieModal';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,8 +22,15 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   const fetchInitialData = () => {
     setIsLoading(true);
+
+
     fetch(`http://localhost:8181/contents/free-board/${page}`, {
       method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization' : getLoginUserInfo().token
+      },
+      credentials: 'include'
     })
       .then((res) => res.json())
       .then((result) => {
@@ -37,6 +45,11 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     setIsLoading(true);
     fetch(`http://localhost:8181/contents/free-board/${page}`, {
       method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization' : getLoginUserInfo().token
+      },
+      credentials: 'include'
     })
       .then((res) => res.json())
       .then((result) => {
@@ -48,7 +61,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
-    if (scrollHeight - scrollTop < clientHeight) {
+    if (scrollHeight - scrollTop <= clientHeight) {
       setPage(page + 1);
       fetchData();
     }

@@ -17,6 +17,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   const [kakaoLocation, setKakaoLocation] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
 
+
   const handleLocationClick = (location) => {
     setSelectedLocation(location);
   };

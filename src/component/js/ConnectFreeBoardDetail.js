@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
@@ -21,7 +22,12 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
       try{
         const res = await fetch(url, {
-          method: 'GET'
+          method: 'GET',
+          headers: {
+            'content-type': 'application/json',
+            'Authorization' : getLoginUserInfo().token
+          },
+          credentials: 'include'
         });
 
         if(res.status === 403) {
