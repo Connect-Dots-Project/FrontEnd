@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { CookiesProvider } from 'react-cookie';
 
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
@@ -351,22 +352,28 @@ const ConnectLogin = () => {
     // 서버에 AJAX 요청
     const fetchLogin = async() => {
         
-        console.log('hello');
-        
         // 이메일, 비밀번호 입력 태그 얻어오기
         const $email = document.getElementById('ID');
         const $password = document.getElementById('PW');
-        
+
+        const MyToken = localStorage.getItem('Authorization');
+        // localStorage.setItem('Authorization', token);
+
         const res = await fetch(REQUEST_URL, {
             method: 'POST',
-            headers: { 'content-type': 'application/json' },
+            headers: { 
+                'content-type': 'application/json',
+                'Authorization' : MyToken
+        },
+            credentials: 'include', // 쿠키가 필요하다면 추가하기
             body: JSON.stringify({
                 account: $email.value,
                 password: $password.value,
                 isAutoLogin: true              
             })
         });
-        
+
+
         // 가입이 안되어있거나, 비밀번호가 틀린 경우
         if(res.status === 400) {
             // 서버에서 온 문자열 읽기
@@ -374,11 +381,10 @@ const ConnectLogin = () => {
             alert(text);
             return;
         }
-        
-        
+
         
         // 서버에서 온 json 읽기
-        const { email, token } = await res.json();
+        const { email } = await res.json();
         // REFACTORING : 추후 서버에서 상태코드로 리턴할 예정
         if(!email) {
             alert('아이디 혹은 비밀번호가 틀렸습니다.');
@@ -394,21 +400,34 @@ const ConnectLogin = () => {
                 $loginBox.style.animation = 'closeLoginModal 1s forwards 1';
                 $back.style.display = 'none';
             }
-           
-      
+
+
         }
+
+        const token = res.headers.get('Authorization');
+        localStorage.setItem('Authorization', token);
+
+        console.log(res.headers);
+        console.log(res.headers.get);
+        console.log(document.cookie);
+
+        // TODO: 쿠키 가져오기
+
+
+        console.log(token);
+        console.log(localStorage.getItem('Authorization'));
+
         
         // TODO : 로그인에 성공한 유저의 이메일과 토큰 출력
         console.log('--------------');
         console.log(email);
-        console.log(token);
         
         // json에 담긴 인증정보를 클라이언트에 보관
         // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
         // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
-        localStorage.setItem('ACCESS_TOKEN', token);
-        localStorage.setItem('LOGIN_USERNAME', 'test1');
-        localStorage.setItem('USER_ROLE', 'role');
+        // localStorage.setItem('ACCESS_TOKEN', token);
+        // localStorage.setItem('LOGIN_USERNAME', 'test1');
+        // localStorage.setItem('USER_ROLE', 'role');
         
         // 홈으로 리다이렉트
         // redirection('/');
@@ -623,7 +642,7 @@ const ConnectLogin = () => {
                         <input className='signin-info-text' placeholder='별명' id='Input-nickname'></input>
                     </li>
                     <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='성별 (F / N)' id='Input-gender'></input>
+                        <input className='signin-info-text' placeholder='성별 (F / M)' id='Input-gender'></input>
                     </li>
                     <li className='signin-info-list'>
                         <input className='signin-info-text' placeholder='생년월일 (1900-00-00)' id='Input-birthday'></input>

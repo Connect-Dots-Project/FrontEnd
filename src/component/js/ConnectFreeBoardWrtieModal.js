@@ -70,15 +70,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
   
     useEffect(() => {
       if (isEditMode && selectedHotplace) {
-  
-        // console.log('------------------useEffect--------------------');
-    //     setHotplaceImg(selectedHotplace.hotplaceImg);
-    //     setHotplaceContent(selectedHotplace.hotplaceContent);
-    //     setHotplaceLatitude(selectedHotplace.hotplaceLatitude);
-    //     setHotplaceLongitude(selectedHotplace.hotplaceLongitude);
-    //     setHotplaceName(selectedHotplace.hotplaceName);
-    //     setHotplaceFullAddress(selectedHotplace.hotplaceFullAddress);
-    //     setKakaoLocation(selectedHotplace.kakaoLocation);
+
         setSelectedLocation(selectedHotplace.location);
         
       }
@@ -89,8 +81,17 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     const submitHandler = (e) => {
     
       e.preventDefault();
+
+      const freeBoardWriteRequestDTO = {
+        freeBoardImg: '',
+        freeBoardTitle: '',
+        freeBoardContent: hotplaceContent,
+        freeBoardLocation: selectedLocation,
+        freeBoardCategory: '',
+        memberIdx: 1
+      }
       
-      
+      // TODO : 게시글 제목 입력이 없음.
       const requestData = {
         location: selectedLocation,
         hotplaceContent ,
@@ -112,14 +113,14 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     hotplaceFormData.append('hotplaceImg', hotplaceImg);
   
       if (isEditMode) {
-        fetch('http://localhost:8181/contents/hot-place', {
+        fetch('http://localhost:8181/contents/free-board', {
           method: 'PATCH',
           body: hotplaceFormData,
         })
           .then((res) => res.json())
           .then((result) => console.log(result));
       } else {
-        fetch('http://localhost:8181/contents/hot-place', {
+        fetch('http://localhost:8181/contents/free-board', {
           method: 'POST',
           body: hotplaceFormData,
         })
