@@ -18,7 +18,8 @@ const ConnectPlayList = () => {
   };
 
   const closeList = e => {
-    setIsOpenViewPlayList(false);
+    // setIsOpenViewPlayList(false);
+    window.location.href = '/nb-playlist';
   };
 
   useEffect(() => {

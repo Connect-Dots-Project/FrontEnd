@@ -58,13 +58,11 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
       setIsPlaying(false);
       setCurrentTrackIndex(null);
     }
-    
+   
   }
 
 };
 
-  
-  
 
 
   return (
@@ -83,7 +81,7 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
 
 
         <div className='view-play-list-modal'>
-          <button id='CloseBtn' onClick={closeList}><p>X</p></button>
+          <button id='CloseBtn' onClick={closeList} ><p>X</p></button>
 
           
 
