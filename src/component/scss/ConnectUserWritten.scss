@@ -1,0 +1,16 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+}
+
+.ua-header-user-written-box {
+    width: 50%;
+    height: 100%;
+    
+    .user-written-info-box {
+        width: 60%;
+        height: 100%;
+        display: flex;
+    }
+}

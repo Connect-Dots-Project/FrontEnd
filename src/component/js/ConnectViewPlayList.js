@@ -70,34 +70,47 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
   return (
     <>
       <div id='ViewPlayListModal'>
+
+        <div className='view-play-list-modal-left'>
+          <header className='list-img-box'>
+            <div className='list-img'>
+              {playListItems.length > 0 && <img className="pl-img" src={playListItems[0].musicBoardTrackImage} alt="앨범 이미지" />}
+            </div>
+          </header>
+
+          
+        </div>
+
+
         <div className='view-play-list-modal'>
           <button id='CloseBtn' onClick={closeList}><p>X</p></button>
 
-          <header className='list-img-box'>
-          <div className='list-img'>
-            {playListItems.length > 0 && <img className="pl-img" src={playListItems[0].musicBoardTrackImage} alt="앨범 이미지" />}
-          </div>
           
-          </header>
 
           <div className='view-play-list-main-wrapper'>
             <div className='view-play-list-main-box'>
               <div className='vpl-main'>
-                <div className='vpl-main-text-view-box'>
-                  <div className='vpl-main-text-box'>
-                    <p>{playListItems[0]?.musicBoardTrack} 노래 모음입니다.</p>
-                    <p>음악은 30초간 미리듣기 가능합니다. (단, 지원하지 않는 음악 서비스도 있습니다.)</p>
-                  </div>
-                  <div className='vpl-main-view-box'>
-                    <div className='view-img'>
-                      {/* {playListItems[0]?.musicBoardTrackImage} */}
-                    </div>
-                    <div className='view-count'><p>10</p></div>
-                  </div>
-                </div>
+                
 
                 <div className='vpl-main-list-wrapper'>
                   <div className='vpl-main-list-box'>
+
+
+                    <div className='vpl-main-text-view-box'>
+                      <div className='vpl-main-text-box'>
+                        <p>{playListItems[0]?.musicBoardTrack} 노래 모음입니다.</p>
+                        <p>음악은 30초간 미리듣기 가능합니다.<br></br> (단, 지원하지 않는 음악 서비스도 있습니다.)</p>
+                      </div>
+                      <div className='vpl-main-view-box'>
+                        <div className='view-img'>
+                          {/* {playListItems[0]?.musicBoardTrackImage} */}
+                        </div>
+                        <div className='view-count'><p>10</p></div>
+                      </div>
+                    </div>
+
+                    <div className='empty-box'></div>
+
 
                   {Array.from({ length: 50 }, (_, i) => (
                   <button className='vpl-main-list' onClick={() => handlePlayButtonClick(i)} key={i}>
@@ -112,7 +125,11 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
                       {/* <div className='list-info-previewUrl'><p>{playListItems[i]?.musicBoardPreviewUrl}</p></div> */}
                     </div>
                     <div className='list-play-btn-box'>
-                    <button className='list-play-/btn'>{isPlaying && currentTrackIndex === i ? '일시정지' : '재생'}</button>
+                      <button className='list-play-btn'>{isPlaying && currentTrackIndex === i ? (
+                        <div id='Stop'></div>
+                      ) : (
+                        <div id='Play'></div>
+                      )}</button>
                     </div>
                   </button>
                 ))}
@@ -126,8 +143,9 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
         </div>
       </div>
       <audio ref={audioRef} />
-    </>
+      </>
   );
 };
+
 
 export default ConnectViewPlayList;

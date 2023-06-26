@@ -1,0 +1,66 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#UserActivityHotPlaceWrapper {
+    width: 100%;
+    height: 100%;
+    
+    .user-activity-hot-place-box {
+        width: 100%;
+        height: 100%;
+
+        .uahp-wrapper {
+            width: 100%;
+            height: 100%;
+            @include disflex();
+
+            .uahp-box {
+                width: 95%;
+                height: 90%;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                flex-wrap: wrap;
+
+                .uahp-list {
+                    border: 1px solid #000;
+                    width: 23%;
+                    height: 45%;
+                    
+                    .uahp-img-box {
+                        width: 100%;
+                        height: 75%;
+                        @include disflex();
+                        
+                        .uahp-img {
+                            border: 1px solid #000;
+                            width: 90%;
+                            height: 90%;
+                        }
+                        
+                    }
+                    
+                    .uahp-text-box {
+                        width: 100%;
+                        height: 20%;
+                        @include disflex();
+                        
+                        p {
+                            background: #ddd;
+                            box-shadow: 0 2px 1px 0 #444;
+                            border-radius: 5px;
+                            width: 50%;
+                            height: 80%;
+                            font-size: 14px;
+                            font-weight: 700;
+                            @include disflex();
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

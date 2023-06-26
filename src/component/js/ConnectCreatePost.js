@@ -167,7 +167,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
                 </div>
               </div>
 
-              <footer className='cp-footer'>
+              <footer className='cp-footer-wrapper'>
                 <div className='cp-footer-text-api-box'>
                   <div className='cp-footer-text-box'>
                     <p>장소를 선택해주세요</p>

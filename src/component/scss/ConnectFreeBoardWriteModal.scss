@@ -86,9 +86,9 @@
         height: 100%;
         margin: 0 auto; 
         
-        .cp-header {
+        .cp-header-wrapper {
             width: 100%;
-            height: 300px;
+            height: 250px;
             
             .cp-header-text-tag-box {
                 width: 100%;
@@ -143,16 +143,16 @@
             }
         }
 
-        .cp-main-box {
+        .cp-main-wrapper {
             border: 2px solid #1465ad;
             border-radius: 5px;
             width: 100%;
-            height: 325px;
+            height: 570px;
             padding-top: 4px;
 
             @include disflex();
 
-            .cp-main {
+            .cp-main-box {
                 border: 2px solid #1465ad;
                 width: 98%;
                 height: 97%;
@@ -162,33 +162,15 @@
         }
         
 
-        .cp-footer-wrapper {
+        #CpFooter {
             width: 100%;
             height: 25%;
             transition-duration: 1s;
 
-            &:hover {
-                transform: translateY(-618px);
-            }
-            
             .cp-footer-text-api-box {
                 width: 100%;
                 height: 100%;
                 
-                .cp-footer-text-box {
-                    background: #ddd;
-                    width: 100%;
-                    height: 25%;
-                    padding: 20px;
-                    
-                    p {
-                        width: 100%;
-                        height: 100%;
-                        font-size: 20px;
-                        font-weight: 700;
-                        @include disflex();
-                    }
-                }
                 
                 .cp-footer-api-box {
                     width: 100%;

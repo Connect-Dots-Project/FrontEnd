@@ -278,7 +278,11 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                           <div className='hp-info-img-text-box'>
                             <Link to='/' className='hp-info-img-box'>
                               <div className='info-img'>
-                                <img src={`http://localhost:8181/contents/hot-place/img/${hp.hotplaceImg}`} alt='핫플레이스, 같이 놀러가자!' />
+                                {/* 이미지 aws s3 저장 */}
+                                <img src={hp.hotplaceImg} alt='핫플레이스, 같이 놀러가자!' />
+
+                                {/* 이미지 로컬 저장 */}
+                                {/* <img src={`http://localhost:8181/contents/hot-place/img/${hp.hotplaceImg}`} alt='핫플레이스, 같이 놀러가자!' /> */}
                               </div>
                             </Link>
 
