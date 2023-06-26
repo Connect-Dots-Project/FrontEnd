@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import '../scss/ConnectFreeBoardData.scss';
 import '../scss/ConnectFreeBoard.scss';
 import ConnectFreeBoardDetail from './ConnectFreeBoardDetail';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectFreeBoardData = ({ freeBoardList }) => {
 
@@ -31,7 +32,12 @@ const ConnectFreeBoardData = ({ freeBoardList }) => {
       
             try{
               const res = await fetch(url, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                  'content-type': 'application/json',
+                  'Authorization' : getLoginUserInfo().token
+                },
+                credentials: 'include'
               });
       
               if(res.status === 403) {

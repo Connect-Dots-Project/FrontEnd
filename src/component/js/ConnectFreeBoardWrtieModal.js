@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import '../scss/ConnectFreeBoardWriteModal.scss';
 import ConnectWriteBoard from "./ConnectWriteBoard";
+import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
 
@@ -22,9 +23,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     };
   
     const districtList = [
-      '강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구',
-      '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구',
-      '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
+      '친목', '봉사활동', '동네정보', '맛집탐방', '잡담', '질문', '놀거리', '취미'
     ];
   
     const districtItems = districtList.map((district) => (
@@ -82,14 +81,6 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     
       e.preventDefault();
 
-      const freeBoardWriteRequestDTO = {
-        freeBoardImg: '',
-        freeBoardTitle: '',
-        freeBoardContent: hotplaceContent,
-        freeBoardLocation: selectedLocation,
-        freeBoardCategory: '',
-        memberIdx: 1
-      }
       
       // TODO : 게시글 제목 입력이 없음.
       const requestData = {
@@ -110,19 +101,29 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
   
     const hotplaceFormData = new FormData();
     hotplaceFormData.append('hotplace', jsonDataBlob);
-    hotplaceFormData.append('hotplaceImg', hotplaceImg);
-  
+    hotplaceFormData.append('freeBoardImg', hotplaceImg);
+
       if (isEditMode) {
         fetch('http://localhost:8181/contents/free-board', {
           method: 'PATCH',
-          body: hotplaceFormData,
+          headers: {
+            'content-type': 'application/json',
+            'Authorization' : getLoginUserInfo().token
+          },
+          credentials: 'include',
+          // body: hotplaceFormData,
         })
           .then((res) => res.json())
           .then((result) => console.log(result));
       } else {
         fetch('http://localhost:8181/contents/free-board', {
           method: 'POST',
-          body: hotplaceFormData,
+          headers: {
+            'content-type': 'application/json',
+            'Authorization' : getLoginUserInfo().token
+          },
+          credentials: 'include'
+          // body: hotplaceFormData,
         })
           .then((res) => res.json())
           .then((result) => console.log(result.isWrite));
@@ -130,6 +131,40 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
   
       window.location.reload();
     };
+
+
+    const createFreeBoard = () => {
+
+      const requestData = {
+        freeBoardImg: hotplaceImg,
+        freeBoardTitle: '제목을 입력해야합니다.',
+        freeBoardContent: hotplaceContent,
+        freeBoardLocation: '강남구',
+        freeBoardCategory: selectedLocation
+      };
+
+      const jsonString = JSON.stringify(requestData);
+      const jsonDataBlob = new Blob([jsonString], { type: 'application/json' });
+
+      const freeboardFormData = new FormData();
+      freeboardFormData.append('freeBoard', jsonDataBlob);
+      freeboardFormData.append('freeBoardImg', freeBoardImg);
+      
+      console.log(getLoginUserInfo().token);
+
+      fetch('http://localhost:8181/contents/free-board', {
+          method: 'POST',
+          headers: {
+            'content-type' : 'application/json',
+            'Authorization' : getLoginUserInfo().token
+          },
+          credentials: 'include',
+          body: freeboardFormData
+        })
+        .then((res) => res.json())
+        .then((result) => console.log(result.isWrite));
+    };
+
   
     return (
       <>
@@ -157,12 +192,11 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                   <div className='cp-main-box'>
                     
                       <ConnectWriteBoard
-                        // wbHotplaceImg={selectedHotplace.hotplaceImg}
+                        // wbfreeBoardImg={selectedHotplace.freeBoardImg}
                         // wbHotplaceContent={selectedHotplace.hotplaceContent}
                 
                         setHotplaceImg = {setHotplaceImg}
                         setHotplaceContent = {setHotplaceContent}
-                 
                       />
                   
                   </div>
@@ -176,8 +210,9 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                         <button className='api-btn' id='Cancel' onClick={cancelBtn}>
                           <p>취소</p>
                         </button>
-                        <button type='submit' className='api-btn' id='Storage'>
-                          <p>{isEditMode ? '수정하기' : '작성'}</p>
+                        <button className='api-btn' id='Storage' onClick={ createFreeBoard }>
+                          {/* <p>{isEditMode ? '수정하기' : '작성'}</p> */}
+                          <p>등록하기</p>
                         </button>
                       </div>
   
