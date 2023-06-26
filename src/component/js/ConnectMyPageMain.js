@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 
 import ConnectUserSettingLocation from './ConnectUserSettingLocation';
 import ConnectUserLike from './ConnectUserLike';
@@ -10,8 +10,10 @@ const ConnectMyPageMain = () => {
 
     const [isOpenActivity, setIsOpenActivity] = useState(false);    
     const [isOpenLike, setIsOpenLike] = useState(false);    
-    const [isOpenLocation, setIsOpenLocation] = useState(false);    
-
+    const [isOpenLocation, setIsOpenLocation] = useState(false);  
+    const [myPage, setmyPage] = useState([]);  
+    const memberIdx= 1;
+    
     const openActivity = e => {
         setIsOpenActivity(true);
         setIsOpenLike(false);
@@ -29,6 +31,31 @@ const ConnectMyPageMain = () => {
         setIsOpenActivity(false);
         setIsOpenLike(false);
     };
+
+    useEffect(() => {
+        const fetchmyPage = async () => {
+          try {
+            const response = await fetch(`http://localhost:8181/member/mypage/${memberIdx}`, {
+              method: 'GET'
+            });
+            const result = await response.json();
+            console.log(result);
+            
+            // 서버에서 가져온 데이터가 배열인지 확인
+            if (Array.isArray(result)) {
+                setmyPage(result);
+            } else {
+              console.error('자유게시판 불러 올 수 없음:', result);
+            }
+          } catch (error) {
+            console.error('패치실패:', error);
+          }
+        };
+      
+        fetchmyPage();
+      }, []);
+
+
 
 
     return (
