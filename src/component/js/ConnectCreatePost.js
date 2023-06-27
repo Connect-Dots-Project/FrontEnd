@@ -77,11 +77,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
     }
   });
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-  
-   
+  const submitHandler = () => {
 
     if (!selectedLocation) {alert ('행정구역을 선택해주세요.'); return;}
     if (!hotplaceImg) {alert ('핫플레이스의 사진을 공유해주세요.'); return;}
@@ -155,7 +151,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
         <div className='create-post-wrapper' id='CreatePostModal'>
           <button className='cp-close-btn' onClick={closeModal}>X</button>
 
-          <form onSubmit={submitHandler} encType='multipart/form-data'>
+          {/* <form onSubmit={submitHandler} encType='multipart/form-data'> */}
             <div className='header-main-footer-box'>
               <header className='cp-header'>
                 <div className='cp-header-text-tag-box'>
@@ -191,7 +187,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
                       <button className='api-btn' id='Cancel' onClick={cancelBtn}>
                         <p>취소</p>
                       </button>
-                      <button type='submit' className='api-btn' id='Storage'>
+                      <button type='submit' className='api-btn' id='Storage' onClick={submitHandler}>
                         <p>{isEditMode ? '수정하기' : '작성'}</p>
                       </button>
                     </div>
@@ -209,7 +205,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
                 </div>
               </footer>
             </div>
-          </form>
+          {/* </form> */}
         </div>
       )}
     </>

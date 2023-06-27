@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../scss/ConnectViewPlayList.scss';
 import { API_BASE_URL } from '../../config/host-config';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectViewPlayList = ({ closeList, playListId }) => {
   const [playListItems, setPlayListItem] = useState([]);
@@ -12,11 +13,11 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
   useEffect(() => {
     const fetchPlaylistItems = async (playListId) => {
       try {
-        const MyToken = localStorage.getItem('Authorization');
+        
         const response = await fetch(API_BASE_URL + `/contents/music-board/${playListId}`, {
           method: 'GET',
           headers: { 
-            'Authorization' : MyToken
+            'Authorization' : getLoginUserInfo().token
          },credentials: 'include', // 쿠키가 필요하다면 추가하기
         });
 

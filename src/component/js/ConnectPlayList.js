@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import ConnectViewPlayList from './ConnectViewPlayList';
 import { API_BASE_URL } from '../../config/host-config';
+import { getLoginUserInfo } from '../../util/login-util';
 
 
 const ConnectPlayList = () => {
@@ -27,11 +28,12 @@ const ConnectPlayList = () => {
   useEffect(() => {
   const fetchPlaylistItems = async () => {
     try {
-      const MyToken = localStorage.getItem('Authorization');
+
+
       const response = await fetch(API_BASE_URL + '/contents/music-board', {
         method: 'GET',
         headers: { 
-          'Authorization' : MyToken
+          'Authorization' : getLoginUserInfo().token
        },credentials: 'include', // 쿠키가 필요하다면 추가하기
       });
       const result = await response.json();

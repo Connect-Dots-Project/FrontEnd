@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Map, MapMarker, MapInfoWindow } from 'react-kakao-maps-sdk';
 import { API_BASE_URL } from '../../config/host-config';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectTotalMap = () => {
   const [hpData, setHpData] = useState([]);
@@ -9,13 +10,12 @@ const ConnectTotalMap = () => {
 
 
 const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
-const MyToken = localStorage.getItem('Authorization');
 
   useEffect(() => {
     fetch(REQUEST_URL+`/${page}`, {
       method: 'GET',
       headers: {
-        'Authorization' : MyToken
+        'Authorization' : getLoginUserInfo().token
       },
       credentials: 'include'
     })

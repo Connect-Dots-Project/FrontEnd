@@ -41,12 +41,20 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log(result.length);
+        if(result.length === 0) {
+          return;
+        }
+
         setFbData([...result]);
         setIsLoading(false);
       });
   };
 
   const fetchData = () => {
+    setPage(page + 1);
+    alert(page);
+
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
@@ -68,8 +76,11 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
-    if (scrollHeight - scrollTop <= clientHeight * 1.3) {
-      setPage(page + 1);
+    console.log(scrollHeight);
+    console.log(scrollTop);
+    console.log(clientHeight);
+    if (scrollHeight - scrollTop <= clientHeight * 1.1) {
+      
       fetchData();
     }
   };
