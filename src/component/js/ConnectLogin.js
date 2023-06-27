@@ -1,13 +1,30 @@
 
 import React, { useEffect, useState } from 'react'
-import { CookiesProvider } from 'react-cookie';
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
 import { isLogin } from '../../util/login-util';
 
-
 const ConnectLogin = () => {
+    const [cookies , setCookie, removeCookie] = useCookies('REFRESH_TOKEN');
+
+    // useEffect(() => {
+    //     const loginButton = document.getElementById('Login');
+    //     // console.log("로그인 모달 상태: ", loginModalVisible);
+    //
+    //
+    //     if (loginButton) {
+    //             loginButton.click();
+    //     }
+    //
+    //     // if(loginModalVisible){
+    //     //     loginButton.click();
+    //     // }
+    //
+    // }, []);
+    // // }, [loginModalVisible]);
+
 
     // 상태변수로 회원가입 입력값 관리
     const [userValue, setUserValue] = useState({
@@ -169,7 +186,6 @@ const ConnectLogin = () => {
             });
     };
 
-
     const openLogin = e => {
         const $loginBox = document.getElementById('LoginModalBox');
         const $back = document.querySelector('.backDrop');
@@ -187,9 +203,7 @@ const ConnectLogin = () => {
             $loginBox.style.display = 'none';
             $back.style.display = 'none';
         }
-
     };
-
 
     const openSignIn = e => {
         const $signInBox = document.querySelector('.signin-modal-box');
@@ -333,8 +347,8 @@ const ConnectLogin = () => {
 
     const redirection = useNavigate();
     const [isLogInTest, setIsLogInTest] = useState(false);
-    // 페이지 로드 시, 로컬 스토리지에서 로그인 상태를 확인하여 설정
 
+    // 페이지 로드 시, 로컬 스토리지에서 로그인 상태를 확인하여 설정
     useEffect(() => {
         const storedLoggedInStatus = localStorage.getItem('isLogInTest');
         if (storedLoggedInStatus === 'true') {
@@ -346,8 +360,6 @@ const ConnectLogin = () => {
 
     // 서버에 AJAX 요청
     const fetchLogin = async() => {
-
-        
 
         // 이메일, 비밀번호 입력 태그 얻어오기
         const $email = document.getElementById('ID');
@@ -424,6 +436,7 @@ const ConnectLogin = () => {
         // json에 담긴 인증정보를 클라이언트에 보관
         // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
         // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
+        localStorage.setItem('isLogInTest', 'true');
         // localStorage.setItem('ACCESS_TOKEN', token);
         // localStorage.setItem('LOGIN_USERNAME', 'test1');
         // localStorage.setItem('USER_ROLE', 'role');
@@ -448,6 +461,7 @@ const ConnectLogin = () => {
         const logoutHandler = e => {
             setIsLogInTest(false);
             localStorage.clear();
+            removeCookie('REFRESH_TOKEN');
             window.location.href = '/';
         };
 
