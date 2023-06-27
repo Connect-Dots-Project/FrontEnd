@@ -9,23 +9,6 @@ import { isLogin } from '../../util/login-util';
 const ConnectLogin = () => {
     const [cookies , setCookie, removeCookie] = useCookies('REFRESH_TOKEN');
 
-    // useEffect(() => {
-    //     const loginButton = document.getElementById('Login');
-    //     // console.log("로그인 모달 상태: ", loginModalVisible);
-    //
-    //
-    //     if (loginButton) {
-    //             loginButton.click();
-    //     }
-    //
-    //     // if(loginModalVisible){
-    //     //     loginButton.click();
-    //     // }
-    //
-    // }, []);
-    // // }, [loginModalVisible]);
-
-
     // 상태변수로 회원가입 입력값 관리
     const [userValue, setUserValue] = useState({
         account: '',
@@ -225,6 +208,9 @@ const ConnectLogin = () => {
         const $loginBox = document.querySelector('.login-modal-box');
         const $back = document.querySelector('.backDrop');
 
+        document.getElementById('ID').value='';
+        document.getElementById('PW').value='';
+
         if ($loginBox && $back && $loginBox.style.display === 'block') {
             $loginBox.style.animation = 'closeLoginModal 1s forwards 1';
             $back.style.display = 'none';
@@ -411,7 +397,7 @@ const ConnectLogin = () => {
                 $back.style.display = 'none';
             }
 
-
+            window.location.reload();
         }
 
 
@@ -423,7 +409,6 @@ const ConnectLogin = () => {
         console.log(document.cookie);
 
         // TODO: 쿠키 가져오기
-
 
         console.log(token);
         console.log(localStorage.getItem('Authorization'));
@@ -459,10 +444,13 @@ const ConnectLogin = () => {
 
         // 로그아웃 핸들러
         const logoutHandler = e => {
-            setIsLogInTest(false);
-            localStorage.clear();
-            removeCookie('REFRESH_TOKEN');
-            window.location.href = '/';
+            const confirmLogout = window.confirm('정말로 로그아웃하시겠습니까?');
+            if(confirmLogout) {
+                setIsLogInTest(false);
+                localStorage.clear();
+                removeCookie('REFRESH_TOKEN');
+                window.location.href = '/';
+            }
         };
 
 
