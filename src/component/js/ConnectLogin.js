@@ -417,7 +417,7 @@ const ConnectLogin = () => {
         // TODO : 로그인에 성공한 유저의 이메일과 토큰 출력
         console.log('--------------');
         console.log(email);
-        
+
         // json에 담긴 인증정보를 클라이언트에 보관
         // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
         // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
@@ -441,7 +441,6 @@ const ConnectLogin = () => {
     //         //TODO : 2번 찍혀서 잠시 주석처리
     //     };
 
-
         // 로그아웃 핸들러
         const logoutHandler = e => {
             const confirmLogout = window.confirm('정말로 로그아웃하시겠습니까?');
@@ -452,8 +451,6 @@ const ConnectLogin = () => {
                 window.location.href = '/';
             }
         };
-
-
 
         return (
             <>
