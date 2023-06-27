@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 
 import ConnectUserSettingLocation from './ConnectUserSettingLocation';
 import ConnectUserLike from './ConnectUserLike';
@@ -11,6 +11,7 @@ const ConnectMyPageMain = () => {
 
     const [isOpenActivity, setIsOpenActivity] = useState(false);    
     const [isOpenLike, setIsOpenLike] = useState(false);    
+
     const [isOpenLocation, setIsOpenLocation] = useState(false);    
     const [isOpenModify, setIsOpenModify] = useState(false);    
 
@@ -32,6 +33,7 @@ const ConnectMyPageMain = () => {
         setIsOpenActivity(false);
         setIsOpenLike(false);
     };
+
 
     const openModify = e => {
         setIsOpenModify(true);

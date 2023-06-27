@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import { CookiesProvider } from 'react-cookie';
+import { CookiesProvider, useCookies } from 'react-cookie'
 
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
@@ -8,6 +8,9 @@ import { getLoginUserInfo, isLogin, setLoginUserInfo } from '../../util/login-ut
 
 
 const ConnectLogin = () => {
+ 
+    const [cookies , setCookie, removeCookie] = useCookies('REFRESH_TOKEN');
+
 
     const [isOpenSignInList, setIsOpenSignList] = useState(false);
     const [isOpenSignIn, setIsOpenSignIn] = useState(false);
@@ -77,6 +80,7 @@ const ConnectLogin = () => {
       };
       
       
+
 
     // 상태변수로 회원가입 입력값 관리
     const [userValue, setUserValue] = useState({
@@ -495,7 +499,23 @@ const ConnectLogin = () => {
         }
 
         
+
+        // TODO : 로그인에 성공한 유저의 이메일과 토큰 출력
+        console.log('--------------');
+        console.log(email);
+        
+        // json에 담긴 인증정보를 클라이언트에 보관
+        // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
+        // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
+        localStorage.setItem('isLogInTest', 'true');
+        // localStorage.setItem('ACCESS_TOKEN', token);
+        // localStorage.setItem('LOGIN_USERNAME', 'test1');
+        // localStorage.setItem('USER_ROLE', 'role');
+
+        // 홈으로 리다이렉트
+
         // T
+
         // redirection('/');
 
     };
@@ -515,6 +535,8 @@ const ConnectLogin = () => {
         const logoutHandler = e => {
             setIsLogInTest(false);
             localStorage.clear();
+            localStorage.removeItem('refreshtoken');
+            removeCookie('REFRESH_TOKEN');
             window.location.href = '/';
         };
 

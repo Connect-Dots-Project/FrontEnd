@@ -349,7 +349,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
                               <div className='hp-text-box'>
                                 <div className='hp-text'>
-                                  <p>{hp.hotplaceContent}</p>
+                                  <p dangerouslySetInnerHTML={{ __html: hp.hotplaceContent }}></p>
                                 </div>
 
                                 <div className='hp-writer-date-box'>
