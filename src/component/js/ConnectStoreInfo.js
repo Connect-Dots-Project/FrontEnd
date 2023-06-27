@@ -1,8 +1,12 @@
 import React, {useEffect, useState, useRef } from 'react';
 import '../scss/ConnectStoreInfo.scss';
+
 import {useParams, useNavigate } from "react-router-dom";
 import ConnectLogin from "./ConnectLogin";
 import {getLoginUserInfo} from "../../util/login-util";
+
+import { API_BASE_URL } from '../../config/host-config';
+
 
 const ConnectStoreInfo = () => {
   const [cvsData, setCvsData] = useState([]);
@@ -40,7 +44,8 @@ const ConnectStoreInfo = () => {
     // const MyToken = localStorage.getItem("Authorization");
 
     // 서버로부터 데이터를 가져오는 비동기 함수를 호출합니다.
-    fetch('http://localhost:8181/contents/cvs', {
+
+    fetch(API_BASE_URL + '/contents/cvs', {
       method: "GET",
       headers: {
         'Authorization':  getLoginUserInfo().token
@@ -52,6 +57,7 @@ const ConnectStoreInfo = () => {
           alert('로그인한 회원만 이용하실 수 있습니다');
           handleAlertConfirm();
         } return response.json()})
+
         .then((data) => {
           setCvsData(data);
           console.log('데이터 전송 완료');

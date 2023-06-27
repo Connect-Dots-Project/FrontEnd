@@ -1,18 +1,32 @@
 import { useEffect, useState } from 'react';
 import { Map, MapMarker, MapInfoWindow } from 'react-kakao-maps-sdk';
+import { API_BASE_URL } from '../../config/host-config';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectTotalMap = () => {
   const [hpData, setHpData] = useState([]);
-//   console.log(hpData);
-//   console.log('-------------------------------------');
+  const [page, setPage] = useState(0);
   const [selectedLocation, setSelectedLocation] = useState(null);
-//   console.log(selectedLocation);
+
+
+const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
 
   useEffect(() => {
-    fetch('http://localhost:8181/contents/hot-place', {
+    fetch(REQUEST_URL+`/${page}`, {
       method: 'GET',
+      headers: {
+        'Authorization' : getLoginUserInfo().token
+      },
+      credentials: 'include'
     })
-      .then((res) => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          alert('회원가입이 필요한 서비스입니다.');
+          window.location.href = '/';
+        } else {
+          return res.json();
+        }
+      })
       .then((result) => {
         const list = [...result.hotplaceList];
         console.log(list);
@@ -62,10 +76,6 @@ const ConnectTotalMap = () => {
 				{/* 이미지 aws s3 저장 */}
 				<img src={selectedLocation.hotplaceImg}  style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} />
                 
-				{/* 이미지 로컬 저장 */}
-				{/* <img src={`http://localhost:8181/contents/hot-place/img/${selectedLocation.hotplaceImg}`} alt='핫플레이스, 같이 놀러가자!' style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} /> */}
-                
-			   
 			    <p>{selectedLocation.hotplaceFullAddress}</p>
               </div>
 				

@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 
 import ConnectUserSettingLocation from './ConnectUserSettingLocation';
 import ConnectUserLike from './ConnectUserLike';
 import ConnectUserActivity from './ConnectUserActivity';
 
+import { API_BASE_URL } from '../../config/host-config';
 import '../scss/ConnectMyPageMain.scss';
+import { async } from 'q';
 
 const ConnectMyPageMain = () => {
 
     const [isOpenActivity, setIsOpenActivity] = useState(false);    
     const [isOpenLike, setIsOpenLike] = useState(false);    
+
     const [isOpenLocation, setIsOpenLocation] = useState(false);    
     const [isOpenModify, setIsOpenModify] = useState(false);    
 
@@ -17,6 +20,7 @@ const ConnectMyPageMain = () => {
         setIsOpenActivity(true);
         setIsOpenLike(false);
         setIsOpenLocation(false);
+        getHotPlace();
     };
     
     const openLike = e => {
@@ -31,6 +35,7 @@ const ConnectMyPageMain = () => {
         setIsOpenLike(false);
     };
 
+
     const openModify = e => {
         setIsOpenModify(true);
     };
@@ -38,6 +43,71 @@ const ConnectMyPageMain = () => {
     const closeModify = e => {
         setIsOpenModify(false);
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const getHotPlace = () => {
+
+        const myToken = localStorage.getItem('Authorization');
+        console.log(myToken);
+
+        fetch(API_BASE_URL + `/member/mypage/myactive/hotplace`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization' : myToken
+            },
+            credentials: 'include'
+        }) 
+        .then(res => res.json())
+        .then(response => {
+            console.log(response);
+        })
+
+
+
+
+
+
+
+    };  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     return (

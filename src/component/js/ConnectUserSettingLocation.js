@@ -31,7 +31,7 @@ const ConnectUserSettingLocation = () => {
                     {location && (
                         <Map 
                             center={{ lat: location.latitude, lng: location.longitude }} 
-                            style={{ width: '485px', height: '360px' }} 
+                            style={{ width: '700px', height: '360px' }} 
                             level={3}
                         >
                             <MapMarker 
