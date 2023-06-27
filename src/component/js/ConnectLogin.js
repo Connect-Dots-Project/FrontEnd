@@ -674,6 +674,44 @@ const ConnectLogin = () => {
             msg: msg + lengthMessage,
             flag
         });}
+
+
+        // TODO : prompt 를 입력받는 창 만들기
+        // TODO : alert 띄우는 창 만들기 (custom alert, 모달 등)
+        const findAccount = async() => {
+            const inputPhone = prompt('핸드폰 번호를 입력하세요');
+
+            const response = await fetch(API_BASE_URL + '/connects/login/find/account', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ phone: inputPhone }),
+            });
+
+            const { account } = await response.json();
+
+            console.log(account);
+            if(account === null) {
+                alert('가입하지 않은 핸드폰 번호 입니다.');
+                return;
+            }
+
+            alert('찾은 아이디는 ' + account + '입니다.');
+        }
+        
+
+        const findPassword = async() => {
+            alert('findPassword');
+
+
+
+        }
+
+
+
+
+
+
+
     return (
             <>
         <div className='backDrop'></div>
@@ -725,12 +763,12 @@ const ConnectLogin = () => {
                         <ul className='search-id-pw-box'>
                             <li className='search-id-pw' id='SearchID'>
                                 <Link to={'/nb-search-ID'} className='search-id'>
-                                    <p className='search-text'>아이디 찾기</p>
+                                    <p className='search-text' onClick={ findAccount }>아이디 찾기</p>
                                 </Link>
                             </li>
                             <li className='search-id-pw' id='SearchPW'>
                                 <Link to={'/nb-search-PW'} className='search-pw'>
-                                    <p className='search-text'>비밀번호 찾기</p>
+                                    <p className='search-text' onClick={ findPassword } >비밀번호 찾기</p>
                                 </Link>
                             </li>
                         </ul>
