@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { useLocation } from 'react-router-dom';
 import { Link, Route, Routes } from 'react-router-dom';
 import ConnectHotPlace from './ConnectHotPlace';
@@ -22,16 +22,7 @@ const ConnectMainOutline = () => {
         const $menuClose = document.getElementById('CmoMenu');
         $menuClose.style.animation = 'closeOutline 2s forwards 1';
 
-        // {$location.pathname.startsWith('/contents/cvs/') ? (
-        //     <ConnectStoreSales />
-        // ) : ( ulLinkTag()
-        // )}
-
-
-        setTimeout(() => {
-            // setIsChangeOutline(false);
-            // setIsChangeStore(false);
-        }, 1000);
+        setTimeout(() => {}, 1000);
     };
 
     const openChangeMenu = e => {
@@ -148,19 +139,6 @@ const ConnectMainOutline = () => {
                 </header>
 
                 <div className='cmo-container'>
-                    {/*{!isChangeStore && (*/}
-                    {/*    <div*/}
-                    {/*        className={`store-menu-modal-wrapper ${*/}
-                    {/*            isChangeOutline ? 'closeOutline' : 'closeAnimation'*/}
-                    {/*        }`}*/}
-                    {/*        id='StoreModal'*/}
-                    {/*    >*/}
-                    {/*        {$location.pathname === '/contents/cvs/*' ? (*/}
-                    {/*        <ConnectStoreSales />*/}
-                    {/*    ) : null}*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
-                    {/*${ isChangeOutline ? 'closeOutline' : 'closeAnimation'}*/}
 
                     <ul className={`cmo-menu`} id='CmoMenu' >
                         {$location.pathname.startsWith('/contents/cvs/') ? (

@@ -13,7 +13,7 @@ export const setLoginUserInfo = ({ token, account, nickname }) => {
       username: localStorage.getItem('ACCOUNT'),
       usernickname: localStorage.getItem('NICKNAME')
     };
-  };
-  
+
+
   // 로그인 여부를 확인하는 함수
   export const isLogin = () => !!localStorage.getItem('ACCESS_TOKEN');

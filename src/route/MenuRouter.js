@@ -25,7 +25,7 @@ const MenuRouter = () => {
       </Routes>
       
       <ConnectMainOutline />
-      <ConnectGlobalChatting />
+      {/*<ConnectGlobalChatting />*/}
 
       
       

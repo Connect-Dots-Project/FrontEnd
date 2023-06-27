@@ -1,17 +1,15 @@
 
 import React, { useEffect, useState } from 'react'
-import { CookiesProvider, useCookies } from 'react-cookie'
+
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
 import { getLoginUserInfo, isLogin, setLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
 
-
 const ConnectLogin = () => {
- 
     const [cookies , setCookie, removeCookie] = useCookies('REFRESH_TOKEN');
-
 
     const [isOpenSignInList, setIsOpenSignList] = useState(false);
     const [isOpenSignIn, setIsOpenSignIn] = useState(false);
@@ -80,8 +78,6 @@ const ConnectLogin = () => {
           .replace(/(\-{1,2})$/g, ''); // 마지막에 -가 있는 경우 제거
       };
       
-      
-
 
     // 상태변수로 회원가입 입력값 관리
     const [userValue, setUserValue] = useState({
@@ -245,7 +241,6 @@ const ConnectLogin = () => {
             });
     };
 
-
     const openLogin = e => {
         const $loginBox = document.getElementById('LoginModalBox');
         const $back = document.querySelector('.backDrop');
@@ -263,9 +258,7 @@ const ConnectLogin = () => {
             $loginBox.style.display = 'none';
             $back.style.display = 'none';
         }
-
     };
-
 
     const openSignIn = e => {
         const $signInBox = document.querySelector('.signin-modal-box');
@@ -287,6 +280,9 @@ const ConnectLogin = () => {
     const closeLogin = e => {
         const $loginBox = document.querySelector('.login-modal-box');
         const $back = document.querySelector('.backDrop');
+
+        document.getElementById('ID').value='';
+        document.getElementById('PW').value='';
 
         if ($loginBox && $back && $loginBox.style.display === 'block') {
             $loginBox.style.animation = 'closeLoginModal 1s forwards 1';
@@ -424,8 +420,8 @@ const ConnectLogin = () => {
 
     const redirection = useNavigate();
     const [isLogInTest, setIsLogInTest] = useState(false);
-    // 페이지 로드 시, 로컬 스토리지에서 로그인 상태를 확인하여 설정
 
+    // 페이지 로드 시, 로컬 스토리지에서 로그인 상태를 확인하여 설정
     useEffect(() => {
         const storedLoggedInStatus = localStorage.getItem('isLogInTest');
         if (storedLoggedInStatus === 'true') {
@@ -484,11 +480,20 @@ const ConnectLogin = () => {
                 $back.style.display = 'none';
             }
 
-            const token = res.headers.get('Authorization');
+
+            window.location.reload();
+        }
+
+
+          const token = res.headers.get('Authorization');
+          localStorage.setItem('Authorization', token);
+
+        
 
             console.log(token);
             console.log(nickname);
             console.log(account);
+
 
             localStorage.setItem('ACCESS_TOKEN', token);
             localStorage.setItem('ACCOUNT', account);
@@ -498,6 +503,7 @@ const ConnectLogin = () => {
             // setLoginUserInfo(token, account, nickname);
 
         }
+
 
         
 
@@ -509,6 +515,7 @@ const ConnectLogin = () => {
         // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
         // // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
         // localStorage.setItem('isLogInTest', 'true');
+
         // localStorage.setItem('ACCESS_TOKEN', token);
         // localStorage.setItem('LOGIN_USERNAME', 'test1');
         // localStorage.setItem('USER_ROLE', 'role');
@@ -534,11 +541,14 @@ const ConnectLogin = () => {
 
         // 로그아웃 핸들러
         const logoutHandler = e => {
-            setIsLogInTest(false);
-            localStorage.clear();
-            localStorage.removeItem('refreshtoken');
-            removeCookie('REFRESH_TOKEN');
-            window.location.href = '/';
+
+            const confirmLogout = window.confirm('정말로 로그아웃하시겠습니까?');
+            if(confirmLogout) {
+                setIsLogInTest(false);
+                localStorage.clear();
+                removeCookie('REFRESH_TOKEN');
+                window.location.href = '/';
+            }
         };
 
         const checkNickname = async (e) => {
