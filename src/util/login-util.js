@@ -9,5 +9,4 @@ export const getLoginUserInfo = () => {
 };
 
 // 로그인 여부를 확인하는 함수
-// export const isLogin = () => !!localStorage.getItem('ACCESS_TOKEN');
-export const isLogin = () => !!localStorage.getItem('Authorization');
+export const isLogin = () => !!localStorage.getItem('ACCESS_TOKEN');
