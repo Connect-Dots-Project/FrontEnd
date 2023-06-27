@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef } from 'react';
 import '../scss/ConnectStoreInfo.scss';
 import {useParams, useNavigate } from "react-router-dom";
 import ConnectLogin from "./ConnectLogin";
+import {getLoginUserInfo} from "../../util/login-util";
 
 const ConnectStoreInfo = () => {
   const [cvsData, setCvsData] = useState([]);
@@ -14,14 +15,6 @@ const ConnectStoreInfo = () => {
   const storeInfoListRef = useRef(null);
   // const [loginModalVisible, setLoginModalVisible] = useState(false);
 
-
-  useEffect(()=>{
-      const isLoggedIn = localStorage.getItem('Authorization');
-      if(!isLoggedIn){
-        alert('로그인한 회원만 이용하실 수 있습니다');
-        handleAlertConfirm();
-      }
-  }, [])
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 초기 데이터를 불러옵니다.
@@ -43,23 +36,24 @@ const ConnectStoreInfo = () => {
   };
 
 
-
-
   const getCvsData = () => {
-    const MyToken = localStorage.getItem("Authorization");
+    // const MyToken = localStorage.getItem("Authorization");
 
     // 서버로부터 데이터를 가져오는 비동기 함수를 호출합니다.
     fetch('http://localhost:8181/contents/cvs', {
       method: "GET",
       headers: {
-        'Authorization': MyToken
+        'Authorization':  getLoginUserInfo().token
       },
       credentials: 'include'
     })
-        .then((response) => response.json())
+        .then((response) => {
+          if(response.status===401){
+          alert('로그인한 회원만 이용하실 수 있습니다');
+          handleAlertConfirm();
+        } return response.json()})
         .then((data) => {
           setCvsData(data);
-
           console.log('데이터 전송 완료');
         })
         .catch((error) => {
