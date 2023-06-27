@@ -11,7 +11,13 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
   useEffect(() => {
     const fetchPlaylistItems = async (playListId) => {
       try {
-        const response = await fetch(`http://localhost:8181/contents/music-board/${playListId}`);
+        const MyToken = localStorage.getItem('Authorization');
+        const response = await fetch(`http://localhost:8181/contents/music-board/${playListId}`, {
+          method: 'GET',
+          headers: { 
+            'Authorization' : MyToken
+         },credentials: 'include', // 쿠키가 필요하다면 추가하기
+        });
         const result = await response.json();
         console.log(result);
         setPlayListItem(result);
@@ -103,7 +109,10 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
                         <div className='view-img'>
                           {/* {playListItems[0]?.musicBoardTrackImage} */}
                         </div>
-                        <div className='view-count'><p>10</p></div>
+                        {/* <div className='view-count'><p>{playListItems[0]?.musicBoardViewCount}</p></div>/ */}
+                         {/* {playListItems.map((item, index) => (
+                          <p key={index}>{item.musicBoardViewCount}</p>
+                         ))} */}
                       </div>
                     </div>
 

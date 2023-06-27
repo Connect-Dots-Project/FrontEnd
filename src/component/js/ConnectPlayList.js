@@ -25,8 +25,12 @@ const ConnectPlayList = () => {
   useEffect(() => {
   const fetchPlaylistItems = async () => {
     try {
+      const MyToken = localStorage.getItem('Authorization');
       const response = await fetch('http://localhost:8181/contents/music-board', {
-        method: 'GET'
+        method: 'GET',
+        headers: { 
+          'Authorization' : MyToken
+       },credentials: 'include', // 쿠키가 필요하다면 추가하기
       });
       const result = await response.json();
       
@@ -80,8 +84,8 @@ const ConnectPlayList = () => {
                     <div className='plb-header-text-search-box'>
                         <div className='plb-logo'></div> 
                         <div className='plb-text-box'>
-                            <h2>나의 플리 자랑하기</h2>
-                            <p>가장 인기있는 플리입니다.</p>
+                            <h2>인기 추천 곡</h2>
+                            <p>내 취향에 맞게 원하는 노래 카테고리를 선택해보세요</p>
                         </div>
 
                         
