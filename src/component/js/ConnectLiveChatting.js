@@ -82,19 +82,41 @@ const ConnectLiveChatting = (props) => {
 
   }
 
+  // 최초 알림 여부를 저장하는 변수
+let isFirstNotification = true;
+
+// 알림을 보여주는 함수
+function showNotification(recv) {
+  // 알림이 최초로 뜨는 경우에만 실행
+  if (isFirstNotification && recv.type !== 'ENTER') {
+    // 알림을 보여주는 코드 작성
+    // 예시: 웹 브라우저 알림 API 사용
+    Notification.requestPermission().then(function(permission) {
+      if (permission === 'granted') {
+        new Notification(recv.sender, { body: recv.message });
+      }
+    });
+
+    // 최초 알림이 뜬 후 변수 값을 변경하여 다음에 알림이 뜨지 않도록 함
+    isFirstNotification = false;
+  }
+}
+
 
   // 웹소켓을 연결합니다.
   const connect = () => {
-
     sock = new SockJS('http://localhost:8181/contents/chat/live');
     ws.current = Stomp.over(sock);
-
-    // 아래 주소로 연결 합니다.
+  
+    // 아래 주소로 연결합니다.
     ws.current.connect(
       {},
-      frame => {
-        ws.current.subscribe('/topic/chat/room/' + roomId, message => {
+      (frame) => {
+        ws.current.subscribe('/topic/chat/room/' + roomId, (message) => {
           const recv = JSON.parse(message.body);
+          if(recv.sender === ''){
+            return;
+          }
           recvMessage(recv);
         });
         ws.current.send(
@@ -103,10 +125,8 @@ const ConnectLiveChatting = (props) => {
           JSON.stringify({ type: 'ENTER', roomId, sender })
         );
         // TODO : error 처리 해야 함. (연결 실패 시)
-        
       }
-    )
-
+    );
   };
 
 
@@ -148,19 +168,20 @@ const ConnectLiveChatting = (props) => {
 
   
   // 스프링에서 리턴하는 메시지를 받아서 셋팅하는 함수
-  const recvMessage = (recv) => {
+  // 메시지를 처리하는 함수
+const recvMessage = (recv) => {
+  setMessages((prevMessages) => [
+    ...prevMessages,
+    {
+      type: recv.type,
+      sender: recv.type === 'ENTER' ? '알림' : recv.sender,
+      message: recv.message,
+    },
+  ]);
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      {
-        type: recv.type,
-        sender: recv.type === 'ENTER' ? '알림' : recv.sender,
-        message: recv.message,
-      },
-    ]);
-
-  };
-
+  // 알림 보여주기
+  showNotification(recv);
+};
   // 채팅창을 클릭했을 때
   // 1. 채팅창의 룸 인덱스로 소켓을 연결함
   // 2. 보내는이의 아이디를 유저의 닉네임으로 셋업함
