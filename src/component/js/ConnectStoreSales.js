@@ -12,18 +12,6 @@ const ConnectStoreSales = () => {
   const [isClickBackBtn, setIsClickBackBtn] = useState(false);
 
   const navigate = useNavigate();
-  // const clickBackBtn = e => {
-  //   const $clickBackBtn = document.getElementById('StoreSalesWrapper');
-  //   $clickBackBtn.style.animation = 'clickBackBtn 2s forwards 1';
-  //
-  //   setTimeout(() => {
-  //     // $clickBackBtn.style.animation = null;
-  //     setIsClickBackBtn(true);
-  //     // window.location.href = '/';
-  //     // navigate(-1);
-  //   }, 1000);
-  //
-  // };
 
   return (
   <>
