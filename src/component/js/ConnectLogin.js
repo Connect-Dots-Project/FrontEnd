@@ -35,8 +35,48 @@ const ConnectLogin = () => {
           .replace(/[^0-9]/g, '')
           .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
           .replace(/(\-{1,2})$/g, '');
+        
+          let msg;
+          let flag;
+
+          if(e.target.value.length < 13) {
+            msg = '올바르지 않은 형식입니다'
+            flag = false;
+          }
+    };
+
+      
+      const autoHyphenBirth = (e) => {
+        let inputValue = e.target.value.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
+        inputValue = inputValue.substring(0, 8); // 최대 8자까지만 유지
+      
+        const year = inputValue.substring(0, 4);
+        const month = inputValue.substring(4, 6);
+        const day = inputValue.substring(6, 8);
+      
+        let formattedValue = '';
+      
+        if (year) {
+          formattedValue += year;
+        }
+      
+        if (month) {
+          formattedValue += '-' + month;
+        }
+
+        if (day) {
+          formattedValue += '-' + day;
+        }
+      
+        e.target.value = formattedValue;
+      
+        e.target.value = e.target.value
+          .replace(/[^0-9]/g, '') // 숫자 이외의 문자 제거
+          .replace(/^(\d{0,4})(\d{0,2})(\d{0,2})$/g, '$1-$2-$3') // YYYY-MM-DD 형식으로 변환
+          .replace(/(\-{1,2})$/g, ''); // 마지막에 -가 있는 경우 제거
       };
-    
+      
+      
 
     // 상태변수로 회원가입 입력값 관리
     const [userValue, setUserValue] = useState({
@@ -57,6 +97,7 @@ const ConnectLogin = () => {
         password: '',
         passwordCheck: '',
         userName: '',
+        nickName: '',
         birth: '',
         gender: '',
         phoneNumber: '',
@@ -71,6 +112,7 @@ const ConnectLogin = () => {
         password: false,
         passwordCheck: false,
         userName: false,
+        nickName: false,
         birth: false,
         gender: false,
         phoneNumber: false,
@@ -291,6 +333,9 @@ const ConnectLogin = () => {
 
         const $inputCode = document.getElementById('Input-code');
         const $signInEmail = document.getElementById('SignInEmail');
+        const $signInEmailModal = document.getElementById('EmailModalWrapper');
+        const $certifyEmailBtn = document.getElementById('CertifyEmailBtn');
+        const $inputEmail = document.getElementById('Input-email');
 
         const res = await fetch('http://localhost:8181/connects/sign-up/check', {
             method: 'POST',
@@ -315,6 +360,9 @@ const ConnectLogin = () => {
             if ($signInEmail) {
                 $signInEmail.style.transform = 'translateY(-250px)';
                 $signInEmail.style.transition = '0.3s';
+                $signInEmailModal.style.display = 'none';
+                $certifyEmailBtn.style.pointerEvents = 'none';
+                $inputEmail.style.pointerEvents = 'none';
             }
               
             setIsOpenSignList(true);
@@ -470,8 +518,8 @@ const ConnectLogin = () => {
             window.location.href = '/';
         };
 
-        const checkNickname = async (event) => {
-            const inputNickname = event.target.value;
+        const checkNickname = async (e) => {
+            const inputNickname = e.target.value;
           
             // 중복 검사를 위해 서버로 요청을 보냄
             const response = await fetch('http://localhost:8181/connects/sign-up/check', {
@@ -489,7 +537,87 @@ const ConnectLogin = () => {
               // 중복된 별명이 없을 경우 처리 로직
               console.log('사용 가능한 별명입니다!');
             }
-          };
+
+            const nameRegex = /^[가-힣]{2,30}$/;
+            const inputVal = e.target.value;
+
+            // 입력값 검증
+            let msg; // 검증 메시지를 저장할 변수
+            let flag; // 입력 검증체크 변수
+
+            if(!inputVal) { // 빈 칸인 경우
+                msg = '별명을 입력해주세요';
+                flag = false;
+            } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
+                msg = '2 ~ 30자로 작성해주세요';
+                flag = false;
+            } else if (isDuplicate) {
+                msg = '중복된 별명입니다';
+                flag = false;
+            } else {
+                msg = '사용 가능한 별명입니다.';
+                flag = true;
+            }
+
+            saveInputState({
+                key: 'nickName',
+                inputVal,
+                msg,
+                flag
+            });
+        };
+
+        const introduce = (e) => {
+            const nameRegex = /^[가-힣]{1,50}$/;
+            let inputVal = e.target.value;
+          
+            // 입력값 검증
+            let msg; // 검증 메시지를 저장할 변수
+            let flag; // 입력 검증체크 변수
+          
+            if (!inputVal) { // 빈 칸인 경우
+                msg = '자유롭게 표현해주세요';
+                flag = false;
+            } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
+                msg = '';
+                flag = false;
+            } else {
+                msg = '환영합니다!';
+                flag = true;
+            }
+            
+            const maxLength = 50;
+            const currentLength = inputVal.length;
+            const remainingLength = maxLength - currentLength;
+            
+            const lengthMessage = `(${currentLength}/${maxLength})`;
+          
+            if (currentLength === maxLength) {
+                flag = false;
+                msg = '최대 50글자입니다'
+            }
+          
+            saveInputState({
+              key: 'introduction',
+              inputVal,
+              msg: msg + lengthMessage,
+              flag
+            });
+        };
+          
+          
+          
+          
+
+
+
+
+
+
+
+
+
+        
 
         return (
             <>
@@ -573,7 +701,7 @@ const ConnectLogin = () => {
                 </div>
             </div>
 
-            <footer id='Footer'>
+            {/* <footer id='Footer'>
                 <div className='social-login-wrapper'>
                     <ul className='social-login-box'>
                         <li className='social-login-list kakao'>
@@ -596,7 +724,7 @@ const ConnectLogin = () => {
                         </li>
                     </ul>
                 </div>
-            </footer>
+            </footer> */}
         </div>
 
         {/* 회원가입 */}
@@ -615,7 +743,7 @@ const ConnectLogin = () => {
                         <li className='signin-info-list' id='SignInEmail'>
                             <input id='Input-email' className='signin-info-text' placeholder='아이디 (이메일)' autoFocus></input>
                                 <span className='certify-email-btn-box'>
-                                    <button className='certify-email-btn' onClick={ openCertifyEmailModal }>이메일 인증</button>
+                                    <button id='CertifyEmailBtn' className='certify-email-btn' onClick={ openCertifyEmailModal }>이메일 인증</button>
                                 </span>
                         </li>
                     )}
@@ -683,6 +811,13 @@ const ConnectLogin = () => {
                                     id='Input-nickname' 
                                     onChange={checkNickname}
                                 ></input>
+                                {message.nickName && (
+                                    <span style={
+                                        correct.nickName
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.nickName}
+                                </span>)}
                             </li>
                         )}
 
@@ -697,7 +832,12 @@ const ConnectLogin = () => {
 
                         {isOpenSignInList && (
                             <li className='signin-info-list fade-in-f'>
-                                <input className='signin-info-text' placeholder='생년월일 (1900-00-00)' id='Input-birthday'></input>
+                                <input 
+                                    className='signin-info-text' 
+                                    placeholder='생년월일 (1900-00-00)' 
+                                    id='Input-birthday'
+                                    onChange={ autoHyphenBirth }
+                                ></input>
                             </li>
                         )}
 
@@ -707,6 +847,7 @@ const ConnectLogin = () => {
                                     className='signin-info-text' 
                                     placeholder='핸드폰 번호 (010-0000-0000)' 
                                     id='Input-phone'
+                                    maxLength={13}
                                     onChange={autoHyphen}
                                 ></input>
                             </li>
@@ -714,13 +855,31 @@ const ConnectLogin = () => {
 
                         {isOpenSignInList && (
                             <li className='signin-info-list fade-in-h'>
-                                <input className='signin-info-text' placeholder='지역 ex) 강남구' id='Input-location'></input>
+                                <input 
+                                    className='signin-info-text' 
+                                    placeholder='지역 ex) 강남구' 
+                                    id='Input-location'
+                                    maxLength={20}
+                                ></input>
                             </li>
                         )}
 
                         {isOpenSignInList && (
                             <li className='signin-info-list fade-in-i'>
-                                <input className='signin-info-text' placeholder='한줄소개' id='Input-comment'></input>
+                                <input 
+                                    className='signin-info-text' 
+                                    placeholder='한줄소개' 
+                                    id='Input-comment'
+                                    maxLength={50}
+                                    onChange={ introduce }
+                                ></input>
+                                {message.introduction && (
+                                    <span style={
+                                        correct.introduction
+                                        ? {color:'yellow'}
+                                        : {color:'yellow'}}
+                                        className='input-span'>{message.introduction}
+                                </span>)}
                             </li>
                         )}
 
