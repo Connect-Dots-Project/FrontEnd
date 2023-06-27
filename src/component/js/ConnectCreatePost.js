@@ -80,7 +80,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
     e.preventDefault();
 
   
-   if ()
+   
 
     if (!selectedLocation) {alert ('행정구역을 선택해주세요.'); return;}
     if (!hotplaceImg) {alert ('핫플레이스의 사진을 공유해주세요.'); return;}
