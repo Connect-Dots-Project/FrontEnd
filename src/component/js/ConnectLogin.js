@@ -565,21 +565,22 @@ const ConnectLogin = () => {
         const inputNickname = e.target.value;
 
         // 중복 검사를 위해 서버로 요청을 보냄
-        const response = await fetch(API_BASE_URL + '/connects/sign-up/check', {
+        const response = await fetch(API_BASE_URL + '/connects/sign-up/check-nickname', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ nickname: inputNickname }),
         });
 
-        const { isDuplicate } = await response.json();
+        const { checkNickname } = await response.json();
 
-        if (isDuplicate) {
+        if (checkNickname) {
             // 중복된 별명이 있을 경우 처리 로직
-            console.log('중복된 별명입니다!');
+            console.log('사용 가능한 별명입니다!');
         } else {
             // 중복된 별명이 없을 경우 처리 로직
-            console.log('사용 가능한 별명입니다!');
+            console.log('중복된 별명입니다!');
         }
+
         const nameRegex = /^[가-힣]{2,30}$/;
         const inputVal = e.target.value;
 
@@ -593,7 +594,7 @@ const ConnectLogin = () => {
         } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
             msg = '2 ~ 30자로 작성해주세요';
             flag = false;
-        } else if (isDuplicate) {
+        } else if (!checkNickname) {
             msg = '중복된 별명입니다';
             flag = false;
         } else {
