@@ -9,6 +9,12 @@ import ConnectFreeBoardWriteModal from './ConnectFreeBoardWrtieModal';
 import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectFreeBoard = ({ closeCreatePost }) => {
+
+  
+  const REQUEST_URL = 'http://localhost:8181/contents/hot-place';
+
+  const MyToken = localStorage.getItem('Authorization');
+  const [hpData, setHpData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [fbData, setFbData] = useState([]);
@@ -77,9 +83,99 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     setIsOpenWriteBoard(false);
   };
 
+
+  
+
+  // 글 수정, 선택한 핫플 게시판
+  const [selectedHotplace, setSelectedHotplace] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const modifyHotplace = (hp) => {
+    // console.log(hp);
+    setSelectedHotplace(hp);
+    setIsCreateModal(true);
+    setIsEditMode(true);
+  };
+
+
+  // 글 삭제
+  const deleteHotplace = (hotplaceIdx) => {
+    console.log(hotplaceIdx);
+
+    fetch(REQUEST_URL + `/${hotplaceIdx}`, {
+      method: 'DELETE',
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization' : MyToken
+      },
+        credentials: 'include', 
+    })
+      .then(res => {
+        if (res.status === 401) {
+          alert('회원가입이 필요한 서비스입니다.');
+          window.location.href = '/';
+        } else {
+          return res.json();
+        }
+      })
+      .then(result => console.log(result));
+
+    window.location.reload();
+  };
+
+  // 작성창 (글쓰기)
+  const [isCreateModal, setIsCreateModal] = useState(false);
+  
+  const openCreatePost = () => {
+      fetch(REQUEST_URL, {
+        headers: {
+          'Authorization': MyToken
+        }
+      })
+        .then(res => {
+          if (res.status === 401) {
+            alert('회원가입이 필요한 서비스입니다.');
+            window.location.href = '/'; // 메인 페이지로 이동
+          } else {
+            setIsCreateModal(true); // 모달 창 열기
+          }
+        })
+  };
+
+  // 좋아요 카운팅
+  const [hotplaceLikeCount, setLikeCount] = useState(0);
+  const increase = () => { setLikeCount(hotplaceLikeCount + 1 );};
+
+  // 행정구역으로 핫플레이스 게시물 목록 조회하기
+  const handleLocationClick = (kakaoLocation) => {
+    fetch(REQUEST_URL + `/${kakaoLocation}`, {
+      method: 'GET',
+      headers: { 
+        'content-type' : 'application/json',
+        'Authorization' : MyToken
+      },
+      credentials: 'include'  
+    })
+      .then(res => {
+        if (res.status === 401) {
+          alert('회원가입이 필요한 서비스입니다.');
+          window.location.href = '/';
+        } else {
+          return res.json();
+        }
+      })
+      .then(result => {
+        const list = [...result.hotplaceList];
+        setHpData(list);
+      });
+  };
+
+
   return (
     <>
       {isOpenWriteBoard && <ConnectFreeBoardWriteModal closeCreatePost={closeCreatePost} />}
+
+      
 
       <div className="free-board-wrapper">
         <div className="fb-box">

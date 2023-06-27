@@ -135,7 +135,27 @@ function showNotification(recv) {
     // 웹 소켓 연결 함수
     connect();
 
-    return () => {
+    return () => {const connect = () => {
+      sock = new SockJS('http://localhost:8181/contents/chat/live');
+      ws.current = Stomp.over(sock);
+    
+      // 아래 주소로 연결합니다.
+      ws.current.connect(
+        {},
+        (frame) => {
+          ws.current.subscribe('/topic/chat/room/' + roomId, (message) => {
+            const recv = JSON.parse(message.body);
+            recvMessage(recv);
+          });
+          ws.current.send(
+            '/app/chat/message',
+            {},
+            JSON.stringify({ type: 'ENTER', roomId, sender })
+          );
+          // TODO : error 처리 해야 함. (연결 실패 시)
+        }
+      );
+    };
       ws.current.disconnect();
     };
 
