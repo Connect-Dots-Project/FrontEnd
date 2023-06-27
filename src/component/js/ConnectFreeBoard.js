@@ -52,13 +52,12 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
   };
 
   const fetchData = () => {
-    setPage(page + 1);
-    alert(page);
 
+    const newPage = page + 1;
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(API_BASE_URL + `/contents/free-board/list/${page}`, {
+    fetch(API_BASE_URL + `/contents/free-board/list/${newPage}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -68,17 +67,19 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log([...result]);
+        if([...result].length === 0) {
+          return; 
+        }
         setFbData((prevData) => [...prevData, ...result]);
         setIsLoading(false);
+        setPage(page + 1);
         isFetchingRef.current = false;
       });
   };
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
-    console.log(scrollHeight);
-    console.log(scrollTop);
-    console.log(clientHeight);
     if (scrollHeight - scrollTop <= clientHeight * 1.1) {
       
       fetchData();
