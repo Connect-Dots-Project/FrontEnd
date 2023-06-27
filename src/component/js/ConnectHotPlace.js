@@ -249,9 +249,9 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
           <div className='hp-info-select-box'>
 
             <div className='select-btn-box'>
-              <button className='select-btn' id='ADS' onClick={ openSelect }>
+              {/* <button className='select-btn' id='ADS' onClick={ openSelect }>
                 <p>행정구역 선택</p>
-              </button>
+              </button> */}
 
               <div className='board-map-change-box'>
 
@@ -343,9 +343,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
                                 <div className='hp-writer-date-box'>
                                   {/* TODO : 행정구역 추가했어용 ㅠㅠ  */}
-                                  <div className='hp-writer-box'>
-                                    <p className='hp-writer-text'>[{hp.kakaoLocation}]</p>
-                                  </div>
+                                  
                                   <div className='hp-writer-box'>
                                     <p className='hp-writer-text'>[작성자]</p>
                                   </div>
@@ -355,12 +353,18 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                                 </div>
                               </div>
 
-                              <div className='like-box'>
-                                <button className='like' id='Like'></button>
-                                <p className='like-count' onClick={ increase }>{hp.hotplaceLikeCount}</p>
-                                {/* <p className='like-count' onClick={() => increase(hp.hotplaceId)}>
-                                    {hotplaceLikeCount[hp.hotplaceId] || 0}</p> */}
+                              <div className='hp-writer-wrapper'>
+                                <div className='hp-writer-box'>
+                                  <p className='hp-writer-text'>[{hp.kakaoLocation}]</p>
+                                </div>
+                                <div className='like-box'>
+                                  <button className='like' id='Like'></button>
+                                  <p className='like-count' onClick={ increase }>{hp.hotplaceLikeCount}</p>
+                                  {/* <p className='like-count' onClick={() => increase(hp.hotplaceId)}>
+                                      {hotplaceLikeCount[hp.hotplaceId] || 0}</p> */}
+                                </div>
                               </div>
+
                             </div>
                           </div>
                         </div>
