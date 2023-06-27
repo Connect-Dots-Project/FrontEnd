@@ -1,0 +1,33 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+}
+
+.ua-header-user-written-box {
+    width: 50%;
+    height: 100%;
+    
+    .user-written-info-box {
+        width: 60%;
+        height: 100%;
+        display: flex;
+        
+        .user-written-board-box {
+            width: 50%;
+            height: 100%;
+            cursor: pointer;
+            @include disflex();
+            
+            .user-written-board {
+                width: 100%;
+                height: 50%;
+                @include disflex();
+
+                p {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
