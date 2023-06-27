@@ -326,13 +326,13 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                         </div>
                         
                           <div className='hp-info-img-text-box'>
-                            <Link to='/' className='hp-info-img-box'>
+                            <div className='hp-info-img-box'>
                               <div className='info-img'>
                                 {/* 이미지 aws s3 저장 */}
                                 <img src={hp.hotplaceImg} alt='핫플레이스, 같이 놀러가자!' />
 
                               </div>
-                            </Link>
+                            </div>
 
                             <div className='hp-text-wrapper'>
 
