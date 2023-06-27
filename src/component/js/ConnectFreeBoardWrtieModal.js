@@ -4,6 +4,7 @@ import '../scss/ConnectFreeBoardWriteModal.scss';
 import { getLoginUserInfo } from '../../util/login-util';
 
 import ConnectWriteFreeBoard from "./ConnectWriteFreeBoard";
+import { API_BASE_URL } from "../../config/host-config";
 
 const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
 
@@ -98,7 +99,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     freeBoardFormData.append('freeBoardImg', hotplaceImg);
 
       if (isEditMode) {
-        fetch('http://localhost:8181/contents/free-board', {
+        fetch(API_BASE_URL + '/contents/free-board', {
           method: 'PATCH',
           headers: {
             'Authorization' : getLoginUserInfo().token
@@ -109,7 +110,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
           .then((res) => res.json())
           .then((result) => console.log(result));
       } else {
-        fetch('http://localhost:8181/contents/free-board', {
+        fetch(API_BASE_URL + '/contents/free-board', {
           method: 'POST',
           headers: {
             'Authorization' : getLoginUserInfo().token

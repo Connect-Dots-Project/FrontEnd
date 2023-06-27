@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 import Location from './Location';
+import { API_BASE_URL } from '../../config/host-config';
 
 const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
 
-  const REQUEST_URL = 'http://localhost:8181/contents/hot-place';
+  const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
 
   const MyToken = localStorage.getItem('Authorization');
 

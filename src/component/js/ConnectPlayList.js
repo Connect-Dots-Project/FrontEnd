@@ -4,6 +4,8 @@ import '../scss/ConnectPlayList.scss';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import ConnectViewPlayList from './ConnectViewPlayList';
+import { API_BASE_URL } from '../../config/host-config';
+
 
 const ConnectPlayList = () => {
 
@@ -26,7 +28,7 @@ const ConnectPlayList = () => {
   const fetchPlaylistItems = async () => {
     try {
       const MyToken = localStorage.getItem('Authorization');
-      const response = await fetch('http://localhost:8181/contents/music-board', {
+      const response = await fetch(API_BASE_URL + '/contents/music-board', {
         method: 'GET',
         headers: { 
           'Authorization' : MyToken

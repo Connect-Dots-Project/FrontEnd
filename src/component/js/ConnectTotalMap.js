@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Map, MapMarker, MapInfoWindow } from 'react-kakao-maps-sdk';
+import { API_BASE_URL } from '../../config/host-config';
 
 const ConnectTotalMap = () => {
   const [hpData, setHpData] = useState([]);
   const [page, setPage] = useState(0);
-//   console.log(hpData);
-//   console.log('-------------------------------------');
   const [selectedLocation, setSelectedLocation] = useState(null);
-//   console.log(selectedLocation);
 
 
-const REQUEST_URL = 'http://localhost:8181/contents/hot-place';
+const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
 const MyToken = localStorage.getItem('Authorization');
 
   useEffect(() => {
@@ -78,10 +76,6 @@ const MyToken = localStorage.getItem('Authorization');
 				{/* 이미지 aws s3 저장 */}
 				<img src={selectedLocation.hotplaceImg}  style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} />
                 
-				{/* 이미지 로컬 저장 */}
-				{/* <img src={`http://localhost:8181/contents/hot-place/img/${selectedLocation.hotplaceImg}`} alt='핫플레이스, 같이 놀러가자!' style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} /> */}
-                
-			   
 			    <p>{selectedLocation.hotplaceFullAddress}</p>
               </div>
 				

@@ -6,6 +6,7 @@ import ConnectCreatePost from './ConnectCreatePost';
 import '../scss/ConnectHotPlace.scss';
 import ConnectTotalMap from './ConnectTotalMap';
 import { getLoginUserInfo } from '../../util/login-util';
+import { API_BASE_URL } from '../../config/host-config';
 
 const ConnectHotPlace = ({ closeCreatePost }) => {
   const [fbData, setFbData] = useState([]);
@@ -22,7 +23,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   // console.log(hpData);
 
   // 핫플레이스 게시물 누구나 다 볼 수 있게 해야하는데 어떻게해유 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
-  const REQUEST_URL = 'http://localhost:8181/contents/hot-place';
+  const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
 
   const MyToken = localStorage.getItem('Authorization');
   const [page, setPage] = useState(0);
@@ -38,7 +39,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   const fetchInitialData = () => {
     setIsLoading(true);
-      fetch(`http://localhost:8181/contents/hot-place/list/${page}`, {
+      fetch(API_BASE_URL + `/contents/hot-place/list/${page}`, {
         method: 'GET',
         headers: {
           'content-type': 'application/json',
@@ -48,8 +49,11 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       })
       .then((res) => res.json())
       .then((result) => {
-
-        setHpData([...result.hotplaceList]);
+        if (Array.isArray(result.hotplaceList)) {
+          setHpData([...result.hotplaceList]);
+        } else {
+          setHpData([]);
+        }
         setIsLoading(false);
       });
     };
@@ -88,7 +92,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(`http://localhost:8181/contents/free-board/${page}`, {
+    fetch(`http://localhost:8181/contents/hot-place/list/${page}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -112,14 +116,28 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     }
   };
 
-  const [isOpenWriteBoard, setIsOpenWriteBoard] = useState(false);
-
-  const openWriteBoard = () => {
-    setIsOpenWriteBoard(true);
-  };
-
-  const closeWriteBoard = () => {
-    setIsOpenWriteBoard(false);
+  // 행정구역으로 핫플레이스 게시물 목록 조회하기
+  const handleLocationClick = (kakaoLocation) => {
+    fetch(REQUEST_URL + `/${kakaoLocation}`, {
+      method: 'GET',
+      headers: { 
+        'content-type' : 'application/json',
+        'Authorization' : MyToken
+      },
+      credentials: 'include'  
+    })
+      .then(res => {
+        if (res.status === 401) {
+          alert('회원가입이 필요한 서비스입니다.');
+          window.location.href = '/';
+        } else {
+          return res.json();
+        }
+      })
+      .then(result => {
+        const list = [...result.hotplaceList];
+        setHpData(list);
+      });
   };
 
 
@@ -336,8 +354,6 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                                 {/* 이미지 aws s3 저장 */}
                                 <img src={hp.hotplaceImg} alt='핫플레이스, 같이 놀러가자!' />
 
-                                {/* 이미지 로컬 저장 */}
-                                {/* <img src={`http://localhost:8181/contents/hot-place/img/${hp.hotplaceImg}`} alt='핫플레이스, 같이 놀러가자!' /> */}
                               </div>
                             </Link>
 

@@ -5,6 +5,7 @@ import { CookiesProvider, useCookies } from 'react-cookie'
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
 import { getLoginUserInfo, isLogin, setLoginUserInfo } from '../../util/login-util';
+import { API_BASE_URL } from '../../config/host-config';
 
 
 const ConnectLogin = () => {
@@ -312,7 +313,7 @@ const ConnectLogin = () => {
 
         const inputEmail = document.getElementById('Input-email');
 
-        const res = await fetch('http://localhost:8181/connects/sign-up/email', {
+        const res = await fetch(API_BASE_URL + '/connects/sign-up/email', {
             method: 'POST',
             headers: { 'content-type': 'application/json'},
             body: JSON.stringify({
@@ -341,7 +342,7 @@ const ConnectLogin = () => {
         const $certifyEmailBtn = document.getElementById('CertifyEmailBtn');
         const $inputEmail = document.getElementById('Input-email');
 
-        const res = await fetch('http://localhost:8181/connects/sign-up/check', {
+        const res = await fetch(API_BASE_URL + '/connects/sign-up/check', {
             method: 'POST',
             headers: { 'content-type': 'application/json'},
             body: JSON.stringify({
@@ -389,7 +390,7 @@ const ConnectLogin = () => {
         const $inputComment = document.getElementById('Input-comment');
 
 
-        const res = await fetch('http://localhost:8181/connects/sign-up', {
+        const res = await fetch(API_BASE_URL + '/connects/sign-up', {
             method: 'POST',
             headers: { 'content-type': 'application/json'},
             body: JSON.stringify({
@@ -432,7 +433,7 @@ const ConnectLogin = () => {
         }
     }, []);
 
-    const REQUEST_URL = 'http://localhost:8181/connects/login';
+    const REQUEST_URL = API_BASE_URL + '/connects/login';
 
     // 서버에 AJAX 요청
     const fetchLogin = async() => {
@@ -501,13 +502,13 @@ const ConnectLogin = () => {
         
 
         // TODO : 로그인에 성공한 유저의 이메일과 토큰 출력
-        console.log('--------------');
-        console.log(email);
+        // console.log('--------------');
+        // console.log(email);
         
         // json에 담긴 인증정보를 클라이언트에 보관
         // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
-        // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
-        localStorage.setItem('isLogInTest', 'true');
+        // // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
+        // localStorage.setItem('isLogInTest', 'true');
         // localStorage.setItem('ACCESS_TOKEN', token);
         // localStorage.setItem('LOGIN_USERNAME', 'test1');
         // localStorage.setItem('USER_ROLE', 'role');
@@ -544,7 +545,7 @@ const ConnectLogin = () => {
             const inputNickname = e.target.value;
           
             // 중복 검사를 위해 서버로 요청을 보냄
-            const response = await fetch('http://localhost:8181/connects/sign-up/check', {
+            const response = await fetch(API_BASE_URL + '/connects/sign-up/check', {
               method: 'POST',
               headers: { 'content-type': 'application/json' },
               body: JSON.stringify({ nickname: inputNickname }),
