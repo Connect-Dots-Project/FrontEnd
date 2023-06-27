@@ -72,6 +72,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
 
 
+// 테스트
 
   useEffect(() => {
     if (isEditMode && selectedHotplace) {
