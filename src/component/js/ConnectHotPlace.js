@@ -5,6 +5,7 @@ import ConnectCreatePost from './ConnectCreatePost';
 
 import '../scss/ConnectHotPlace.scss';
 import ConnectTotalMap from './ConnectTotalMap';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectHotPlace = ({ closeCreatePost }) => {
 
@@ -36,21 +37,27 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   const fetchInitialData = () => {
     setIsLoading(true);
-      fetch(`http://localhost:8181/contents/hot-place/${page}`, {
+      fetch(`http://localhost:8181/contents/hot-place/list/${page}`, {
         method: 'GET',
-    })
+        headers: {
+          'content-type': 'application/json',
+          'Authorization' : getLoginUserInfo().token
+        },
+        credentials: 'include'
+      })
       .then((res) => res.json())
       .then((result) => {
-        setHpData([...result]);
+
+        setHpData([...result.hotplaceList]);
         setIsLoading(false);
       });
-  };
+    };
 
   const fetchData = () => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(`http://localhost:8181/contents/hot-place/${page}`, {
+    fetch(`http://localhost:8181/contents/hot-place/list/${page}`, {
       method: 'GET',
     })
       .then((res) => res.json())
@@ -111,7 +118,6 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   
   const openCreatePost = () => {
       fetch(REQUEST_URL, {
-        method: 'GET',
         headers: {
           'Authorization': MyToken
         }
