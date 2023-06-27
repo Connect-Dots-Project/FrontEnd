@@ -24,7 +24,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     setIsLoading(true);
 
 
-    fetch(`http://localhost:8181/contents/free-board/${page}`, {
+    fetch(`http://13.209.61.63/contents/free-board/${page}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -43,7 +43,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(`http://localhost:8181/contents/free-board/${page}`, {
+    fetch(`http://13.209.61.63/contents/free-board/${page}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',

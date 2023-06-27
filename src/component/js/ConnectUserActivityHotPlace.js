@@ -8,7 +8,7 @@ const ConnectUserActivityHotPlace = () => {
     const [hpData, setHpData] = useState([]);
     console.log(hpData);
     useEffect(() => {
-        fetch('http://localhost:8181/contents/hot-place', {
+        fetch('http://13.209.61.63/contents/hot-place', {
           method: 'GET',
           headers: {'content-type' : 'application/json'}
         })

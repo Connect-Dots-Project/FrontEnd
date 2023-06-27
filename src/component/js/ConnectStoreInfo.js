@@ -24,7 +24,7 @@ const ConnectStoreInfo = () => {
 
   const getCvsData = () => {
     // 서버로부터 데이터를 가져오는 비동기 함수를 호출합니다.
-    fetch('http://localhost:8181/contents/cvs')
+    fetch('http://13.209.61.63/contents/cvs')
         .then((response) => response.json())
         .then((data) => {
           setCvsData(data);

@@ -103,7 +103,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     freeBoardFormData.append('freeBoardImg', hotplaceImg);
 
       if (isEditMode) {
-        fetch('http://localhost:8181/contents/free-board', {
+        fetch('http://13.209.61.63/contents/free-board', {
           method: 'PATCH',
           headers: {
             'Authorization' : getLoginUserInfo().token
@@ -114,7 +114,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
           .then((res) => res.json())
           .then((result) => console.log(result));
       } else {
-        fetch('http://localhost:8181/contents/free-board', {
+        fetch('http://13.209.61.63/contents/free-board', {
           method: 'POST',
           headers: {
             'Authorization' : getLoginUserInfo().token

@@ -61,7 +61,7 @@ const ConnectLiveChatting = (props) => {
     const myToken = localStorage.getItem('Authorization');
     console.log(myToken);
     
-    fetch(`http://localhost:8181/contents/chat`, {
+    fetch(`http://l13.209.61.63/contents/chat`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -86,7 +86,7 @@ const ConnectLiveChatting = (props) => {
   // 웹소켓을 연결합니다.
   const connect = () => {
 
-    sock = new SockJS('http://localhost:8181/contents/chat/live');
+    sock = new SockJS('http://13.209.61.63/contents/chat/live');
     ws.current = Stomp.over(sock);
 
     // 아래 주소로 연결 합니다.
@@ -186,7 +186,7 @@ const ConnectLiveChatting = (props) => {
     const myToken = localStorage.getItem('Authorization');
     console.log('--------------------------------');
 
-    fetch('http://localhost:8181/contents/chat',{
+    fetch('http://13.209.61.63/contents/chat',{
       method: 'POST',
       headers: { 
         'content-type': 'application/json',

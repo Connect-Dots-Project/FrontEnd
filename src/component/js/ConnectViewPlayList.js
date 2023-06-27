@@ -11,7 +11,7 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
   useEffect(() => {
     const fetchPlaylistItems = async (playListId) => {
       try {
-        const response = await fetch(`http://localhost:8181/contents/music-board/${playListId}`);
+        const response = await fetch(`http://13.209.61.63/contents/music-board/${playListId}`);
         const result = await response.json();
         console.log(result);
         setPlayListItem(result);

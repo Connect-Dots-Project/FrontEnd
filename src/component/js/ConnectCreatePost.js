@@ -5,7 +5,7 @@ import Location from './Location';
 
 const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
 
-  const REQUEST_URL = 'http://localhost:8181/contents/hot-place';
+  const REQUEST_URL = 'http://13.209.61.63/contents/hot-place';
 
   const MyToken = localStorage.getItem('Authorization');
 

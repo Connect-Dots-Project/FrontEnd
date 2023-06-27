@@ -28,7 +28,7 @@ const ConnectFreeBoardData = ({ freeBoardList }) => {
 
         const fetchData = async() => {
 
-            const url = 'http://localhost:8181/contents/free-board/detail/' + freeBoardIdx;
+            const url = 'http://13.209.61.63/contents/free-board/detail/' + freeBoardIdx;
       
             try{
               const res = await fetch(url, {

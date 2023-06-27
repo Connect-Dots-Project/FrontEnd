@@ -24,7 +24,7 @@ const ConnectPlayList = () => {
   useEffect(() => {
   const fetchPlaylistItems = async () => {
     try {
-      const response = await fetch('http://localhost:8181/contents/music-board', {
+      const response = await fetch('http://13.209.61.63/contents/music-board', {
         method: 'GET'
       });
       const result = await response.json();

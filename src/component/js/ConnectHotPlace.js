@@ -20,7 +20,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   // console.log(hpData);
 
   // 핫플레이스 게시물 누구나 다 볼 수 있게 해야하는데 어떻게해유 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
-  const REQUEST_URL = 'http://localhost:8181/contents/hot-place';
+  const REQUEST_URL = 'http://13.209.61.63/contents/hot-place';
 
   const MyToken = localStorage.getItem('Authorization');
   const [page, setPage] = useState(0);
@@ -36,7 +36,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   const fetchInitialData = () => {
     setIsLoading(true);
-      fetch(`http://localhost:8181/contents/hot-place/${page}`, {
+      fetch(`http://13.209.61.63/contents/hot-place/${page}`, {
         method: 'GET',
     })
       .then((res) => res.json())
@@ -50,7 +50,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(`http://localhost:8181/contents/hot-place/${page}`, {
+    fetch(`http://13.209.61.63/contents/hot-place/${page}`, {
       method: 'GET',
     })
       .then((res) => res.json())

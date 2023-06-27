@@ -266,7 +266,7 @@ const ConnectLogin = () => {
 
         const inputEmail = document.getElementById('Input-email');
 
-        const res = await fetch('http://localhost:8181/connects/sign-up/email', {
+        const res = await fetch('http://13.209.61.63/connects/sign-up/email', {
             method: 'POST',
             headers: { 'content-type': 'application/json'},
             body: JSON.stringify({
@@ -292,7 +292,7 @@ const ConnectLogin = () => {
         const $inputCode = document.getElementById('Input-code');
         const $signInEmail = document.getElementById('SignInEmail');
 
-        const res = await fetch('http://localhost:8181/connects/sign-up/check', {
+        const res = await fetch('http://13.209.61.63/connects/sign-up/check', {
             method: 'POST',
             headers: { 'content-type': 'application/json'},
             body: JSON.stringify({
@@ -337,7 +337,7 @@ const ConnectLogin = () => {
         const $inputComment = document.getElementById('Input-comment');
 
 
-        const res = await fetch('http://localhost:8181/connects/sign-up', {
+        const res = await fetch('http://13.209.61.63/connects/sign-up', {
             method: 'POST',
             headers: { 'content-type': 'application/json'},
             body: JSON.stringify({
@@ -380,7 +380,7 @@ const ConnectLogin = () => {
         }
     }, []);
 
-    const REQUEST_URL = 'http://localhost:8181/connects/login';
+    const REQUEST_URL = 'http://13.209.61.63/connects/login';
 
     // 서버에 AJAX 요청
     const fetchLogin = async() => {
@@ -474,7 +474,7 @@ const ConnectLogin = () => {
             const inputNickname = event.target.value;
           
             // 중복 검사를 위해 서버로 요청을 보냄
-            const response = await fetch('http://localhost:8181/connects/sign-up/check', {
+            const response = await fetch('http://13.209.61.63/connects/sign-up/check', {
               method: 'POST',
               headers: { 'content-type': 'application/json' },
               body: JSON.stringify({ nickname: inputNickname }),

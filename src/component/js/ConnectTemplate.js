@@ -7,7 +7,7 @@ import '../scss/ConnectTemplate.scss';
 const ConnectTemplate = () => {
 
   // 주소 요청
-  const API_FREE_BOARD_URL = 'http://localhost/contents/free-board';
+  const API_FREE_BOARD_URL = 'http://13.209.61.63/contents/free-board';
 
   // Json
   const [fbData, setFbData] = useState([]);

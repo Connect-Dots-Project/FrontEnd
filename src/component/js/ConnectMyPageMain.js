@@ -62,7 +62,7 @@ const ConnectMyPageMain = () => {
         const myToken = localStorage.getItem('Authorization');
         console.log(myToken);
 
-        fetch(`http://localhost:8181/member/mypage/myactive/hotplace`, {
+        fetch(`http://13.209.61.63/member/mypage/myactive/hotplace`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
