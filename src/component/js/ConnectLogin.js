@@ -308,12 +308,40 @@ const ConnectLogin = () => {
 
     const openCertifyEmailModal = async() => {
 
+        
+        
+        const inputEmail = document.getElementById('Input-email');
+        
+        if (inputEmail.value.length === 0) {
+            alert('이메일을 입력하세요.');
+            return;
+        }
+
+        const checkEmailResponse = await fetch(API_BASE_URL + '/connects/sign-up/check-email' , {
+            method: 'POST',
+            headers: { 'content-type': 'application/json'},
+            body: JSON.stringify({ email: inputEmail.value })
+        });
+
+        if(checkEmailResponse.status === 400) {
+            alert('이메일 양식이 다릅니다. 다시 입력해주세요');
+            return;
+        }
+
+        const { checkEmail } = await checkEmailResponse.json();
+
+        console.log(checkEmail);
+
+        if (!checkEmail) {
+            alert('이미 가입한 회원입니다.');
+            return;
+        }
+
+
         const $emailModalWrapper = document.getElementById('EmailModalWrapper');
         $emailModalWrapper.style.display = 'block';
         $emailModalWrapper.style.animation = 'openCertifyEmailModal 1s forwards 1';
 
-
-        const inputEmail = document.getElementById('Input-email');
 
         const res = await fetch(API_BASE_URL + '/connects/sign-up/email', {
             method: 'POST',
