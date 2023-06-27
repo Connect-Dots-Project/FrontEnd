@@ -28,6 +28,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const MyToken = localStorage.getItem('Authorization');
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchText, setSearchText] = useState('');
 
   const containerRef = useRef(null);
   const isFetchingRef = useRef(false);
@@ -226,6 +227,27 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   };
 
 
+  // 검색어 기능 구현
+  const handleSearch = () => {
+    console.log(hpData);
+    const filtered = hpData.filter((content) =>
+      content.hotplaceContent.includes(searchText)
+    );
+    setHpData(filtered);
+    setSearchText('');
+  };
+  
+  const handleInputChange = (e) => {
+    setSearchText(e.target.value);
+  };
+  
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+
   
   
   
@@ -270,11 +292,18 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
               {!showMap && (
                 <div className='search-box'>
                   <div className='input-box'>
-                    <input type='text' id='Input'/>
+                    <input 
+                      type='text' 
+                      id='Input'
+                      placeholder='검색어를 입력하세요'
+                      value={searchText}
+                      onChange={handleInputChange}
+                      onKeyPress={handleKeyPress}
+                    />
                   </div>
                   <span>
                     <div className='search-btn-box'>
-                      <button id='Search-Btn'><p></p></button>
+                      <button id='Search-Btn' onClick={handleSearch}><p></p></button>
                     </div>
                   </span>
                 </div>
