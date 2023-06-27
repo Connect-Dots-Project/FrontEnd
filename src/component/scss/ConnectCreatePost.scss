@@ -54,13 +54,13 @@
     animation: openCreatePostModal 1s forwards 1;
 }
 
-.create-post-wrapper {
+.create-post-wrapperr {
     background: #eeefff;
     width: 750px !important;
     height: 947px !important;
 
     position: fixed;
-    left: 62.5%;
+    left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 100;

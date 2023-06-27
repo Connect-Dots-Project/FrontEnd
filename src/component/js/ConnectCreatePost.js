@@ -46,13 +46,13 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
   useEffect(() => {
     if (isCreateModal) {
-      const $modal = document.getElementById('CreatePostModal');
+      const $modal = document.getElementById('CreatePostModall');
       $modal.classList.add('opening');
     }
   }, [isCreateModal]);
 
   const closeModal = () => {
-    const $modal = document.getElementById('CreatePostModal');
+    const $modal = document.getElementById('CreatePostModall');
     $modal.classList.add('closing');
 
     setTimeout(() => {
@@ -62,7 +62,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   };
 
   const cancelBtn = (e) => {
-    const $modal = document.getElementById('CreatePostModal');
+    const $modal = document.getElementById('CreatePostModall');
     $modal.classList.add('closing');
 
     setTimeout(() => {
@@ -148,7 +148,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   return (
     <>
       {isCreateModal && (
-        <div className='create-post-wrapper' id='CreatePostModal'>
+        <div className='create-post-wrapperr' id='CreatePostModall'>
           <button className='cp-close-btn' onClick={closeModal}>X</button>
 
           {/* <form onSubmit={submitHandler} encType='multipart/form-data'> */}
