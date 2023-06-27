@@ -1,0 +1,861 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+}
+
+// 로그인 창 출력시 배경
+.backDrop {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    @include disflex();
+    z-index: 1;
+    display: none;
+}
+
+// 로그인 버튼 box
+.connect-header-login-wrapper {
+    width: 75px;
+    height: 75px;
+
+    position: fixed;
+    bottom: 75px;
+    right: 75px;
+
+    z-index: 1;
+
+    &:hover .ch-signin-box {
+        display: block;
+        transition: 0.5s ease;
+        opacity: 1;
+    }
+
+    // 로그인 box
+    .ch-login-box {
+        width: 75px;
+        height: 75px;
+        border: none;
+
+        @include disflex();
+
+        // 로그인
+        #Login {
+            box-shadow: 2px 2px 1px 1px #000;
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+
+            @include disflex();
+
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+
+
+
+    }
+
+    .ch-logout-box {
+        width: 75px;
+        height: 75px;
+        border: none;
+
+        @include disflex();
+
+        // 로그아웃
+        #Logout {
+            background: tomato;
+            box-shadow: 2px 2px 1px 1px #000;
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+
+            @include disflex();
+
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+    }
+}
+
+
+
+
+// 로그인 모달 클릭
+@keyframes openLoginModal {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        transform: translate(500%, -50%);
+    }
+
+    50% {
+        width: 800px;
+        height: 0;
+        transform: translate(-50%, -50%);
+        border: 4px solid #000;
+    }
+
+    100% {
+        width: 800px;
+        height: 800px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes closeLoginModal {
+    0% {
+        width: 800px;
+        height: 800px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        width: 800px;
+        height: 0%;
+        transform: translate(-50%, -50%);
+        border: 4px solid #000;
+    }
+
+    100% {
+        width: 0%;
+        height: 0%;
+        opacity: 0;
+        transform: translate(-500%, -50%);
+    }
+}
+
+
+
+
+
+// 로그인 모달
+.login-modal-box {
+    background: url('./img/LoginBackGround.jpg') no-repeat;
+    background-size: 100%;
+    background-position-y: -100px;
+    width: 800px;
+    height: 800px;
+    overflow: hidden;
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+
+    display: none;
+
+    // header (사용자 프로필 이미지)
+    #Header {
+        width: 100%;
+        height: 15%;
+    }
+
+    // container (로그인 입력창)
+    #Container {
+        width: 100%;
+        height: 70%;
+
+        // 로그인 입력창
+        .login-wrapper {
+            border-bottom: none;
+            width: 50%;
+            height: 100%;
+            margin: 0 auto;
+            
+            .login-box {
+                width: 100%;
+                height: 55%;
+
+                .id-pw-box {
+                    width: 100%;
+                    height: 60%;
+                    margin-bottom: 30px;
+                    text-align: center;
+
+                    // 입력창
+                    .inputBox {
+                        background: none;
+                        color: #fff;
+                        border: 0px;
+                        border-bottom: 2px solid rgb(20, 101, 173);
+                        width: 85%;
+                        height: 35%;
+                        padding-left: 2%;
+                        margin-top: 15px;
+                        font-size: 16px;
+
+                        &:focus {
+                            outline: none;
+                        }
+
+                        &:hover {
+                            border: 1px solid #fff;
+                            opacity: 0.8;
+                        }
+
+                        &::placeholder {
+                            color: #fff;
+                            opacity: 0.7;
+                        }
+                    }
+
+                    // 자동로그인
+                    .auto-login-check-box {
+                        width: 100%;
+                        height: 85px;
+                        margin: 0 auto;
+
+                        .auto-login-check {
+                            width: 86%;
+                            height: 90%;
+                            margin: 0 auto;
+
+                            display: flex;
+                            justify-content: left;
+                            align-items: center;
+
+                            .auto-login {
+                                margin-right: 5px;
+                                width: 20px;
+                                height: 20px;
+                            }
+
+                            .checkbox-text {
+                                color: #fff;
+                                font-size: 16px;
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                // 로그인 버튼 box
+                .login-btn-box {
+                    width: 87.5%;
+                    height: 20%;
+                    margin: 0 auto;
+                    margin-top: 60px;
+
+                    // 로그인 버튼
+                    .login-btn {
+                        background: rgb(20, 101, 173);
+                        color: #fff;
+                        border-radius: 10px;
+                        width: 100%;
+                        height: 100%;
+                        margin: 0 auto;
+                        border: none;
+                        font-size: 16px;
+                        text-align: center;
+                        cursor: pointer;
+
+                        &:focus {
+                            outline: none;
+                        }
+
+                        &:hover {
+                            opacity: 0.8;
+                        }
+                    }
+
+                }
+
+            }
+
+            // 아이디, 비밀번호 찾기
+            .search-id-pw-wrapper {
+                width: 100%;
+                height: 10%;
+                margin-top: 40px;
+
+                // 아이디, 비밀번호 찾기 box 
+                .search-id-pw-box {
+                    width: 100%;
+                    height: 100%;
+                    margin: 0 auto;
+
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+
+                    // 아이디, 비밀번호 찾기
+                    .search-id-pw {
+                        border: 1px solid rgb(20, 101, 173);
+                        background: rgb(82, 101, 109);
+                        border-radius: 10px;
+                        width: 40%;
+                        height: 100%;
+
+                        &:hover {
+                            opacity: 0.8;
+                        }
+
+                        .search-id {
+                            @include disflex();
+                            width: 100%;
+                            height: 100%;
+                        }
+
+                        .search-pw {
+                            @include disflex();
+                            width: 100%;
+                            height: 100%;
+
+                        }
+
+                        .search-text {
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+
+            .division-wrapper {
+                width: 90%;
+                height: 15%;
+                margin: 0 auto;
+                display: flex;
+
+                .division-box {
+                    border-bottom: 2px solid rgb(20, 101, 173);
+                    width: 140px;
+                    height: 50%;
+                    margin: 0 auto;
+                }
+
+                .division-text-box {
+                    width: 100%;
+                    height: 100%;
+                    @include disflex();
+
+                    .division-text {
+                        color: #fff;
+                        opacity: 0.7;
+                    }
+                }
+            }
+        }
+
+        // 회원가입 box
+        .ch-signin-box {
+            width: 85%;
+            height: 10%;
+            margin: 0 auto;
+            margin-top: 5px;
+            border-radius: 10px;
+
+            @include disflex();
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            // 회원가입
+            #Sign-in {
+                border: 2px solid rgb(20, 101, 173);
+                background: rgb(82, 101, 109);
+                color: #fff;
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+
+                @include disflex();
+
+                &:active {
+                    transform: scale(0.95);
+                }
+            }
+        }
+    }
+
+}
+
+// 닫기 버튼
+.closeBtn {
+    // background: url('./img/CloseBtn.png') no-repeat;
+    // background-size: 100%;
+    border: none;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+// 회원가입 모달 클릭
+@keyframes openSignInModal {
+    0% {
+        width: 800px;
+        height: 0px;
+        opacity: 0;
+        transform: translate(-800%, -50%);
+    }
+
+    50% {
+        width: 800px;
+        height: 0px;
+        transform: translate(-50%, -50%);
+        border: 2px solid rgb(20, 101, 173);
+    }
+
+    100% {
+        width: 800px;
+        height: 800px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes closeSignInModal {
+    0% {
+        width: 800px;
+        height: 800px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        width: 800px;
+        height: 0%;
+        transform: translate(-50%, -50%);
+        border: 2px solid rgb(20, 101, 173);
+    }
+
+    100% {
+        width: 0%;
+        height: 0%;
+        opacity: 0;
+        transform: translate(800%, -50%);
+    }
+}
+
+
+
+// 회원가입 모달
+.signin-modal-box {
+    background: url('./img/SignInBackGround.png') no-repeat;
+    background-size: 100%;
+    background-position-y: -130px;
+    width: 800px;
+    height: 800px;
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 110;
+
+    display: none;
+
+    // header (사용자 프로필 이미지)
+    #Header {
+        width: 100%;
+        height: 10%;
+    }
+}
+
+// container (회원가입 입력창)
+#Container {
+    width: 100%;
+    height: 80%;
+
+    // 회원가입 입력창 전체
+    .signin-wrapper {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+
+        #SignInEmail {
+            background: none;
+            width: 40%;
+            height: 6%;
+            margin: 0 auto;
+            margin-top: 20px;
+            position: relative;
+            top: 250px;
+            background: none;
+            width: 40%;
+            height: 6%;
+            margin: 0 auto;
+            margin-top: 20px;
+            position: relative;
+            top: 250px;
+        }
+
+
+
+        // 회원가입 box
+        .signin-info-list {
+            background: none;
+            width: 40%;
+            height: 6%;
+            margin: 0 auto;
+            margin-top: 20px;
+            position: relative;
+            display: flex;
+
+            // 회원가입 정보 입력창
+            input {
+                border: none;
+                border-bottom: 2px solid rgb(20, 101, 173);
+                background: none;
+                color: #fff;
+                width: 100%;
+                height: 100%;
+                font-size: 16px;
+                text-align: center;
+                position: relative;
+
+                &:focus {
+                    outline: none;
+                }
+
+                &:hover {
+                    border: 1px solid #fff;
+                    opacity: 0.8;
+                }
+
+                &::placeholder {
+                    color: #fff;
+                    font-weight: none;
+                    font-size: 16px;
+                    opacity: 0.75;
+                }
+            }
+
+            label {
+                border-bottom: 1px solid #1465ad;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+
+                #Input-gender {
+                    width: 50%;
+                    height: 50%;
+                }
+
+                #GenderText {
+                    margin-left: 50px;
+                    margin-right: 35px;
+                }
+
+                p {
+                    color: #fff;
+                    opacity: 0.75;
+                    width: 100%;
+                }
+            }
+
+            .input-span {
+                color: #fff;
+                font-weight: 700;
+                font-size: 13px;
+                position: absolute;
+                bottom: -20px;
+                left: 0;
+            }
+
+
+            .certify-email-btn-box {
+                border-radius: 10px;
+                width: 130px;
+                height: 40px;
+                position: absolute;
+                left: 100%;
+                top: -2px;
+
+                .certify-email-btn {
+                    background: rgb(20, 101, 173);
+                    color: #fff;
+                    border-radius: 10px;
+                    border: none;
+                    width: 100%;
+                    height: 100%;
+                    font-size: 16px;
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: 0.8;
+                        border: 1px solid #fff;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.footer {
+    width: 100%;
+    height: 10%;
+
+    .signinBtn-box {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+
+        #RequestSigninBtn {
+            border-radius: 10px;
+            border: none;
+            background: rgb(20, 101, 173);
+            color: #fff;
+            width: 40%;
+            height: 70%;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+
+            &:hover {
+                border: 1px solid #fff;
+                opacity: 0.9;
+            }
+        }
+    }
+}
+
+
+// 닫기 버튼
+.closeBtn {
+    background: none;
+    border: none;
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+
+
+
+
+
+@keyframes openCertifyEmailModal {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        width: 350px;
+        height: 0;
+        transform: translate(-50%, -50%);
+        border: 4px solid #000;
+    }
+
+    100% {
+        width: 350px;
+        height: 150px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+}
+
+@keyframes closeCertifyEmailModal {
+    0% {
+        width: 350px;
+        height: 150px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        width: 350px;
+        height: 0;
+        transform: translate(-50%, -50%);
+        border: 4px solid #000;
+    }
+
+    100% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+    }
+}
+
+
+.certify-email-wrapper {
+    border: 1px solid #000;
+    background: #fff;
+    border-radius: 10px;
+    width: 350px;
+    height: 150px;
+
+    z-index: 110;
+    display: none;
+
+    position: fixed;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+
+    .certify-email-wrapper-close-btn {
+        background: url('./img/CertifyEmailCloseBtn.png') no-repeat;
+        background-size: 100%;
+        border: none;
+        width: 7%;
+        height: 18%;
+        font-weight: 700;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .certify-email-box {
+        width: 95%;
+        height: 100%;
+        margin: 0 auto;
+
+        .certify-email-input-btn-box {
+            width: 100%;
+            height: 50%;
+
+            @include disflex();
+
+            .certify-email-input {
+                border: none;
+                border-bottom: 2px solid rgb(20, 101, 173);
+                background: none;
+                width: 80%;
+                height: 50%;
+                padding-left: 1%;
+                text-align: center;
+
+                &:focus {
+                    outline: none;
+                }
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+
+        .certify-btn-box {
+            width: 100%;
+            height: 40%;
+            @include disflex();
+
+
+            .certify-btn {
+                border: none;
+                border-radius: 10px;
+                background: rgb(20, 101, 173);
+                color: #fff;
+                width: 80%;
+                height: 80%;
+                font-size: 16px;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.8;
+                    border: 1px solid #fff;
+                }
+            }
+        }
+    }
+}
+
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(75px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in-a {
+    animation: fadeIn 0.5s forwards;
+}
+
+.fade-in-b {
+    animation: fadeIn 1s forwards;
+}
+
+.fade-in-c {
+    animation: fadeIn 1.5s forwards;
+}
+
+.fade-in-d {
+    animation: fadeIn 2s forwards;
+}
+
+.fade-in-e {
+    animation: fadeIn 2.5s forwards;
+}
+
+.fade-in-f {
+    animation: fadeIn 3s forwards;
+}
+
+.fade-in-g {
+    animation: fadeIn 3.5s forwards;
+}
+
+.fade-in-h {
+    animation: fadeIn 4s forwards;
+}
+
+.fade-in-i {
+    animation: fadeIn 4.5s forwards;
+}

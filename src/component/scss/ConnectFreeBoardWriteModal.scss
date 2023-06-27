@@ -1,0 +1,252 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes openCreatePostModal {
+    0% {
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+        transform: translate(500%, -50%);
+    }
+
+    50% {
+        width: 1000px;
+        height: 0px;
+        transform: translate(-50%, -50%);
+        border: 4px solid #000;
+    }
+
+    100% {
+        width: 1000px;
+        height: 900px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes closeCreatePostModal {
+    0% {
+        width: 1000px;
+        height: 900px;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        width: 1000px;
+        height: 0%;
+        transform: translate(-50%, -50%);
+        border: 4px solid #000;
+    }
+
+    100% {
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+        transform: translate(-500%, -50%);
+    }
+}
+
+.opening {
+    animation: openCreatePostModal 1s forwards 1;
+}
+
+.create-post-wrapper {
+    background: #ddd;
+    width: 960px;
+    height: 900px;
+    overflow: hidden;
+    // overflow: scroll;
+    
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    animation: openCreatePostModal 1s forwards 1;
+    
+    &.closing {
+        animation: closeCreatePostModal 1s forwards 1;
+    }
+    
+    .cp-close-btn {
+        border: none;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+    }
+    
+    .header-main-footer-box {
+        width: 90%;
+        height: 100%;
+        margin: 0 auto; 
+        
+        .cp-header-wrapper {
+            width: 100%;
+            height: 250px;
+            
+            .cp-header-text-tag-box {
+                width: 100%;
+                height: 100%;
+                
+                .cp-header-text-box {
+                    width: 100%;
+                    height: 25%;
+                    @include disflex();
+                    
+                    #SelectLocation {
+                        font-size: 20px;
+                        font-weight: 700;
+                        opacity: 1;
+                    }
+                }
+                
+                
+                .cp-header-tag-box {
+                    width: 100%;
+                    height: 75%;
+                    display: flex;
+                    justify-content: left;
+                    flex-wrap: wrap;
+                    
+                    .cp-header-tag {
+                        background: #1465ad;
+                        border: none;
+                        border-radius: 5px;
+                        box-shadow: 1px 1px 2px 1px #444;
+                        color: #000;
+                        width: 110px;
+                        height: 35px;
+                        margin: 5px;
+                        transition-duration: 0.3s;
+                        cursor: pointer;
+                        @include disflex();
+
+                        &:hover {
+                            background: #ff6701;
+                            opacity: 0.8;
+                            transform: translateY(3px);
+                        }
+
+                        p {
+                            color: #fff;
+                            font-size: 16px;
+                            font-weight: 700;
+                        }
+                    }   
+                }
+            }
+        }
+
+        .cp-main-wrapper {
+            border: 2px solid #1465ad;
+            border-radius: 5px;
+            width: 100%;
+            height: 570px;
+            padding-top: 4px;
+
+            @include disflex();
+
+            .cp-main-box {
+                border: 2px solid #1465ad;
+                width: 98%;
+                height: 97%;
+                overflow: scroll;
+            }
+            
+        }
+        
+
+        #CpFooter {
+            width: 100%;
+            height: 25%;
+            transition-duration: 1s;
+
+            .cp-footer-text-api-box {
+                width: 100%;
+                height: 100%;
+                
+                
+                .cp-footer-api-box {
+                    width: 100%;
+                    height: 75%;
+                    text-align: center;
+                    
+                    .cp-footer-api {
+                        background: #eeeeee;
+                        border: 2px solid #1465ad;
+                        border-radius: 10px;
+                        width: 100%;
+                        height: 800px;
+                        font-size: 16px;
+                        font-weight: 700;
+                        transition-duration: 1s ;
+                        position: relative;
+                        z-index: 1;
+                        
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+                    
+                    .storage-btn-box {
+                        background: #ddd;
+                        width: 100%;
+                        height: 67px;
+                        border-radius: 0px 0px 10px 10px;
+                        align-items: center;
+                        z-index: 1;
+                        
+                        display: flex;
+                        justify-content: right;
+                        align-items: center;
+                        
+                        .api-btn {
+                            border: none;
+                            border-radius: 10px;
+                            box-shadow: 1px 1px 2px 1px #444;
+                            width: 130px;
+                            height: 60%;
+                            border: none;
+                            cursor: pointer;
+                            transition-duration: 0.3s;
+
+                            &:hover {
+                                opacity: 0.8;
+                            }
+                        }
+                        
+                        #Cancel {
+                            background: #fff;
+                            
+                            &:hover {
+                                background: tomato;
+                            }
+                        }
+                        
+                        #Storage {
+                            margin-left: 20px;
+                            background: #1465ad;
+                            color: #fff;
+                            margin-right: 12px;
+
+                            &:hover {
+                                background: #ff6701;
+                            }
+                        }
+
+                        p {
+                            font-weight: 700;
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
