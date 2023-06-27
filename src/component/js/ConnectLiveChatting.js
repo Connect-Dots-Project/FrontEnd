@@ -59,14 +59,11 @@ const ConnectLiveChatting = (props) => {
 
   // 채팅방 목록을 불러오는 함수
   const findAll = () => {
-    const myToken = localStorage.getItem('Authorization');
-    console.log(myToken);
-    
     fetch(API_BASE_URL + `/contents/chat`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
-        'Authorization' : myToken
+        'Authorization' : getLoginUserInfo().token
     },
       credentials: 'include' // 쿠키가 필요하다면 추가하기
     })
@@ -225,14 +222,12 @@ const recvMessage = (recv) => {
   // 채팅 방을 생성하는 함수
   const createLiveChat = () => {
 
-    const myToken = localStorage.getItem('Authorization');
-    console.log('--------------------------------');
 
     fetch(API_BASE_URL + '/contents/chat',{
       method: 'POST',
       headers: { 
         'content-type': 'application/json',
-        'Authorization' : myToken
+        'Authorization' : getLoginUserInfo().token
     },
     credentials: 'include', // 쿠키가 필요하다면 추가하기
       body: JSON.stringify({

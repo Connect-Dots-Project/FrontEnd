@@ -9,7 +9,7 @@ import { API_BASE_URL } from '../../config/host-config';
 
 
 const ConnectLogin = () => {
- 
+
     const [cookies , setCookie, removeCookie] = useCookies('REFRESH_TOKEN');
 
 
@@ -18,7 +18,7 @@ const ConnectLogin = () => {
 
     const openSignInList = e => {
         setIsOpenSignList(true);
-    };  
+    };
 
     const openSignInBtn = e => {
         setIsOpenSignIn(true);
@@ -26,7 +26,7 @@ const ConnectLogin = () => {
 
     const handleCheckboxChange = (event) => {
         const checkboxes = document.querySelectorAll('input[name="gender"]');
-        
+
         checkboxes.forEach((checkbox) => {
             if (checkbox !== event.target) {
                 checkbox.checked = false;
@@ -39,7 +39,7 @@ const ConnectLogin = () => {
           .replace(/[^0-9]/g, '')
           .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
           .replace(/(\-{1,2})$/g, '');
-        
+
           let msg;
           let flag;
 
@@ -49,21 +49,21 @@ const ConnectLogin = () => {
           }
     };
 
-      
-      const autoHyphenBirth = (e) => {
+
+    const autoHyphenBirth = (e) => {
         let inputValue = e.target.value.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
         inputValue = inputValue.substring(0, 8); // 최대 8자까지만 유지
-      
+
         const year = inputValue.substring(0, 4);
         const month = inputValue.substring(4, 6);
         const day = inputValue.substring(6, 8);
-      
+
         let formattedValue = '';
-      
+
         if (year) {
           formattedValue += year;
         }
-      
+
         if (month) {
           formattedValue += '-' + month;
         }
@@ -71,16 +71,16 @@ const ConnectLogin = () => {
         if (day) {
           formattedValue += '-' + day;
         }
-      
+
         e.target.value = formattedValue;
-      
+
         e.target.value = e.target.value
           .replace(/[^0-9]/g, '') // 숫자 이외의 문자 제거
           .replace(/^(\d{0,4})(\d{0,2})(\d{0,2})$/g, '$1-$2-$3') // YYYY-MM-DD 형식으로 변환
           .replace(/(\-{1,2})$/g, ''); // 마지막에 -가 있는 경우 제거
-      };
-      
-      
+    };
+
+
 
 
     // 상태변수로 회원가입 입력값 관리
@@ -196,28 +196,28 @@ const ConnectLogin = () => {
 
         const inputVal = e.target.value;
 
-    const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
+        const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 
     // 검증 시작
-    let msg, flag;
+        let msg, flag;
 
-        if (!e.target.value) { // 패스워드 안적은거
-            msg = '비밀번호는 필수값입니다!';
-            flag = false;
-        } else if (!pwRegex.test(e.target.value)) {
-            msg = '8글자 이상의 영문,숫자,특수문자를 포함해주세요!';
-            flag = false;
-        } else {
-            msg = '사용 가능한 비밀번호입니다.';
-            flag = true;
-        }
+            if (!e.target.value) { // 패스워드 안적은거
+                msg = '비밀번호는 필수값입니다!';
+                flag = false;
+            } else if (!pwRegex.test(e.target.value)) {
+                msg = '8글자 이상의 영문,숫자,특수문자를 포함해주세요!';
+                flag = false;
+            } else {
+                msg = '사용 가능한 비밀번호입니다.';
+                flag = true;
+            }
 
-        saveInputState({
-            key: 'password',
-            inputVal,
-            msg,
-            flag
-            });
+            saveInputState({
+                key: 'password',
+                inputVal,
+                msg,
+                flag
+                });
     };
 
 
@@ -263,7 +263,6 @@ const ConnectLogin = () => {
             $loginBox.style.display = 'none';
             $back.style.display = 'none';
         }
-
     };
 
 
@@ -287,6 +286,9 @@ const ConnectLogin = () => {
     const closeLogin = e => {
         const $loginBox = document.querySelector('.login-modal-box');
         const $back = document.querySelector('.backDrop');
+
+        document.getElementById('ID').value='';
+        document.getElementById('PW').value='';
 
         if ($loginBox && $back && $loginBox.style.display === 'block') {
             $loginBox.style.animation = 'closeLoginModal 1s forwards 1';
@@ -369,7 +371,7 @@ const ConnectLogin = () => {
                 $certifyEmailBtn.style.pointerEvents = 'none';
                 $inputEmail.style.pointerEvents = 'none';
             }
-              
+
             setIsOpenSignList(true);
         }
     };
@@ -442,10 +444,15 @@ const ConnectLogin = () => {
         const $email = document.getElementById('ID');
         const $password = document.getElementById('PW');
 
+
+        const MyToken = localStorage.getItem('Authorization');
+        // localStorage.setItem('Authorization', token);
+
         const res = await fetch(REQUEST_URL, {
             method: 'POST',
             headers: { 
                 'content-type': 'application/json',
+                'Authorization' : MyToken
         },
             credentials: 'include', // 쿠키가 필요하다면 추가하기
             body: JSON.stringify({
@@ -463,6 +470,7 @@ const ConnectLogin = () => {
             alert(text);
             return;
         }
+
 
         // 서버에서 온 json 읽기
         const { account, nickname } = await res.json();
@@ -484,22 +492,34 @@ const ConnectLogin = () => {
                 $back.style.display = 'none';
             }
 
-            const token = res.headers.get('Authorization');
+            window.location.reload();
+        }
 
-            console.log(token);
-            console.log(nickname);
-            console.log(account);
+
+        const token = res.headers.get('Authorization');
+        localStorage.setItem('Authorization', token);
+
+        console.log(res.headers);
+        console.log(res.headers.get);
+        console.log(nickname);
+        console.log(account);
+
+        console.log(document.cookie);
+
+        // TODO: 쿠키 가져오기
+
+        console.log(token);
+        console.log(localStorage.getItem('Authorization'));
 
             localStorage.setItem('ACCESS_TOKEN', token);
             localStorage.setItem('ACCOUNT', account);
             localStorage.setItem('NICKNAME', nickname);
-            
+
             // TODO : setLoginUserInfo 가 안 됨
             // setLoginUserInfo(token, account, nickname);
 
-        }
 
-        
+
 
         // TODO : 로그인에 성공한 유저의 이메일과 토큰 출력
         // console.log('--------------');
@@ -507,16 +527,13 @@ const ConnectLogin = () => {
         
         // json에 담긴 인증정보를 클라이언트에 보관
         // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
-        // // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
-        // localStorage.setItem('isLogInTest', 'true');
+        // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
+        localStorage.setItem('isLogInTest', 'true');
         // localStorage.setItem('ACCESS_TOKEN', token);
         // localStorage.setItem('LOGIN_USERNAME', 'test1');
         // localStorage.setItem('USER_ROLE', 'role');
 
         // 홈으로 리다이렉트
-
-        // T
-
         // redirection('/');
 
     };
@@ -534,115 +551,101 @@ const ConnectLogin = () => {
 
         // 로그아웃 핸들러
         const logoutHandler = e => {
-            setIsLogInTest(false);
-            localStorage.clear();
-            localStorage.removeItem('refreshtoken');
-            removeCookie('REFRESH_TOKEN');
-            window.location.href = '/';
+            const confirmLogout = window.confirm('정말로 로그아웃하시겠습니까?');
+            if(confirmLogout) {
+                setIsLogInTest(false);
+                localStorage.clear();
+                localStorage.removeItem('refreshtoken');
+                removeCookie('REFRESH_TOKEN');
+                window.location.href = '/';
+            }
         };
 
-        const checkNickname = async (e) => {
-            const inputNickname = e.target.value;
-          
-            // 중복 검사를 위해 서버로 요청을 보냄
-            const response = await fetch(API_BASE_URL + '/connects/sign-up/check', {
-              method: 'POST',
-              headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({ nickname: inputNickname }),
-            });
-          
-            const { isDuplicate } = await response.json();
-          
-            if (isDuplicate) {
-              // 중복된 별명이 있을 경우 처리 로직
-              console.log('중복된 별명입니다!');
-            } else {
-              // 중복된 별명이 없을 경우 처리 로직
-              console.log('사용 가능한 별명입니다!');
-            }
+    const checkNickname = async (e) => {
+        const inputNickname = e.target.value;
 
-            const nameRegex = /^[가-힣]{2,30}$/;
-            const inputVal = e.target.value;
+        // 중복 검사를 위해 서버로 요청을 보냄
+        const response = await fetch(API_BASE_URL + '/connects/sign-up/check', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ nickname: inputNickname }),
+        });
 
-            // 입력값 검증
-            let msg; // 검증 메시지를 저장할 변수
-            let flag; // 입력 검증체크 변수
+        const { isDuplicate } = await response.json();
 
-            if(!inputVal) { // 빈 칸인 경우
-                msg = '별명을 입력해주세요';
-                flag = false;
-            } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
-                msg = '2 ~ 30자로 작성해주세요';
-                flag = false;
-            } else if (isDuplicate) {
-                msg = '중복된 별명입니다';
-                flag = false;
-            } else {
-                msg = '사용 가능한 별명입니다.';
-                flag = true;
-            }
+        if (isDuplicate) {
+            // 중복된 별명이 있을 경우 처리 로직
+            console.log('중복된 별명입니다!');
+        } else {
+            // 중복된 별명이 없을 경우 처리 로직
+            console.log('사용 가능한 별명입니다!');
+        }
+        const nameRegex = /^[가-힣]{2,30}$/;
+        const inputVal = e.target.value;
 
-            saveInputState({
-                key: 'nickName',
-                inputVal,
-                msg,
-                flag
-            });
-        };
+        // 입력값 검증
+        let msg; // 검증 메시지를 저장할 변수
+        let flag; // 입력 검증체크 변수
 
-        const introduce = (e) => {
-            const nameRegex = /^[가-힣]{1,50}$/;
-            let inputVal = e.target.value;
-          
-            // 입력값 검증
-            let msg; // 검증 메시지를 저장할 변수
-            let flag; // 입력 검증체크 변수
-          
-            if (!inputVal) { // 빈 칸인 경우
-                msg = '자유롭게 표현해주세요';
-                flag = false;
-            } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
-                msg = '';
-                flag = false;
-            } else {
-                msg = '환영합니다!';
-                flag = true;
-            }
-            
-            const maxLength = 50;
-            const currentLength = inputVal.length;
-            const remainingLength = maxLength - currentLength;
-            
-            const lengthMessage = `(${currentLength}/${maxLength})`;
-          
-            if (currentLength === maxLength) {
-                flag = false;
-                msg = '최대 50글자입니다'
-            }
-          
-            saveInputState({
-              key: 'introduction',
-              inputVal,
-              msg: msg + lengthMessage,
-              flag
-            });
-        };
-          
-          
-          
-          
+        if(!inputVal) { // 빈 칸인 경우
+            msg = '별명을 입력해주세요';
+            flag = false;
+        } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
+            msg = '2 ~ 30자로 작성해주세요';
+            flag = false;
+        } else if (isDuplicate) {
+            msg = '중복된 별명입니다';
+            flag = false;
+        } else {
+            msg = '사용 가능한 별명입니다.';
+            flag = true;
+        }
 
+        saveInputState({
+            key: 'nickName',
+            inputVal,
+            msg,
+            flag
+        });
+    };
 
+    const introduce = (e) => {
+        const nameRegex = /^[가-힣]{1,50}$/;
+        let inputVal = e.target.value;
 
+        // 입력값 검증
+        let msg; // 검증 메시지를 저장할 변수
+        let flag; // 입력 검증체크 변수
 
+        if (!inputVal) { // 빈 칸인 경우
+            msg = '자유롭게 표현해주세요';
+            flag = false;
+        } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
+            msg = '';
+            flag = false;
+        } else {
+            msg = '환영합니다!';
+            flag = true;
+        }
 
+        const maxLength = 50;
+        const currentLength = inputVal.length;
+        const remainingLength = maxLength - currentLength;
 
+        const lengthMessage = `(${currentLength}/${maxLength})`;
 
+        if (currentLength === maxLength) {
+            flag = false;
+            msg = '최대 50글자입니다'
+        }
 
-
-        
-
-        return (
+        saveInputState({
+            key: 'introduction',
+            inputVal,
+            msg: msg + lengthMessage,
+            flag
+        });}
+    return (
             <>
         <div className='backDrop'></div>
         {/* 로그인 모달 box */}
@@ -761,7 +764,7 @@ const ConnectLogin = () => {
             {/* container (회원가입 입력창) */}
             <div id='Container'>
                 <ul className='signin-wrapper'>
-                    
+
                     {isOpenSignIn && (
                         <li className='signin-info-list' id='SignInEmail'>
                             <input id='Input-email' className='signin-info-text' placeholder='아이디 (이메일)' autoFocus></input>
@@ -828,10 +831,10 @@ const ConnectLogin = () => {
 
                         {isOpenSignInList && (
                             <li className='signin-info-list fade-in-d'>
-                                <input 
-                                    className='signin-info-text' 
-                                    placeholder='별명' 
-                                    id='Input-nickname' 
+                                <input
+                                    className='signin-info-text'
+                                    placeholder='별명'
+                                    id='Input-nickname'
                                     onChange={checkNickname}
                                 ></input>
                                 {message.nickName && (
@@ -855,9 +858,9 @@ const ConnectLogin = () => {
 
                         {isOpenSignInList && (
                             <li className='signin-info-list fade-in-f'>
-                                <input 
-                                    className='signin-info-text' 
-                                    placeholder='생년월일 (1900-00-00)' 
+                                <input
+                                    className='signin-info-text'
+                                    placeholder='생년월일 (1900-00-00)'
                                     id='Input-birthday'
                                     onChange={ autoHyphenBirth }
                                 ></input>
@@ -866,9 +869,9 @@ const ConnectLogin = () => {
 
                         {isOpenSignInList && (
                             <li className='signin-info-list fade-in-g'>
-                                <input 
-                                    className='signin-info-text' 
-                                    placeholder='핸드폰 번호 (010-0000-0000)' 
+                                <input
+                                    className='signin-info-text'
+                                    placeholder='핸드폰 번호 (010-0000-0000)'
                                     id='Input-phone'
                                     maxLength={13}
                                     onChange={autoHyphen}
@@ -878,9 +881,9 @@ const ConnectLogin = () => {
 
                         {isOpenSignInList && (
                             <li className='signin-info-list fade-in-h'>
-                                <input 
-                                    className='signin-info-text' 
-                                    placeholder='지역 ex) 강남구' 
+                                <input
+                                    className='signin-info-text'
+                                    placeholder='지역 ex) 강남구'
                                     id='Input-location'
                                     maxLength={20}
                                 ></input>
@@ -889,9 +892,9 @@ const ConnectLogin = () => {
 
                         {isOpenSignInList && (
                             <li className='signin-info-list fade-in-i'>
-                                <input 
-                                    className='signin-info-text' 
-                                    placeholder='한줄소개' 
+                                <input
+                                    className='signin-info-text'
+                                    placeholder='한줄소개'
                                     id='Input-comment'
                                     maxLength={50}
                                     onChange={ introduce }
@@ -942,8 +945,8 @@ const ConnectLogin = () => {
                 </div>
             </div>
         </div>
-    </>
-  )
+        </>
+    )
 }
 
-export default ConnectLogin
+export default ConnectLogin;
