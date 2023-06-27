@@ -1,0 +1,67 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// footer 채팅창
+.gcfooter-wrapper {
+    border: 1px solid #000;
+    width: 100%;
+    height: 15%;
+
+    .gcfooter-box {
+        width: 100%;
+        height: 100%;
+        
+        // 채팅창 + 전송 버튼 box
+        .input-text-btn-box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            
+            // 채팅창 box
+            .input-text-box {
+                width: 90%;
+                height: 100%;
+                border-right: 1px solid #000;
+                
+                // 채팅창
+                .input-text {
+                    border: none;
+                    width: 100%;
+                    height: 100%;
+                    padding-left: 2%;
+                    font-size: 25px;
+                    text-align: center;
+                    outline: none;
+                }
+            }
+            // 채팅창 전송 버튼 box
+            .input-btn-box {
+                width: 10%;
+                height: 100%;
+                outline: none;
+                
+                &:hover {
+                    opacity: 0.8;
+                }
+                
+                // 채팅창 전송 버튼
+                .input-btn {
+                    border: none;
+                    background: url('./img/Send.png') no-repeat;
+                    background-size: 100%;
+                    background-position: 100%;
+                    width: 100%;
+                    height: 100%;
+                    outline: none;
+                    cursor: pointer;
+                }
+            }
+        }
+
+
+    }
+
+}
