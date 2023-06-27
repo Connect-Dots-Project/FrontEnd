@@ -47,8 +47,11 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       })
       .then((res) => res.json())
       .then((result) => {
-
-        setHpData([...result.hotplaceList]);
+        if (Array.isArray(result.hotplaceList)) {
+          setHpData([...result.hotplaceList]);
+        } else {
+          setHpData([]);
+        }
         setIsLoading(false);
       });
     };
@@ -95,8 +98,12 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
         }
       })
       .then(result => {
-        const list = [...result.hotplaceList];
-        setHpData(list);
+        if (Array.isArray(result.hotplaceList)) {
+          const list = [...result.hotplaceList];
+          setHpData(list);
+        } else {
+          setHpData([]);
+        }
       });
   };
 
