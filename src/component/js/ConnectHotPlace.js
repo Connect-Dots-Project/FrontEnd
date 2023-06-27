@@ -116,30 +116,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     }
   };
 
-  // 행정구역으로 핫플레이스 게시물 목록 조회하기
-  const handleLocationClick = (kakaoLocation) => {
-    fetch(REQUEST_URL + `/${kakaoLocation}`, {
-      method: 'GET',
-      headers: { 
-        'content-type' : 'application/json',
-        'Authorization' : MyToken
-      },
-      credentials: 'include'  
-    })
-      .then(res => {
-        if (res.status === 401) {
-          alert('회원가입이 필요한 서비스입니다.');
-          window.location.href = '/';
-        } else {
-          return res.json();
-        }
-      })
-      .then(result => {
-        const list = [...result.hotplaceList];
-        setHpData(list);
-      });
-  };
-
+  
 
   // 행정구역 선택
   const [isOpenSelect, setIsOpenSelect] = useState(false);
