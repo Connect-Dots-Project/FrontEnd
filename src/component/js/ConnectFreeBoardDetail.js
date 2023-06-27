@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { getLoginUserInfo } from '../../util/login-util';
+import { API_BASE_URL } from '../../config/host-config';
 
 const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
@@ -36,7 +37,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
   const fetchData = async() => {
 
-    const url = 'http://localhost:8181/contents/free-board/detail/' + freeBoardIdx;
+    const url = API_BASE_URL + '/contents/free-board/detail/' + freeBoardIdx;
 
     try{
       const res = await fetch(url, {
@@ -98,7 +99,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
       // TODO : 삭제 요청 처리
       console.log(getLoginUserInfo().token);
 
-      const url = 'http://localhost:8181/contents/free-board/' + freeBoardIdx;
+      const url = API_BASE_URL + '/contents/free-board/' + freeBoardIdx;
 
       fetch(url, {
         method: 'DELETE',
@@ -141,7 +142,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
       const replyPost = async() => {
 
-        const url = 'http://localhost:8181/contents/free-board/replies';
+        const url = API_BASE_URL + '/contents/free-board/replies';
 
 
         const postData = {
@@ -189,7 +190,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
     const likeHandler = () => {
       const likePost = async() => {
 
-        const url = 'http://localhost:8181/contents/free-board/like/' + freeBoardIdx;
+        const url = API_BASE_URL + '/contents/free-board/like/' + freeBoardIdx;
 
 
         try {

@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useRef } from 'react';
 import '../scss/ConnectStoreInfo.scss';
 import {useParams} from "react-router-dom";
+import { API_BASE_URL } from '../../config/host-config';
+
 
 const ConnectStoreInfo = () => {
   const [cvsData, setCvsData] = useState([]);
@@ -24,7 +26,7 @@ const ConnectStoreInfo = () => {
 
   const getCvsData = () => {
     // 서버로부터 데이터를 가져오는 비동기 함수를 호출합니다.
-    fetch('http://localhost:8181/contents/cvs')
+    fetch(API_BASE_URL + '/contents/cvs')
         .then((response) => response.json())
         .then((data) => {
           setCvsData(data);

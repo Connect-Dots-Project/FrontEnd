@@ -6,6 +6,7 @@ import ConnectCreatePost from './ConnectCreatePost';
 import '../scss/ConnectHotPlace.scss';
 import ConnectTotalMap from './ConnectTotalMap';
 import { getLoginUserInfo } from '../../util/login-util';
+import { API_BASE_URL } from '../../config/host-config';
 
 const ConnectHotPlace = ({ closeCreatePost }) => {
 
@@ -21,7 +22,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   // console.log(hpData);
 
   // 핫플레이스 게시물 누구나 다 볼 수 있게 해야하는데 어떻게해유 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
-  const REQUEST_URL = 'http://localhost:8181/contents/hot-place';
+  const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
 
   const MyToken = localStorage.getItem('Authorization');
   const [page, setPage] = useState(0);
@@ -37,7 +38,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   const fetchInitialData = () => {
     setIsLoading(true);
-      fetch(`http://localhost:8181/contents/hot-place/list/${page}`, {
+      fetch(API_BASE_URL + `/contents/hot-place/list/${page}`, {
         method: 'GET',
         headers: {
           'content-type': 'application/json',
@@ -60,7 +61,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(`http://localhost:8181/contents/hot-place/list/${page}`, {
+    fetch(API_BASE_URL + `/contents/hot-place/list/${page}`, {
       method: 'GET',
     })
       .then((res) => res.json())
@@ -347,8 +348,6 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                                 {/* 이미지 aws s3 저장 */}
                                 <img src={hp.hotplaceImg} alt='핫플레이스, 같이 놀러가자!' />
 
-                                {/* 이미지 로컬 저장 */}
-                                {/* <img src={`http://localhost:8181/contents/hot-place/img/${hp.hotplaceImg}`} alt='핫플레이스, 같이 놀러가자!' /> */}
                               </div>
                             </Link>
 

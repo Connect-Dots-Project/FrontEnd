@@ -7,6 +7,7 @@ import ConnectFreeBoardData from './ConnectFreeBoardData';
 import ConnectCreatePost from './ConnectCreatePost';
 import ConnectFreeBoardWriteModal from './ConnectFreeBoardWrtieModal';
 import { getLoginUserInfo } from '../../util/login-util';
+import { API_BASE_URL } from '../../config/host-config';
 
 const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +25,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     setIsLoading(true);
 
 
-    fetch(`http://localhost:8181/contents/free-board/${page}`, {
+    fetch(API_BASE_URL + `/contents/free-board/list/${page}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -43,7 +44,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(`http://localhost:8181/contents/free-board/${page}`, {
+    fetch(API_BASE_URL + `/contents/free-board/list/${page}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',

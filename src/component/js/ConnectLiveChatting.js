@@ -13,6 +13,7 @@ import { Stomp } from '@stomp/stompjs';
 import { getLoginUserInfo } from '../../util/login-util';
 
 import { setWebSocket, getWebSocket } from './ConnectWebSocket';
+import { API_BASE_URL } from '../../config/host-config';
 
 // 함수 -> 태그 -> useEffect
 
@@ -61,7 +62,7 @@ const ConnectLiveChatting = (props) => {
     const myToken = localStorage.getItem('Authorization');
     console.log(myToken);
     
-    fetch(`http://localhost:8181/contents/chat`, {
+    fetch(API_BASE_URL + `/contents/chat`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -105,7 +106,7 @@ function showNotification(recv) {
 
   // 웹소켓을 연결합니다.
   const connect = () => {
-    sock = new SockJS('http://localhost:8181/contents/chat/live');
+    sock = new SockJS(API_BASE_URL + '/contents/chat/live');
     ws.current = Stomp.over(sock);
   
     // 아래 주소로 연결합니다.
@@ -207,7 +208,7 @@ const recvMessage = (recv) => {
     const myToken = localStorage.getItem('Authorization');
     console.log('--------------------------------');
 
-    fetch('http://localhost:8181/contents/chat',{
+    fetch(API_BASE_URL + '/contents/chat',{
       method: 'POST',
       headers: { 
         'content-type': 'application/json',

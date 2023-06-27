@@ -9,11 +9,6 @@ const ConnectWriteFreeBoard = ({ setHotplaceContent, setHotplaceImg, setInputLoc
 
   const $fileTag = useRef();
 
-  console.log('----------------------------');
-  console.log(setHotplaceContent);
-  console.log(setHotplaceImg);
-  console.log('----------------------------');
-
   const handleEditorChange = (event) => {
     const updatedContent = event.editor.getData();
     setContent(updatedContent);

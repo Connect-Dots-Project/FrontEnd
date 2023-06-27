@@ -4,6 +4,7 @@ import ConnectUserSettingLocation from './ConnectUserSettingLocation';
 import ConnectUserLike from './ConnectUserLike';
 import ConnectUserActivity from './ConnectUserActivity';
 
+import { API_BASE_URL } from '../../config/host-config';
 import '../scss/ConnectMyPageMain.scss';
 import { async } from 'q';
 
@@ -64,7 +65,7 @@ const ConnectMyPageMain = () => {
         const myToken = localStorage.getItem('Authorization');
         console.log(myToken);
 
-        fetch(`http://localhost:8181/member/mypage/myactive/hotplace`, {
+        fetch(API_BASE_URL + `/member/mypage/myactive/hotplace`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

@@ -4,6 +4,7 @@ import '../scss/ConnectFreeBoardData.scss';
 import '../scss/ConnectFreeBoard.scss';
 import ConnectFreeBoardDetail from './ConnectFreeBoardDetail';
 import { getLoginUserInfo } from '../../util/login-util';
+import { API_BASE_URL } from '../../config/host-config';
 
 const ConnectFreeBoardData = ({ freeBoardList }) => {
 
@@ -28,7 +29,7 @@ const ConnectFreeBoardData = ({ freeBoardList }) => {
 
         const fetchData = async() => {
 
-            const url = 'http://localhost:8181/contents/free-board/detail/' + freeBoardIdx;
+            const url = API_BASE_URL + '/contents/free-board/detail/' + freeBoardIdx;
       
             try{
               const res = await fetch(url, {
