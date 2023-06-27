@@ -6,6 +6,7 @@ import '../scss/ConnectFreeBoard.scss';
 import ConnectFreeBoardData from './ConnectFreeBoardData';
 import ConnectCreatePost from './ConnectCreatePost';
 import ConnectFreeBoardWriteModal from './ConnectFreeBoardWrtieModal';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,8 +22,15 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   const fetchInitialData = () => {
     setIsLoading(true);
+
+
     fetch(`http://localhost:8181/contents/free-board/${page}`, {
       method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization' : getLoginUserInfo().token
+      },
+      credentials: 'include'
     })
       .then((res) => res.json())
       .then((result) => {
@@ -37,6 +45,11 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     setIsLoading(true);
     fetch(`http://localhost:8181/contents/free-board/${page}`, {
       method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization' : getLoginUserInfo().token
+      },
+      credentials: 'include'
     })
       .then((res) => res.json())
       .then((result) => {
@@ -48,7 +61,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
-    if (scrollHeight - scrollTop < clientHeight) {
+    if (scrollHeight - scrollTop <= clientHeight * 1.3) {
       setPage(page + 1);
       fetchData();
     }
@@ -88,27 +101,27 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
             <ul className="fbh-best-info-box">
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
-                  <p className="fbh-best-info-text">서울시 청년수당</p>
+                  <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
-                  <p className="fbh-best-info-text">서울시 청년수당</p>
+                  <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
-                  <p className="fbh-best-info-text">서울시 청년수당</p>
+                  <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
-                  <p className="fbh-best-info-text">서울시 청년수당</p>
+                  <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
-                  <p className="fbh-best-info-text">서울시 청년수당</p>
+                  <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
             </ul>

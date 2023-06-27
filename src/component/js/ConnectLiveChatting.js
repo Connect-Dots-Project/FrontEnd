@@ -10,6 +10,7 @@ import ConnectGlobalChatting from './ConnectGlobalChatting';
 import axios from 'axios';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+import { getLoginUserInfo } from '../../util/login-util';
 
 import { setWebSocket, getWebSocket } from './ConnectWebSocket';
 
@@ -57,10 +58,16 @@ const ConnectLiveChatting = (props) => {
 
   // 채팅방 목록을 불러오는 함수
   const findAll = () => {
+    const myToken = localStorage.getItem('Authorization');
+    console.log(myToken);
     
     fetch(`http://localhost:8181/contents/chat`, {
       method: 'GET',
-      headers: {'content-type': 'application/json'}
+      headers: {
+        'content-type': 'application/json',
+        'Authorization' : myToken
+    },
+      credentials: 'include' // 쿠키가 필요하다면 추가하기
     })
       .then((res) => {return res.json();})
       .then((result) => {
@@ -69,21 +76,47 @@ const ConnectLiveChatting = (props) => {
         setRoomList(findList);
       });
 
+      console.log('--------------------');
+      console.log(getLoginUserInfo());
+      console.log('--------------------');
+
   }
+
+  // 최초 알림 여부를 저장하는 변수
+let isFirstNotification = true;
+
+// 알림을 보여주는 함수
+function showNotification(recv) {
+  // 알림이 최초로 뜨는 경우에만 실행
+  if (isFirstNotification && recv.type !== 'ENTER') {
+    // 알림을 보여주는 코드 작성
+    // 예시: 웹 브라우저 알림 API 사용
+    Notification.requestPermission().then(function(permission) {
+      if (permission === 'granted') {
+        new Notification(recv.sender, { body: recv.message });
+      }
+    });
+
+    // 최초 알림이 뜬 후 변수 값을 변경하여 다음에 알림이 뜨지 않도록 함
+    isFirstNotification = false;
+  }
+}
 
 
   // 웹소켓을 연결합니다.
   const connect = () => {
-
     sock = new SockJS('http://localhost:8181/contents/chat/live');
     ws.current = Stomp.over(sock);
-
-    // 아래 주소로 연결 합니다.
+  
+    // 아래 주소로 연결합니다.
     ws.current.connect(
       {},
-      frame => {
-        ws.current.subscribe('/topic/chat/room/' + roomId, message => {
+      (frame) => {
+        ws.current.subscribe('/topic/chat/room/' + roomId, (message) => {
           const recv = JSON.parse(message.body);
+          if(recv.sender === ''){
+            return;
+          }
           recvMessage(recv);
         });
         ws.current.send(
@@ -92,10 +125,8 @@ const ConnectLiveChatting = (props) => {
           JSON.stringify({ type: 'ENTER', roomId, sender })
         );
         // TODO : error 처리 해야 함. (연결 실패 시)
-        
       }
-    )
-
+    );
   };
 
 
@@ -137,19 +168,20 @@ const ConnectLiveChatting = (props) => {
 
   
   // 스프링에서 리턴하는 메시지를 받아서 셋팅하는 함수
-  const recvMessage = (recv) => {
+  // 메시지를 처리하는 함수
+const recvMessage = (recv) => {
+  setMessages((prevMessages) => [
+    ...prevMessages,
+    {
+      type: recv.type,
+      sender: recv.type === 'ENTER' ? '알림' : recv.sender,
+      message: recv.message,
+    },
+  ]);
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      {
-        type: recv.type,
-        sender: recv.type === 'ENTER' ? '알림' : recv.sender,
-        message: recv.message,
-      },
-    ]);
-
-  };
-
+  // 알림 보여주기
+  showNotification(recv);
+};
   // 채팅창을 클릭했을 때
   // 1. 채팅창의 룸 인덱스로 소켓을 연결함
   // 2. 보내는이의 아이디를 유저의 닉네임으로 셋업함
@@ -157,10 +189,7 @@ const ConnectLiveChatting = (props) => {
 
   const handleClick = (idx) => {
     setRoomId(idx);
-
-    // TODO : 보내는 사람을 해당 유저의 닉네임으로 바꿔야함.
-    const name = prompt('닉네임을 입력하세요');
-    setSender(name);
+    setSender(localStorage.getItem('NICKNAME'));
 
     // TODO : 기존의 채팅창에서 다른 방으로 클릭할 때
     // 연결은 되지만 창이 안 열림.
@@ -174,18 +203,26 @@ const ConnectLiveChatting = (props) => {
 
   // 채팅 방을 생성하는 함수
   const createLiveChat = () => {
+
+    const myToken = localStorage.getItem('Authorization');
     console.log('--------------------------------');
 
     fetch('http://localhost:8181/contents/chat',{
       method: 'POST',
-      headers: { 'content-type': 'application/json'},
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization' : myToken
+    },
+    credentials: 'include', // 쿠키가 필요하다면 추가하기
       body: JSON.stringify({
           content: inputContent,
           hashTag: inputHashtag,
-          nickname: '한강1234123123'
           // TODO : 닉네임을 없애야 한다 토큰으로 nickname 작성할 예정
       })
     })
+
+
+
     .then(res => {
       console.log(res);
       console.log(res.isCreate);
@@ -203,15 +240,6 @@ const ConnectLiveChatting = (props) => {
     })
 
   }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -528,42 +556,6 @@ useEffect(() => {
                   </div>
                 </button>
               ))}
-
-              {/* TODO : 게시판 1개 백업용 */}
-              <button className='lc-info-wrapper' 
-              data-value='room1'
-              onClick={(e) => handleClick(e.currentTarget.getAttribute('data-value')) }>
-
-                <div className='info-box'>
-                  <div className='lc-info-tag-like-reply-box'>
-                    <div className='tag-box'>
-                      <div className='tag'>
-                        <p>#해시태그</p>
-                      </div>
-                    </div>
-                    {/* <div className='like-box'>
-                      <div className='like'></div>
-                      <p className='count'>100</p>
-                    </div>
-                    <div className='reply-box'>
-                      <div className='reply'></div>
-                      <p className='count'>50</p>
-                    </div> */}
-                  </div>
-                  <div className='lc-info-text-img-box'>
-                    <div className='text-box'>
-                      <div className='info-text'>
-                      채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고 채팅 하실분 고고
-                      </div>
-                    </div>
-                    {/* <div className='img-box'>
-                      <div className='info-img'></div>
-                    </div> */}
-                  </div>
-                </div>
-              </button>
-
-
 
             </div>
 

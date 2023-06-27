@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import '../scss/ConnectFreeBoardData.scss';
 import '../scss/ConnectFreeBoard.scss';
 import ConnectFreeBoardDetail from './ConnectFreeBoardDetail';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectFreeBoardData = ({ freeBoardList }) => {
 
@@ -31,7 +32,12 @@ const ConnectFreeBoardData = ({ freeBoardList }) => {
       
             try{
               const res = await fetch(url, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                  'content-type': 'application/json',
+                  'Authorization' : getLoginUserInfo().token
+                },
+                credentials: 'include'
               });
       
               if(res.status === 403) {
@@ -65,7 +71,13 @@ const ConnectFreeBoardData = ({ freeBoardList }) => {
 
     <button className='fbm-info-list' onClick={ openInnerBoardModal }>
         <div className='fbm-info-img-box'>
-            <div className='fbm-info-img'></div>
+          <div className='fbm-info-img' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+            {freeBoardImg ? (
+              <img src={freeBoardImg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <img src={require('../scss/img/ad1.jpg')} alt='No Image' style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            )}
+          </div>
         </div>
         <ul className='fbm-inr-info-box'>
             <li className='fbm-inr-info' id='Area'>{freeBoardLocation}</li>

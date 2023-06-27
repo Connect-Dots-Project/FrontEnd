@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import ConnectCreatePost from './ConnectCreatePost';
 
 
 import '../scss/ConnectHotPlace.scss';
 import ConnectTotalMap from './ConnectTotalMap';
+import { getLoginUserInfo } from '../../util/login-util';
 
 const ConnectHotPlace = ({ closeCreatePost }) => {
 
@@ -19,57 +20,85 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const [hpData, setHpData] = useState([]);
   // console.log(hpData);
 
+  // 핫플레이스 게시물 누구나 다 볼 수 있게 해야하는데 어떻게해유 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
+  const REQUEST_URL = 'http://localhost:8181/contents/hot-place';
+
+  const MyToken = localStorage.getItem('Authorization');
+  const [page, setPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const containerRef = useRef(null);
+  const isFetchingRef = useRef(false);
+
   useEffect(() => {
-    fetch('http://localhost:8181/contents/hot-place', {
+    fetchInitialData();
+  }, []);
+
+
+  const fetchInitialData = () => {
+    setIsLoading(true);
+      fetch(`http://localhost:8181/contents/hot-place/list/${page}`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+          'Authorization' : getLoginUserInfo().token
+        },
+        credentials: 'include'
+      })
+      .then((res) => res.json())
+      .then((result) => {
+
+        setHpData([...result.hotplaceList]);
+        setIsLoading(false);
+      });
+    };
+
+  const fetchData = () => {
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
+    setIsLoading(true);
+    fetch(`http://localhost:8181/contents/hot-place/list/${page}`, {
       method: 'GET',
-      headers: {'content-type' : 'application/json'}
     })
-    .then(res => res.json())
-    .then(result => {
-      const list = [...result.hotplaceList];
+      .then((res) => res.json())
+      .then((result) => {
+        setHpData((prevData) => [...prevData, ...result]);
+        setIsLoading(false);
+        isFetchingRef.current = false;
+      });
+  };
 
-      setHpData(list);
-
-    });
-
-  }, []); 
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
+    if (scrollHeight - scrollTop < clientHeight) {
+      setPage(page + 1);
+      fetchData();
+    }
+  };
 
   // 행정구역으로 핫플레이스 게시물 목록 조회하기
   const handleLocationClick = (kakaoLocation) => {
-    fetch(`http://localhost:8181/contents/hot-place/${kakaoLocation}`, {
+    fetch(REQUEST_URL + `/${kakaoLocation}`, {
       method: 'GET',
-      headers: { 'content-type': 'application/json' }
+      headers: { 
+        'content-type' : 'application/json',
+        'Authorization' : MyToken
+      },
+      credentials: 'include'  
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          alert('회원가입이 필요한 서비스입니다.');
+          window.location.href = '/';
+        } else {
+          return res.json();
+        }
+      })
       .then(result => {
         const list = [...result.hotplaceList];
         setHpData(list);
       });
   };
-
-
-
-  // const [selectedLocation, setSelectedLocation] = useState(null);
-
-  // const handleLocationClick = (kakaoLocation) => {
-  //   setSelectedLocation(kakaoLocation);
-  // };
-
-  // useEffect(() => {
-  //   if (selectedLocation) {
-  //     fetch(`http://localhost:8181/contents/hot-place/${selectedLocation}`, {
-  //       method: 'GET',
-  //       headers: { 'content-type': 'application/json' }
-  //     })
-  //       .then(res => res.json())
-  //       .then(result => {
-  //         const list = [...result.hotplaceList];
-  //         setHpData(list);
-  //       });
-  //   }
-  // }, [selectedLocation]);
-
-
 
 
 
@@ -88,7 +117,19 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const [isCreateModal, setIsCreateModal] = useState(false);
   
   const openCreatePost = () => {
-    setIsCreateModal(true);
+      fetch(REQUEST_URL, {
+        headers: {
+          'Authorization': MyToken
+        }
+      })
+        .then(res => {
+          if (res.status === 401) {
+            alert('회원가입이 필요한 서비스입니다.');
+            window.location.href = '/'; // 메인 페이지로 이동
+          } else {
+            setIsCreateModal(true); // 모달 창 열기
+          }
+        })
   };
 
 
@@ -96,34 +137,49 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const deleteHotplace = (hotplaceIdx) => {
     console.log(hotplaceIdx);
 
-    fetch(`http://localhost:8181/contents/hot-place/${hotplaceIdx}`, {
-      method: 'DELETE'
+    fetch(REQUEST_URL + `/${hotplaceIdx}`, {
+      method: 'DELETE',
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization' : MyToken
+      },
+        credentials: 'include', 
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          alert('회원가입이 필요한 서비스입니다.');
+          window.location.href = '/';
+        } else {
+          return res.json();
+        }
+      })
       .then(result => console.log(result));
 
     window.location.reload();
   };
 
-  const modifyHotplace = (hotplaceIdx) => {
-    fetch(`http://localhost:8181/contents/hot-place`, {
-      method: 'PATCH'
-    })
-      .then(res => res.json())
-      .then(result => console.log(result));
-
-  }
-
   // 글 수정, 선택한 핫플 게시판
   const [selectedHotplace, setSelectedHotplace] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const openModifyHotplace = (hp) => {
+  const modifyHotplace = (hp) => {
     // console.log(hp);
     setSelectedHotplace(hp);
     setIsCreateModal(true);
     setIsEditMode(true);
   };
+
+  // const modifyHotplace = (hotplaceIdx) => {
+  //   fetch(REQUEST_URL + `/${hotplaceIdx}`, {
+  //     method: 'PATCH'
+  //   })
+  //     .then(res => res.json())
+  //     .then(result => console.log(result));
+
+  // }
+  
+
+
 
   
   
@@ -262,13 +318,16 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
         {showMap ? (
         <ConnectTotalMap />
       ) : (
-        <div className='hp-info-box'>
+        <div className='hp-info-box'
+        onScroll={handleScroll}
+            ref={containerRef}
+        >
           {hpData.map(hp => (
                         <div className='hp-info' key={hp.hotplaceIdx}>
 
                         <div className='hp-info-modify-delete-box'>
                           <div className='info-modify-box'>
-                            <button className='info-modify-btn' onClick={() => openModifyHotplace(hp)}></button>
+                            <button className='info-modify-btn' onClick={() => modifyHotplace(hp)}></button>
                           </div>
                           <div className='info-delete-box'>
                             <button className='info-delete-btn' onClick={() => deleteHotplace(hp.hotplaceIdx)}></button>
@@ -317,6 +376,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                           </div>
                         </div>
             ))}
+            {isLoading && <p>Loading...</p>}
 
 
         </div>

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import '../scss/ConnectFreeBoardWriteModal.scss';
-import ConnectWriteBoard from "./ConnectWriteBoard";
+import { getLoginUserInfo } from '../../util/login-util';
+
+import ConnectWriteFreeBoard from "./ConnectWriteFreeBoard";
 
 const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
 
@@ -10,21 +12,18 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     // 초기값 설정
     const [hotplaceImg, setHotplaceImg] = useState('');
     const [hotplaceContent, setHotplaceContent] = useState('');
-    const [hotplaceLatitude, setHotplaceLatitude] = useState('');
-    const [hotplaceLongitude, setHotplaceLongitude] = useState('');
-    const [hotplaceName, setHotplaceName] = useState('');
-    const [hotplaceFullAddress, setHotplaceFullAddress] = useState('');
-    const [kakaoLocation, setKakaoLocation] = useState('');
+    
     const [selectedLocation, setSelectedLocation] = useState('');
+    const [freeBoardTitle, setFreeBoardTitle] = useState('');
+    
+    const [inputLocation, setInputLocation] = useState('');
   
     const handleLocationClick = (location) => {
       setSelectedLocation(location);
     };
   
     const districtList = [
-      '강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구',
-      '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구',
-      '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
+      '친목', '봉사활동', '동네정보', '맛집탐방', '잡담', '질문', '놀거리', '취미'
     ];
   
     const districtItems = districtList.map((district) => (
@@ -82,47 +81,42 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     
       e.preventDefault();
 
-      const freeBoardWriteRequestDTO = {
-        freeBoardImg: '',
-        freeBoardTitle: '',
-        freeBoardContent: hotplaceContent,
-        freeBoardLocation: selectedLocation,
-        freeBoardCategory: '',
-        memberIdx: 1
-      }
-      
       // TODO : 게시글 제목 입력이 없음.
       const requestData = {
-        location: selectedLocation,
-        hotplaceContent ,
-        memberIdx: 1,
-        hotplaceLatitude,
-        hotplaceLongitude,
-        hotplaceName,
-        hotplaceFullAddress,
-        kakaoLocation,
+        freeBoardTitle: freeBoardTitle,
+        freeBoardContent: hotplaceContent,
+        freeBoardLocation: inputLocation,
+        freeBoardCategory: selectedLocation
       };
-      
+
       if (isEditMode) requestData.hotplaceIdx = selectedHotplace.hotplaceIdx;
     
     const jsonString = JSON.stringify(requestData);
     const jsonDataBlob = new Blob([jsonString], { type: 'application/json' });
   
-    const hotplaceFormData = new FormData();
-    hotplaceFormData.append('hotplace', jsonDataBlob);
-    hotplaceFormData.append('hotplaceImg', hotplaceImg);
-  
+    const freeBoardFormData = new FormData();
+    freeBoardFormData.append('freeBoard', jsonDataBlob);
+    freeBoardFormData.append('freeBoardImg', hotplaceImg);
+
       if (isEditMode) {
         fetch('http://localhost:8181/contents/free-board', {
           method: 'PATCH',
-          body: hotplaceFormData,
+          headers: {
+            'Authorization' : getLoginUserInfo().token
+          },
+          credentials: 'include',
+          body: freeBoardFormData
         })
           .then((res) => res.json())
           .then((result) => console.log(result));
       } else {
         fetch('http://localhost:8181/contents/free-board', {
           method: 'POST',
-          body: hotplaceFormData,
+          headers: {
+            'Authorization' : getLoginUserInfo().token
+          },
+          credentials: 'include',
+          body: freeBoardFormData
         })
           .then((res) => res.json())
           .then((result) => console.log(result.isWrite));
@@ -130,6 +124,9 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
   
       window.location.reload();
     };
+
+
+  
   
     return (
       <>
@@ -152,17 +149,30 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                     </div>
                   </div>
                 </header>
+
+                {/* TODO : 제목 입력 창 시작 SCSS 필요 */}
+
+                <input
+                    style={{marginLeft: '500px'}}
+                    type='text'
+                    value={freeBoardTitle}
+                    onChange={(e) => setFreeBoardTitle(e.target.value)}
+                    placeholder='제목을 입력하세요'
+                    className='cp-title-input'
+                  />
+
+                {/* TODO : 제목 입력 창 끝 */}
   
                 <div className='cp-main-wrapper'>
                   <div className='cp-main-box'>
                     
-                      <ConnectWriteBoard
-                        // wbHotplaceImg={selectedHotplace.hotplaceImg}
+                      <ConnectWriteFreeBoard
+                        // wbfreeBoardImg={selectedHotplace.freeBoardImg}
                         // wbHotplaceContent={selectedHotplace.hotplaceContent}
                 
                         setHotplaceImg = {setHotplaceImg}
                         setHotplaceContent = {setHotplaceContent}
-                 
+                        setInputLocation = {setInputLocation}
                       />
                   
                   </div>
@@ -180,7 +190,6 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                           <p>{isEditMode ? '수정하기' : '작성'}</p>
                         </button>
                       </div>
-  
                       
                     </div>
                   </div>
