@@ -17,9 +17,6 @@ const ConnectStoreSales = () => {
   <>
     <div id='StoreSalesWrapper'>
     <div className='store-sales-box'>
-      {/*<div className='back-btn-box'>*/}
-      {/*  <button id='BackBtn' onClick={clickBackBtn}></button>*/}
-      {/*</div>*/}
 
       <div className='ss-select-list-box'>
         <Link to={'/contents/cvs/GS25'} className='ss-select-list'>
