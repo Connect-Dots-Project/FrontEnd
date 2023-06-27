@@ -25,6 +25,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   // 핫플레이스 게시물 누구나 다 볼 수 있게 해야하는데 어떻게해유 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
   const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
 
+  const MyToken = localStorage.getItem('Authorization');
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,10 +37,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   }, []);
 
 
-
   const fetchInitialData = () => {
-
-
     setIsLoading(true);
       fetch(API_BASE_URL + `/contents/hot-place/list/${page}`, {
         method: 'GET',
@@ -62,45 +60,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
  
 
-<<<<<<< Updated upstream
   
-=======
-  const handleScroll = () => {
-    const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
-    if (scrollHeight - scrollTop < clientHeight) {
-      setPage(page + 1);
-      fetchData();
-    }
-  };
-
-  // 행정구역으로 핫플레이스 게시물 목록 조회하기
-  const handleLocationClick = (kakaoLocation) => {
-    fetch(REQUEST_URL + `/${kakaoLocation}`, {
-      method: 'GET',
-      headers: { 
-        'content-type' : 'application/json',
-        'Authorization' : getLoginUserInfo().token
-      },
-      credentials: 'include'  
-    })
-      .then(res => {
-        if (res.status === 401) {
-          alert('회원가입이 필요한 서비스입니다.');
-          window.location.href = '/';
-        } else {
-          return res.json();
-        }
-      })
-      .then(result => {
-        if (Array.isArray(result.hotplaceList)) {
-          const list = [...result.hotplaceList];
-          setHpData(list);
-        } else {
-          setHpData([]);
-        }
-      });
-  };
->>>>>>> Stashed changes
 
 
 
@@ -113,7 +73,6 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   
   
-<<<<<<< Updated upstream
 
   
 
@@ -185,23 +144,6 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     setSelectedHotplace(hp);
     setIsCreateModal(true);
     setIsEditMode(true);
-=======
-  const openCreatePost = () => {
-
-      fetch(REQUEST_URL, {
-        headers: {
-          'Authorization': getLoginUserInfo().token
-        }
-      })
-        .then(res => {
-          if (res.status === 401) {
-            alert('회원가입이 필요한 서비스입니다.');
-            window.location.href = '/'; // 메인 페이지로 이동
-          } else {
-            setIsCreateModal(true); // 모달 창 열기
-          }
-        })
->>>>>>> Stashed changes
   };
 
 
@@ -213,7 +155,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       method: 'DELETE',
       headers: { 
         'content-type': 'application/json',
-        'Authorization' : getLoginUserInfo().token
+        'Authorization' : MyToken
       },
         credentials: 'include', 
     })
@@ -285,12 +227,6 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
 
   
-  const modifyCheck = () => {
-
-    fetch()
-
-    modifyHotplace(hp);
-  }
   
   
   
@@ -382,8 +318,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
                         <div className='hp-info-modify-delete-box'>
                           <div className='info-modify-box'>
-                            {/* TODO : 수정하기 버튼 인가처리 */}
-                            <button className='info-modify-btn' onClick={ modifyCheck }></button>
+                            <button className='info-modify-btn' onClick={() => modifyHotplace(hp)}></button>
                           </div>
                           <div className='info-delete-box'>
                             <button className='info-delete-btn' onClick={() => deleteHotplace(hp.hotplaceIdx)}></button>
