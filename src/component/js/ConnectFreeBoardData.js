@@ -71,9 +71,13 @@ const ConnectFreeBoardData = ({ freeBoardList }) => {
 
     <button className='fbm-info-list' onClick={ openInnerBoardModal }>
         <div className='fbm-info-img-box'>
-        <div className='fbm-info-img' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-            <img src={ freeBoardImg } style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        </div>
+          <div className='fbm-info-img' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+            {freeBoardImg ? (
+              <img src={freeBoardImg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <img src={require('../scss/img/ad1.jpg')} alt='No Image' style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            )}
+          </div>
         </div>
         <ul className='fbm-inr-info-box'>
             <li className='fbm-inr-info' id='Area'>{freeBoardLocation}</li>

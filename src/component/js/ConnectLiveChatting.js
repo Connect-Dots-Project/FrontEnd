@@ -248,15 +248,6 @@ const recvMessage = (recv) => {
 
 
 
-
-
-
-
-
-
-
-
-
     const [isOpenChat, setIsOpenChat] = useState(false);
 
     const openChathandler = e => {

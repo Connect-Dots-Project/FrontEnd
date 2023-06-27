@@ -45,8 +45,10 @@ const ConnectWriteFreeBoard = ({ setHotplaceContent, setHotplaceImg, setInputLoc
 
 
   return (
+    
     <div>
-{/*       
+      
+      
       <div className='administration-select-wrapper' id='ADS-Modal'>
         <div id='Header'>
           <h1>구역을 선택해주세요</h1>
@@ -63,7 +65,12 @@ const ConnectWriteFreeBoard = ({ setHotplaceContent, setHotplaceImg, setInputLoc
             </ul>
           </div>
         </div>
-      </div> */}
+      </div>
+    
+    
+    
+    <div>
+      
 
       <div className='img-box' onClick={() => $fileTag.current.click()}>
         <img
@@ -91,6 +98,7 @@ const ConnectWriteFreeBoard = ({ setHotplaceContent, setHotplaceImg, setInputLoc
         }}
       />
     </div>
+  </div>
   );
 };
 

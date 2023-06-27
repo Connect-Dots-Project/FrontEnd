@@ -101,27 +101,27 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
             <ul className="fbh-best-info-box">
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
-                  <p className="fbh-best-info-text">서울시 청년수당</p>
+                  <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
-                  <p className="fbh-best-info-text">서울시 청년수당</p>
+                  <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
-                  <p className="fbh-best-info-text">서울시 청년수당</p>
+                  <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
-                  <p className="fbh-best-info-text">서울시 청년수당</p>
+                  <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
-                  <p className="fbh-best-info-text">서울시 청년수당</p>
+                  <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
             </ul>

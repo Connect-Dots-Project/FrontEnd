@@ -8,8 +8,8 @@ const ConnectWriteBoard = ({ setHotplaceContent, setHotplaceImg }) => {
   const $fileTag = useRef();
 
   console.log('----------------------------');
-  // console.log(setHotplaceContent);
-  // console.log(setHotplaceImg);
+  console.log(setHotplaceContent);
+  console.log(setHotplaceImg);
   console.log('----------------------------');
 
   const handleEditorChange = (event) => {
