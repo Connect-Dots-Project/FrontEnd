@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import '../scss/ConnectFreeBoardWriteModal.scss';
-import ConnectWriteBoard from "./ConnectWriteBoard";
 import { getLoginUserInfo } from '../../util/login-util';
+
+import ConnectWriteFreeBoard from "./ConnectWriteFreeBoard";
 
 const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
 
@@ -11,12 +12,11 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     // 초기값 설정
     const [hotplaceImg, setHotplaceImg] = useState('');
     const [hotplaceContent, setHotplaceContent] = useState('');
-    const [hotplaceLatitude, setHotplaceLatitude] = useState('');
-    const [hotplaceLongitude, setHotplaceLongitude] = useState('');
-    const [hotplaceName, setHotplaceName] = useState('');
-    const [hotplaceFullAddress, setHotplaceFullAddress] = useState('');
-    const [kakaoLocation, setKakaoLocation] = useState('');
+    
     const [selectedLocation, setSelectedLocation] = useState('');
+    const [freeBoardTitle, setFreeBoardTitle] = useState('');
+    
+    const [inputLocation, setInputLocation] = useState('');
   
     const handleLocationClick = (location) => {
       setSelectedLocation(location);
@@ -81,18 +81,14 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     
       e.preventDefault();
 
-      
       // TODO : 게시글 제목 입력이 없음.
       const requestData = {
-        freeBoardTitle: '제목을 입력해야합니다.',
+        freeBoardTitle: freeBoardTitle,
         freeBoardContent: hotplaceContent,
-        freeBoardLocation: '강남구',
+        freeBoardLocation: inputLocation,
         freeBoardCategory: selectedLocation
       };
 
-
-
-      
       if (isEditMode) requestData.hotplaceIdx = selectedHotplace.hotplaceIdx;
     
     const jsonString = JSON.stringify(requestData);
@@ -153,16 +149,29 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                     </div>
                   </div>
                 </header>
+
+                {/* TODO : 제목 입력 창 시작 SCSS 필요 */}
+
+                <input
+                    type='text'
+                    value={freeBoardTitle}
+                    onChange={(e) => setFreeBoardTitle(e.target.value)}
+                    placeholder='제목을 입력하세요'
+                    className='cp-title-input'
+                  />
+
+                {/* TODO : 제목 입력 창 끝 */}
   
                 <div className='cp-main-wrapper'>
                   <div className='cp-main-box'>
                     
-                      <ConnectWriteBoard
+                      <ConnectWriteFreeBoard
                         // wbfreeBoardImg={selectedHotplace.freeBoardImg}
                         // wbHotplaceContent={selectedHotplace.hotplaceContent}
                 
                         setHotplaceImg = {setHotplaceImg}
                         setHotplaceContent = {setHotplaceContent}
+                        setInputLocation = {setInputLocation}
                       />
                   
                   </div>
