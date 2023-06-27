@@ -227,15 +227,6 @@ const ConnectLiveChatting = (props) => {
 
 
 
-
-
-
-
-
-
-
-
-
     const [isOpenChat, setIsOpenChat] = useState(false);
 
     const openChathandler = e => {

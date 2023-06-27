@@ -153,6 +153,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                 {/* TODO : 제목 입력 창 시작 SCSS 필요 */}
 
                 <input
+                    style={{marginLeft: '500px'}}
                     type='text'
                     value={freeBoardTitle}
                     onChange={(e) => setFreeBoardTitle(e.target.value)}
