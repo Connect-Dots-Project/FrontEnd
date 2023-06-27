@@ -1,13 +1,83 @@
 
 import React, { useEffect, useState } from 'react'
+
 import { CookiesProvider, useCookies } from 'react-cookie';
 
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
-import { isLogin } from '../../util/login-util';
+import { getLoginUserInfo, isLogin, setLoginUserInfo } from '../../util/login-util';
+import { API_BASE_URL } from '../../config/host-config';
 
 const ConnectLogin = () => {
     const [cookies , setCookie, removeCookie] = useCookies('REFRESH_TOKEN');
+
+    const [isOpenSignInList, setIsOpenSignList] = useState(false);
+    const [isOpenSignIn, setIsOpenSignIn] = useState(false);
+
+    const openSignInList = e => {
+        setIsOpenSignList(true);
+    };  
+
+    const openSignInBtn = e => {
+        setIsOpenSignIn(true);
+    };
+
+    const handleCheckboxChange = (event) => {
+        const checkboxes = document.querySelectorAll('input[name="gender"]');
+        
+        checkboxes.forEach((checkbox) => {
+            if (checkbox !== event.target) {
+                checkbox.checked = false;
+            }
+        });
+    };
+
+    const autoHyphen = (e) => {
+        e.target.value = e.target.value
+          .replace(/[^0-9]/g, '')
+          .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
+          .replace(/(\-{1,2})$/g, '');
+        
+          let msg;
+          let flag;
+
+          if(e.target.value.length < 13) {
+            msg = '올바르지 않은 형식입니다'
+            flag = false;
+          }
+    };
+
+      
+      const autoHyphenBirth = (e) => {
+        let inputValue = e.target.value.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
+        inputValue = inputValue.substring(0, 8); // 최대 8자까지만 유지
+      
+        const year = inputValue.substring(0, 4);
+        const month = inputValue.substring(4, 6);
+        const day = inputValue.substring(6, 8);
+      
+        let formattedValue = '';
+      
+        if (year) {
+          formattedValue += year;
+        }
+      
+        if (month) {
+          formattedValue += '-' + month;
+        }
+
+        if (day) {
+          formattedValue += '-' + day;
+        }
+      
+        e.target.value = formattedValue;
+      
+        e.target.value = e.target.value
+          .replace(/[^0-9]/g, '') // 숫자 이외의 문자 제거
+          .replace(/^(\d{0,4})(\d{0,2})(\d{0,2})$/g, '$1-$2-$3') // YYYY-MM-DD 형식으로 변환
+          .replace(/(\-{1,2})$/g, ''); // 마지막에 -가 있는 경우 제거
+      };
+      
 
     // 상태변수로 회원가입 입력값 관리
     const [userValue, setUserValue] = useState({
@@ -28,6 +98,7 @@ const ConnectLogin = () => {
         password: '',
         passwordCheck: '',
         userName: '',
+        nickName: '',
         birth: '',
         gender: '',
         phoneNumber: '',
@@ -42,6 +113,7 @@ const ConnectLogin = () => {
         password: false,
         passwordCheck: false,
         userName: false,
+        nickName: false,
         birth: false,
         gender: false,
         phoneNumber: false,
@@ -202,6 +274,7 @@ const ConnectLogin = () => {
         } else {
             $signInBox.style.animation = 'none';
         }
+        setIsOpenSignIn(true);
     };
 
     const closeLogin = e => {
@@ -236,7 +309,7 @@ const ConnectLogin = () => {
 
         const inputEmail = document.getElementById('Input-email');
 
-        const res = await fetch('http://localhost:8181/connects/sign-up/email', {
+        const res = await fetch(API_BASE_URL + '/connects/sign-up/email', {
             method: 'POST',
             headers: { 'content-type': 'application/json'},
             body: JSON.stringify({
@@ -260,8 +333,12 @@ const ConnectLogin = () => {
     const clickCertify = async() => {
 
         const $inputCode = document.getElementById('Input-code');
+        const $signInEmail = document.getElementById('SignInEmail');
+        const $signInEmailModal = document.getElementById('EmailModalWrapper');
+        const $certifyEmailBtn = document.getElementById('CertifyEmailBtn');
+        const $inputEmail = document.getElementById('Input-email');
 
-        const res = await fetch('http://localhost:8181/connects/sign-up/check', {
+        const res = await fetch(API_BASE_URL + '/connects/sign-up/check', {
             method: 'POST',
             headers: { 'content-type': 'application/json'},
             body: JSON.stringify({
@@ -280,6 +357,16 @@ const ConnectLogin = () => {
             // 일치했을 때
             alert('코드가 일치합니다!');
             closeCertifyEmailModal();
+
+            if ($signInEmail) {
+                $signInEmail.style.transform = 'translateY(-250px)';
+                $signInEmail.style.transition = '0.3s';
+                $signInEmailModal.style.display = 'none';
+                $certifyEmailBtn.style.pointerEvents = 'none';
+                $inputEmail.style.pointerEvents = 'none';
+            }
+              
+            setIsOpenSignList(true);
         }
     };
 
@@ -299,7 +386,7 @@ const ConnectLogin = () => {
         const $inputComment = document.getElementById('Input-comment');
 
 
-        const res = await fetch('http://localhost:8181/connects/sign-up', {
+        const res = await fetch(API_BASE_URL + '/connects/sign-up', {
             method: 'POST',
             headers: { 'content-type': 'application/json'},
             body: JSON.stringify({
@@ -342,7 +429,7 @@ const ConnectLogin = () => {
         }
     }, []);
 
-    const REQUEST_URL = 'http://localhost:8181/connects/login';
+    const REQUEST_URL = API_BASE_URL + '/connects/login';
 
     // 서버에 AJAX 요청
     const fetchLogin = async() => {
@@ -351,21 +438,16 @@ const ConnectLogin = () => {
         const $email = document.getElementById('ID');
         const $password = document.getElementById('PW');
 
-
-        const MyToken = localStorage.getItem('Authorization');
-        // localStorage.setItem('Authorization', token);
-
         const res = await fetch(REQUEST_URL, {
             method: 'POST',
             headers: { 
                 'content-type': 'application/json',
-                'Authorization' : MyToken
         },
             credentials: 'include', // 쿠키가 필요하다면 추가하기
             body: JSON.stringify({
                 account: $email.value,
                 password: $password.value,
-                isAutoLogin: true              
+                isAutoLogin: true
             })
         });
 
@@ -378,11 +460,12 @@ const ConnectLogin = () => {
             return;
         }
 
-
         // 서버에서 온 json 읽기
-        const { email } = await res.json();
+        const { account, nickname } = await res.json();
         // REFACTORING : 추후 서버에서 상태코드로 리턴할 예정
-        if(!email) {
+
+
+        if(!account) {
             alert('아이디 혹은 비밀번호가 틀렸습니다.');
             document.getElementById('ID').value='';
             document.getElementById('PW').value='';
@@ -397,36 +480,50 @@ const ConnectLogin = () => {
                 $back.style.display = 'none';
             }
 
+
             window.location.reload();
         }
 
 
-        const token = res.headers.get('Authorization');
-        localStorage.setItem('Authorization', token);
-
-        console.log(res.headers);
-        console.log(res.headers.get);
-        console.log(document.cookie);
-
-        // TODO: 쿠키 가져오기
-
-        console.log(token);
-        console.log(localStorage.getItem('Authorization'));
+          const token = res.headers.get('Authorization');
+          localStorage.setItem('Authorization', token);
 
         
+
+            console.log(token);
+            console.log(nickname);
+            console.log(account);
+
+
+            localStorage.setItem('ACCESS_TOKEN', token);
+            localStorage.setItem('ACCOUNT', account);
+            localStorage.setItem('NICKNAME', nickname);
+            
+            // TODO : setLoginUserInfo 가 안 됨
+            // setLoginUserInfo(token, account, nickname);
+
+        }
+
+
+        
+
         // TODO : 로그인에 성공한 유저의 이메일과 토큰 출력
-        console.log('--------------');
-        console.log(email);
+        // console.log('--------------');
+        // console.log(email);
         
         // json에 담긴 인증정보를 클라이언트에 보관
         // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관 (자동 로그인)
-        // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
-        localStorage.setItem('isLogInTest', 'true');
+        // // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐 (자동 로그아웃)
+        // localStorage.setItem('isLogInTest', 'true');
+
         // localStorage.setItem('ACCESS_TOKEN', token);
         // localStorage.setItem('LOGIN_USERNAME', 'test1');
         // localStorage.setItem('USER_ROLE', 'role');
 
         // 홈으로 리다이렉트
+
+        // T
+
         // redirection('/');
 
     };
@@ -444,6 +541,7 @@ const ConnectLogin = () => {
 
         // 로그아웃 핸들러
         const logoutHandler = e => {
+
             const confirmLogout = window.confirm('정말로 로그아웃하시겠습니까?');
             if(confirmLogout) {
                 setIsLogInTest(false);
@@ -453,7 +551,106 @@ const ConnectLogin = () => {
             }
         };
 
+        const checkNickname = async (e) => {
+            const inputNickname = e.target.value;
+          
+            // 중복 검사를 위해 서버로 요청을 보냄
+            const response = await fetch(API_BASE_URL + '/connects/sign-up/check', {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ nickname: inputNickname }),
+            });
+          
+            const { isDuplicate } = await response.json();
+          
+            if (isDuplicate) {
+              // 중복된 별명이 있을 경우 처리 로직
+              console.log('중복된 별명입니다!');
+            } else {
+              // 중복된 별명이 없을 경우 처리 로직
+              console.log('사용 가능한 별명입니다!');
+            }
 
+            const nameRegex = /^[가-힣]{2,30}$/;
+            const inputVal = e.target.value;
+
+            // 입력값 검증
+            let msg; // 검증 메시지를 저장할 변수
+            let flag; // 입력 검증체크 변수
+
+            if(!inputVal) { // 빈 칸인 경우
+                msg = '별명을 입력해주세요';
+                flag = false;
+            } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
+                msg = '2 ~ 30자로 작성해주세요';
+                flag = false;
+            } else if (isDuplicate) {
+                msg = '중복된 별명입니다';
+                flag = false;
+            } else {
+                msg = '사용 가능한 별명입니다.';
+                flag = true;
+            }
+
+            saveInputState({
+                key: 'nickName',
+                inputVal,
+                msg,
+                flag
+            });
+        };
+
+        const introduce = (e) => {
+            const nameRegex = /^[가-힣]{1,50}$/;
+            let inputVal = e.target.value;
+          
+            // 입력값 검증
+            let msg; // 검증 메시지를 저장할 변수
+            let flag; // 입력 검증체크 변수
+          
+            if (!inputVal) { // 빈 칸인 경우
+                msg = '자유롭게 표현해주세요';
+                flag = false;
+            } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
+                msg = '';
+                flag = false;
+            } else {
+                msg = '환영합니다!';
+                flag = true;
+            }
+            
+            const maxLength = 50;
+            const currentLength = inputVal.length;
+            const remainingLength = maxLength - currentLength;
+            
+            const lengthMessage = `(${currentLength}/${maxLength})`;
+          
+            if (currentLength === maxLength) {
+                flag = false;
+                msg = '최대 50글자입니다'
+            }
+          
+            saveInputState({
+              key: 'introduction',
+              inputVal,
+              msg: msg + lengthMessage,
+              flag
+            });
+        };
+          
+          
+          
+          
+
+
+
+
+
+
+
+
+
+        
 
         return (
             <>
@@ -537,7 +734,7 @@ const ConnectLogin = () => {
                 </div>
             </div>
 
-            <footer id='Footer'>
+            {/* <footer id='Footer'>
                 <div className='social-login-wrapper'>
                     <ul className='social-login-box'>
                         <li className='social-login-list kakao'>
@@ -560,7 +757,7 @@ const ConnectLogin = () => {
                         </li>
                     </ul>
                 </div>
-            </footer>
+            </footer> */}
         </div>
 
         {/* 회원가입 */}
@@ -574,86 +771,152 @@ const ConnectLogin = () => {
             {/* container (회원가입 입력창) */}
             <div id='Container'>
                 <ul className='signin-wrapper'>
-                    <li className='signin-info-list'>
-                        <input id='Input-email' className='signin-info-text' placeholder='아이디 (이메일)' autoFocus></input>
-                        <span className='certify-email-btn-box'>
-                            <button className='certify-email-btn' onClick={ openCertifyEmailModal }>이메일 인증</button>
-                        </span>
-                    </li>
+                    
+                    {isOpenSignIn && (
+                        <li className='signin-info-list' id='SignInEmail'>
+                            <input id='Input-email' className='signin-info-text' placeholder='아이디 (이메일)' autoFocus></input>
+                                <span className='certify-email-btn-box'>
+                                    <button id='CertifyEmailBtn' className='certify-email-btn' onClick={ openCertifyEmailModal }>이메일 인증</button>
+                                </span>
+                        </li>
+                    )}
 
-                    {/* 비밀번호 */}
-                    <li className='signin-info-list'>
-                        <input
-                            className='signin-info-text'
-                            placeholder='비밀번호'
-                            type='password'
-                            id='Input-first-password'
-                            onChange={ passwordHandler }
-                        ></input>
-                        {message.password && (
-                        <span style={
-                            correct.password
-                            ? {color:'yellow'}
-                            : {color:'red'}}
-                            className='input-span'>{message.password}
-                        </span>)}
-                    </li>
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-a'>
+                                <input
+                                    className='signin-info-text'
+                                    placeholder='비밀번호'
+                                    type='password'
+                                    id='Input-first-password'
+                                    onChange={ passwordHandler }
+                                    ></input>
+                                {message.password && (
+                                    <span style={
+                                        correct.password
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.password}
+                                </span>)}
+                            </li>
+                        )}
 
-                    {/* 비밀번호 확인 */}
-                    <li className='signin-info-list'>
-                        <input
-                            className='signin-info-text'
-                            placeholder='비밀번호 확인'
-                            id='Input-second-password'
-                            onChange={ passwordCheckHandler }
-                        ></input>
-                        {message.passwordCheck && (
-                        <span id='Check-Span' style={
-                            correct.passwordCheck
-                            ? {color:'yellow'}
-                            : {color:'red'}}
-                            className='input-span'>{message.passwordCheck}
-                        </span>)}
-                    </li>
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-b'>
+                                <input
+                                    className='signin-info-text'
+                                    placeholder='비밀번호 확인'
+                                    id='Input-second-password'
+                                    onChange={ passwordCheckHandler }
+                                    ></input>
+                                {message.passwordCheck && (
+                                    <span id='Check-Span' style={
+                                        correct.passwordCheck
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.passwordCheck}
+                                </span>)}
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-c'>
+                                <input
+                                    className='signin-info-text'
+                                    placeholder='이름'
+                                    id='Input-name'
+                                    onChange={ nameHandler }
+                                    ></input>
+                                {message.userName && (
+                                    <span style={
+                                        correct.userName
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.userName}
+                                </span>)}
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-d'>
+                                <input 
+                                    className='signin-info-text' 
+                                    placeholder='별명' 
+                                    id='Input-nickname' 
+                                    onChange={checkNickname}
+                                ></input>
+                                {message.nickName && (
+                                    <span style={
+                                        correct.nickName
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.nickName}
+                                </span>)}
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                        <li className='signin-info-list fade-in-e'>
+                            <label htmlFor='Input-gender'><p id='GenderText'>성별 :</p>
+                                <input type='checkbox' id='Input-gender' name='gender' value='F' onChange={handleCheckboxChange} /><p>F</p>
+                                <input type='checkbox' id='Input-gender' name='gender' value='M' onChange={handleCheckboxChange} /><p>M</p>
+                            </label>
+                        </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-f'>
+                                <input 
+                                    className='signin-info-text' 
+                                    placeholder='생년월일 (1900-00-00)' 
+                                    id='Input-birthday'
+                                    onChange={ autoHyphenBirth }
+                                ></input>
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-g'>
+                                <input 
+                                    className='signin-info-text' 
+                                    placeholder='핸드폰 번호 (010-0000-0000)' 
+                                    id='Input-phone'
+                                    maxLength={13}
+                                    onChange={autoHyphen}
+                                ></input>
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-h'>
+                                <input 
+                                    className='signin-info-text' 
+                                    placeholder='지역 ex) 강남구' 
+                                    id='Input-location'
+                                    maxLength={20}
+                                ></input>
+                            </li>
+                        )}
+
+                        {isOpenSignInList && (
+                            <li className='signin-info-list fade-in-i'>
+                                <input 
+                                    className='signin-info-text' 
+                                    placeholder='한줄소개' 
+                                    id='Input-comment'
+                                    maxLength={50}
+                                    onChange={ introduce }
+                                ></input>
+                                {message.introduction && (
+                                    <span style={
+                                        correct.introduction
+                                        ? {color:'yellow'}
+                                        : {color:'yellow'}}
+                                        className='input-span'>{message.introduction}
+                                </span>)}
+                            </li>
+                        )}
 
 
-
-
-                    {/* 이름 */}
-                    <li className='signin-info-list'>
-                        <input
-                            className='signin-info-text'
-                            placeholder='이름'
-                            id='Input-name'
-                            onChange={ nameHandler }
-                        ></input>
-                        {message.userName && (
-                        <span style={
-                            correct.userName
-                            ? {color:'yellow'}
-                            : {color:'red'}}
-                            className='input-span'>{message.userName}
-                        </span>)}
-                    </li>
-
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='별명' id='Input-nickname'></input>
-                    </li>
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='성별 (F / M)' id='Input-gender'></input>
-                    </li>
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='생년월일 (1900-00-00)' id='Input-birthday'></input>
-                    </li>
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='핸드폰 번호 (010-0000-0000)' id='Input-phone'></input>
-                    </li>
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='지역 ex) 강남구' id='Input-location'></input>
-                    </li>
-                    <li className='signin-info-list'>
-                        <input className='signin-info-text' placeholder='한줄소개' id='Input-comment'></input>
-                    </li>
                 </ul>
             </div>
 

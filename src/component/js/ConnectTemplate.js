@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import ConnectHeader from './ConnectHeader';
 import MenuRouter from '../../route/MenuRouter';
+import { API_BASE_URL } from '../../config/host-config';
 
 import '../scss/ConnectTemplate.scss';
 
 const ConnectTemplate = () => {
 
   // 주소 요청
-  const API_FREE_BOARD_URL = 'http://localhost/contents/free-board';
+  const API_FREE_BOARD_URL = API_BASE_URL + '/contents/free-board';
 
   // Json
   const [fbData, setFbData] = useState([]);

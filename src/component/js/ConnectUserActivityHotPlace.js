@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from 'react';
+import { API_BASE_URL } from "../../config/host-config";
 
 import '../scss/ConnectUserActivityHotPlace.scss';
 
@@ -8,7 +9,7 @@ const ConnectUserActivityHotPlace = () => {
     const [hpData, setHpData] = useState([]);
     console.log(hpData);
     useEffect(() => {
-        fetch('http://localhost:8181/contents/hot-place', {
+        fetch(API_BASE_URL+'/contents/hot-place', {
           method: 'GET',
           headers: {'content-type' : 'application/json'}
         })
@@ -40,9 +41,6 @@ const ConnectUserActivityHotPlace = () => {
                                             {/* 이미지 aws s3 */}
                                             <img src={hp.hotplaceImg} style={{width:'133px', height:'80px'}} />
 
-                                            {/* 이미지 로컬 */}
-                                            {/* <img src={`http://localhost:8181/contents/hot-place/img/${hp.hotplaceImg}`} /> */}
-                                            
                                         </div>
                                     </div>
                                     <div className="uahp-text-box">

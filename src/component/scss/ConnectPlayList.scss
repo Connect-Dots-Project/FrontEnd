@@ -55,7 +55,7 @@
                 
                 // 플리 서브 Title
                 p {
-                    width: 100%;
+                    width: 150%;
                     height: 60%;
                     padding-left: 4%;
                 }
@@ -80,8 +80,8 @@
                     width: 95%;
                     height: 95%;
                     margin: 0 auto;
-                    overflow: scroll;
-                    border: 1px solid #000;
+                    overflow: hidden;
+                    // border: 1px solid #000;
 
                     display: flex;
                     flex-wrap: wrap;
