@@ -28,9 +28,9 @@ const ConnectLiveChatting = (props) => {
   const [isSender, setIsSender] = useState(false);
 
 
-
   const [inputHashtag, setInputHashtag] = useState('');
   const [inputContent, setInputContent] = useState('');
+
 
 
   // 입력한 content 값
@@ -102,6 +102,7 @@ function showNotification(recv) {
 
   // 웹소켓을 연결합니다.
   const connect = () => {
+
     sock = new SockJS(API_BASE_URL + '/contents/chat/live');
     ws.current = Stomp.over(sock);
   
@@ -127,18 +128,28 @@ function showNotification(recv) {
         // TODO : error 처리 해야 함. (연결 실패 시)
       }
     );
+
   };
 
 
+
+
+
+
+  //  TODO : 주석------------------------------------------------------------
+  
+  
   // 방 번호가 바뀔때마다 소켓 연결을 다시 해줍니다.
   useEffect(() => {
     // 웹 소켓 연결 함수
     connect();
-
+    
+    
+    
     return () => {const connect = () => {
       sock = new SockJS(API_BASE_URL + '/contents/chat/live');
       ws.current = Stomp.over(sock);
-    
+      
       // 아래 주소로 연결합니다.
       ws.current.connect(
         {},
@@ -151,20 +162,29 @@ function showNotification(recv) {
             '/app/chat/message',
             {},
             JSON.stringify({ type: 'ENTER', roomId, sender })
+            );
+            // TODO : error 처리 해야 함. (연결 실패 시)
+          }
           );
-          // TODO : error 처리 해야 함. (연결 실패 시)
-        }
-      );
-    };
-      ws.current.disconnect();
-    };
+        };
+        
+        ws.current.disconnect();
+        
+      };
+      
+    }, [roomId]);
+    
+    //  TODO : 주석------------------------------------------------------------
 
-  }, [roomId]);
-
-
-  // 메세지를 보내는 함수
-  const sendMessage = () => {
-
+    
+    
+    
+    
+    
+    
+    // 메세지를 보내는 함수
+    const sendMessage = () => {
+      
     // TODO : 스크롤 맨 밑으로 내리는 기능 추가
 
     if(!ws.current) {
@@ -252,14 +272,27 @@ const recvMessage = (recv) => {
 
 
 
-  // 채팅창을 클릭했을 때
-  // 1. 채팅창의 룸 인덱스로 소켓을 연결함
-  // 2. 보내는이의 아이디를 유저의 닉네임으로 셋업함
-  // 3. div태그를 엽니다.
+
+  // TODO
 
   const handleClick = (idx) => {
+
+    setMessages([]);
+
+
+
+
+
+
     setRoomId(idx);
-    setSender(localStorage.getItem('NICKNAME'));
+    setSender(getLoginUserInfo().usernickname);
+
+
+
+
+
+
+
 
     // TODO : 기존의 채팅창에서 다른 방으로 클릭할 때
     // 연결은 되지만 창이 안 열림.
@@ -515,36 +548,9 @@ useEffect(() => {
                     </div>
                   ) : message.type === 'TALK' && message.checkSender === true ? (
 
-                    <div className='user-message-right-wrapper' id='Right'>
-                        <div className='user-message-right-box'>
-
-                          <div className='umr-message-time-box'>
-                            <div className='umr-time-box'>
-                              <div className='umr-time'>{message.time}</div>
-                            </div>
-                            <div className='umr-message-box'>
-                              <div className='umr-message'>{message.message}</div>
-                            </div>
-                          </div>
-
-                          <div className='umr-img-nickname-box'>
-                            <div className='umr-img-box'>
-                              <div className='umr-img'>{message.senderProfile}</div>
-                            </div>
-                            <div className='umr-nickname-box'>
-                              <p className='umr-nickname'>{message.sender}</p>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                        
-                  ) : message.type === 'TALK' && message.checkSender === false ? (
-
-
-                      <div className='user-message-left-wrapper' id='Left'>
+                    <div className='user-message-left-wrapper' id='Left'>
                       <div className='user-message-left-box'>
-      
+
                         <div className='uml-img-nickname-box'>
                           <div className='uml-img-box'>
                             <div className='uml-img'>{message.senderProfile}</div>
@@ -553,103 +559,61 @@ useEffect(() => {
                             <p className='uml-nickname'>{message.sender}</p>
                           </div>
                         </div>
-      
+
                         <div className='uml-message-time-box'>
                           <div className='uml-message-box'>
-                            <div className='uml-message'>{message.message}</div>
-                          </div>
-                          <div className='uml-time-box'>
-                            <div className='uml-time'>{message.time}</div>
+                            <div className='uml-message' style={{ wordBreak: 'break-all' }}>
+                            {message.message}
+                              <div className='uml-time-box'>
+                                <div className='uml-time'  style={{ whiteSpace: 'nowrap' }}>
+                                  {message.time}
+                                  </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-      
+
                       </div>
                     </div>
+
+                        
+                  ) : message.type === 'TALK' && message.checkSender === false ? (
+
+
+                    <div className='user-message-right-wrapper' id='Right'>
+                    <div className='user-message-right-box'>
+    
+                      <div className='umr-message-time-box'>
+                        <div className='umr-message-box'>
+                          <div className='umr-message' style={{ wordBreak: 'break-all' }}>
+                          {message.message}
+                            <div className='umr-time-box'>
+                              <div className='umr-time' style={{ whiteSpace: 'nowrap' }}>
+                                {message.time}
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <div className='umr-img-nickname-box'>
+                        <div className='umr-img-box'>
+                          <div className='umr-img'>{message.senderProfile}</div>
+                        </div>
+                        <div className='umr-nickname-box'>
+                          <p className='umr-nickname'>{message.sender}</p>
+                        </div>
+                      </div>
+    
+                    </div>
+                  </div>
+    
 
 
                   ) : null }
 
                 </div>
               ))} 
-
-
-
-
-
-{/* 
-              <div className='user-message-left-wrapper' id='Left'>
-                <div className='user-message-left-box'>
-
-                  <div className='uml-img-nickname-box'>
-                    <div className='uml-img-box'>
-                      <div className='uml-img'>left profile</div>
-                    </div>
-                    <div className='uml-nickname-box'>
-                      <p className='uml-nickname'>nickname</p>
-                    </div>
-                  </div>
-
-                  <div className='uml-message-time-box'>
-                    <div className='uml-message-box'>
-                      <div className='uml-message'>6f1we5f61ew56f1ew56f1ew56f1ew5666666666666666666666661111111
-                        <div className='uml-time-box'>
-                          <div className='uml-time'>time</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div> */}
-
-
-
-
-
-
-
-
-
-              {/* <div className='user-message-right-wrapper' id='Right'>
-                <div className='user-message-right-box'>
-
-                  <div className='umr-message-time-box'>
-                    <div className='umr-message-box'>
-                      <div className='umr-message'>ddwqdwq2121111111111111166666666666666666666666666
-                        <div className='umr-time-box'>
-                          <div className='umr-time'>time</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className='umr-img-nickname-box'>
-                    <div className='umr-img-box'>
-                      <div className='umr-img'>right profile</div>
-                    </div>
-                    <div className='umr-nickname-box'>
-                      <p className='umr-nickname'>nickname</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
               
 
@@ -660,6 +624,7 @@ useEffect(() => {
                 </div>
 
               </div> */}
+              
             </div> 
 
 
@@ -752,7 +717,7 @@ useEffect(() => {
                     <div className='lc-info-tag-like-reply-box'>
                       <div className='tag-box'>
                         <div className='tag'>
-                          <p>{room.hashtag}</p>
+                          <p>{room.hashtag} + {room.memberNickname}</p>
                         </div>
                       </div>
                     </div>
