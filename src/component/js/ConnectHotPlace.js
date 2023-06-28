@@ -53,9 +53,6 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
  
 
-  
-
-
 
     // const increase = (hotplaceId) => {
   //   setLikeCount((prevState) => ({
@@ -63,9 +60,6 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   //     [hotplaceId]: (prevState[hotplaceId] || 0) + 1,
   //   }));
   // };
-
-  
-  
 
   
 
@@ -80,7 +74,6 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   // }
 
   
-
   const fetchData = () => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
@@ -95,7 +88,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
-
+        setHpData((prevData) => [...prevData, ...result.hotplaceList]);
         setIsLoading(false);
         isFetchingRef.current = false;
       });
@@ -337,14 +330,18 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
           {hpData.map(hp => (
                         <div className='hp-info' key={hp.hotplaceIdx}>
 
-                        <div className='hp-info-modify-delete-box'>
-                          <div className='info-modify-box'>
-                            <button className='info-modify-btn' onClick={() => modifyHotplace(hp)}></button>
-                          </div>
-                          <div className='info-delete-box'>
-                            <button className='info-delete-btn' onClick={() => deleteHotplace(hp.hotplaceIdx)}></button>
-                          </div>
-                        </div>
+                          {hp.memberNickname === getLoginUserInfo().usernickname && (
+                            
+                            <div className='hp-info-modify-delete-box'>
+                              <div className='info-modify-box'>
+                                <button className='info-modify-btn' onClick={() => modifyHotplace(hp)}></button>
+                              </div>
+                              <div className='info-delete-box'>
+                                <button className='info-delete-btn' onClick={() => deleteHotplace(hp.hotplaceIdx)}></button>
+                              </div>
+                            </div>
+
+                          )}
                         
                           <div className='hp-info-img-text-box'>
                             <div className='hp-info-img-box'>
@@ -366,7 +363,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                                   {/* TODO : 행정구역 추가했어용 ㅠㅠ  */}
                                   
                                   <div className='hp-writer-box'>
-                                    <p className='hp-writer-text'>[작성자]</p>
+                                    <p className='hp-writer-text'>[{hp.memberNickname}]</p>
                                   </div>
                                   <div className='hp-date-box'>
                                     <p className='hp-date-text'>[{hp.hotplaceWriteDate}]</p>
