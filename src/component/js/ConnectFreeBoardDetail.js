@@ -38,6 +38,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
   const fetchData = async() => {
 
+
     const url = API_BASE_URL + '/contents/free-board/detail/' + freeBoardIdx;
 
     try{
