@@ -152,6 +152,14 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
           freeBoardReplyContent : inputReplyContent,
           freeBoardIdx : freeBoardIdx
         }
+
+        if(inputReplyContent.trim() === ''){
+          alert('댓글 내용을 입력해주세요');
+          setInputReplyContent('');
+          return;
+        }
+      
+        console.log(inputReplyContent);
   
         try{
           const res = await fetch(url, {
@@ -219,7 +227,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
           const result = await res.json();
 
           console.log(result);
-          alert(result.message + '    '  + result.count);
+          alert(result.message);
 
 
           setFreeBoardLikeCount(result.count);
