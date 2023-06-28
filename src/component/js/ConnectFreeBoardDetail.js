@@ -98,9 +98,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
     const fbDelete = () => {
 
-      // TODO : 삭제 요청 처리
-      console.log(getLoginUserInfo().token);
-
       const url = API_BASE_URL + '/contents/free-board/' + freeBoardIdx;
 
       fetch(url, {
@@ -141,8 +138,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
     
     const writeReply = () => {
-
-      //TODO : 댓글 처리
 
       const replyPost = async() => {
 
@@ -187,16 +182,23 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
           setInputReplyContent('');
           fetchData();
-  
+
+
+          
         } catch (error) {
           console.log(error);
         }
   
       }
-
+      
       replyPost();
 
     }
+
+    useEffect(() => {
+      const element = document.querySelector('.guest-reply-box');
+      element.scrollTop = element.scrollHeight;
+    },[replayList]);
 
 
     const likeHandler = () => {
@@ -317,7 +319,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
                           </div>
   
                           <div className='like-box'>
-                            {/* TODO : 좋아요 보내기 */}
                             <div className='like-img' onClick={ likeHandler }></div>
                             <div id='Like'>{freeBoardLikeCount}</div>
                           </div>
@@ -362,6 +363,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
                       <div className='guest-reply-box'>
         
                         {replayList.map(reply => (
+                          
                                 <div className='guest-reply-info-box'>
         
                                 <div className='guest-profile-box'>
