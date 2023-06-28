@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import ConnectUserSettingLocation from './ConnectUserSettingLocation';
 import ConnectUserLike from './ConnectUserLike';
@@ -15,6 +15,24 @@ const ConnectMyPageMain = () => {
 
     const [isOpenLocation, setIsOpenLocation] = useState(false);    
     const [isOpenModify, setIsOpenModify] = useState(false);    
+
+    const [imgFile, setImgFile] = useState(null);
+    const $fileTag = useRef();
+
+
+    // 이미지파일을 선택했을 때 썸네일 뿌리는 핸들러
+    const showThumbnailHandler = e => {
+      // 첨부된 파일 정보
+      const file = $fileTag.current.files[0];
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onloadend = () => {
+        setImgFile(reader.result);
+      }
+    };
+
 
     const openActivity = e => {
         setIsOpenActivity(true);
@@ -120,6 +138,8 @@ const ConnectMyPageMain = () => {
 
                     <div className='uim-header-wrapper'>
                         <div className='uim-title-box'>
+                           
+                            {/* <img src={img}/> */}
                             <h2>내 정보 수정</h2>
                         </div>
                     </div>
@@ -132,10 +152,31 @@ const ConnectMyPageMain = () => {
                                     <div className='uim-profile-img-text-box'>
                                         <div className='img-text-box'>
                                             <div className='uim-profile-img-box'>
-                                                <div className='uim-profile-img'></div>
+                                                <div className='uim-profile-img'>
+
+
+                                                    <div className="thumbnail-box" onClick={() => $fileTag.current.click()}>
+                                                        <img
+                                                        src={imgFile ? imgFile : require('../scss/img/ConnectDots.png')}
+                                                        style={{width:'137px', height:'137px', borderRadius: '50%', objectFit: 'cover',}}
+                                                        alt="profile"
+                                                        />
+                                                    </div>
+                                                    <label className='signup-img-label' htmlFor='profile-img'></label>
+                                                    <input
+                                                        id='profile-img'
+                                                        type='file'
+                                                        style={{display: 'none'}}
+                                                        accept='image/*'
+                                                        ref={$fileTag}
+                                                        onChange={showThumbnailHandler}
+                                                    />
+
+                                                </div>
                                             </div>
                                             <div className='uim-profile-text-box'>
-                                                <button className='profile-modify-btn'>
+                                                
+                                                <button className='profile-modify-btn' onClick={() => $fileTag.current.click()}>
                                                     <p>사진 변경</p>
                                                 </button>
                                             </div>
@@ -231,7 +272,24 @@ const ConnectMyPageMain = () => {
                                 <div className='mp-user-profile-wrapper'>
                                     <div className='mp-user-profile-modify-box'>
                                         <div className='mp-user-profile-box'>
-                                            <div className='mp-user-profile'></div>
+                                            <div className='mp-user-profile'>
+
+                                                        <img
+                                                        src={imgFile ? imgFile : require('../scss/img/ConnectDots.png')}
+                                                        style={{width:'137px', height:'137px', borderRadius: '50%', objectFit: 'cover',}}
+                                                        alt="profile"
+                                                        />
+                                                
+
+
+
+
+
+
+
+
+
+                                            </div>
                                         </div>
                                         <div className='mp-user-modify-profile'>
                                             <div className='mp-user-modify-info-btn-box'>

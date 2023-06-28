@@ -42,50 +42,25 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       })
       .then((res) => res.json())
       .then((result) => {
-        if (Array.isArray(result.hotplaceList)) {
-          setHpData([...result.hotplaceList]);
-        } else {
-          setHpData([]);
+        console.log(result.hotplaceList.length);
+        if(result.length === 0) {
+          return;
         }
+
+        setHpData([...result.hotplaceList]);
         setIsLoading(false);
       });
     };
 
- 
-
   
-
-
-
-    // const increase = (hotplaceId) => {
-  //   setLikeCount((prevState) => ({
-  //     ...prevState,
-  //     [hotplaceId]: (prevState[hotplaceId] || 0) + 1,
-  //   }));
-  // };
-
-  
-  
-
-  
-
-  
-  // const modifyHotplace = (hotplaceIdx) => {
-  //   fetch(REQUEST_URL + `/${hotplaceIdx}`, {
-  //     method: 'PATCH'
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => console.log(result));
-
-  // }
-
-  
-
   const fetchData = () => {
+
+    const newPage = page + 1;
+
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(`${REQUEST_URL}/list/${page}`, {
+    fetch(`${REQUEST_URL}/list/${newPage}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -95,8 +70,13 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
-
+        console.log([...result.hotplaceList]);
+        if([...result.hotplaceList].length === 0) {
+          return; 
+        }
+        setHpData((prevData) => [...prevData, ...result.hotplaceList]);
         setIsLoading(false);
+        setPage(page + 1);
         isFetchingRef.current = false;
       });
   };
@@ -104,7 +84,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
     if (scrollHeight - scrollTop <= clientHeight * 1.3) {
-      setPage(page + 1);
+      
       fetchData();
     }
   };
@@ -337,14 +317,18 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
           {hpData.map(hp => (
                         <div className='hp-info' key={hp.hotplaceIdx}>
 
-                        <div className='hp-info-modify-delete-box'>
-                          <div className='info-modify-box'>
-                            <button className='info-modify-btn' onClick={() => modifyHotplace(hp)}></button>
-                          </div>
-                          <div className='info-delete-box'>
-                            <button className='info-delete-btn' onClick={() => deleteHotplace(hp.hotplaceIdx)}></button>
-                          </div>
-                        </div>
+                          {hp.memberNickname === getLoginUserInfo().usernickname && (
+                            
+                            <div className='hp-info-modify-delete-box'>
+                              <div className='info-modify-box'>
+                                <button className='info-modify-btn' onClick={() => modifyHotplace(hp)}></button>
+                              </div>
+                              <div className='info-delete-box'>
+                                <button className='info-delete-btn' onClick={() => deleteHotplace(hp.hotplaceIdx)}></button>
+                              </div>
+                            </div>
+
+                          )}
                         
                           <div className='hp-info-img-text-box'>
                             <div className='hp-info-img-box'>
@@ -366,7 +350,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                                   {/* TODO : 행정구역 추가했어용 ㅠㅠ  */}
                                   
                                   <div className='hp-writer-box'>
-                                    <p className='hp-writer-text'>[작성자]</p>
+                                    <p className='hp-writer-text'>[{hp.memberNickname}]</p>
                                   </div>
                                   <div className='hp-date-box'>
                                     <p className='hp-date-text'>[{hp.hotplaceWriteDate}]</p>
