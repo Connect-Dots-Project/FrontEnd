@@ -89,6 +89,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isOpenWriteBoard, setIsOpenWriteBoard] = useState(false);
 
   const openWriteBoard = () => {
+    alert("글을 작성하시겠습니까?");
     setIsOpenWriteBoard(true);
   };
 
