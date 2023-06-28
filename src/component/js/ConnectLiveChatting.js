@@ -279,6 +279,8 @@ const recvMessage = (recv) => {
 
     setMessages([]);
 
+    localStorage.setItem('content',idx);
+
 
 
 
@@ -515,7 +517,7 @@ useEffect(() => {
         <div className='lcheader-nickname'><p>닉네임</p></div>
       </div>
       <div className='lcheader-accessor-box'>
-        <div className='lcheader-accessor'>현재 방에 참여한 유저들의 사진 + 닉네임 들어갈 예정</div>
+        <div className='lcheader-accessor'>{localStorage.getItem('content')}</div>
       </div>
     </div>
 
