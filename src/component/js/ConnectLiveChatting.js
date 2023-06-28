@@ -136,18 +136,20 @@ function showNotification(recv) {
 
 
 
-
+  //  TODO : 주석------------------------------------------------------------
+  
+  
   // 방 번호가 바뀔때마다 소켓 연결을 다시 해줍니다.
   useEffect(() => {
     // 웹 소켓 연결 함수
     connect();
-
-       
-
+    
+    
+    
     return () => {const connect = () => {
       sock = new SockJS(API_BASE_URL + '/contents/chat/live');
       ws.current = Stomp.over(sock);
-    
+      
       // 아래 주소로 연결합니다.
       ws.current.connect(
         {},
@@ -160,28 +162,29 @@ function showNotification(recv) {
             '/app/chat/message',
             {},
             JSON.stringify({ type: 'ENTER', roomId, sender })
+            );
+            // TODO : error 처리 해야 함. (연결 실패 시)
+          }
           );
-          // TODO : error 처리 해야 함. (연결 실패 시)
-        }
-      );
-    };
+        };
+        
+        ws.current.disconnect();
+        
+      };
+      
+    }, [roomId]);
+    
+    //  TODO : 주석------------------------------------------------------------
 
-      ws.current.disconnect();
-
-    };
-
-  }, [roomId]);
-
-
-
-
-
-
-
-
-  // 메세지를 보내는 함수
-  const sendMessage = () => {
-
+    
+    
+    
+    
+    
+    
+    // 메세지를 보내는 함수
+    const sendMessage = () => {
+      
     // TODO : 스크롤 맨 밑으로 내리는 기능 추가
 
     if(!ws.current) {
@@ -273,21 +276,16 @@ const recvMessage = (recv) => {
   // TODO
 
   const handleClick = (idx) => {
+
+    setMessages([]);
+
+
+
+
+
+
     setRoomId(idx);
     setSender(getLoginUserInfo().usernickname);
-
-    console.log(idx);
-    localStorage.setItem('roomIdx', idx);
-    console.log(localStorage.getItem('roomIdx'));
-
-
-
-
-
-
-
-    connect(idx);
-
 
 
 
