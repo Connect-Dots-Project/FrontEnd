@@ -481,20 +481,72 @@ useEffect(() => {
                 </div>
               ))} 
 
-              <div className='user-message-box'>
-                <div className='user-img'>이 박스는 왼쪽 profile</div>
-                <div className='user-message'>hello world</div>
-                <div className='user-nickname'>nickname</div>
-                <div className='user-time'>time</div>
+              <div className='user-message-left-wrapper' id='Left'>
+                <div className='user-message-left-box'>
+
+                  <div className='uml-img-nickname-box'>
+                    <div className='uml-img-box'>
+                      <div className='uml-img'>profile</div>
+                    </div>
+                    <div className='uml-nickname-box'>
+                      <p className='uml-nickname'>nickname</p>
+                    </div>
+                  </div>
+
+                  <div className='uml-message-time-box'>
+                    <div className='uml-message-box'>
+                      <div className='uml-message'>으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악</div>
+                    </div>
+                    <div className='uml-time-box'>
+                      <div className='uml-time'>time</div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
 
-              <div className='user-message-box'>
-                <div className='user-img'>이 박스는 오른쪽 profile</div>
-                <div className='user-message'>hello world</div>
-                <div className='user-nickname'>nickname</div>
-                <div className='user-time'>time</div>
+
+              <div className='user-message-right-wrapper' id='Right'>
+                <div className='user-message-right-box'>
+
+                  <div className='umr-message-time-box'>
+                    <div className='umr-time-box'>
+                      <div className='umr-time'>time</div>
+                    </div>
+                    <div className='umr-message-box'>
+                      <div className='umr-message'>으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악</div>
+                    </div>
+                  </div>
+
+                  <div className='umr-img-nickname-box'>
+                    <div className='umr-img-box'>
+                      <div className='umr-img'>profile</div>
+                    </div>
+                    <div className='umr-nickname-box'>
+                      <p className='umr-nickname'>nickname</p>
+                    </div>
+                  </div>
+
+                </div>
               </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
 
               {/* <div className='lcmain-chatlist-box'>
 
