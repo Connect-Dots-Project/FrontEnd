@@ -308,12 +308,40 @@ const ConnectLogin = () => {
 
     const openCertifyEmailModal = async() => {
 
+        
+        
+        const inputEmail = document.getElementById('Input-email');
+        
+        if (inputEmail.value.length === 0) {
+            alert('이메일을 입력하세요.');
+            return;
+        }
+
+        const checkEmailResponse = await fetch(API_BASE_URL + '/connects/sign-up/check-email' , {
+            method: 'POST',
+            headers: { 'content-type': 'application/json'},
+            body: JSON.stringify({ email: inputEmail.value })
+        });
+
+        if(checkEmailResponse.status === 400) {
+            alert('이메일 양식이 다릅니다. 다시 입력해주세요');
+            return;
+        }
+
+        const { checkEmail } = await checkEmailResponse.json();
+
+        console.log(checkEmail);
+
+        if (!checkEmail) {
+            alert('이미 가입한 회원입니다.');
+            return;
+        }
+
+
         const $emailModalWrapper = document.getElementById('EmailModalWrapper');
         $emailModalWrapper.style.display = 'block';
         $emailModalWrapper.style.animation = 'openCertifyEmailModal 1s forwards 1';
 
-
-        const inputEmail = document.getElementById('Input-email');
 
         const res = await fetch(API_BASE_URL + '/connects/sign-up/email', {
             method: 'POST',
@@ -565,21 +593,22 @@ const ConnectLogin = () => {
         const inputNickname = e.target.value;
 
         // 중복 검사를 위해 서버로 요청을 보냄
-        const response = await fetch(API_BASE_URL + '/connects/sign-up/check', {
+        const response = await fetch(API_BASE_URL + '/connects/sign-up/check-nickname', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ nickname: inputNickname }),
         });
 
-        const { isDuplicate } = await response.json();
+        const { checkNickname } = await response.json();
 
-        if (isDuplicate) {
+        if (checkNickname) {
             // 중복된 별명이 있을 경우 처리 로직
-            console.log('중복된 별명입니다!');
+            console.log('사용 가능한 별명입니다!');
         } else {
             // 중복된 별명이 없을 경우 처리 로직
-            console.log('사용 가능한 별명입니다!');
+            console.log('중복된 별명입니다!');
         }
+
         const nameRegex = /^[가-힣]{2,30}$/;
         const inputVal = e.target.value;
 
@@ -593,7 +622,7 @@ const ConnectLogin = () => {
         } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
             msg = '2 ~ 30자로 작성해주세요';
             flag = false;
-        } else if (isDuplicate) {
+        } else if (!checkNickname) {
             msg = '중복된 별명입니다';
             flag = false;
         } else {
@@ -645,6 +674,59 @@ const ConnectLogin = () => {
             msg: msg + lengthMessage,
             flag
         });}
+
+
+        // TODO : prompt 를 입력받는 창 만들기
+        // TODO : alert 띄우는 창 만들기 (custom alert, 모달 등)
+        const findAccount = async() => {
+            const inputPhone = prompt('핸드폰 번호를 입력하세요');
+
+            const response = await fetch(API_BASE_URL + '/connects/login/find/account', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ phone: inputPhone }),
+            });
+
+            const { account } = await response.json();
+
+            console.log(account);
+            if(account === null) {
+                alert('가입하지 않은 핸드폰 번호 입니다.');
+                return;
+            }
+
+            alert('찾은 아이디는 ' + account + '입니다.');
+        }
+        
+        // TODO : 이메일 인증 창 만들어야함. 회원가입과 같은 느낌으로
+        // - 로직 -
+        // 1. 이메일을 입력받는다. [front : 입력받는 창 필요]
+        // 2. 서버로 전송 [front : fetch 요청]
+        // ----> [response 에 따라]
+        //     1. 해당 이메일로 가입된 멤버가 없다면
+        //           ----> [front : 가입된 정보가 없음을 알리고 로직 종료]
+        //     2. 해당 이메일로 가입된 멤버가 있다면 
+        //           ----> [back : 암호코드를 이메일로 발송]
+        //          1. 암호코드를 입력받는다. [front : 입력받는 창 필요 + 서버로 fetch 요청]
+        //               ----> [response 에 따라]
+        //                   1. 입력한 암호가 틀린 경우 
+        //                          ----> [front : 암호 재입력받기]
+        //                   2. 입력한 암호가 맞은 경우
+        //                          ----> [front : 새 비밀번호 입력받기]
+        //                               1. 입력받은 비밀번호는 새 비밀번호로 적용됨 [front : 입력받은 비밀번호를 담은 request 보내기]
+        const findPassword = async() => {
+            alert('findPassword');
+
+
+
+        }
+
+
+
+
+
+
+
     return (
             <>
         <div className='backDrop'></div>
@@ -696,12 +778,12 @@ const ConnectLogin = () => {
                         <ul className='search-id-pw-box'>
                             <li className='search-id-pw' id='SearchID'>
                                 <Link to={'/nb-search-ID'} className='search-id'>
-                                    <p className='search-text'>아이디 찾기</p>
+                                    <p className='search-text' onClick={ findAccount }>아이디 찾기</p>
                                 </Link>
                             </li>
                             <li className='search-id-pw' id='SearchPW'>
                                 <Link to={'/nb-search-PW'} className='search-pw'>
-                                    <p className='search-text'>비밀번호 찾기</p>
+                                    <p className='search-text' onClick={ findPassword } >비밀번호 찾기</p>
                                 </Link>
                             </li>
                         </ul>
