@@ -95,7 +95,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        setFbData((prevData) => [...prevData, ...result]);
+
         setIsLoading(false);
         isFetchingRef.current = false;
       });
