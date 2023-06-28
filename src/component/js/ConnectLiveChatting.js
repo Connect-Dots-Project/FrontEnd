@@ -615,7 +615,7 @@ useEffect(() => {
                       <div className='umr-time'>time</div>
                     </div>
                     <div className='umr-message-box'>
-                      <div className='umr-message'>으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악</div>
+                      <div className='umr-message'>saklsdankjfnagkgrjigperigojeiaphrifrnewipdskjf;ndsjkdsnjkds</div>
                     </div>
                   </div>
 
