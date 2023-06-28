@@ -132,6 +132,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
 
     const handleInputReplyContent = (e) => {
+      console.log(e.target.value);
       setInputReplyContent(e.target.value);
     }
 
@@ -139,6 +140,8 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
     
     const writeReply = () => {
+
+      //TODO : 댓글 처리
 
       const replyPost = async() => {
 
@@ -402,6 +405,13 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
                           <input 
                             className='reply-input'
                             placeholder='댓글을 입력해주세요'
+                            value={inputReplyContent}
+                            onChange={handleInputReplyContent}
+                            onKeyPress={(e) => {
+                              if (e.key === 'Enter') {
+                                writeReply();
+                              }
+                            }}
                           />
                         </div>
                         
