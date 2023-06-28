@@ -28,9 +28,9 @@ const ConnectLiveChatting = (props) => {
   const [isSender, setIsSender] = useState(false);
 
 
-
   const [inputHashtag, setInputHashtag] = useState('');
   const [inputContent, setInputContent] = useState('');
+
 
 
   // 입력한 content 값
@@ -102,6 +102,7 @@ function showNotification(recv) {
 
   // 웹소켓을 연결합니다.
   const connect = () => {
+
     sock = new SockJS(API_BASE_URL + '/contents/chat/live');
     ws.current = Stomp.over(sock);
   
@@ -127,13 +128,21 @@ function showNotification(recv) {
         // TODO : error 처리 해야 함. (연결 실패 시)
       }
     );
+
   };
+
+
+
+
+
 
 
   // 방 번호가 바뀔때마다 소켓 연결을 다시 해줍니다.
   useEffect(() => {
     // 웹 소켓 연결 함수
     connect();
+
+       
 
     return () => {const connect = () => {
       sock = new SockJS(API_BASE_URL + '/contents/chat/live');
@@ -156,10 +165,18 @@ function showNotification(recv) {
         }
       );
     };
+
       ws.current.disconnect();
+
     };
 
   }, [roomId]);
+
+
+
+
+
+
 
 
   // 메세지를 보내는 함수
@@ -252,14 +269,32 @@ const recvMessage = (recv) => {
 
 
 
-  // 채팅창을 클릭했을 때
-  // 1. 채팅창의 룸 인덱스로 소켓을 연결함
-  // 2. 보내는이의 아이디를 유저의 닉네임으로 셋업함
-  // 3. div태그를 엽니다.
+
+  // TODO
 
   const handleClick = (idx) => {
     setRoomId(idx);
-    setSender(localStorage.getItem('NICKNAME'));
+    setSender(getLoginUserInfo().usernickname);
+
+    console.log(idx);
+    localStorage.setItem('roomIdx', idx);
+    console.log(localStorage.getItem('roomIdx'));
+
+
+
+
+
+
+
+    connect(idx);
+
+
+
+
+
+
+
+
 
     // TODO : 기존의 채팅창에서 다른 방으로 클릭할 때
     // 연결은 되지만 창이 안 열림.
@@ -532,7 +567,9 @@ useEffect(() => {
                             <div className='uml-message' style={{ wordBreak: 'break-all' }}>
                             {message.message}
                               <div className='uml-time-box'>
-                                <div className='uml-time'>{message.time}</div>
+                                <div className='uml-time'  style={{ whiteSpace: 'nowrap' }}>
+                                  {message.time}
+                                  </div>
                               </div>
                             </div>
                           </div>
@@ -540,7 +577,6 @@ useEffect(() => {
 
                       </div>
                     </div>
-
 
                         
                   ) : message.type === 'TALK' && message.checkSender === false ? (
@@ -554,7 +590,9 @@ useEffect(() => {
                           <div className='umr-message' style={{ wordBreak: 'break-all' }}>
                           {message.message}
                             <div className='umr-time-box'>
-                              <div className='umr-time'>{message.time}</div>
+                              <div className='umr-time' style={{ whiteSpace: 'nowrap' }}>
+                                {message.time}
+                                </div>
                             </div>
                           </div>
                         </div>
@@ -681,7 +719,7 @@ useEffect(() => {
                     <div className='lc-info-tag-like-reply-box'>
                       <div className='tag-box'>
                         <div className='tag'>
-                          <p>{room.hashtag}</p>
+                          <p>{room.hashtag} + {room.memberNickname}</p>
                         </div>
                       </div>
                     </div>
