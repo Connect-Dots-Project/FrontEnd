@@ -495,10 +495,11 @@ useEffect(() => {
 
                   <div className='uml-message-time-box'>
                     <div className='uml-message-box'>
-                      <div className='uml-message'>으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악으악</div>
-                    </div>
-                    <div className='uml-time-box'>
-                      <div className='uml-time'>time</div>
+                      <div className='uml-message'>6f1we5f61ew56f1ew56f1ew56f1ew56
+                        <div className='uml-time-box'>
+                          <div className='uml-time'>time</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -510,11 +511,12 @@ useEffect(() => {
                 <div className='user-message-right-box'>
 
                   <div className='umr-message-time-box'>
-                    <div className='umr-time-box'>
-                      <div className='umr-time'>time</div>
-                    </div>
                     <div className='umr-message-box'>
-                      <div className='umr-message'>saklsdankjfnagkgrjigperigojeiaphrifrnewipdskjf;ndsjkdsnjkds</div>
+                      <div className='umr-message'>ddwqdwq
+                        <div className='umr-time-box'>
+                          <div className='umr-time'>time</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -664,7 +666,7 @@ useEffect(() => {
 
             </div>
 
-            <div className='lc-tag-wrapper'>
+            {/* <div className='lc-tag-wrapper'>
               <ul className='lc-tag-box'>
                 <div className='tag-text'>
                   <p>실시간 인기 해시태그</p>
@@ -693,7 +695,7 @@ useEffect(() => {
                   </li>
                 </div>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
