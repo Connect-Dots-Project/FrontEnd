@@ -361,6 +361,8 @@ useEffect(() => {
 
 
 
+
+
     return (
     <>
     {isOpenWriteChat && (
@@ -495,7 +497,7 @@ useEffect(() => {
 
                   <div className='uml-message-time-box'>
                     <div className='uml-message-box'>
-                      <div className='uml-message'>6f1we5f61ew56f1ew56f1ew56f1ew56
+                      <div className='uml-message'>6f1we5f61ew56f1ew56f1ew56f1ew5666666666666666666666661111111
                         <div className='uml-time-box'>
                           <div className='uml-time'>time</div>
                         </div>
@@ -512,7 +514,7 @@ useEffect(() => {
 
                   <div className='umr-message-time-box'>
                     <div className='umr-message-box'>
-                      <div className='umr-message'>ddwqdwq
+                      <div className='umr-message'>ddwqdwq2121111111111111166666666666666666666666666
                         <div className='umr-time-box'>
                           <div className='umr-time'>time</div>
                         </div>

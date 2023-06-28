@@ -854,6 +854,7 @@ body {
                 display: flex;
                 justify-content: left;
                 align-items: center;
+                border: 1px solid #000;
                 
                 .uml-message {
                     border-radius: 0 20px 20px 20px;
@@ -865,7 +866,7 @@ body {
                     padding: 10px;
                     font-size: 16px;
                     position: relative;
-                    
+
                     .uml-time-box {
                         width: 15%;
                         height: 20%;
