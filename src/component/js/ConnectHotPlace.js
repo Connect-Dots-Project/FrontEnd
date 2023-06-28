@@ -42,43 +42,25 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       })
       .then((res) => res.json())
       .then((result) => {
-        if (Array.isArray(result.hotplaceList)) {
-          setHpData([...result.hotplaceList]);
-        } else {
-          setHpData([]);
+        console.log(result.hotplaceList.length);
+        if(result.length === 0) {
+          return;
         }
+
+        setHpData([...result.hotplaceList]);
         setIsLoading(false);
       });
     };
 
- 
-
-
-    // const increase = (hotplaceId) => {
-  //   setLikeCount((prevState) => ({
-  //     ...prevState,
-  //     [hotplaceId]: (prevState[hotplaceId] || 0) + 1,
-  //   }));
-  // };
-
-  
-
-  
-  // const modifyHotplace = (hotplaceIdx) => {
-  //   fetch(REQUEST_URL + `/${hotplaceIdx}`, {
-  //     method: 'PATCH'
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => console.log(result));
-
-  // }
-
   
   const fetchData = () => {
+
+    const newPage = page + 1;
+
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(`${REQUEST_URL}/list/${page}`, {
+    fetch(`${REQUEST_URL}/list/${newPage}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -88,8 +70,13 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log([...result.hotplaceList]);
+        if([...result.hotplaceList].length === 0) {
+          return; 
+        }
         setHpData((prevData) => [...prevData, ...result.hotplaceList]);
         setIsLoading(false);
+        setPage(page + 1);
         isFetchingRef.current = false;
       });
   };
@@ -97,7 +84,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
     if (scrollHeight - scrollTop <= clientHeight * 1.3) {
-      setPage(page + 1);
+      
       fetchData();
     }
   };
