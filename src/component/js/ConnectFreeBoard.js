@@ -41,7 +41,6 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result.length);
         if(result.length === 0) {
           return;
         }

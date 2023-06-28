@@ -28,6 +28,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
   const [loginUserProfile, setLoginUserProfile] = useState('');
 
   const [inputReplyContent, setInputReplyContent] = useState('');
+  const [replyFlag, setReplyFlag] = useState('');
 
 
 
@@ -85,7 +86,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
     
     fetchData();
 
-  }, []);
+  }, [replyFlag]);
 
 
     const [isCloseInner, setCreateModal] = useState(true);
@@ -140,6 +141,8 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
     
     const writeReply = () => {
 
+      //TODO : 댓글 처리
+
       const replyPost = async() => {
 
         const url = API_BASE_URL + '/contents/free-board/replies';
@@ -149,6 +152,14 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
           freeBoardReplyContent : inputReplyContent,
           freeBoardIdx : freeBoardIdx
         }
+
+        if(inputReplyContent.trim() === ''){
+          alert('댓글 내용을 입력해주세요');
+          setInputReplyContent('');
+          return;
+        }
+      
+        console.log(inputReplyContent);
   
         try{
           const res = await fetch(url, {
@@ -174,6 +185,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
           const result = await res.json();
 
           setInputReplyContent('');
+          fetchData();
   
         } catch (error) {
           console.log(error);
@@ -182,7 +194,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
       }
 
       replyPost();
-      fetchData();
 
     }
 
@@ -216,7 +227,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
           const result = await res.json();
 
           console.log(result);
-          alert(result.message + '    '  + result.count);
+          alert(result.message);
 
 
           setFreeBoardLikeCount(result.count);
@@ -402,6 +413,13 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
                           <input 
                             className='reply-input'
                             placeholder='댓글을 입력해주세요'
+                            value={inputReplyContent}
+                            onChange={handleInputReplyContent}
+                            onKeyPress={(e) => {
+                              if (e.key === 'Enter') {
+                                writeReply();
+                              }
+                            }}
                           />
                         </div>
                         

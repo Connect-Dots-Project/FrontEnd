@@ -148,7 +148,10 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     }, 1000);
   };
   
-  
+  // 구역, 카테고리, 제목, 내용
+  const checkData = e => {
+    const $inputTitle = document.getElementById('InputTitle');
+  };
   
   
   return (
@@ -200,6 +203,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                     onChange={(e) => setFreeBoardTitle(e.target.value)}
                     placeholder='제목을 입력하세요'
                     className='cp-title-input'
+                    id="InputTitle"
                   />
                 </div>
 

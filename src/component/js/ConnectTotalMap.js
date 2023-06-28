@@ -12,7 +12,7 @@ const ConnectTotalMap = () => {
 const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
 
   useEffect(() => {
-    fetch(REQUEST_URL+`/${page}`, {
+    fetch(REQUEST_URL+`/list/${page}`, {
       method: 'GET',
       headers: {
         'Authorization' : getLoginUserInfo().token
@@ -73,10 +73,11 @@ const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
               <div style={{ width: '240px', height: '200px', backgroundColor: 'white', padding: '10px', borderRadius: '5px' }}>
                 <h4>{selectedLocation.hotplaceName}</h4>
 
-				{/* 이미지 aws s3 저장 */}
-				<img src={selectedLocation.hotplaceImg}  style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} />
+                {/* 이미지 aws s3 저장 */}
+                <img src={selectedLocation.hotplaceImg}  style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} />
+                        
+                <p>{selectedLocation.hotplaceFullAddress}</p>
                 
-			    <p>{selectedLocation.hotplaceFullAddress}</p>
               </div>
 				
             </MapInfoWindow>
