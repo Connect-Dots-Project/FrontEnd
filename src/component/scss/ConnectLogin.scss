@@ -186,7 +186,7 @@ body {
             width: 50%;
             height: 100%;
             margin: 0 auto;
-            
+
             .login-box {
                 width: 100%;
                 height: 55%;
@@ -536,6 +536,43 @@ body {
             margin-top: 20px;
             position: relative;
             display: flex;
+
+            .signin-info-text {
+                width: 100%;
+                height: 100%;
+
+                .select-location-box {
+                    background: none;
+                    border: none;
+                    border-radius: 5px;
+                    width: 100%;
+                    height: 100%;
+                    
+                    :focus {
+                        outline: none;
+                    }
+                    
+                    .select-location {
+                        border-radius: 5px;
+                        width: 100%;
+                        height: 100%;
+                        text-align: center;
+                        border: 1px solid yellow;
+
+                        .select-option {
+                            width: 100%;
+                            height: 100%;
+                            border: 1px solid yellow;
+
+                            p {
+                                font-size: 16px;
+                                font-weight: 700;
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
 
             // 회원가입 정보 입력창
             input {
