@@ -32,7 +32,7 @@ const ConnectLiveChatting = (props) => {
   const [inputHashtag, setInputHashtag] = useState('');
   const [inputContent, setInputContent] = useState('');
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
 
