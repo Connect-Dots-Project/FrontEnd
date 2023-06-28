@@ -617,8 +617,8 @@ body {
             .list-group-item {
                 width: 70%;
                 height: 50px;
-                margin: 0 auto;
-                margin-bottom: 20px;
+                margin: 20px auto;
+                // margin-bottom: 20px;
                 border-radius: 25px;
                 animation: light 3.5s forwards infinite;
 
@@ -779,4 +779,38 @@ body {
             }
         }
     }
+}
+
+
+
+
+
+
+
+
+.user-message-box {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    // align-items: center;
+    height: 50px;
+
+    .user-img{
+        border: 1px solid #000;
+    }
+
+    .user-message {
+        border: 1px solid #000;
+        flex-grow: 1;
+    }
+
+    .user-nickname {
+        border: 1px solid #000;
+    }
+
+    .user-time {
+        border: 1px solid #000;
+    }
+
 }
