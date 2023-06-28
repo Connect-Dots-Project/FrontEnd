@@ -188,6 +188,17 @@ function showNotification(recv) {
   // 스프링에서 리턴하는 메시지를 받아서 셋팅하는 함수
   // 메시지를 처리하는 함수
 const recvMessage = (recv) => {
+
+
+  console.log(recv);
+  const { type, roomId, sender, message } = recv;
+  console.log(type);
+  console.log(roomId);
+  console.log(sender);
+  console.log(message);
+
+
+
   setMessages((prevMessages) => [
     ...prevMessages,
     {
@@ -233,7 +244,6 @@ const recvMessage = (recv) => {
       body: JSON.stringify({
           content: inputContent,
           hashTag: inputHashtag,
-          // TODO : 닉네임을 없애야 한다 토큰으로 nickname 작성할 예정
       })
     })
 
@@ -438,6 +448,10 @@ useEffect(() => {
       {/* main */}
       <div className='lcmain-wrapper'>
         <div className='lcmain-box'>
+            
+            
+            
+            
             <div className='lcmain-chatlist-wrapper' ref={chatlistWrapperRef}>
 
               {/* <div className='lcmain-chatlist-header'>이곳이 채팅창</div> */}
@@ -447,21 +461,39 @@ useEffect(() => {
 
               {messages.map((message, index) => (
                 <div className="list-group-item" key={index}>
-                
-                  <li className='list-group'>
-                    <p>[</p>
-                    <div 
-                      className='message' 
-                      id='Sender'>{message.sender}</div>
-                    <p>]</p>
-                    <div 
-                      className='message' 
-                      id='Message'>{message.message}</div>
-                  </li>
+
+                  {message.type === 'ENTER' ? (
+                        <li className='list-group'>
+                          <p>[</p>
+                          <div className='message' id='Sender'>{message.sender}</div>
+                          <p>]</p>
+                          <div className='message' id='Message'>{message.message}</div>
+                        </li>
+                  ) : (
+                        <li className='list-group' >
+                        <p>[</p>
+                        <div className='message' id='Sender'>{message.sender}</div>
+                        <p>]</p>
+                        <div className='message' id='Message'>{message.message}</div>
+                      </li>
+                  )}
 
                 </div>
               ))} 
 
+              <div className='user-message-box'>
+                <div className='user-img'>이 박스는 왼쪽 profile</div>
+                <div className='user-message'>hello world</div>
+                <div className='user-nickname'>nickname</div>
+                <div className='user-time'>time</div>
+              </div>
+
+              <div className='user-message-box'>
+                <div className='user-img'>이 박스는 오른쪽 profile</div>
+                <div className='user-message'>hello world</div>
+                <div className='user-nickname'>nickname</div>
+                <div className='user-time'>time</div>
+              </div>
 
 
               {/* <div className='lcmain-chatlist-box'>
@@ -472,6 +504,11 @@ useEffect(() => {
 
               </div> */}
             </div> 
+
+
+
+
+
         </div>
       </div>
 
