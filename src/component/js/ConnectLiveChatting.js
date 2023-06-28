@@ -346,8 +346,6 @@ const recvMessage = (recv) => {
 
 
     .then(res => {
-      console.log(res);
-      console.log(res.isCreate);
 
       if (res.status === 401) {
         alert('토큰 없음');
