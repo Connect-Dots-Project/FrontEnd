@@ -48,99 +48,7 @@ body {
     }
 }
 
-// 행정구역 선택 모달
-.administration-select-wrapper {
-    border-right: 1px solid #1465ad;
-    background: url('./img/AdsSelect.png') no-repeat;
-    background-size: 110%;
-    width: 470px;
-    height: 1025px;
-    animation: openSelect 0.5s forwards 1;
-    overflow: hidden;
-    
-    position: fixed;
-    top: 0%;
-    left: 0%;
-    z-index: 1;
-    
-    &.closing {
-        animation: closeSelect 0.5s forwards 1;
-    }
-    
-    #Header {
-        width: 100%;
-        height: 5%;
-        display: flex;
-        position: relative;
-        
-        h1 {
-            border-bottom: 2px solid #1465ad;
-            width: 85%;
-            height: 100%;
-            margin: 0 auto;
-            font-size: 20px;
-            font-weight: 700;
-            @include disflex();
-        }
 
-        #AdsCloseBtn {
-            background: none;
-            border: none;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
-    }
-
-    .ads-main-box {
-        width: 100%;
-        height: 95%;
-        
-        .ads-main {
-            width: 35%;
-            height: 100%;
-            margin: 0 auto;
-
-            .ads-list-box {
-                width: 100%;
-                height: 886px;
-
-                .ads-list {
-                    border-bottom: 2px solid #1465ad;
-                    width: 100%;
-                    height: 3.95%;
-                    transition-duration: 0.3s;
-                    cursor: pointer;
-                    @include disflex();
-
-                    &:hover {
-                        // border-radius: 0px 0px 20px 0px;
-                        // width: 120%;
-                        border-bottom: 2px solid #ff6701;
-                        opacity: 0.9;
-                        transform: translateX(20px);
-                    }
-                    &:hover p {
-                        color: #ff6701;
-                    }
-                    
-                    p {
-                        width: 50%;
-                        height: 100%;
-                        font-size: 16px;
-                        font-weight: 700;
-                        @include disflex();
-
-                    }
-                }
-            }
-        }
-    }
-}
 
 // hp-wrapper
 .hp-wrapper {
@@ -152,14 +60,14 @@ body {
         width: 100%;
         height: 90px;
         background: #fff;
-        border-bottom: 4px solid rgb(20, 101, 173);
+        border-bottom: 1px solid rgb(20, 101, 173);
 
         .hp-info-select-box {
             width: 100%;
             height: 100%;
             margin: 0 auto;
             display: flex;
-
+            
             .select-btn-box {
                 width: 50%;
                 height: 100%;
@@ -167,28 +75,18 @@ body {
                 @include disflex();
                 
                 .board-map-change-box {
-                    width: 50%;
-                    height: 50%;
-                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    @include disflex();
                     
                     #View-Method-Board {
-                        width: 60%;
-                        height: 100%;
-                        
-                        position: absolute;
-                        top: 28%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
+                        width: 350px;
+                        height: 55%;
                     }
                     
                     #View-Method-Map {
-                        width: 60%;
+                        width: 100%;
                         height: 100%;
-                        
-                        position: absolute;
-                        top: 25%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
                         z-index: 1;
                     }
                 }
@@ -197,7 +95,7 @@ body {
                     border: none;  
                     background: rgb(20, 101, 173);
                     color: #fff;
-                    border-radius: 10px;
+                    border-radius: 5px;
                     width: 30%;
                     height: 50%;
                     margin: 10px;
@@ -205,7 +103,7 @@ body {
                     font-weight: 700;
                     cursor: pointer;
                     transition-duration: 0.5s;
-                    box-shadow: 2px 2px 2px 1px #444;
+                    box-shadow: 1px 1px 2px 1px #444;
                     
                     &:hover {
                         opacity: 0.9;
@@ -289,7 +187,7 @@ body {
                     border: none;
                     background: #1465ad;
                     box-shadow: 1px 1px 2px 1px #444;
-                    border-radius: 10px;
+                    border-radius: 5px;
                     width: 70%;
                     height: 50%;
                     cursor: pointer;
@@ -320,6 +218,10 @@ body {
         }
     }
 
+    .hp-info-box::-webkit-scrollbar {
+        display: none;
+    }
+
     // hot-place 정보 box
     .hp-info-box {
         background: #fff;
@@ -337,18 +239,17 @@ body {
         // hot-place 정보
         .hp-info {
             background: #eeeeee;
-            box-shadow: 2px 2px 5px 1px #444;
+            box-shadow: 2px 2px 3px 1px #444;
             width: 49%;
             height: 300px;
             padding: 10px;
             padding-bottom: 0;
             margin-bottom: 20px;
-            border-radius: 10px;
+            border-radius: 5px;
             transition-duration: 0.3s;
             position: relative;
             
             &:hover {
-                transform: scale(0.95);
                 opacity: 0.8;
             }
             &:hover .hp-info-modify-delete-box .info-modify-box .info-modify-btn {
@@ -357,14 +258,14 @@ body {
             &:hover .hp-info-modify-delete-box .info-delete-box .info-delete-btn {
                 display: block;
             }
-
+            
             .hp-info-modify-delete-box {
                 width: 80px;
                 height: 30px;
                 position: absolute;
                 right: 10px;
                 display: flex;
-
+                
                 .info-modify-box {
                     width: 50%;
                     height: 100%;
@@ -379,7 +280,7 @@ body {
                         height: 25px;
                         cursor: pointer;
                         display: none;
-
+                        
                         &:hover {
                             transform: scale(1.1);
                         }
@@ -417,25 +318,26 @@ body {
                 .hp-info-img-box {
                     width: 100%;
                     height: 70%;
+                    @include disflex();
                     
                     // hot-place img
                     .info-img {
                         width: 100%;
-                        height: 60%;
+                        height: 100%;
                         margin-bottom: 3%;
                         border: none;
                         overflow: hidden;
                         // background: url('./img/ad1.jpg')no-repeat;
-                        background-size: 100%;
+                        background-size: cover;
                         border-radius: 5px 5px 0px 0px;
                     }
                     
                 }
                 
                 .hp-text-wrapper {
-                    border-top: 3px solid #1465ad;
+                    border-top: 1px dashed #1465ad;
                     width: 100%;
-                    height: 35%;    
+                    height: 30%;    
                     display: flex;
                     justify-content: space-between;
                     position: relative;
@@ -492,34 +394,53 @@ body {
                             }
                         }
                     }
-                    
-                    .like-box {
-                        width: 20%;
+                    .hp-writer-wrapper {
+                        width: 25%;
                         height: 100%;
-                        padding-top: 50px;
-                        position: relative;
-                        
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        
-                        .like-count {
-                            width: 50%;
-                            height: 100%;
-                            text-align: center;
-                            line-height: 3.3em;
-                            font-weight: 700;
+                        border-left: 1px dashed #1465ad;
+
+                        .hp-writer-box {
+                            width: 100%;
+                            height: 50%;
+                            @include disflex();
+
+                            p {
+                                font-size: 16px;
+                                font-weight: 700;
+                            }
                         }
-                        
-                        #Like {
-                            background: url('./img/Like.png') no-repeat;
-                            background-size: 100%;
-                            border: none;
-                            width: 50%;
-                            height: 100%;
-                            cursor: pointer;
+
+                        .like-box {
+                            width: 100%;
+                            height: 50%;
+                            
+                            display: flex;
+                            justify-content: left;
+                            align-items: center;
+                            
+                            // .like-count {
+                            //     width: 50%;
+                            //     height: 100%;
+                            //     text-align: center;
+                            //     line-height: 3.3em;
+                            //     font-weight: 700;
+                            // }
+                            
+                            #Like {
+                                background: url('./img/Like.png') no-repeat;
+                                background-size: 70%;
+                                // background-position-x: 6px;
+                                // background-position-y: 3px;
+                                border: none;
+                                width: 50%;
+                                height: 100%;
+                                margin-left: 15px;
+                                cursor: pointer;
+                            }
                         }
                     }
+                    
+                    
                 }
             }
         }

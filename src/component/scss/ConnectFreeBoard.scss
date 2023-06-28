@@ -4,45 +4,209 @@
     align-items: center;
 }
 
+
 // 세부 게시판
 #Inner-Free-Board-Wrapper {
-    background: #bbb;
+    background: #eeefff;
     width: 800px;
     height: 1018px;
 
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 23%;
+    left: 8%;
     transform: translate(-50%, -50%);
 
     z-index: 2;
 
-    .inner-close-btn {
-        border: 4px solid #fff;
-        width: 30px;
-        height: 30px;
-        text-align: center;
-        cursor: pointer;
+    #InnerRightFreeBoardWrapper {
+        background: #eeefff;
+        width: 800px;
+        height: 1018px;
+
         position: absolute;
         top: 0;
-        right: 0;
-        color: #fff;
+        right: -100%;
+        z-index: 2;
+
+        .inner-right-free-board-box {
+            width: 100%;
+            height: 100%;
+
+            .inner-close-btn {
+                width: 30px;
+                height: 30px;
+                text-align: center;
+                cursor: pointer;
+                position: absolute;
+                top: 7px;
+                right: 0;
+                color: #000;
+            }
+
+            
+        }
+
+        .guest-reply-wrapper {
+            width: 100%;
+            height: 90%;
+            @include disflex();
+            
+            .guest-reply-box::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .guest-reply-box {
+                width: 100%;
+                height: 100%;
+                // display: flex;
+                // flex-wrap: wrap;
+                overflow: scroll;
+                
+                .guest-reply-info-box {
+                    width: 100%;
+                    height: 20%;
+                    display: flex;
+                    padding-right: 20px;
+                    
+                    .guest-profile-box {
+                        width: 20%;
+                        height: 100%;
+                        justify-content: center;
+                        
+                        .profile-box {
+                            width: 100%;
+                            height: 80%;
+                            @include disflex();
+                        }
+                        
+                        .guest-profile {
+                            border: 1px solid #000;
+                            background: none;
+                            border-radius: 50%;
+                            width: 80px;
+                            height: 80px;
+                            margin: 6px 0;
+                        }
+                        
+                        p {
+                            text-align: center;
+                            font-size: 16px;
+                            font-weight: 700;
+                        }
+                    }
+                    
+                    .guest-reply {
+                        width: 80%;
+                        height: 100%;
+                        @include disflex();
+                        
+                        .guest-reply-text {
+                            border: none0;
+                            background: #fff;
+                            box-shadow: 1px 1px 2px 1px #444;
+                            border-radius: 10px;
+                            width: 100%;
+                            height: 70%;
+                            padding: 10px;
+                            font-size: 16px;
+                            font-weight: 700;
+                        }
+                    }
+                }
+            }
+        }
+        .user-reply-wrapper {
+            width: 100%;
+            height: 10%;
+            
+            .user-reply-box {
+                border-top: 1px solid #000;
+                width: 96%;
+                height: 100%;
+                margin: 0 auto;
+
+                .user-img-reply-register-box {
+                    width: 100%;
+                    height: 100%;
+                    margin: 0 auto;
+                    @include disflex();
+
+                    .user-img-box {
+                        width: 13%;
+                        height: 100%;
+                        @include disflex();
+
+                        .user-img {
+                            border: 1px solid #000;
+                            border-radius: 50%;
+                            width: 60px;
+                            height: 60px;
+                        }
+                    }
+
+                    .user-reply-register-box {
+                        width: 70%;
+                        height: 100%;
+
+                        .reply-input {
+                            border: none;
+                            background: none;
+                            border-bottom: 1px solid #1465ad;
+                            width: 100%;
+                            height: 75%;
+                            font-size: 16px;
+                            font-weight: 700;
+                            text-align: center;
+
+                            &:focus {
+                                outline: none;
+                            }
+                        }
+                    }
+
+                    .user-register-box {
+                        width: 17%;
+                        height: 100%;
+                        @include disflex();
+
+                        .user-register-btn {
+                            border: none;
+                            border-radius: 10px;
+                            background: #ff6701;
+                            width: 80%;
+                            height: 50%;
+                            cursor: pointer;
+
+                            &:hover {
+                                opacity: 0.8;
+                            }
+
+                            p {
+                                background: url('./img/Send.png') no-repeat;
+                                background-size: 50%;
+                                background-position: 20px;
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
 
+
     #Header {
-        background: url('./img/InnerFreeBoardHeader.png') no-repeat;
-        background-size: 100%;
-        background-position-y: -10px;
         width: 100%;
-        height: 30%;
+        height: 50%;
     }
 
 
     #Main {
         width: 100%;
-        height: 40%;    
+        height: 50%;
         padding: 20px;
 
         .inner-board {
@@ -51,7 +215,7 @@
 
             .inner-board-header {
                 width: 100%;
-                height: 40%;
+                height: 30%;
 
                 .ib-img-info-box {
                     width: 100%;
@@ -69,13 +233,11 @@
                         padding-top: 10px;
 
                         .ib-img {
-                            background: rgb(20, 101, 173);
-                            border: 2px solid #fff;
+                            border: 1px solid #000;
                             border-radius: 50%;
                             width: 100px;
                             height: 100px;
                             margin: 0 auto;
-                            
                         }
 
                         #User-Id {
@@ -100,27 +262,27 @@
                                 height: 100%;
                                 @include disflex();
                             }
-                            
+
                             #Title {
                                 width: 80%;
                                 height: 100%;
                                 display: flex;
                                 align-items: center;
                             }
-                            
+
                         }
-                        
+
                         .ib-info-category-date-box {
                             width: 100%;
                             height: 30%;
                             display: flex;
-                            
+
                             #Category {
                                 width: 20%;
                                 height: 100%;
                                 @include disflex();
                             }
-                            
+
                             #Date {
                                 width: 40%;
                                 height: 100%;
@@ -138,16 +300,15 @@
                                     width: 50%;
                                     height: 100%;
                                     display: flex;
-                                    
+
                                     .reply-img {
                                         background: url('./img/Reply.png') no-repeat;
                                         background-size: 50%;
                                         background-position: 20px;
                                         width: 50%;
                                         height: 100%;
-                                        cursor: pointer;
                                     }
-                                    
+
                                     #Reply-Count {
                                         width: 50%;
                                         height: 100%;
@@ -157,12 +318,12 @@
                                         align-items: center;
                                     }
                                 }
-                                
+
                                 .like-box {
                                     width: 50%;
                                     height: 100%;
                                     display: flex;
-                                    
+
                                     .like-img {
                                         background: url('./img/Like.png') no-repeat;
                                         background-size: 50%;
@@ -171,7 +332,7 @@
                                         height: 100%;
                                         cursor: pointer;
                                     }
-                                    
+
                                     #Like {
                                         width: 50%;
                                         height: 100%;
@@ -195,13 +356,14 @@
                                 width: 20%;
                                 height: 100%;
                                 @include disflex();
-                                
+
                                 .info-btn {
                                     border-radius: 10px;
                                     background: rgb(20, 101, 173);
                                     border: none;
                                     width: 95%;
                                     height: 70%;
+                                    transition-duration: 0.3s;
                                     cursor: pointer;
 
                                     &:hover {
@@ -212,171 +374,33 @@
                                         color: #fff;
                                     }
                                 }
+
+                                #Delete-Btn {
+                                    &:hover {
+                                        background: #ff6701;
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            
+
             }
         }
-        
+
         .ib-user-info-wrapper {
             width: 100%;
-            height: 60%;
+            height: 70%;
             @include disflex();
-            
+
             .ib-info-box {
-                border: 1px solid #000;
+                border: none;
+                background: #fff;
+                box-shadow: 1px 1px 2px 1px #444;
                 border-radius: 10px;
-                width: 95%;
-                height: 90%;
+                width: 100%;
+                height: 95%;
                 padding: 2%;
-            }
-        }
-        
-        .user-reply-wrapper {
-            width: 100%;
-            height: 30%;
-            margin-top: 20px;
-
-            .user-reply-box {
-                border-bottom: 1px solid #000;
-                width: 90%;
-                height: 100%;
-                margin: 0 auto;
-
-                .user-img-reply-register-box {
-                    width: 95%;
-                    height: 80%;
-                    margin: 0 auto;
-                    display: flex;
-
-                    .user-img-box {
-                        width: 13%;
-                        height: 100%;
-                        @include disflex();
-
-                        .user-img {
-                            border: 2px solid #fff;
-                            border-radius: 50%;
-                            background: rgb(20, 101, 173);
-                            width: 60px;
-                            height: 60px;
-                        }
-                    }
-
-                    .user-reply-register-box {
-                        width: 70%;
-                        height: 100%;
-
-                        .empty-box {
-                            height: 25%;
-                        }
-
-                        .reply-input {
-                            border: none;
-                            background: none;
-                            border-bottom: 1px solid #1465ad;
-                            width: 100%;
-                            height: 50%;
-                            padding-left: 1%;
-                            font-size: 16px;
-                            font-weight: 700;
-                            
-                            &:focus {
-                                outline: none;
-                            }
-                        }
-                    }
-
-                    .user-register-box {
-                        width: 17%;
-                        height: 100%;
-                        @include disflex();
-
-                        .user-register-btn {
-                            border: none;
-                            border-radius: 10px;
-                            background: rgb(20, 101, 173);
-                            width: 80%;
-                            height: 50%;
-                            cursor: pointer;
-
-                            &:hover {
-                                opacity: 0.8;
-                            }
-
-                            p {
-                                background: url('./img/Send.png') no-repeat;
-                                background-size: 50%;
-                                background-position: 20px;
-                                width: 100%;
-                                height: 100%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        .guest-reply-wrapper {
-            width: 100%;
-            height: 53%;   
-            margin-top: 20px;
-            @include disflex();
-
-            .guest-reply-box {
-                width: 90%;
-                height: 100%;
-                display: flex;
-                flex-wrap: wrap;
-                overflow: scroll;
-                
-                .guest-reply-info-box {
-                    width: 100%;
-                    height: 70%;
-                    display: flex;
-
-                    .guest-profile-box {
-                        width: 20%;
-                        height: 100%;
-                        justify-content: center;
-                        
-                        .profile-box {
-                            width: 100%;
-                            height: 80%;
-                            @include disflex();
-                        }
-
-                        .guest-profile {
-                            background: rgb(20, 101, 173);
-                            border: 2px solid #fff;
-                            border-radius: 50%;
-                            width: 80px;
-                            height: 80px;
-                            margin: 6px 0;
-                        }
-
-                        p {
-                            text-align: center;
-                            font-size: 16px;
-                            font-weight: 700;
-                        }
-                    }
-
-                    .guest-reply {
-                        width: 80%;
-                        height: 100%;
-                        @include disflex();
-
-                        .guest-reply-text {
-                            border: 1px solid #000;
-                            border-radius: 10px;
-                            width: 100%;
-                            height: 70%;
-                        }
-                    }
-                }
             }
         }
     }
@@ -404,15 +428,16 @@
         transform: translate(-50%, -50%);
         border: 4px solid #000;
     }
-    
+
     100% {
         width: 850px;
         height: 1024px;
         opacity: 1;
         transform: translate(-50%, -50%);
     }
-    
+
 }
+
 @keyframes closeWriteBoardModal {
     0% {
         width: 850px;
@@ -420,14 +445,14 @@
         opacity: 1;
         transform: translate(-50%, -50%);
     }
-    
+
     50% {
         width: 850px;
         height: 0;
         transform: translate(-50%, -50%);
         border: 4px solid #000;
     }
-    
+
     100% {
         width: 0;
         height: 0;
@@ -445,7 +470,7 @@
     height: 1024px;
     z-index: 99;
     display: none;
-    
+
     position: absolute;
     top: 50%;
     left: 50%;
@@ -456,7 +481,7 @@
         height: 3%;
         position: absolute;
         right: 0;
-    
+
         .write-board-close-btn {
             background: url('./img/CertifyEmailCloseBtn.png') no-repeat;
             background-size: 100%;
@@ -476,31 +501,31 @@
     width: 100%;
     height: 100%;
     background: #fff;
-    
+
     // header + mainBoard
     .fb-box {
         // background: #fff;
         width: 100%;
         height: 100%;
         margin: 0 auto;
-        
+
         // 자유게시판 header
         .fb-header {
             width: 100%;
             height: 200px;
             padding: 15px;
-            
+
             .fb-header-box {
                 width: 100%;
                 height: 75%;
                 display: flex;
-                
+
                 // 자유게시판 header text box
                 .fbh-info-box {
                     width: 50%;
                     height: 80%;
                     display: flex;
-                    
+
                     // fbh-header-icon
                     .icon-box {
                         background: url('./img/Bulb.png') no-repeat;
@@ -508,47 +533,47 @@
                         width: 25%;
                         height: 100%;
                     }
-                    
+
                     .fbh-text-box {
                         width: 90%;
                         height: 90%;
                         margin: auto 0;
-                        
+
                         h2 {
                             width: 100%;
                             height: 60%;
                             font-size: 35px;
                             font-weight: 700;
                             padding-left: 1%;
-                            
+
                             display: flex;
                             justify-content: left;
                             align-items: center;
                         }
-                        
+
                         p {
                             width: 100%;
                             height: 40%;
                             font-weight: 700;
                             padding-left: 1%;
-                            
+
                             display: flex;
                             justify-content: left;
                             align-items: center;
                         }
                     }
-                    
+
                 }
-                
+
             }
-            
-            
+
+
             .write-btn-box {
                 width: 50%;
                 height: 80%;
                 display: flex;
                 justify-content: right;
-                
+
                 .write-btn {
                     border: none;
                     background: rgb(20, 101, 173);
@@ -560,46 +585,46 @@
                     font-size: 16px;
                     cursor: pointer;
                     box-shadow: 2px 2px 5px 0px #444;
-                    
+
                     transition-duration: 0.5s;
-                    
+
                     &:hover {
                         background: #ff6701;
                         box-shadow: 5px 5px 5px 0px #444;
                         opacity: 0.9;
                     }
                 }
-                
+
             }
-            
+
             // 자유게시판 header best info box
             .fbh-best-info-box {
                 width: 100%;
                 height: 30%;
-                
+
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                
+
                 .fbh-best-info-list {
                     border-radius: 10px;
                     width: 19%;
                     height: 100%;
                     box-shadow: 2px 2px 5px 0px #444;
                     transition-duration: 0.5s;
-                    
+
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    
+
                     &:hover {
                         box-shadow: 5px 5px 5px 0px #444;
                         opacity: 0.9;
                         transform: translateY(-10px);
                     }
-                    
-                    
-                    
+
+
+
                     .fbh-best-info-text-box {
                         background: rgb(20, 101, 173);
                         border-radius: 10px;
@@ -609,13 +634,13 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        
+
                         &:hover {
                             box-shadow: 5px 5px 5px 0px #444;
                             opacity: 0.9;
                             background: #ff6701;
                         }
-                        
+
                         .fbh-best-info-text {
                             color: #fff;
                             font-size: 16px;
@@ -627,23 +652,22 @@
 
         // 자유게시판 main
         .free-board-main-container {
-            border: 1px solid red;
+            background: none;
             width: 100%;
             height: 1918px;
             padding: 15px;
 
             // 자유 게시판 정보 box
             .fbm-info-box {
-                border: 1px solid red;
                 width: 100%;
                 // TODO : 높이 설정
-                height: 10%;
+                height: 1370px;
                 overflow: scroll;
                 padding: 10px;
-                
+
                 // 자유게시판 정보
                 .fbm-info-list {
-                    background: rgb(209, 233, 255);
+                    background: #eeefff;
                     border: none;
                     box-shadow: 2px 2px 5px 0px #444;
                     border-radius: 10px;
@@ -653,13 +677,13 @@
                     display: flex;
                     justify-content: space-evenly;
                     cursor: pointer;
-                    
-                    
+
+
                     // 자유게시판 정보 사진 box
                     .fbm-info-img-box {
                         width: 18%;
                         height: 100%;
-                        
+
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -667,7 +691,7 @@
                         // 자유게시판 정보 사진
                         .fbm-info-img {
                             border: none;
-                            background: rgb(20, 101, 173);
+                            background: none;
                             border-radius: 50%;
                             width: 100px;
                             height: 100px;

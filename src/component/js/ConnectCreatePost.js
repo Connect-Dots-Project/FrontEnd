@@ -36,7 +36,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   const districtItems = districtList.map((district) => (
     <li
       key={district}
-      className={`cp-header-tag ${selectedLocation === district ? 'selected' : ''}`}
+      className={`ctp-header-tags ${selectedLocation === district ? 'selected' : ''}`}
       style={{ backgroundColor: selectedLocation === district ? 'orange' : '' }}
       onClick={() => handleLocationClick(district)}
     >
@@ -46,13 +46,13 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
   useEffect(() => {
     if (isCreateModal) {
-      const $modal = document.getElementById('CreatePostModal');
+      const $modal = document.getElementById('CreatePostModals');
       $modal.classList.add('opening');
     }
   }, [isCreateModal]);
 
   const closeModal = () => {
-    const $modal = document.getElementById('CreatePostModal');
+    const $modal = document.getElementById('CreatePostModals');
     $modal.classList.add('closing');
 
     setTimeout(() => {
@@ -62,7 +62,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   };
 
   const cancelBtn = (e) => {
-    const $modal = document.getElementById('CreatePostModal');
+    const $modal = document.getElementById('CreatePostModals');
     $modal.classList.add('closing');
 
     setTimeout(() => {
@@ -77,11 +77,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
     }
   });
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-  
-   
+  const submitHandler = () => {
 
     if (!selectedLocation) {alert ('행정구역을 선택해주세요.'); return;}
     if (!hotplaceImg) {alert ('핫플레이스의 사진을 공유해주세요.'); return;}
@@ -152,66 +148,77 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   return (
     <>
       {isCreateModal && (
-        <div className='create-post-wrapper' id='CreatePostModal'>
-          <button className='cp-close-btn' onClick={closeModal}>X</button>
+        <div className='create-post-wrappers' id='CreatePostModals'>
+          <button className='ctp-close-btn' onClick={closeModal}>X</button>
 
-          <form onSubmit={submitHandler} encType='multipart/form-data'>
-            <div className='header-main-footer-box'>
-              <header className='cp-header'>
-                <div className='cp-header-text-tag-box'>
-                  <div className='cp-header-text-box'>
-                    <p className='cp-header-text' id='SelectLocation'>지역을 선택해주세요</p>
+            <div className='header-main-footer-boxes'>
+              <header className='ctp-header-wrappers'>
+                <div className='ctp-header-text-tag-boxes'>
+                  <div className='ctp-header-text-boxes'>
+                    <p className='ctp-header-text' id='SelectLocation'>지역을 선택해주세요</p>
                   </div>
 
-                  <div className='connect-create-post'>
-                    <ul className='cp-header-tag-box'>
+                  <div className='connect-create-posts'>
+                    <ul className='ctp-header-tag-boxes'>
                       {districtItems}
                     </ul>
                   </div>
                 </div>
               </header>
-
-              <div className='cp-main-box'>
-                <div className='cp-main'>
-                  <ConnectWriteBoard
-                    setHotplaceImg={setHotplaceImg}
-                    setHotplaceContent={setHotplaceContent}
-                  />
+              
+              <div className='ctp-main-wrappers'>
+                <div className='ctp-main-boxes'>
+                  <div className='ctp-main'>
+                    <ConnectWriteBoard
+                      setHotplaceImg={setHotplaceImg}
+                      setHotplaceContent={setHotplaceContent}
+                      />
+                  </div>
                 </div>
               </div>
 
-              <footer className='cp-footer-wrapper'>
-                <div className='cp-footer-text-api-box'>
-                  <div className='cp-footer-text-box'>
-                    <p>장소를 선택해주세요</p>
-                  </div>
-
-                  <div className='cp-footer-api-box'>
-                    <div className='storage-btn-box'>
-                      <button className='api-btn' id='Cancel' onClick={cancelBtn}>
-                        <p>취소</p>
-                      </button>
-                      <button type='submit' className='api-btn' id='Storage'>
-                        <p>{isEditMode ? '수정하기' : '작성'}</p>
-                      </button>
-                    </div>
-
-                    <div className='cp-footer-api'>
-                      <Location
-                        setHotplaceLatitude={setHotplaceLatitude}
-                        setHotplaceLongitude={setHotplaceLongitude}
-                        setHotplaceName={setHotplaceName}
-                        setHotplaceFullAddress={setHotplaceFullAddress}
-                        setKakaoLocation={setKakaoLocation}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </footer>
             </div>
-          </form>
+
+            <div className='ctp-footer'>
+
+          <footer className='ctp-footer-wrappers'>
+            <div className='ctp-footer-text-api-boxes'>
+              <div className='ctp-footer-text-boxes'>
+                <p>장소를 선택해주세요</p>
+              </div>
+
+              <div className='ctp-footer-api'>
+                  <Location
+                    setHotplaceLatitude={setHotplaceLatitude}
+                    setHotplaceLongitude={setHotplaceLongitude}
+                    setHotplaceName={setHotplaceName}
+                    setHotplaceFullAddress={setHotplaceFullAddress}
+                    setKakaoLocation={setKakaoLocation}
+                  />
+                </div>
+
+                <div className='ctp-footer-api-boxes'>
+                  <div className='storage-btn-boxes'>
+                    <button className='api-btn' id='Cancel' onClick={cancelBtn}>
+                      <p>취소</p>
+                    </button>
+                    <button type='submit' className='api-btn' id='Storage' onClick={submitHandler}>
+                      <p>{isEditMode ? '수정하기' : '작성'}</p>
+                    </button>
+                  </div>
+
+                
+              </div>
+            </div>
+          </footer>
+
+          </div>
+            
         </div>
       )}
+
+
+      
     </>
   );
 };

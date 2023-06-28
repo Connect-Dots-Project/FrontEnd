@@ -12,26 +12,11 @@ const ConnectStoreSales = () => {
   const [isClickBackBtn, setIsClickBackBtn] = useState(false);
 
   const navigate = useNavigate();
-  // const clickBackBtn = e => {
-  //   const $clickBackBtn = document.getElementById('StoreSalesWrapper');
-  //   $clickBackBtn.style.animation = 'clickBackBtn 2s forwards 1';
-  //
-  //   setTimeout(() => {
-  //     // $clickBackBtn.style.animation = null;
-  //     setIsClickBackBtn(true);
-  //     // window.location.href = '/';
-  //     // navigate(-1);
-  //   }, 1000);
-  //
-  // };
 
   return (
   <>
     <div id='StoreSalesWrapper'>
     <div className='store-sales-box'>
-      {/*<div className='back-btn-box'>*/}
-      {/*  <button id='BackBtn' onClick={clickBackBtn}></button>*/}
-      {/*</div>*/}
 
       <div className='ss-select-list-box'>
         <Link to={'/contents/cvs/GS25'} className='ss-select-list'>

@@ -54,179 +54,100 @@
     animation: openCreatePostModal 1s forwards 1;
 }
 
-.create-post-wrapper {
-    background: #ddd;
-    width: 960px;
-    height: 900px;
-    overflow: hidden;
-    // overflow: scroll;
-    
+.create-post-wrappers {
+    background: #eeefff;
+    width: 900px !important;
+    height: 960px !important;
+
     position: fixed;
-    left: 50%;
+    left: 33%;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 100;
-    animation: openCreatePostModal 1s forwards 1;
-    
-    &.closing {
-        animation: closeCreatePostModal 1s forwards 1;
-    }
-    
-    .cp-close-btn {
+    // animation: openCreatePostModal 1s forwards 1;
+
+    // &.closing {
+    //     animation: closeCreatePostModal 1s forwards 1;
+    // }
+
+
+
+    .ctp-close-btn {
+        background: none;
         border: none;
         width: 25px;
         height: 25px;
         cursor: pointer;
         position: absolute;
-        right: 0;
+        left: 0;
     }
+
+    .ctp-footer {
+        background: #eeefff;
+        width: 900px;
+        height: 960px;
     
-    .header-main-footer-box {
-        width: 90%;
-        height: 100%;
-        margin: 0 auto; 
-        
-        .cp-header {
-            width: 100%;
-            height: 300px;
-            
-            .cp-header-text-tag-box {
-                width: 100%;
-                height: 100%;
-                
-                .cp-header-text-box {
-                    width: 100%;
-                    height: 25%;
-                    @include disflex();
-                    
-                    #SelectLocation {
-                        font-size: 20px;
-                        font-weight: 700;
-                        opacity: 1;
-                    }
-                }
-                
-                
-                .cp-header-tag-box {
-                    width: 100%;
-                    height: 75%;
-                    display: flex;
-                    justify-content: left;
-                    flex-wrap: wrap;
-                    
-                    .cp-header-tag {
-                        background: #1465ad;
-                        border: none;
-                        border-radius: 5px;
-                        box-shadow: 1px 1px 2px 1px #444;
-                        color: #000;
-                        width: 110px;
-                        height: 35px;
-                        margin: 5px;
-                        transition-duration: 0.3s;
-                        cursor: pointer;
-                        @include disflex();
+        position: fixed;
+        right: -100%;
+        top: -1px;
+        z-index: 100;
 
-                        &:hover {
-                            background: #ff6701;
-                            opacity: 0.8;
-                            transform: translateY(3px);
-                        }
-
-                        p {
-                            color: #fff;
-                            font-size: 16px;
-                            font-weight: 700;
-                        }
-                    }   
-                }
-            }
-        }
-
-        .cp-main-box {
-            border: 2px solid #1465ad;
-            border-radius: 5px;
-            width: 100%;
-            height: 325px;
-            padding-top: 4px;
-
-            @include disflex();
-
-            .cp-main {
-                border: 2px solid #1465ad;
-                width: 98%;
-                height: 97%;
-                overflow: scroll;
-            }
-            
-        }
-        
-
-        .cp-footer-wrapper {
+        .ctp-footer-wrappers {
             width: 100%;
             height: 25%;
             transition-duration: 1s;
 
-            &:hover {
-                transform: translateY(-618px);
-            }
-            
-            .cp-footer-text-api-box {
+            .ctp-footer-text-api-boxes {
                 width: 100%;
                 height: 100%;
                 
-                .cp-footer-text-box {
-                    background: #ddd;
+                .ctp-footer-text-boxes {
                     width: 100%;
-                    height: 25%;
-                    padding: 20px;
-                    
+                    height: 35%;
+                    @include disflex();
+
                     p {
-                        width: 100%;
-                        height: 100%;
                         font-size: 20px;
                         font-weight: 700;
-                        @include disflex();
                     }
                 }
-                
-                .cp-footer-api-box {
+
+                .ctp-footer-api {
+                    background: #eeefff;
                     width: 100%;
-                    height: 75%;
-                    text-align: center;
-                    
-                    .cp-footer-api {
-                        background: #eeeeee;
-                        border: 2px solid #1465ad;
-                        border-radius: 10px;
-                        width: 100%;
-                        height: 800px;
-                        font-size: 16px;
-                        font-weight: 700;
-                        transition-duration: 1s ;
-                        position: relative;
-                        z-index: 1;
-                        
-                        &:focus {
-                            outline: none;
-                        }
+                    height: 800px;
+                    font-size: 16px;
+                    font-weight: 700;
+                    transition-duration: 1s;
+                    position: relative;
+                    z-index: 1;
+
+                    &:focus {
+                        outline: none;
                     }
-                    
-                    .storage-btn-box {
-                        background: #ddd;
+                }
+
+                .ctp-footer-api-boxes {
+                    width: 100%;
+                    height: 30%;
+                    text-align: center;
+
+
+                    .storage-btn-boxes {
+                        background: #eeefff;
                         width: 100%;
                         height: 67px;
                         border-radius: 0px 0px 10px 10px;
                         align-items: center;
                         z-index: 1;
-                        
+
                         display: flex;
                         justify-content: right;
                         align-items: center;
-                        
+
                         .api-btn {
                             border: none;
-                            border-radius: 10px;
+                            border-radius: 5px;
                             box-shadow: 1px 1px 2px 1px #444;
                             width: 130px;
                             height: 60%;
@@ -238,20 +159,20 @@
                                 opacity: 0.8;
                             }
                         }
-                        
+
                         #Cancel {
                             background: #fff;
-                            
+
                             &:hover {
                                 background: tomato;
                             }
                         }
-                        
+
                         #Storage {
                             margin-left: 20px;
                             background: #1465ad;
                             color: #fff;
-                            margin-right: 12px;
+                            margin-right: 23px;
 
                             &:hover {
                                 background: #ff6701;
@@ -267,4 +188,87 @@
             }
         }
     }
+
+    .header-main-footer-boxes {
+        width: 90%;
+        height: 958px;
+        margin: 0 auto;
+
+        .ctp-header-wrappers {
+            width: 100%;
+            height: 35%;
+            
+            .ctp-header-text-tag-boxes {
+                width: 100%;
+                height: 100%;
+                
+                .ctp-header-text-boxes {
+                    width: 100%;
+                    height: 20%;
+                    @include disflex();
+                    
+                    #SelectLocation {
+                        font-size: 20px;
+                        font-weight: 700;
+                    }
+                }
+                
+                .connect-create-posts {
+                    width: 100%;
+                    height: 80%;
+                    
+                    .ctp-header-tag-boxes {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        flex-wrap: wrap;
+
+                        .ctp-header-tags {
+                            background: #1465ad;
+                            border: none;
+                            border-radius: 5px;
+                            box-shadow: 1px 1px 2px 1px #444;
+                            width: 150px;
+                            height: 35px;
+                            margin: 5px;
+                            transition-duration: 0.3s;
+                            cursor: pointer;
+                            @include disflex();
+
+                            &:hover {
+                                background: #ff6701;
+                                opacity: 0.8;
+                                transform: translateY(3px);
+                            }
+
+                            p {
+                                color: #fff;
+                                font-size: 14px;
+                                font-weight: 700;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .ctp-main-wrappers ::-webkit-scrollbar {
+            display: none;
+        }
+        .ctp-main-wrappers {
+            width: 100%;
+            height: 65%;
+            @include disflex();
+
+            .ctp-main-boxes {
+                width: 100%;
+                height: 100%;
+                overflow: scroll;
+            }
+        }
+
+
+        
+    }
 }
+

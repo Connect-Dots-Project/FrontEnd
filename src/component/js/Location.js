@@ -101,7 +101,7 @@ const Location = ({
       {isLocationVisible && (
         <div className="location-container">
           <div className="map-container">
-             {/* 이부분!!!!!!!!!!!!!!!!!!!!!!!!!!  marginTop: '100px' scss파일 확인*/}
+            
             <div id="map"></div> 
             <div className="search-bar">
               <input type="text" id="keywordInput" onKeyPress={handleKeyPress} />

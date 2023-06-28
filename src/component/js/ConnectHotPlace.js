@@ -9,6 +9,7 @@ import { getLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
 
 const ConnectHotPlace = ({ closeCreatePost }) => {
+  const [fbData, setFbData] = useState([]);
 
 
   const regions = [
@@ -27,6 +28,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const MyToken = localStorage.getItem('Authorization');
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchText, setSearchText] = useState('');
 
   const containerRef = useRef(null);
   const isFetchingRef = useRef(false);
@@ -57,63 +59,13 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       });
     };
 
-  const fetchData = () => {
-    if (isFetchingRef.current) return;
-    isFetchingRef.current = true;
-    setIsLoading(true);
-    fetch(API_BASE_URL + `/contents/hot-place/list/${page}`, {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        setHpData((prevData) => [...prevData, ...result]);
-        setIsLoading(false);
-        isFetchingRef.current = false;
-      });
-  };
+ 
 
-  const handleScroll = () => {
-    const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
-    if (scrollHeight - scrollTop < clientHeight) {
-      setPage(page + 1);
-      fetchData();
-    }
-  };
-
-  // 행정구역으로 핫플레이스 게시물 목록 조회하기
-  const handleLocationClick = (kakaoLocation) => {
-    fetch(REQUEST_URL + `/${kakaoLocation}`, {
-      method: 'GET',
-      headers: { 
-        'content-type' : 'application/json',
-        'Authorization' : MyToken
-      },
-      credentials: 'include'  
-    })
-      .then(res => {
-        if (res.status === 401) {
-          alert('회원가입이 필요한 서비스입니다.');
-          window.location.href = '/';
-        } else {
-          return res.json();
-        }
-      })
-      .then(result => {
-        if (Array.isArray(result.hotplaceList)) {
-          const list = [...result.hotplaceList];
-          setHpData(list);
-        } else {
-          setHpData([]);
-        }
-      });
-  };
+  
 
 
 
-  // 좋아요 카운팅
-  const [hotplaceLikeCount, setLikeCount] = useState(0);
-  const increase = () => { setLikeCount(hotplaceLikeCount + 1 );};
-  // const increase = (hotplaceId) => {
+    // const increase = (hotplaceId) => {
   //   setLikeCount((prevState) => ({
   //     ...prevState,
   //     [hotplaceId]: (prevState[hotplaceId] || 0) + 1,
@@ -121,23 +73,78 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   // };
 
   
-  // 작성창 (글쓰기)
-  const [isCreateModal, setIsCreateModal] = useState(false);
   
-  const openCreatePost = () => {
-      fetch(REQUEST_URL, {
-        headers: {
-          'Authorization': MyToken
-        }
-      })
-        .then(res => {
-          if (res.status === 401) {
-            alert('회원가입이 필요한 서비스입니다.');
-            window.location.href = '/'; // 메인 페이지로 이동
-          } else {
-            setIsCreateModal(true); // 모달 창 열기
-          }
-        })
+
+  
+
+  
+  // const modifyHotplace = (hotplaceIdx) => {
+  //   fetch(REQUEST_URL + `/${hotplaceIdx}`, {
+  //     method: 'PATCH'
+  //   })
+  //     .then(res => res.json())
+  //     .then(result => console.log(result));
+
+  // }
+
+  
+
+  const fetchData = () => {
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
+    setIsLoading(true);
+    fetch(`http://localhost:8181/contents/hot-place/list/${page}`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization' : getLoginUserInfo().token
+      },
+      credentials: 'include'
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setFbData((prevData) => [...prevData, ...result]);
+        setIsLoading(false);
+        isFetchingRef.current = false;
+      });
+  };
+
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
+    if (scrollHeight - scrollTop <= clientHeight * 1.3) {
+      setPage(page + 1);
+      fetchData();
+    }
+  };
+
+  
+
+  // 행정구역 선택
+  const [isOpenSelect, setIsOpenSelect] = useState(false);
+  
+  const openSelect = () => {
+    setIsOpenSelect(true);
+  };
+  
+  const closeSelect = () => {
+    const $adsModal = document.getElementById('ADS-Modal');
+    $adsModal.classList.add('closing');
+    
+    setTimeout(() => {
+      setIsOpenSelect(false);
+      $adsModal.classList.remove('closing');
+    }, 1000);
+  };
+
+  // 글 수정, 선택한 핫플 게시판
+  const [selectedHotplace, setSelectedHotplace] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const modifyHotplace = (hp) => {
+    // console.log(hp);
+    setSelectedHotplace(hp);
+    setIsCreateModal(true);
+    setIsEditMode(true);
   };
 
 
@@ -166,56 +173,78 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     window.location.reload();
   };
 
-  // 글 수정, 선택한 핫플 게시판
-  const [selectedHotplace, setSelectedHotplace] = useState(null);
-  const [isEditMode, setIsEditMode] = useState(false);
-
-  const modifyHotplace = (hp) => {
-    // console.log(hp);
-    setSelectedHotplace(hp);
-    setIsCreateModal(true);
-    setIsEditMode(true);
+  // 작성창 (글쓰기)
+  const [isCreateModal, setIsCreateModal] = useState(false);
+  
+  const openCreatePost = () => {
+      fetch(REQUEST_URL, {
+        headers: {
+          'Authorization': MyToken
+        }
+      })
+        .then(res => {
+          if (res.status === 401) {
+            alert('회원가입이 필요한 서비스입니다.');
+            window.location.href = '/'; // 메인 페이지로 이동
+          } else {
+            setIsCreateModal(true); // 모달 창 열기
+          }
+        })
   };
 
-  // const modifyHotplace = (hotplaceIdx) => {
-  //   fetch(REQUEST_URL + `/${hotplaceIdx}`, {
-  //     method: 'PATCH'
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => console.log(result));
+  // 좋아요 카운팅
+  const [hotplaceLikeCount, setLikeCount] = useState(0);
+  const increase = () => { setLikeCount(hotplaceLikeCount + 1 );};
 
-  // }
-  
-
-
-
-  
-  
-  
- 
-  
-  
-  // 행정구역 선택
-  const [isOpenSelect, setIsOpenSelect] = useState(false);
-  
-  const openSelect = () => {
-    setIsOpenSelect(true);
-  };
-  
-  const closeSelect = () => {
-    const $adsModal = document.getElementById('ADS-Modal');
-    $adsModal.classList.add('closing');
-    
-    setTimeout(() => {
-      setIsOpenSelect(false);
-      $adsModal.classList.remove('closing');
-    }, 1000);
+  // 행정구역으로 핫플레이스 게시물 목록 조회하기
+  const handleLocationClick = (kakaoLocation) => {
+    fetch(REQUEST_URL + `/${kakaoLocation}`, {
+      method: 'GET',
+      headers: { 
+        'content-type' : 'application/json',
+        'Authorization' : MyToken
+      },
+      credentials: 'include'  
+    })
+      .then(res => {
+        if (res.status === 401) {
+          alert('회원가입이 필요한 서비스입니다.');
+          window.location.href = '/';
+        } else {
+          return res.json();
+        }
+      })
+      .then(result => {
+        const list = [...result.hotplaceList];
+        setHpData(list);
+      });
   };
   
   const [showMap, setShowMap] = useState(false);
   
   const openChangeMap = () => {
     setShowMap(!showMap);
+  };
+
+
+  // 검색어 기능 구현
+  const handleSearch = () => {
+    console.log(hpData);
+    const filtered = hpData.filter((content) =>
+      content.hotplaceContent.includes(searchText)
+    );
+    setHpData(filtered);
+    setSearchText('');
+  };
+  
+  const handleInputChange = (e) => {
+    setSearchText(e.target.value);
+  };
+  
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
   };
 
 
@@ -234,31 +263,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
         />
       )}
 
-      {isOpenSelect && (
-        <div className='administration-select-wrapper' id='ADS-Modal'>
-          <div id='Header'>
-            <h1>구역을 선택해주세요</h1>
-            <button id='AdsCloseBtn' onClick={ closeSelect }><p>X</p></button>
-          </div>
-
-
-
-          <div className='ads-main-box'>
-            <div className='ads-main'>
-              <ul className='ads-list-box'>
-                {regions.map(e => ( 
-                  <li className='ads-list' onClick={() => handleLocationClick(e)}> 
-                    <p>{e}</p> 
-                  </li> 
-                ))}
-              </ul>
-            </div>
-          </div>
-
-
-
-        </div>
-      )}
+      
 
       <div className='hp-wrapper'>
         <div className='hp-info-header'>
@@ -266,9 +271,9 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
           <div className='hp-info-select-box'>
 
             <div className='select-btn-box'>
-              <button className='select-btn' id='ADS' onClick={ openSelect }>
+              {/* <button className='select-btn' id='ADS' onClick={ openSelect }>
                 <p>행정구역 선택</p>
-              </button>
+              </button> */}
 
               <div className='board-map-change-box'>
 
@@ -287,11 +292,18 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
               {!showMap && (
                 <div className='search-box'>
                   <div className='input-box'>
-                    <input type='text' id='Input'/>
+                    <input 
+                      type='text' 
+                      id='Input'
+                      placeholder='검색어를 입력하세요'
+                      value={searchText}
+                      onChange={handleInputChange}
+                      onKeyPress={handleKeyPress}
+                    />
                   </div>
                   <span>
                     <div className='search-btn-box'>
-                      <button id='Search-Btn'><p></p></button>
+                      <button id='Search-Btn' onClick={handleSearch}><p></p></button>
                     </div>
                   </span>
                 </div>
@@ -343,13 +355,13 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                         </div>
                         
                           <div className='hp-info-img-text-box'>
-                            <Link to='/' className='hp-info-img-box'>
+                            <div className='hp-info-img-box'>
                               <div className='info-img'>
                                 {/* 이미지 aws s3 저장 */}
                                 <img src={hp.hotplaceImg} alt='핫플레이스, 같이 놀러가자!' />
 
                               </div>
-                            </Link>
+                            </div>
 
                             <div className='hp-text-wrapper'>
 
@@ -360,9 +372,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
                                 <div className='hp-writer-date-box'>
                                   {/* TODO : 행정구역 추가했어용 ㅠㅠ  */}
-                                  <div className='hp-writer-box'>
-                                    <p className='hp-writer-text'>[{hp.kakaoLocation}]</p>
-                                  </div>
+                                  
                                   <div className='hp-writer-box'>
                                     <p className='hp-writer-text'>[작성자]</p>
                                   </div>
@@ -372,12 +382,18 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                                 </div>
                               </div>
 
-                              <div className='like-box'>
-                                <button className='like' id='Like'></button>
-                                <p className='like-count' onClick={ increase }>{hp.hotplaceLikeCount}</p>
-                                {/* <p className='like-count' onClick={() => increase(hp.hotplaceId)}>
-                                    {hotplaceLikeCount[hp.hotplaceId] || 0}</p> */}
+                              <div className='hp-writer-wrapper'>
+                                <div className='hp-writer-box'>
+                                  <p className='hp-writer-text'>[{hp.kakaoLocation}]</p>
+                                </div>
+                                <div className='like-box'>
+                                  <button className='like' id='Like'></button>
+                                  <p className='like-count' onClick={ increase }>{hp.hotplaceLikeCount}</p>
+                                  {/* <p className='like-count' onClick={() => increase(hp.hotplaceId)}>
+                                      {hotplaceLikeCount[hp.hotplaceId] || 0}</p> */}
+                                </div>
                               </div>
+
                             </div>
                           </div>
                         </div>

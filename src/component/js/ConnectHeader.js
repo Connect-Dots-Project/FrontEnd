@@ -4,6 +4,7 @@ import ConnectMyPageMain from './ConnectMyPageMain';
 
 
 import '../scss/ConnectHeader.scss';
+import ConnectLogin from "./ConnectLogin";
 
 const ConnectHeader = (props) => {
 
@@ -38,9 +39,10 @@ const ConnectHeader = (props) => {
             </div>
         </div>
 
-        
 
-        
+
+        <ConnectLogin />
+
        
     </>
   )

@@ -6,14 +6,15 @@ export const setLoginUserInfo = ({ token, account, nickname }) => {
     localStorage.setItem('NICKNAME', nickname);
   };
   
-  // 로그인한 유저의 데이터 객체를 반환하는 함수
-  export const getLoginUserInfo = () => {
-    return {
-      token: localStorage.getItem('ACCESS_TOKEN'),
-      username: localStorage.getItem('ACCOUNT'),
-      usernickname: localStorage.getItem('NICKNAME')
-    };
-  };
-  
-  // 로그인 여부를 확인하는 함수
-  export const isLogin = () => !!localStorage.getItem('ACCESS_TOKEN');
+// 로그인한 유저의 데이터 객체를 반환하는 함수
+export const getLoginUserInfo = () => {
+  return {
+    token: localStorage.getItem('ACCESS_TOKEN'),
+    username: localStorage.getItem('ACCOUNT'),
+    usernickname: localStorage.getItem('NICKNAME')
+  }
+};
+
+
+// 로그인 여부를 확인하는 함수
+export const isLogin = () => !!localStorage.getItem('ACCESS_TOKEN');
