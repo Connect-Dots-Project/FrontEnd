@@ -573,7 +573,9 @@ useEffect(() => {
 
                         <div className='uml-img-nickname-box'>
                           <div className='uml-img-box'>
-                            <div className='uml-img'>{message.senderProfile}</div>
+                            <div className='uml-img'>
+                              <img src={message.senderProfile} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              </div>
                           </div>
                           <div className='uml-nickname-box'>
                             <p className='uml-nickname'>{message.sender}</p>
@@ -618,7 +620,9 @@ useEffect(() => {
     
                       <div className='umr-img-nickname-box'>
                         <div className='umr-img-box'>
-                          <div className='umr-img'>{message.senderProfile}</div>
+                          <div className='umr-img'>
+                          <img src={message.senderProfile} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
                         </div>
                         <div className='umr-nickname-box'>
                           <p className='umr-nickname'>{message.sender}</p>
