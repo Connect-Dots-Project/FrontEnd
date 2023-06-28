@@ -250,7 +250,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
     <>
         {isCloseInner && (
         <div id='Inner-Free-Board-Wrapper'>
-        <div className='inner-close-btn' onClick={ closeInnerBoardModal }>X</div>
+        
   
           <header id='Header'>
               {freeBoardImg ? ( 
@@ -332,82 +332,99 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
                 </div>
               </div> 
   
-              <div className='user-reply-wrapper'>
-                <div className='user-reply-box'>
-  
-                  <div className='user-img-reply-register-box'>
-  
-                    <div className='user-img-box'>
-                      <div className='user-img'>
-                        <div className='guest-profile' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-
-                          {loginUserProfile ? ( 
-                            <img src={ loginUserProfile } style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                          ) : (
-                            <img src={require('../scss/img/ad1.jpg')} alt='No Image' style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-  
-                    <div className='user-reply-register-box'>
-                      <div className='empty-box'></div>
-                      <input 
-                        type='text'
-                        className='reply-input'
-                        placeholder='댓글을 입력해주세요'
-                        value={inputReplyContent}
-                        onChange={handleInputReplyContent}
-                        onKeyPress={(e) => e.key === 'Enter' && writeReply()}
-                      />
-                    </div>
-  
-                    <div className='user-register-box'>
-                      <button className='user-register-btn' onClick={ writeReply }><p></p></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-  
-  
-  
-              <div className='guest-reply-wrapper'>
-                <div className='guest-reply-box'>
-  
-                  {replayList.map(reply => (
-                          <div className='guest-reply-info-box'>
-  
-                          <div className='guest-profile-box'>
-                            <div className='profile-box'>
-                              <div className='guest-profile' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-
-                                  {reply.freeBoardReplyMemberDTO.memberProfile ? ( 
-                                    <img src={reply.freeBoardReplyMemberDTO.memberProfile} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                  ) : (
-                                    <img src={require('../scss/img/ad1.jpg')} alt='No Image' style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                  )}
-
-                              </div>
-                            </div>
-                            <p>{reply.freeBoardReplyMemberDTO.memberNickname}</p>
-                          </div>
-        
-                          <div className='guest-reply'>
-                            <div className='guest-reply-text'>
-                              {reply.freeBoardReplyContent}
-                            </div>
-                          </div>
-        
-                        </div>
-                    ))}
-  
-                </div>
-                
-              </div>
-  
             </div>
   
           </div>
+
+
+
+
+
+          <div id='InnerRightFreeBoardWrapper'>
+            <div className='inner-right-free-board-box'>
+              <div className='inner-close-btn' onClick={ closeInnerBoardModal }>X</div>
+
+              
+
+                    <div className='guest-reply-wrapper'>
+                      <div className='guest-reply-box'>
+        
+                        {replayList.map(reply => (
+                                <div className='guest-reply-info-box'>
+        
+                                <div className='guest-profile-box'>
+                                  <div className='profile-box'>
+                                    <div className='guest-profile' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+
+                                        {reply.freeBoardReplyMemberDTO.memberProfile ? ( 
+                                          <img src={reply.freeBoardReplyMemberDTO.memberProfile} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        ) : (
+                                          <img src={require('../scss/img/ad1.jpg')} alt='No Image' style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        )}
+
+                                    </div>
+                                  </div>
+                                  <p>{reply.freeBoardReplyMemberDTO.memberNickname}</p>
+                                </div>
+              
+                                <div className='guest-reply'>
+                                  <div className='guest-reply-text'>
+                                    {reply.freeBoardReplyContent}
+                                  </div>
+                                </div>
+              
+                              </div>
+                          ))}
+        
+                      </div>
+                      
+                    </div>
+
+                    <div className='user-reply-wrapper'>
+                    <div className='user-reply-box'>
+      
+                      <div className='user-img-reply-register-box'>
+      
+                        <div className='user-img-box'>
+                          <div className='user-img'>
+                            <div className='guest-profile' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+
+                              {loginUserProfile ? ( 
+                                <img src={ loginUserProfile } style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              ) : (
+                                <img src={require('../scss/img/ad1.jpg')} alt='No Image' style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className='user-reply-register-box'>
+                          <input 
+                            className='reply-input'
+                            placeholder='댓글을 입력해주세요'
+                          />
+                        </div>
+                        
+                        <div className='user-register-box'>
+                          <button className='user-register-btn' onClick={ writeReply }><p></p></button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
   
         </div>
     )}
