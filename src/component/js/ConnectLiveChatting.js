@@ -515,36 +515,9 @@ useEffect(() => {
                     </div>
                   ) : message.type === 'TALK' && message.checkSender === true ? (
 
-                    <div className='user-message-right-wrapper' id='Right'>
-                        <div className='user-message-right-box'>
-
-                          <div className='umr-message-time-box'>
-                            <div className='umr-time-box'>
-                              <div className='umr-time'>{message.time}</div>
-                            </div>
-                            <div className='umr-message-box'>
-                              <div className='umr-message'>{message.message}</div>
-                            </div>
-                          </div>
-
-                          <div className='umr-img-nickname-box'>
-                            <div className='umr-img-box'>
-                              <div className='umr-img'>{message.senderProfile}</div>
-                            </div>
-                            <div className='umr-nickname-box'>
-                              <p className='umr-nickname'>{message.sender}</p>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                        
-                  ) : message.type === 'TALK' && message.checkSender === false ? (
-
-
-                      <div className='user-message-left-wrapper' id='Left'>
+                    <div className='user-message-left-wrapper' id='Left'>
                       <div className='user-message-left-box'>
-      
+
                         <div className='uml-img-nickname-box'>
                           <div className='uml-img-box'>
                             <div className='uml-img'>{message.senderProfile}</div>
@@ -553,103 +526,58 @@ useEffect(() => {
                             <p className='uml-nickname'>{message.sender}</p>
                           </div>
                         </div>
-      
+
                         <div className='uml-message-time-box'>
                           <div className='uml-message-box'>
-                            <div className='uml-message'>{message.message}</div>
-                          </div>
-                          <div className='uml-time-box'>
-                            <div className='uml-time'>{message.time}</div>
+                            <div className='uml-message' style={{ wordBreak: 'break-all' }}>
+                            {message.message}
+                              <div className='uml-time-box'>
+                                <div className='uml-time'>{message.time}</div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-      
+
                       </div>
                     </div>
+
+
+                        
+                  ) : message.type === 'TALK' && message.checkSender === false ? (
+
+
+                    <div className='user-message-right-wrapper' id='Right'>
+                    <div className='user-message-right-box'>
+    
+                      <div className='umr-message-time-box'>
+                        <div className='umr-message-box'>
+                          <div className='umr-message' style={{ wordBreak: 'break-all' }}>
+                          {message.message}
+                            <div className='umr-time-box'>
+                              <div className='umr-time'>{message.time}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <div className='umr-img-nickname-box'>
+                        <div className='umr-img-box'>
+                          <div className='umr-img'>{message.senderProfile}</div>
+                        </div>
+                        <div className='umr-nickname-box'>
+                          <p className='umr-nickname'>{message.sender}</p>
+                        </div>
+                      </div>
+    
+                    </div>
+                  </div>
+    
 
 
                   ) : null }
 
                 </div>
               ))} 
-
-
-
-
-
-{/* 
-              <div className='user-message-left-wrapper' id='Left'>
-                <div className='user-message-left-box'>
-
-                  <div className='uml-img-nickname-box'>
-                    <div className='uml-img-box'>
-                      <div className='uml-img'>left profile</div>
-                    </div>
-                    <div className='uml-nickname-box'>
-                      <p className='uml-nickname'>nickname</p>
-                    </div>
-                  </div>
-
-                  <div className='uml-message-time-box'>
-                    <div className='uml-message-box'>
-                      <div className='uml-message'>6f1we5f61ew56f1ew56f1ew56f1ew5666666666666666666666661111111
-                        <div className='uml-time-box'>
-                          <div className='uml-time'>time</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div> */}
-
-
-
-
-
-
-
-
-
-              {/* <div className='user-message-right-wrapper' id='Right'>
-                <div className='user-message-right-box'>
-
-                  <div className='umr-message-time-box'>
-                    <div className='umr-message-box'>
-                      <div className='umr-message'>ddwqdwq2121111111111111166666666666666666666666666
-                        <div className='umr-time-box'>
-                          <div className='umr-time'>time</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className='umr-img-nickname-box'>
-                    <div className='umr-img-box'>
-                      <div className='umr-img'>right profile</div>
-                    </div>
-                    <div className='umr-nickname-box'>
-                      <p className='umr-nickname'>nickname</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
               
 
@@ -660,6 +588,7 @@ useEffect(() => {
                 </div>
 
               </div> */}
+              
             </div> 
 
 
