@@ -334,7 +334,9 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                             <div className='hp-info-img-box'>
                               <div className='info-img'>
                                 {/* 이미지 aws s3 저장 */}
-                                <img src={hp.hotplaceImg} alt='핫플레이스, 같이 놀러가자!' />
+                                <img src={hp.hotplaceImg} alt='핫플레이스, 같이 놀러가자!'
+                                style={{width:'390px', height:'200px'}}
+                                />
 
                               </div>
                             </div>
@@ -347,7 +349,6 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                                 </div>
 
                                 <div className='hp-writer-date-box'>
-                                  {/* TODO : 행정구역 추가했어용 ㅠㅠ  */}
                                   
                                   <div className='hp-writer-box'>
                                     <p className='hp-writer-text'>[{hp.memberNickname}]</p>
