@@ -28,6 +28,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
   const [loginUserProfile, setLoginUserProfile] = useState('');
 
   const [inputReplyContent, setInputReplyContent] = useState('');
+  const [replyFlag, setReplyFlag] = useState('');
 
 
 
@@ -85,7 +86,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
     
     fetchData();
 
-  }, []);
+  }, [replyFlag]);
 
 
     const [isCloseInner, setCreateModal] = useState(true);
@@ -132,7 +133,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
 
     const handleInputReplyContent = (e) => {
-      console.log(e.target.value);
       setInputReplyContent(e.target.value);
     }
 
@@ -177,6 +177,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
           const result = await res.json();
 
           setInputReplyContent('');
+          fetchData();
   
         } catch (error) {
           console.log(error);
@@ -185,7 +186,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
       }
 
       replyPost();
-      fetchData();
 
     }
 
