@@ -9,14 +9,6 @@ import { getLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
 
 const ConnectHotPlace = ({ closeCreatePost }) => {
-  const [fbData, setFbData] = useState([]);
-
-
-  const regions = [
-    '강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구',
-    '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구',
-    '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
-  ];
 
   // 핫플레이스 게시물 렌더링
   const [hpData, setHpData] = useState([]);
@@ -25,7 +17,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   // 핫플레이스 게시물 누구나 다 볼 수 있게 해야하는데 어떻게해유 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
   const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
 
-  const MyToken = localStorage.getItem('Authorization');
+
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [searchText, setSearchText] = useState('');
@@ -93,7 +85,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(`http://localhost:8181/contents/hot-place/list/${page}`, {
+    fetch(`${REQUEST_URL}/list/${page}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -156,7 +148,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       method: 'DELETE',
       headers: { 
         'content-type': 'application/json',
-        'Authorization' : MyToken
+        'Authorization' : getLoginUserInfo().token
       },
         credentials: 'include', 
     })
@@ -179,7 +171,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const openCreatePost = () => {
       fetch(REQUEST_URL, {
         headers: {
-          'Authorization': MyToken
+          'Authorization': getLoginUserInfo().token
         }
       })
         .then(res => {
@@ -202,7 +194,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       method: 'GET',
       headers: { 
         'content-type' : 'application/json',
-        'Authorization' : MyToken
+        'Authorization' : getLoginUserInfo().token
       },
       credentials: 'include'  
     })
