@@ -136,7 +136,7 @@ function showNotification(recv) {
     connect();
 
     return () => {const connect = () => {
-      sock = new SockJS('http://localhost:8181/contents/chat/live');
+      sock = new SockJS(API_BASE_URL + '/contents/chat/live');
       ws.current = Stomp.over(sock);
     
       // 아래 주소로 연결합니다.
