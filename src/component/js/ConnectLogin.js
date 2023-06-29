@@ -1113,11 +1113,13 @@ const ConnectLogin = () => {
         <div className='connect-header-login-wrapper'>
         {isLogInTest ? (
             <div className='ch-logout-box'>
-                <button id='Logout' onClick={ logoutHandler }>로그아웃</button>
+                <button id='Logout' onClick={ logoutHandler }></button>
+                <p>로그아웃▲</p>
             </div>
         ) : (
             <div className='ch-login-box'>
-                <button id='Login' onClick={ openLogin }>로그인</button>
+                <button id='Login' onClick={ openLogin }></button>
+                <p>로그인▲</p>
             </div>
         )
         }

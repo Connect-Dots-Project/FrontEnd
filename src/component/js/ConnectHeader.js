@@ -41,7 +41,6 @@ const ConnectHeader = (props) => {
 
 
 
-        <ConnectLogin />
 
        
     </>
