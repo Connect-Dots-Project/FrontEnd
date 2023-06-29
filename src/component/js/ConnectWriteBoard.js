@@ -7,7 +7,7 @@ const ConnectWriteBoard = ({ setHotplaceContent, setHotplaceImg }) => {
   const [imgFile, setImgFile] = useState(null);
   const $fileTag = useRef();
 
-  const MAX_CHARACTER_COUNT = 60; // 최대 글자 수
+  const MAX_CHARACTER_COUNT = 68; // event.editor.getData() 최대 글자 수
   const [currentCharacterCount, setCurrentCharacterCount] = useState(0); // 현재 글자 수
 
   const handleEditorChange = (event) => {
@@ -16,7 +16,7 @@ const ConnectWriteBoard = ({ setHotplaceContent, setHotplaceImg }) => {
     setHotplaceContent(updatedContent);
     setCurrentCharacterCount(updatedContent.length);
 
-    // console.log(updatedContent.length);
+    console.log(updatedContent.length);
 
     if (updatedContent.length > MAX_CHARACTER_COUNT) {
       alert('최대 글자수는 60글자입니다!');

@@ -12,7 +12,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
   const [isCreateModal, setCreateModal] = useState(true);
 
-  const MAX_CHARACTER_COUNT = 60; // 최대 글자 수
+  const MAX_CHARACTER_COUNT = 68; // 최대 글자 수
 
   // 초기값 설정
   const [hotplaceImg, setHotplaceImg] = useState('');

@@ -216,6 +216,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   
   const handleInputChange = (e) => {
     setSearchText(e.target.value);
+    fetchInitialData();
   };
   
   const handleKeyPress = (e) => {
