@@ -9,6 +9,7 @@ import { API_BASE_URL } from '../../config/host-config';
 import '../scss/ConnectMyPageMain.scss';
 import { async } from 'q';
 import { getLoginUserInfo } from '../../util/login-util';
+import ConnectUserActivityFreeBoardLike from './ConnectUserActivityFreeBoardLike';
 
 const ConnectMyPageMain = () => {
 
@@ -388,7 +389,8 @@ const ConnectMyPageMain = () => {
                         <div className='mp-change-menu-box'>
                             <div className='mp-change-menu'>
                                 {isOpenActivity && <ConnectUserActivity />}
-                                {isOpenLike && <ConnectUserLike />}
+                                {/* {isOpenLike && <ConnectUserLike />} */}
+                                {isOpenLike && <ConnectUserActivityFreeBoardLike />}
                                 {isOpenLocation && <ConnectUserSettingLocation />}
                             </div>
                         </div>
