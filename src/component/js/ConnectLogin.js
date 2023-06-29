@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { CookiesProvider, useCookies } from 'react-cookie'
-import Select from 'react-select';
+// import Select from 'react-select';
 
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
