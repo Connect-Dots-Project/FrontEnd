@@ -29,6 +29,7 @@
                 overflow: scroll;
                 
                 .user-info-lists-boxes {
+                    background: #fff;
                     width: 95%;
                     height: 50%;
                     margin: 18px;
@@ -37,7 +38,7 @@
                     padding: 5px;
 
                     .user-info-lists {
-                        background: #fff;
+                        background: #eeefff;
                         border-radius: 10px 10px 0 0;
                         border-bottom: none;
                         border: none;
@@ -130,7 +131,7 @@
                             
                             .ui-guest-replies {
                                 border: none;
-                                background: #fff;
+                                background: #eeefff;
                                 border-radius: 0 0 5px 5px;
                                 width: 100%;
                                 height: 85%;
