@@ -987,7 +987,7 @@ const ConnectLogin = () => {
                             </li>
                         )}
 
-                        {isOpenSignInList && (
+                        {/* {isOpenSignInList && ( */}
                         <div className='signin-info-list fade-in-h'>
 
                             <div className='signin-info-text' id='Input-location'>
@@ -1022,7 +1022,7 @@ const ConnectLogin = () => {
                                 </div>
                             </div>
                         </div>
-                        )}
+                        {/* )} */}
 
                         {isOpenSignInList && (
                             <li className='signin-info-list fade-in-i'>
