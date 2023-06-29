@@ -15,7 +15,7 @@ const ConnectLogin = () => {
     const [cookies , setCookie, removeCookie] = useCookies('REFRESH_TOKEN');
 
 
-    const [isOpenSignInList, setIsOpenSignList] = useState(true);
+    const [isOpenSignInList, setIsOpenSignList] = useState(false);
     const [isOpenSignIn, setIsOpenSignIn] = useState(false);
 
     const openSignInList = e => {
