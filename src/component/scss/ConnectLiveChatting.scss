@@ -51,7 +51,7 @@ body {
 }
 
 #WriteChatModal {
-    background: #ddd;
+    background: #eeefff;
     width: 550px;
     height: 300px;
     overflow: hidden;
@@ -81,9 +81,8 @@ body {
                 align-items: center;
 
                 #ClickTag {
-                    border: 2px solid #1465ad;
+                    border: none;
                     background: #1465ad;
-                    border-radius: 50%;
                     width: 35px;
                     height: 35px;
                     transition-duration: 0.3s;
@@ -100,76 +99,28 @@ body {
                 }
 
                 .wc-tag {
-                    border: none;
-                    background: #1465ad;
-                    color: #fff;
-                    width: 0%;
+                    border: 2px solid #1465ad;
+                    border-left: none;
+                    border-radius: 0 25px 25px 0;
+                    background: #fff;
+                    color: #000;
+                    width: 92.5%;
                     height: 35px;
                     text-align: center;
                     transition-duration: 0.3s;
-                    display: none;
 
                     &:focus {
                         outline: none;
                     }
 
                     &::placeholder {
-                        color: #fff;
-                        opacity: 0.8;
+                        color: #000;
+                        opacity: 0.6;
+                        font-weight: 700;
                     }
                 }
-
-                @keyframes openClickTagBtn {
-                    0% {
-                        width: 0;
-                        opacity: 0;
-                        border-radius: 0px 30px 30px 0px;
-                    }
-
-                    100% {
-                        width: 92.5%;
-                        opacity: 1;
-                        border-radius: 0px;
-                    }
-                }
-
-                @keyframes closeClickTagBtn {
-                    0% {
-                        width: 95%;
-                        opacity: 1;
-                        border-radius: 0px 50% 50% 0px;
-                    }
-
-                    100% {
-                        width: 0;
-                        opacity: 0;
-                        border-radius: 0px;
-                    }
-                }
-
-                @keyframes openTag {
-                    0% {
-                        border-radius: 50%;
-                    }
-
-                    100% {
-                        border-radius: 0px;
-                    }
-                }
-
-                @keyframes closeTag {
-                    0% {
-                        border-radius: 0px;
-                    }
-
-                    100% {
-                        border-radius: 50%;
-                    }
-                }
-
             }
         }
-
 
         .wc-main {
             width: 100%;
@@ -223,7 +174,6 @@ body {
                     .wc-btn {
                         border: none;
                         border-radius: 5px;
-                        box-shadow: 1px 1px 3px 1px #444;
                         width: 80%;
                         height: 70%;
                         cursor: pointer;
@@ -236,8 +186,9 @@ body {
                     }
 
                     #Cancel {
+                        background: #fff;
                         &:hover {
-                            background: #ddd;
+                            background: tomato;
                         }
                     }
 
@@ -255,12 +206,15 @@ body {
     }
 }
 
-
+.live-chatting-wrapper::-webkit-scrollbar {
+    display: none;
+}
 
 .live-chatting-wrapper {
     width: 100%;
-    height: 1595px;
+    height: 750px;
     background: #fff;
+    overflow: scroll;
 
     .live-chatting-box {
         width: 100%;
@@ -391,7 +345,7 @@ body {
                     background: #eeefff;
                     width: 95%;
                     height: 170px;
-                    margin: 10px auto;
+                    margin: 20px auto;
                     cursor: pointer;
 
                     @include disflex();
@@ -581,10 +535,13 @@ body {
 
             .lcheader-img {
                 border-bottom: 1px dashed #000;
+                background: url('./img/ConncetCat.Logo.png') no-repeat;
+                background-size: 50%;
+                background-position-x: 60px;
                 width: 90%;
                 height: 75%;
                 margin: 0 auto;
-                @include disflex();
+                // @include disflex();
             }
 
             .lcheader-nickname {
@@ -597,14 +554,48 @@ body {
         }
 
         .lcheader-accessor-box {
-            background: aquamarine;
+            // background: aquamarine;
             width: 70%;
             height: 100%;
+            font-size: 20px;
+            position: relative;
+
+            .close-btn-box {
+                border: none;
+                background: none;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                position: absolute;
+                right: 0;
+                top: 0;
+                @include disflex();
+
+                &:hover {
+                    opacity: 0.7;
+                }
+                
+                #closeBtn {
+                    background: url('./img/Quit.png') no-repeat;
+                    background-size: 100%;
+                    border: none;
+                    width: 75%;
+                    height: 75%;
+                    cursor: pointer;
+                }
+            }
 
             .lcheader-accessor {
                 width: 100%;
                 height: 100%;
                 @include disflex();
+                
+                p {
+                    width: 100%;
+                    height: 100%;
+                    @include disflex();
+                    border: 1px solid #000;
+                }
             }
         }
     }

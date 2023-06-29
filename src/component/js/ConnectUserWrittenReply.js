@@ -20,7 +20,7 @@ const ConnectUserWrittenReply = () => {
                 onClick={handleWrittenBoardClick}
                 >
                 <div className="user-written-reply" ref={replyRef}>
-                    <p>내가 쓴 댓글</p>
+                    <p>내가 쓴 ㅎㅇ댓글</p>
                 </div>
             </div>
         </>

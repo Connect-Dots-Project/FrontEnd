@@ -12,6 +12,8 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
   const [isCreateModal, setCreateModal] = useState(true);
 
+  const MAX_CHARACTER_COUNT = 68; // 최대 글자 수
+
   // 초기값 설정
   const [hotplaceImg, setHotplaceImg] = useState('');
   const [hotplaceContent, setHotplaceContent] = useState('');
@@ -23,7 +25,9 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   const [selectedLocation, setSelectedLocation] = useState('');
 
 
+
   const handleLocationClick = (location) => {
+    console.log(location);
     setSelectedLocation(location);
   };
 
@@ -88,10 +92,16 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
       alert('행정구역과 지도의 장소가 일치하지 않습니다.');
       return;
     }
+    
+    if (hotplaceContent.length > MAX_CHARACTER_COUNT) {
+      alert('글자 수가 60자를 초과했습니다.');
+      return;
+    }
 
 
     const requestData = {
       location: selectedLocation,
+      memberIdx: MyToken,
       hotplaceContent,
       hotplaceLatitude,
       hotplaceLongitude,
@@ -118,8 +128,13 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
         credentials: 'include',
         body: hotplaceFormData,
       })
-        .then((res) => res.json())
-        .then((result) => console.log(result));
+        .then((res) => {
+          return res.json();
+        })
+        .then((result) => {
+          // TODO : 수정 완료 or 미완료 그대로
+          window.location.reload();
+        });
 
         
     } else {
@@ -131,24 +146,29 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
         credentials: 'include',
         body: hotplaceFormData,
       })
-        .then((res) => res.json())
+        .then((res) => {
+          return res.json();
+        })
         .then((result) => {
+          
           if (result.isWrite) {
             alert('저장되었습니다.');
+            window.location.reload();
           } else {
             alert('저장에 실패했습니다.');
+            window.location.reload();
           }
         })
     }
 
-    window.location.reload();
+    
   };
 
   return (
     <>
       {isCreateModal && (
         <div className='create-post-wrappers' id='CreatePostModals'>
-          <button className='ctp-close-btn' onClick={closeModal}>X</button>
+          
 
             <div className='header-main-footer-boxes'>
               <header className='ctp-header-wrappers'>
@@ -181,6 +201,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
             <div className='ctp-footer'>
 
           <footer className='ctp-footer-wrappers'>
+          <button className='ctp-close-btn' onClick={closeModal}>X</button>
             <div className='ctp-footer-text-api-boxes'>
               <div className='ctp-footer-text-boxes'>
                 <p>장소를 선택해주세요</p>

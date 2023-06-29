@@ -1,27 +1,33 @@
 import React from "react";
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from "../../config/host-config";
+import { getLoginUserInfo } from "../../util/login-util";
 
 import '../scss/ConnectUserActivityHotPlace.scss';
 
-const ConnectUserActivityHotPlace = () => {
+const ConnectUserActivityHotPlace = ( hotplaceList ) => {
 
     const [hpData, setHpData] = useState([]);
-    console.log(hpData);
-    useEffect(() => {
-        fetch(API_BASE_URL+'/contents/hot-place', {
-          method: 'GET',
-          headers: {'content-type' : 'application/json'}
-        })
+
+    useEffect(()=>{
+
+        fetch(API_BASE_URL + `/member/mypage/myactive/hotplace`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization' : getLoginUserInfo().token
+            },
+            credentials: 'include'
+        }) 
         .then(res => res.json())
-        .then(result => {
-          const list = [...result.hotplaceList];
-    
-          setHpData(list);
-    
-        });
-    
-      }, []); 
+        .then(response => {
+            setHpData([...response]);
+        })
+
+    }, []);
+
+
+
 
     return (
         <>
@@ -30,7 +36,7 @@ const ConnectUserActivityHotPlace = () => {
                 <div className="user-activity-hot-place-box">
 
                     <div className="uahp-wrapper">
-                        <div className="uahp-box" style={{overflow:'scroll'}} >
+                        <div className="uahp-box">
 
                              {hpData.map(hp => (
         
@@ -53,17 +59,8 @@ const ConnectUserActivityHotPlace = () => {
                         </div>
                     </div>
 
-
-
-
-
-
-
                 </div>
             </div>
-        
-        
-        
         
         
         

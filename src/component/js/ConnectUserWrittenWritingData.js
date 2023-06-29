@@ -6,7 +6,8 @@ const ConnectUserWrittenWritingData = () => {
 
     return (
         <>
-            <div>123</div>
+        {/* TODO : 사용하지 않는 컴포넌트 */}
+            {/* <div>123</div> */}
         </>
     )
 

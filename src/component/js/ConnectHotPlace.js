@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import ConnectCreatePost from './ConnectCreatePost';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 
 import '../scss/ConnectHotPlace.scss';
@@ -14,9 +16,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const [hpData, setHpData] = useState([]);
   // console.log(hpData);
 
-  // 핫플레이스 게시물 누구나 다 볼 수 있게 해야하는데 어떻게해유 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
   const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
-
 
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -216,6 +216,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   
   const handleInputChange = (e) => {
     setSearchText(e.target.value);
+    fetchInitialData();
   };
   
   const handleKeyPress = (e) => {
@@ -348,33 +349,28 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
                             <div className='hp-text-wrapper'>
 
+                              <div className='hp-writer-wrapper'>
+                                <div className='hp-writer-box'>
+                                  <p className='hp-writer-text'>{hp.kakaoLocation}</p>
+                                </div>
+                              </div>
+
                               <div className='hp-text-box'>
                                 <div className='hp-text'>
                                   <p dangerouslySetInnerHTML={{ __html: hp.hotplaceContent }}></p>
                                 </div>
 
                                 <div className='hp-writer-date-box'>
-                                  
                                   <div className='hp-writer-box'>
-                                    <p className='hp-writer-text'>[{hp.memberNickname}]</p>
+                                    <p className='hp-writer-text'><FontAwesomeIcon icon={faUser} className="person-icon" />&nbsp;{hp.memberNickname}</p>
                                   </div>
                                   <div className='hp-date-box'>
-                                    <p className='hp-date-text'>[{hp.hotplaceWriteDate}]</p>
+                                    <p className='hp-date-text'>{hp.hotplaceWriteDate}</p>
                                   </div>
                                 </div>
+
                               </div>
 
-                              <div className='hp-writer-wrapper'>
-                                <div className='hp-writer-box'>
-                                  <p className='hp-writer-text'>[{hp.kakaoLocation}]</p>
-                                </div>
-                                <div className='like-box'>
-                                  <button className='like' id='Like'></button>
-                                  <p className='like-count' onClick={ increase }>{hp.hotplaceLikeCount}</p>
-                                  {/* <p className='like-count' onClick={() => increase(hp.hotplaceId)}>
-                                      {hotplaceLikeCount[hp.hotplaceId] || 0}</p> */}
-                                </div>
-                              </div>
 
                             </div>
                           </div>

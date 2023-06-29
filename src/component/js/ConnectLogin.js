@@ -1,11 +1,13 @@
 
 import React, { useEffect, useState } from 'react'
 import { CookiesProvider, useCookies } from 'react-cookie'
+// import Select from 'react-select';
 
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
 import { getLoginUserInfo, isLogin, setLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
+import { DropDown } from '@grapecity/wijmo.input';
 
 
 const ConnectLogin = () => {
@@ -35,18 +37,59 @@ const ConnectLogin = () => {
     };
 
     const autoHyphen = (e) => {
+
+
+        let msg;
+        let flag;
+        let phoneFlag;
+
+        
         e.target.value = e.target.value
-          .replace(/[^0-9]/g, '')
-          .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
-          .replace(/(\-{1,2})$/g, '');
-
-          let msg;
-          let flag;
-
+        .replace(/[^0-9]/g, '')
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
+        .replace(/(\-{1,2})$/g, '');
+        
+        
+          fetch(API_BASE_URL + '/connects/sign-up/check-phone', {
+              method: 'POST',
+              headers: {
+                  'content-type' : 'application/json'
+                },
+                body: JSON.stringify({phone : e.target.value})
+                
+                
+            })
+            .then(res => {
+                return res.json()
+            })
+            .then(result => 
+                {
+                    console.log(result);
+                    phoneFlag = result;
+                    
+                });
+                
+                
+                // TODO: 아래 중복값 검사 결과 붙여주세용
+                
           if(e.target.value.length < 13) {
             msg = '올바르지 않은 형식입니다'
             flag = false;
+          } else if (!phoneFlag) {
+            msg = '이미 가입된 번호입니다.'
+            flag = false;
+          } else {
+            msg = '사용가능한 번호입니다.'
+            flag = true;
           }
+
+          saveInputState({
+            key: 'phoneNumber',
+            msg,
+            flag
+          });
+
+        
     };
 
 
@@ -419,6 +462,7 @@ const ConnectLogin = () => {
         const $inputLocation = document.getElementById('Input-location');
         const $inputComment = document.getElementById('Input-comment');
 
+        alert(selectedOption);
 
         const res = await fetch(API_BASE_URL + '/connects/sign-up', {
             method: 'POST',
@@ -433,7 +477,7 @@ const ConnectLogin = () => {
                     birthDay: $inputBirthday.value,
                     gender: $inputGender.value,
                     phone: $inputPhone.value,
-                    location: $inputLocation.value,
+                    location: selectedOption,
                     comment: $inputComment.value,
                     loginMethod: "COMMON"
             })
@@ -496,6 +540,8 @@ const ConnectLogin = () => {
             // 서버에서 온 문자열 읽기
             const text = await res.text();
             alert(text);
+            document.getElementById('ID').value = '';
+            document.getElementById('PW').value = '';
             return;
         }
 
@@ -507,19 +553,19 @@ const ConnectLogin = () => {
 
         if(!account) {
             alert('아이디 혹은 비밀번호가 틀렸습니다.');
-            document.getElementById('ID').value='';
+            // document.getElementById('ID').value='';
             document.getElementById('PW').value='';
         } else {
-            setIsLogInTest(true);
             alert('환영합니다!');
+            setIsLogInTest(true);
             const $loginBox = document.querySelector('.login-modal-box');
             const $back = document.querySelector('.backDrop');
-
+            
             if ($loginBox && $back && $loginBox.style.display === 'block') {
                 $loginBox.style.animation = 'closeLoginModal 1s forwards 1';
                 $back.style.display = 'none';
             }
-
+            
             window.location.reload();
         }
 
@@ -609,7 +655,7 @@ const ConnectLogin = () => {
             console.log('중복된 별명입니다!');
         }
 
-        const nameRegex = /^[가-힣]{2,30}$/;
+        const nameRegex = /^[가-힣]{2,5}$/;
         const inputVal = e.target.value;
 
         // 입력값 검증
@@ -620,7 +666,7 @@ const ConnectLogin = () => {
             msg = '별명을 입력해주세요';
             flag = false;
         } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
-            msg = '2 ~ 30자로 작성해주세요';
+            msg = '한글로 2 ~ 5자로 작성해주세요';
             flag = false;
         } else if (!checkNickname) {
             msg = '중복된 별명입니다';
@@ -722,7 +768,23 @@ const ConnectLogin = () => {
         }
 
 
+        
+          
+          const [selectedOption, setSelectedOption] = useState(null);
+          
+          const handleDropdownChange = (selected) => {
+            
+            console.log(selected.value);
 
+            setSelectedOption(selected.value);
+            // 드롭박스 값 변경 시 수행할 동작을 여기에 작성합니다.
+          };
+
+        //   document.addEventListener('keydown', function(event) {
+        //     if (event.key === 'Enter') {
+        //         fetchLogin();
+        //     }
+        // });
 
 
 
@@ -754,13 +816,18 @@ const ConnectLogin = () => {
                                 id='PW'
                                 placeholder='비밀번호'
                                 type={'password'}
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter') {
+                                      fetchLogin();
+                                    }
+                                  }}
                             ></input>
-                            <div className='auto-login-check-box'>
+                            {/* <div className='auto-login-check-box'>`
                                 <div className='auto-login-check'>
                                     <input type='checkbox' className='auto-login'/>
                                     <p className='checkbox-text'>자동로그인</p>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
 
@@ -881,6 +948,7 @@ const ConnectLogin = () => {
                                     className='signin-info-text'
                                     placeholder='비밀번호 확인'
                                     id='Input-second-password'
+                                    type='password'
                                     onChange={ passwordCheckHandler }
                                     ></input>
                                 {message.passwordCheck && (
@@ -946,6 +1014,13 @@ const ConnectLogin = () => {
                                     id='Input-birthday'
                                     onChange={ autoHyphenBirth }
                                 ></input>
+                                {message.birth && (
+                                    <span style={
+                                        correct.birth
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.birth}
+                                </span>)}
                             </li>
                         )}
 
@@ -958,18 +1033,51 @@ const ConnectLogin = () => {
                                     maxLength={13}
                                     onChange={autoHyphen}
                                 ></input>
+                                 {message.phoneNumber && (
+                                    <span style={
+                                        correct.phoneNumber
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.phoneNumber}
+                                </span>)}
                             </li>
                         )}
 
                         {isOpenSignInList && (
-                            <li className='signin-info-list fade-in-h'>
-                                <input
-                                    className='signin-info-text'
-                                    placeholder='지역 ex) 강남구'
-                                    id='Input-location'
-                                    maxLength={20}
-                                ></input>
-                            </li>
+                        <div className='signin-info-list fade-in-h'>
+
+                            <div className='signin-info-text' id='Input-location'>
+                                <div className='select-location-box'>
+                                    <select className='select-location' id='Input-location'>
+                                        <option value={'강남구'} className='select-option' onClick={ handleDropdownChange }><p>강남구</p></option>
+                                        <option value={'강동구'} className='select-option' onClick={ handleDropdownChange }><p>강동구</p></option>
+                                        <option value={'강북구'} className='select-option' onClick={ handleDropdownChange }><p>강북구</p></option>
+                                        <option value={'강서구'} className='select-option' onClick={ handleDropdownChange }><p>강서구</p></option>
+                                        <option value={'관악구'} className='select-option' onClick={ handleDropdownChange }><p>관악구</p></option>
+                                        <option value={'광진구'} className='select-option' onClick={ handleDropdownChange }><p>광진구</p></option>
+                                        <option value={'구로구'} className='select-option' onClick={ handleDropdownChange }><p>구로구</p></option>
+                                        <option value={'금천구'} className='select-option' onClick={ handleDropdownChange }><p>금천구</p></option>
+                                        <option value={'노원구'} className='select-option' onClick={ handleDropdownChange }><p>노원구</p></option>
+                                        <option value={'도봉구'} className='select-option' onClick={ handleDropdownChange }><p>도봉구</p></option>
+                                        <option value={'동대문구'} className='select-option' onClick={ handleDropdownChange }><p>동대문구</p></option>
+                                        <option value={'동작구'} className='select-option' onClick={ handleDropdownChange }><p>동작구</p></option>
+                                        <option value={'마포구'} className='select-option' onClick={ handleDropdownChange }><p>마포구</p></option>
+                                        <option value={'서대문구'} className='select-option' onClick={ handleDropdownChange }><p>서대문구</p></option>
+                                        <option value={'서초구'} className='select-option' onClick={ handleDropdownChange }><p>서초구</p></option>
+                                        <option value={'성동구'} className='select-option' onClick={ handleDropdownChange }><p>성동구</p></option>
+                                        <option value={'성북구'} className='select-option' onClick={ handleDropdownChange }><p>성북구</p></option>
+                                        <option value={'송파구'} className='select-option' onClick={ handleDropdownChange }><p>송파구</p></option>
+                                        <option value={'양천구'} className='select-option' onClick={ handleDropdownChange }><p>양천구</p></option>
+                                        <option value={'영등포구'} className='select-option' onClick={ handleDropdownChange }><p>영등포구</p></option>
+                                        <option value={'용산구'} className='select-option' onClick={ handleDropdownChange }><p>용산구</p></option>
+                                        <option value={'은평구'} className='select-option' onClick={ handleDropdownChange }><p>은평구</p></option>
+                                        <option value={'종로구'} className='select-option' onClick={ handleDropdownChange }><p>종로구</p></option>
+                                        <option value={'중구'} className='select-option' onClick={ handleDropdownChange }><p>중구</p></option>
+                                        <option value={'중랑구'} className='select-option' onClick={ handleDropdownChange }><p>중랑구</p></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         )}
 
                         {isOpenSignInList && (

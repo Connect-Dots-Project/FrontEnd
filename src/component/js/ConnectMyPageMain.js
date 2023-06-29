@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import ConnectUserSettingLocation from './ConnectUserSettingLocation';
 import ConnectUserLike from './ConnectUserLike';
@@ -7,9 +8,12 @@ import ConnectUserActivity from './ConnectUserActivity';
 import { API_BASE_URL } from '../../config/host-config';
 import '../scss/ConnectMyPageMain.scss';
 import { async } from 'q';
+import { getLoginUserInfo } from '../../util/login-util';
+import ConnectUserActivityFreeBoardLike from './ConnectUserActivityFreeBoardLike';
 
 const ConnectMyPageMain = () => {
 
+    const navigate = useNavigate();
     const [isOpenActivity, setIsOpenActivity] = useState(false);    
     const [isOpenLike, setIsOpenLike] = useState(false);    
 
@@ -18,6 +22,62 @@ const ConnectMyPageMain = () => {
 
     const [imgFile, setImgFile] = useState(null);
     const $fileTag = useRef();
+
+
+
+    const [memberAccount, setMemberAccount] = useState('');
+    const [memberBirth, setMemberBirth] = useState('');
+    const [memberComment, setMemberCommnet] = useState('');
+    const [memberGender, setMemberGender] = useState('');
+    const [memberNickname, setMemberNickname] = useState('');
+    const [memberProfile, setMemberProfile] = useState('');
+
+    const [hotplaceList, setHotplaceList] = useState([]);
+    
+
+
+    useEffect(() => {
+
+        // TODO fetch 보내서 회원정보 가져오기
+        fetch(API_BASE_URL + `/member/mypage`, {
+            method: 'GET',
+            headers: {
+              'content-type': 'application/json',
+              'Authorization' : getLoginUserInfo().token
+            },
+            credentials: 'include'
+          })
+            .then((res) => {
+
+                if(res.status === 401) {
+                    alert('로그인한 회원만 이용하실 수 있습니다');
+                    handleAlertConfirm();
+                    return;
+                }
+
+                return res.json();
+
+            })
+            .then((result) => {
+
+                setMemberAccount(result.memberAccount);
+                setMemberBirth(result.memberBirth);
+                setMemberCommnet(result.memberComment);
+                setMemberGender(result.membeGender);
+                setMemberNickname(result.memberNickname);
+                setMemberProfile(result.memberProfile);
+            });
+
+
+    },[]);
+
+    const handleAlertConfirm = () => {
+        // "/" 경로로 리다이렉트합니다.
+        if(window.location.href !== '/') {
+          navigate('/');
+          // setLoginModalVisible(true);
+        }
+      };
 
 
     // 이미지파일을 선택했을 때 썸네일 뿌리는 핸들러
@@ -80,26 +140,21 @@ const ConnectMyPageMain = () => {
 
     const getHotPlace = () => {
 
-        const myToken = localStorage.getItem('Authorization');
-        console.log(myToken);
+
+        // TODO : 핫플레이스 최초 접속
 
         fetch(API_BASE_URL + `/member/mypage/myactive/hotplace`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
-                'Authorization' : myToken
+                'Authorization' : getLoginUserInfo().token
             },
             credentials: 'include'
         }) 
         .then(res => res.json())
         .then(response => {
-            console.log(response);
+            setHotplaceList([...response]);
         })
-
-
-
-
-
 
 
     };  
@@ -157,7 +212,7 @@ const ConnectMyPageMain = () => {
 
                                                     <div className="thumbnail-box" onClick={() => $fileTag.current.click()}>
                                                         <img
-                                                        src={imgFile ? imgFile : require('../scss/img/ConnectDots.png')}
+                                                        src={memberProfile}
                                                         style={{width:'137px', height:'137px', borderRadius: '50%', objectFit: 'cover',}}
                                                         alt="profile"
                                                         />
@@ -193,16 +248,7 @@ const ConnectMyPageMain = () => {
                                                 <p>아이디</p>
                                             </div>    
                                             <div className='list-value'>
-                                                <p>aaa@naver.com</p>
-                                            </div>
-                                        </div>
-                                        <div className='uim-info-list'>
-                                            <div className='list-key' id='PW'>
-                                                <p>비밀번호</p>
-                                            </div>    
-                                            <div className='list-value'>
-                                                <p>1차확인</p>
-                                                <p>2차확인</p>
+                                                <p>{memberAccount}</p>
                                             </div>
                                         </div>
                                         <div className='uim-info-list'>
@@ -218,7 +264,7 @@ const ConnectMyPageMain = () => {
                                                 <p>성별</p>
                                             </div>    
                                             <div className='list-value'>
-                                                <p>[남 / 여]</p>
+                                                {memberGender === 'M' ? <p>남</p> : <p>여</p>}
                                             </div>
                                         </div>
                                         <div className='uim-info-list'>
@@ -226,7 +272,7 @@ const ConnectMyPageMain = () => {
                                                 <p>생년월일</p>
                                             </div>    
                                             <div className='list-value'>
-                                                <p>[2023.06.24]</p>
+                                                <p>{memberBirth}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -256,7 +302,7 @@ const ConnectMyPageMain = () => {
 
 
 
-
+        {/* TODO  */}
 
 
         <div id='MyPageMainWrapper'>
@@ -273,22 +319,11 @@ const ConnectMyPageMain = () => {
                                     <div className='mp-user-profile-modify-box'>
                                         <div className='mp-user-profile-box'>
                                             <div className='mp-user-profile'>
-
                                                         <img
-                                                        src={imgFile ? imgFile : require('../scss/img/ConnectDots.png')}
+                                                        src={memberProfile}
                                                         style={{width:'137px', height:'137px', borderRadius: '50%', objectFit: 'cover',}}
                                                         alt="profile"
                                                         />
-                                                
-
-
-
-
-
-
-
-
-
                                             </div>
                                         </div>
                                         <div className='mp-user-modify-profile'>
@@ -305,10 +340,10 @@ const ConnectMyPageMain = () => {
 
                                     <div className='mp-user-info-text-box'>
                                         <div className='mp-user-info-main-text'>
-                                            <p>반갑습니다 []님</p>
+                                            <p>반갑습니다. {memberNickname} 님</p>
                                         </div>
                                         <div className='mp-user-info-comments'>
-                                            <p>코멘트코멘트코멘트</p>
+                                            <p>{memberComment}</p>
                                         </div>
                                     </div>
 
@@ -353,11 +388,10 @@ const ConnectMyPageMain = () => {
                     <div className='mp-change-menu-wrapper'>
                         <div className='mp-change-menu-box'>
                             <div className='mp-change-menu'>
-
                                 {isOpenActivity && <ConnectUserActivity />}
-                                {isOpenLike && <ConnectUserLike />}
+                                {/* {isOpenLike && <ConnectUserLike />} */}
+                                {isOpenLike && <ConnectUserActivityFreeBoardLike />}
                                 {isOpenLocation && <ConnectUserSettingLocation />}
-                                
                             </div>
                         </div>
                     </div>
