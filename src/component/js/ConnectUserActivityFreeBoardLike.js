@@ -5,7 +5,7 @@ import '../scss/ConnectUserActivityFreeBoard.scss';
 import { getLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from "../../config/host-config";
 
-const ConnectUserActivityFreeBoard = () => {
+const ConnectUserActivityFreeBoardLike = () => {
   
   const [freeboardItems, setfreeboardItems] = useState([]);
 
@@ -21,6 +21,7 @@ const ConnectUserActivityFreeBoard = () => {
       }) 
       .then(res => res.json())
       .then(response => {
+          console.log(response);
           setfreeboardItems([...response]);
       })
 
@@ -39,16 +40,16 @@ const ConnectUserActivityFreeBoard = () => {
                 {freeboardItems.map((item, index) => (
                     <div className="user-info-list" key={index}>
                         <div className="ui-category">
-                            <p>{item.freeBoardCategory}</p>
+                            <p>{item.category}</p>
                         </div>
                         <div className="ui-location">
-                            <p>{item.freeBoardLocation}</p>
+                            <p>{item.location}</p>
                         </div>
                         <div className="ui-title">
-                            <p>{item.freeBoardTitle}</p>
+                            <p>{item.title}</p>
                         </div>
                         <div className="ui-date">
-                            <p>{item.freeBoardWriteDate}</p>
+                            <p>{item.writeTime}</p>
                         </div>
                     </div>
                         ))}
@@ -70,4 +71,4 @@ const ConnectUserActivityFreeBoard = () => {
 
 };
 
-export default ConnectUserActivityFreeBoard
+export default ConnectUserActivityFreeBoardLike
