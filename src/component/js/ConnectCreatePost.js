@@ -12,6 +12,8 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
   const [isCreateModal, setCreateModal] = useState(true);
 
+  const MAX_CHARACTER_COUNT = 60; // 최대 글자 수
+
   // 초기값 설정
   const [hotplaceImg, setHotplaceImg] = useState('');
   const [hotplaceContent, setHotplaceContent] = useState('');
@@ -86,6 +88,11 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   
     if (selectedLocation !== kakaoLocation) {
       alert('행정구역과 지도의 장소가 일치하지 않습니다.');
+      return;
+    }
+    
+    if (hotplaceContent.length > MAX_CHARACTER_COUNT) {
+      alert('글자 수가 60자를 초과했습니다.');
       return;
     }
 

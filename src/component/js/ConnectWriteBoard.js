@@ -7,13 +7,25 @@ const ConnectWriteBoard = ({ setHotplaceContent, setHotplaceImg }) => {
   const [imgFile, setImgFile] = useState(null);
   const $fileTag = useRef();
 
+  const MAX_CHARACTER_COUNT = 60; // 최대 글자 수
+  const [currentCharacterCount, setCurrentCharacterCount] = useState(0); // 현재 글자 수
 
   const handleEditorChange = (event) => {
     const updatedContent = event.editor.getData();
     setContent(updatedContent);
     setHotplaceContent(updatedContent);
+    setCurrentCharacterCount(updatedContent.length);
+
+    // console.log(updatedContent.length);
+
+    if (updatedContent.length > MAX_CHARACTER_COUNT) {
+      alert('최대 글자수는 60글자입니다!');
+      return;
+    }
+    
   };
 
+ 
   const showHotplaceHandler = e => {
     const file = $fileTag.current.files[0];
     setHotplaceImg(file);
