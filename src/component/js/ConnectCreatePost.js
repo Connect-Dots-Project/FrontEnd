@@ -25,7 +25,9 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   const [selectedLocation, setSelectedLocation] = useState('');
 
 
+
   const handleLocationClick = (location) => {
+    console.log(location);
     setSelectedLocation(location);
   };
 
@@ -126,8 +128,13 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
         credentials: 'include',
         body: hotplaceFormData,
       })
-        .then((res) => res.json())
-        .then((result) => console.log(result));
+        .then((res) => {
+          return res.json();
+        })
+        .then((result) => {
+          // TODO : 수정 완료 or 미완료 그대로
+          window.location.reload();
+        });
 
         
     } else {
@@ -139,17 +146,22 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
         credentials: 'include',
         body: hotplaceFormData,
       })
-        .then((res) => res.json())
+        .then((res) => {
+          return res.json();
+        })
         .then((result) => {
+          
           if (result.isWrite) {
             alert('저장되었습니다.');
+            window.location.reload();
           } else {
             alert('저장에 실패했습니다.');
+            window.location.reload();
           }
         })
     }
 
-    window.location.reload();
+    
   };
 
   return (
