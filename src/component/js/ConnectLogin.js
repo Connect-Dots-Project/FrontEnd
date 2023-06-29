@@ -499,6 +499,8 @@ const ConnectLogin = () => {
             // 서버에서 온 문자열 읽기
             const text = await res.text();
             alert(text);
+            document.getElementById('ID').value = '';
+            document.getElementById('PW').value = '';
             return;
         }
 
@@ -510,19 +512,19 @@ const ConnectLogin = () => {
 
         if(!account) {
             alert('아이디 혹은 비밀번호가 틀렸습니다.');
-            document.getElementById('ID').value='';
+            // document.getElementById('ID').value='';
             document.getElementById('PW').value='';
         } else {
-            setIsLogInTest(true);
             alert('환영합니다!');
+            setIsLogInTest(true);
             const $loginBox = document.querySelector('.login-modal-box');
             const $back = document.querySelector('.backDrop');
-
+            
             if ($loginBox && $back && $loginBox.style.display === 'block') {
                 $loginBox.style.animation = 'closeLoginModal 1s forwards 1';
                 $back.style.display = 'none';
             }
-
+            
             window.location.reload();
         }
 
@@ -725,33 +727,7 @@ const ConnectLogin = () => {
         }
 
 
-        const [dropdownOptions, setDropdownOptions] = useState(
-        [{ value: '강남구', label: '강남구' },
-         { value: '강동구', label: '강동구' },  
-         { value: '강북구', label: '강북구' },
-         { value: '강서구', label: '강서구' },  
-         { value: '관악구', label: '관악구' },  
-         { value: '광진구', label: '광진구' },  
-         { value: '구로구', label: '구로구' }, 
-         { value: '금천구', label: '금천구' }, 
-         { value: '노원구', label: '노원구' },  
-         { value: '도봉구', label: '도봉구' },  
-         { value: '동대문구', label: '동대문구' },  
-         { value: '동작구', label: '동작구' }, 
-         { value: '마포구', label: '마포구' },  
-         { value: '서대문구', label: '서대문구' }, 
-         { value: '서초구', label: '서초구' }, 
-         { value: '성동구', label: '성동구' }, 
-         { value: '성북구', label: '성북구' }, 
-         { value: '송파구', label: '송파구' }, 
-         { value: '양천구', label: '양천구' }, 
-         { value: '영등포구', label: '영등포구' },
-         { value: '용산구', label: '용산구' }, 
-         { value: '은평구', label: '은평구' }, 
-         { value: '종로구', label: '종로구' },
-         { value: '중구', label: '중구' }, 
-         { value: '중랑구', label: '중랑구' }]
-        );
+        
           
           const [selectedOption, setSelectedOption] = useState(null);
           
@@ -759,12 +735,15 @@ const ConnectLogin = () => {
             
             console.log(selected.value);
 
-
-
             setSelectedOption(selected.value);
             // 드롭박스 값 변경 시 수행할 동작을 여기에 작성합니다.
           };
 
+        //   document.addEventListener('keydown', function(event) {
+        //     if (event.key === 'Enter') {
+        //         fetchLogin();
+        //     }
+        // });
 
 
 
@@ -796,6 +775,11 @@ const ConnectLogin = () => {
                                 id='PW'
                                 placeholder='비밀번호'
                                 type={'password'}
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter') {
+                                      fetchLogin();
+                                    }
+                                  }}
                             ></input>
                             {/* <div className='auto-login-check-box'>`
                                 <div className='auto-login-check'>
@@ -923,6 +907,7 @@ const ConnectLogin = () => {
                                     className='signin-info-text'
                                     placeholder='비밀번호 확인'
                                     id='Input-second-password'
+                                    type='password'
                                     onChange={ passwordCheckHandler }
                                     ></input>
                                 {message.passwordCheck && (
@@ -1009,31 +994,31 @@ const ConnectLogin = () => {
                             <div className='signin-info-text' id='Input-location'>
                                 <div className='select-location-box'>
                                     <select className='select-location' id='Input-location'>
-                                        <option value={'강남구'} className='select-option'><p>강남구</p></option>
-                                        <option value={'강동구'} className='select-option'><p>강동구</p></option>
-                                        <option value={'강북구'} className='select-option'><p>강북구</p></option>
-                                        <option value={'강서구'} className='select-option'><p>강서구</p></option>
-                                        <option value={'관악구'} className='select-option'><p>관악구</p></option>
-                                        <option value={'광진구'} className='select-option'><p>광진구</p></option>
-                                        <option value={'구로구'} className='select-option'><p>구로구</p></option>
-                                        <option value={'금천구'} className='select-option'><p>금천구</p></option>
-                                        <option value={'노원구'} className='select-option'><p>노원구</p></option>
-                                        <option value={'도봉구'} className='select-option'><p>도봉구</p></option>
-                                        <option value={'동대문구'} className='select-option'><p>동대문구</p></option>
-                                        <option value={'동작구'} className='select-option'><p>동작구</p></option>
-                                        <option value={'마포구'} className='select-option'><p>마포구</p></option>
-                                        <option value={'서대문구'} className='select-option'><p>서대문구</p></option>
-                                        <option value={'서초구'} className='select-option'><p>서초구</p></option>
-                                        <option value={'성동구'} className='select-option'><p>성동구</p></option>
-                                        <option value={'성북구'} className='select-option'><p>성북구</p></option>
-                                        <option value={'송파구'} className='select-option'><p>송파구</p></option>
-                                        <option value={'양천구'} className='select-option'><p>양천구</p></option>
-                                        <option value={'영등포구'} className='select-option'><p>영등포구</p></option>
-                                        <option value={'용산구'} className='select-option'><p>용산구</p></option>
-                                        <option value={'은평구'} className='select-option'><p>은평구</p></option>
-                                        <option value={'종로구'} className='select-option'><p>종로구</p></option>
-                                        <option value={'중구'} className='select-option'><p>중구</p></option>
-                                        <option value={'중랑구'} className='select-option'><p>중랑구</p></option>
+                                        <option value={'강남구'} className='select-option' onClick={ handleDropdownChange }><p>강남구</p></option>
+                                        <option value={'강동구'} className='select-option' onClick={ handleDropdownChange }><p>강동구</p></option>
+                                        <option value={'강북구'} className='select-option' onClick={ handleDropdownChange }><p>강북구</p></option>
+                                        <option value={'강서구'} className='select-option' onClick={ handleDropdownChange }><p>강서구</p></option>
+                                        <option value={'관악구'} className='select-option' onClick={ handleDropdownChange }><p>관악구</p></option>
+                                        <option value={'광진구'} className='select-option' onClick={ handleDropdownChange }><p>광진구</p></option>
+                                        <option value={'구로구'} className='select-option' onClick={ handleDropdownChange }><p>구로구</p></option>
+                                        <option value={'금천구'} className='select-option' onClick={ handleDropdownChange }><p>금천구</p></option>
+                                        <option value={'노원구'} className='select-option' onClick={ handleDropdownChange }><p>노원구</p></option>
+                                        <option value={'도봉구'} className='select-option' onClick={ handleDropdownChange }><p>도봉구</p></option>
+                                        <option value={'동대문구'} className='select-option' onClick={ handleDropdownChange }><p>동대문구</p></option>
+                                        <option value={'동작구'} className='select-option' onClick={ handleDropdownChange }><p>동작구</p></option>
+                                        <option value={'마포구'} className='select-option' onClick={ handleDropdownChange }><p>마포구</p></option>
+                                        <option value={'서대문구'} className='select-option' onClick={ handleDropdownChange }><p>서대문구</p></option>
+                                        <option value={'서초구'} className='select-option' onClick={ handleDropdownChange }><p>서초구</p></option>
+                                        <option value={'성동구'} className='select-option' onClick={ handleDropdownChange }><p>성동구</p></option>
+                                        <option value={'성북구'} className='select-option' onClick={ handleDropdownChange }><p>성북구</p></option>
+                                        <option value={'송파구'} className='select-option' onClick={ handleDropdownChange }><p>송파구</p></option>
+                                        <option value={'양천구'} className='select-option' onClick={ handleDropdownChange }><p>양천구</p></option>
+                                        <option value={'영등포구'} className='select-option' onClick={ handleDropdownChange }><p>영등포구</p></option>
+                                        <option value={'용산구'} className='select-option' onClick={ handleDropdownChange }><p>용산구</p></option>
+                                        <option value={'은평구'} className='select-option' onClick={ handleDropdownChange }><p>은평구</p></option>
+                                        <option value={'종로구'} className='select-option' onClick={ handleDropdownChange }><p>종로구</p></option>
+                                        <option value={'중구'} className='select-option' onClick={ handleDropdownChange }><p>중구</p></option>
+                                        <option value={'중랑구'} className='select-option' onClick={ handleDropdownChange }><p>중랑구</p></option>
                                     </select>
                                 </div>
                             </div>

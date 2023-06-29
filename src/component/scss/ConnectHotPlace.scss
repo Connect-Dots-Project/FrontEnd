@@ -48,13 +48,16 @@ body {
     }
 }
 
-
+.hp-wrapper::-webkit-scrollbar {
+    display: none;
+}
 
 // hp-wrapper
 .hp-wrapper {
     width: 100%;
-    height: 100%;
+    height: 785px;
     margin: 0 auto;
+    overflow: scroll;
     
     .hp-info-header {
         width: 100%;
