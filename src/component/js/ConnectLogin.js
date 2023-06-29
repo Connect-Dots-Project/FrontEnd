@@ -797,7 +797,7 @@ const ConnectLogin = () => {
                                 placeholder='비밀번호'
                                 type={'password'}
                             ></input>
-                            {/* <div className='auto-login-check-box'>
+                            {/* <div className='auto-login-check-box'>`
                                 <div className='auto-login-check'>
                                     <input type='checkbox' className='auto-login'/>
                                     <p className='checkbox-text'>자동로그인</p>

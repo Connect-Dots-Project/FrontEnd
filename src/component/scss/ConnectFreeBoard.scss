@@ -8,20 +8,20 @@
 // 세부 게시판
 #Inner-Free-Board-Wrapper {
     background: #eeefff;
-    width: 800px;
-    height: 1018px;
+    width: 600px;
+    height: 800px;
 
     position: absolute;
-    top: 23%;
-    left: 8%;
+    top: 17.5%;
+    left: 18%;
     transform: translate(-50%, -50%);
 
     z-index: 2;
 
     #InnerRightFreeBoardWrapper {
         background: #eeefff;
-        width: 800px;
-        height: 1018px;
+        width: 600px;
+        height: 800px;
 
         position: absolute;
         top: 0;
@@ -61,7 +61,7 @@
                 // display: flex;
                 // flex-wrap: wrap;
                 overflow: scroll;
-
+                
                 .guest-reply-info-box {
                     width: 100%;
                     height: 20%;
@@ -72,13 +72,13 @@
                         width: 20%;
                         height: 100%;
                         justify-content: center;
-
+                        
                         .profile-box {
                             width: 100%;
                             height: 80%;
                             @include disflex();
                         }
-
+                        
                         .guest-profile {
                             border: 1px solid #000;
                             background: none;
@@ -131,24 +131,25 @@
                     height: 100%;
                     margin: 0 auto;
                     @include disflex();
-
+                    
                     .user-img-box {
                         width: 13%;
                         height: 100%;
                         @include disflex();
-
+                        
                         .user-img {
                             border: 1px solid #000;
                             border-radius: 50%;
                             width: 60px;
                             height: 60px;
+                            overflow: hidden;
                         }
                     }
-
+                    
                     .user-reply-register-box {
                         width: 70%;
                         height: 100%;
-
+                        
                         .reply-input {
                             border: none;
                             background: none;

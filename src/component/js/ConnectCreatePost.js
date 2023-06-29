@@ -148,7 +148,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
     <>
       {isCreateModal && (
         <div className='create-post-wrappers' id='CreatePostModals'>
-          <button className='ctp-close-btn' onClick={closeModal}>X</button>
+          
 
             <div className='header-main-footer-boxes'>
               <header className='ctp-header-wrappers'>
@@ -181,6 +181,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
             <div className='ctp-footer'>
 
           <footer className='ctp-footer-wrappers'>
+          <button className='ctp-close-btn' onClick={closeModal}>X</button>
             <div className='ctp-footer-text-api-boxes'>
               <div className='ctp-footer-text-boxes'>
                 <p>장소를 선택해주세요</p>
