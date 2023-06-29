@@ -907,6 +907,7 @@ const ConnectLogin = () => {
                                     className='signin-info-text'
                                     placeholder='비밀번호 확인'
                                     id='Input-second-password'
+                                    type='password'
                                     onChange={ passwordCheckHandler }
                                     ></input>
                                 {message.passwordCheck && (

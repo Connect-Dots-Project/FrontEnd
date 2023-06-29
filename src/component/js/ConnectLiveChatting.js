@@ -516,7 +516,10 @@ const recvMessage = (recv) => {
         <div className='close-btn-box'>
           <button id='closeBtn' onClick={ closeChattingRoom }></button>
         </div>
-        <div className='lcheader-accessor'>{localStorage.getItem('content')}</div>
+        <div className='lcheader-accessor'>'{localStorage.getItem('content')}' 님의 구역</div>
+
+
+
       </div>
     </div>
 
