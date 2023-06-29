@@ -335,7 +335,7 @@ body {
                 }
                 
                 .hp-text-wrapper {
-                    border-top: 1px dashed #1465ad;
+                    // border-top: 1px dashed #1465ad;
                     width: 100%;
                     height: 30%;    
                     display: flex;
@@ -347,11 +347,13 @@ body {
                         height: 100%;
                         
                         .hp-text {
+                            // border: 1px solid #000;
+                            // background: pink;
                             width: 95%;
-                            height: 50%;
-                            font-size: 16px;
-                            font-weight: 700;
-                            border-bottom: 1px dashed #1465ad;
+                            height: 55%;
+                            font-size: 15px;
+                            // font-weight: 700;
+                            // border-bottom: 1px dashed #1465ad;
                             @include disflex();
                         }
                         
@@ -366,12 +368,16 @@ body {
                                 @include disflex();
                                 
                                 .hp-writer-text {
+                                    // border: 1px solid #000;
+                                    // background: #999;
+                                    margin: 20px;
                                     width: 100%;
-                                    height: 100%;
+                                    height: 60%;
                                     font-size: 16px;
                                     font-weight: 700;
                                     display: flex;
                                     justify-content: left;
+                                    // justify-content: center;
                                     align-items: center;
                                     @include disflex();
                                 }
@@ -383,29 +389,35 @@ body {
                                 @include disflex();
                                 
                                 .hp-date-text {
+                                    // border: 1px solid #000;
+                                    // background: red;
                                     width: 100%;
-                                    height: 100%;
+                                    height: 60%;
                                     font-size: 16px;
                                     font-weight: 700;
                                     display: flex;
-                                    justify-content: left;
+                                    justify-content: center;
                                     align-items: center;
                                 }
                             }
                         }
                     }
                     .hp-writer-wrapper {
+                        // border: 1px solid #000;
+                        // background: orange;
+                        background-color: #bad5f0e0;
+                        box-shadow: 1px 1px 2px 1px #999;
+                        border-radius: 5%;
                         width: 25%;
-                        height: 100%;
-                        border-left: 1px dashed #1465ad;
-
+                        margin: 20px 10px;
+                        
                         .hp-writer-box {
                             width: 100%;
-                            height: 50%;
+                            height: 100%;
                             @include disflex();
-
+                            
                             p {
-                                font-size: 16px;
+                                font-size: 18px;
                                 font-weight: 700;
                             }
                         }

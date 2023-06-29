@@ -92,6 +92,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
     const requestData = {
       location: selectedLocation,
+      memberIdx: MyToken,
       hotplaceContent,
       hotplaceLatitude,
       hotplaceLongitude,
