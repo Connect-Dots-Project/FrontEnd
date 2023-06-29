@@ -98,6 +98,12 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
     const fbDelete = () => {
 
+      const isDelete = window.confirm('정말 삭제하시겠습니까?');
+
+      if(!isDelete){
+        return;
+      }
+
       const url = API_BASE_URL + '/contents/free-board/' + freeBoardIdx;
 
       fetch(url, {

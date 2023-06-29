@@ -88,13 +88,18 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isOpenWriteBoard, setIsOpenWriteBoard] = useState(false);
 
   const openWriteBoard = () => {
-    console.log(localStorage.getItem('ACCESS_TOKEN'));
 
     if(getLoginUserInfo().token === null) {
       alert('로그인한 회원만 이용하실 수 있습니다');
       return;
     }
-    alert("글을 작성하시겠습니까?");
+    
+    const isWrite = window.confirm('글을 작성하시겠습니까?');
+
+    if (!isWrite) {
+      return;
+    }
+
     setIsOpenWriteBoard(true);
   };
 
