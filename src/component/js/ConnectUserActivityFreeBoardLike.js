@@ -11,7 +11,7 @@ const ConnectUserActivityFreeBoard = () => {
 
   useEffect(()=>{
 
-      fetch(API_BASE_URL + `/member/mypage/myactive/freeboard`, {
+      fetch(API_BASE_URL + `/member/mypage/myactive/freeboard/like`, {
           method: 'GET',
           headers: {
               'content-type': 'application/json',

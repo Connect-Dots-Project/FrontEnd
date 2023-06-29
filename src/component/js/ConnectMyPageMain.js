@@ -30,6 +30,8 @@ const ConnectMyPageMain = () => {
     const [memberGender, setMemberGender] = useState('');
     const [memberNickname, setMemberNickname] = useState('');
     const [memberProfile, setMemberProfile] = useState('');
+
+    const [hotplaceList, setHotplaceList] = useState([]);
     
 
 
@@ -137,7 +139,8 @@ const ConnectMyPageMain = () => {
 
     const getHotPlace = () => {
 
-        alert('gg');
+
+        // TODO : 핫플레이스 최초 접속
 
         fetch(API_BASE_URL + `/member/mypage/myactive/hotplace`, {
             method: 'GET',
@@ -149,7 +152,7 @@ const ConnectMyPageMain = () => {
         }) 
         .then(res => res.json())
         .then(response => {
-            console.log(response);
+            setHotplaceList([...response]);
         })
 
 

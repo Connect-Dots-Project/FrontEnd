@@ -11,7 +11,7 @@ const ConnectUserActivityFreeBoard = () => {
 
   useEffect(()=>{
 
-      fetch(API_BASE_URL + `/member/mypage/myactive/freeboard`, {
+      fetch(API_BASE_URL + `/member/mypage/myactive/freeboard/reply`, {
           method: 'GET',
           headers: {
               'content-type': 'application/json',
@@ -21,6 +21,7 @@ const ConnectUserActivityFreeBoard = () => {
       }) 
       .then(res => res.json())
       .then(response => {
+          console.log(response);
           setfreeboardItems([...response]);
       })
 
@@ -39,16 +40,19 @@ const ConnectUserActivityFreeBoard = () => {
                 {freeboardItems.map((item, index) => (
                     <div className="user-info-list" key={index}>
                         <div className="ui-category">
-                            <p>{item.freeBoardCategory}</p>
+                            <p>{item.category}</p>
                         </div>
                         <div className="ui-location">
-                            <p>{item.freeBoardLocation}</p>
+                            <p>{item.location}</p>
                         </div>
                         <div className="ui-title">
                             <p>{item.freeBoardTitle}</p>
                         </div>
                         <div className="ui-date">
-                            <p>{item.freeBoardWriteDate}</p>
+                            <p>{item.freeBoardWriteTime}</p>
+                        </div>
+                        <div className="ui-date">
+                            <p>여기가 댓글 내용임 피그마 참조해서 수정{item.content}</p>
                         </div>
                     </div>
                         ))}

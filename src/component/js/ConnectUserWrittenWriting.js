@@ -28,7 +28,6 @@ const ConnectUserWrittenWriting = () => {
                     <p>내가 쓴 글</p>
                 </div>
             </div>
-            {isOpenWrittenWriting && <ConnectUserWrittenWritingData />}
         </>
     )
 
