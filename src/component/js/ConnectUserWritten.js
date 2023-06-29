@@ -12,6 +12,7 @@ const ConnectUserWritten = ({ isOpenHotPlace, isOpenFreeBoard }) => {
         <>
             <div className='ua-header-user-written-box'>
                 <div className='user-written-info-box'>
+                    
                     {isOpenHotPlace && <ConnectUserWrittenWriting /> }
                     {isOpenFreeBoard && 
                         <>  
