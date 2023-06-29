@@ -108,7 +108,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
           body: freeBoardFormData
         })
           .then((res) => res.json())
-          .then((result) => console.log(result));
+          .then((result) => {});
       } else {
         fetch(API_BASE_URL + '/contents/free-board', {
           method: 'POST',
@@ -119,7 +119,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
           body: freeBoardFormData
         })
           .then((res) => res.json())
-          .then((result) => console.log(result.isWrite));
+          .then((result) => {});
       }
   
       window.location.reload();

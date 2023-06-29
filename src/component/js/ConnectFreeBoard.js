@@ -141,7 +141,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
           return res.json();
         }
       })
-      .then(result => console.log(result));
+      .then(result => {});
 
     window.location.reload();
   };
