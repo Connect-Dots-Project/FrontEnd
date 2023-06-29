@@ -179,6 +179,10 @@
                         width: 100%;
                         height: 100%;
 
+                        .store-info-list-box::-webkit-scrollbar {
+                            display: none;
+                        }
+
                         .store-info-list-box {
                             width: 95%;
                             height: 100%;

@@ -208,7 +208,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
                 </button>
               </div>
             </div>
-            <ul className="fbh-best-info-box">
+            {/* <ul className="fbh-best-info-box">
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
                   <p className="fbh-best-info-text">삭제 예정</p>
@@ -234,7 +234,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
                   <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
-            </ul>
+            </ul> */}
           </header>
 
           <div

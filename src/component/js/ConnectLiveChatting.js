@@ -373,32 +373,10 @@ const recvMessage = (recv) => {
   
     
 
-  const [isOpenWriteInput, setIsOpenWriteInput] = useState(false);
-
-  const clickTag = e => {
-    
-    setIsOpenWriteInput(!isOpenWriteInput);
-  };
 
 
-const inputTagRef = useRef(null);
-const inputBtnRef = useRef(null);
-const inputBtnTextRef = useRef(null);
 
-useEffect(() => {
-  const inputTag = inputTagRef.current;
-  const inputBtn = inputBtnRef.current;
-  const inputBtnText = inputBtnTextRef.current;
 
-  if (isOpenWriteInput && inputTag && inputBtn) {
-    inputTag.style.display = 'block';
-    inputTag.style.animation = 'openClickTagBtn 0.5s forwards 1';
-    inputBtn.style.animation = 'openTag 1s forwards 1';
-    inputBtn.style.background = '#fff';
-    inputBtnText.style.color = '#1465ad';
-    inputBtnText.style.fontWeight = '700';
-  } 
-}, [isOpenWriteInput]);
 
 
 
@@ -413,19 +391,17 @@ useEffect(() => {
 
         <div className='wc-header'>
           <div className='wc-tag-box'>
-            <button id='ClickTag' onClick={ clickTag } ref={inputBtnRef}>
-              <p ref={inputBtnTextRef}>#</p>
+            <button id='ClickTag'>
+              <p>#</p>
             </button>
 
-            {isOpenWriteInput && (
               <input 
-              className='wc-tag' 
-              id='Input-Tag'
-              placeholder='태그를 적어주세요'
-              value={inputHashtag}
-              onChange={inputHashtagHandler}
-              ref={inputTagRef}/>
-            )}
+                className='wc-tag' 
+                id='Input-Tag'
+                placeholder='태그를 적어주세요'
+                // value={inputHashtag}
+                // onChange={inputHashtagHandler}
+              />
 
           </div>
         </div>

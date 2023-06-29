@@ -193,10 +193,10 @@ body {
 
                 .id-pw-box {
                     width: 100%;
-                    height: 60%;
+                    height: 50%;
                     margin-bottom: 30px;
                     text-align: center;
-
+                    
                     // 입력창
                     .inputBox {
                         background: none;
@@ -208,7 +208,7 @@ body {
                         padding-left: 2%;
                         margin-top: 15px;
                         font-size: 16px;
-
+                        
                         &:focus {
                             outline: none;
                         }
@@ -217,57 +217,57 @@ body {
                             border: 1px solid #fff;
                             opacity: 0.8;
                         }
-
+                        
                         &::placeholder {
                             color: #fff;
                             opacity: 0.7;
                         }
                     }
 
-                    // 자동로그인
-                    .auto-login-check-box {
-                        width: 100%;
-                        height: 85px;
-                        margin: 0 auto;
+                    // // 자동로그인
+                    // .auto-login-check-box {
+                        //     width: 100%;
+                        //     height: 85px;
+                        //     margin: 0 auto;
+                        
+                        //     .auto-login-check {
+                            //         width: 86%;
+                    //         height: 90%;
+                    //         margin: 0 auto;
 
-                        .auto-login-check {
-                            width: 86%;
-                            height: 90%;
-                            margin: 0 auto;
+                    //         display: flex;
+                    //         justify-content: left;
+                    //         align-items: center;
+                    
+                    //         .auto-login {
+                        //             margin-right: 5px;
+                        //             width: 20px;
+                        //             height: 20px;
+                    //         }
 
-                            display: flex;
-                            justify-content: left;
-                            align-items: center;
-
-                            .auto-login {
-                                margin-right: 5px;
-                                width: 20px;
-                                height: 20px;
-                            }
-
-                            .checkbox-text {
-                                color: #fff;
-                                font-size: 16px;
-                            }
-
-                        }
-
-                    }
-
+                    //         .checkbox-text {
+                    //             color: #fff;
+                    //             font-size: 16px;
+                    //         }
+                    
+                    //     }
+                    
+                    // }
+                    
                 }
-
+                
                 // 로그인 버튼 box
                 .login-btn-box {
                     width: 87.5%;
-                    height: 20%;
+                    height: 15%;
                     margin: 0 auto;
-                    margin-top: 60px;
-
+                    margin-top: 45px;
+                    
                     // 로그인 버튼
                     .login-btn {
                         background: rgb(20, 101, 173);
                         color: #fff;
-                        border-radius: 10px;
+                        border-radius: 5px;
                         width: 100%;
                         height: 100%;
                         margin: 0 auto;
@@ -279,55 +279,54 @@ body {
                         &:focus {
                             outline: none;
                         }
-
+                        
                         &:hover {
                             opacity: 0.8;
                         }
                     }
-
+                    
                 }
-
+                
             }
-
+            
             // 아이디, 비밀번호 찾기
             .search-id-pw-wrapper {
                 width: 100%;
                 height: 10%;
-                margin-top: 40px;
-
+                
                 // 아이디, 비밀번호 찾기 box 
                 .search-id-pw-box {
                     width: 100%;
                     height: 100%;
                     margin: 0 auto;
-
+                    
                     display: flex;
                     justify-content: space-evenly;
                     align-items: center;
-
+                    
                     // 아이디, 비밀번호 찾기
                     .search-id-pw {
                         border: 1px solid rgb(20, 101, 173);
                         background: rgb(82, 101, 109);
-                        border-radius: 10px;
+                        border-radius: 5px;
                         width: 40%;
-                        height: 100%;
-
+                        height: 85%;
+                        
                         &:hover {
                             opacity: 0.8;
                         }
-
+                        
                         .search-id {
                             @include disflex();
                             width: 100%;
                             height: 100%;
                         }
-
+                        
                         .search-pw {
                             @include disflex();
                             width: 100%;
                             height: 100%;
-
+                            
                         }
 
                         .search-text {
@@ -336,25 +335,25 @@ body {
                     }
                 }
             }
-
+            
             .division-wrapper {
                 width: 90%;
                 height: 15%;
                 margin: 0 auto;
                 display: flex;
-
+                
                 .division-box {
                     border-bottom: 2px solid rgb(20, 101, 173);
                     width: 140px;
                     height: 50%;
                     margin: 0 auto;
                 }
-
+                
                 .division-text-box {
                     width: 100%;
                     height: 100%;
                     @include disflex();
-
+                    
                     .division-text {
                         color: #fff;
                         opacity: 0.7;
@@ -362,21 +361,21 @@ body {
                 }
             }
         }
-
+        
         // 회원가입 box
         .ch-signin-box {
             width: 85%;
-            height: 10%;
+            height: 8%;
             margin: 0 auto;
             margin-top: 5px;
-            border-radius: 10px;
-
+            border-radius: 5px;
+            
             @include disflex();
-
+            
             &:hover {
                 opacity: 0.8;
             }
-
+            
             // 회원가입
             #Sign-in {
                 border: 2px solid rgb(20, 101, 173);
@@ -384,13 +383,13 @@ body {
                 color: #fff;
                 width: 100%;
                 height: 100%;
-                border-radius: 10px;
+                border-radius: 5px;
                 font-size: 16px;
                 font-weight: 700;
                 cursor: pointer;
 
                 @include disflex();
-
+                
                 &:active {
                     transform: scale(0.95);
                 }
@@ -547,11 +546,11 @@ body {
                     border-radius: 5px;
                     width: 100%;
                     height: 100%;
-                    
+
                     :focus {
                         outline: none;
                     }
-                    
+
                     .select-location {
                         border-radius: 5px;
                         width: 100%;
