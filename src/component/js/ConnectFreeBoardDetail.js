@@ -249,6 +249,9 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
     
 
 
+    const fbModify = () => {
+      alert('구현 중...ㅠㅠ');
+    }
 
 
 
@@ -323,7 +326,8 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
   
                     <div className='ib-info-modify-delete-box'>
                       <div className='info-btn-box'>
-                        <button id='Modify-Btn' className='info-btn'><p>수정</p></button>
+                        {/* TODO : 수정 구현... */}
+                        {/* <button id='Modify-Btn' className='info-btn' onClick={fbModify}><p>수정</p></button> */}
                       </div>
                       <div className='info-btn-box'>
                         <button id='Delete-Btn' className='info-btn' onClick={fbDelete}><p>삭제</p></button>
