@@ -1,11 +1,13 @@
 
 import React, { useEffect, useState } from 'react'
 import { CookiesProvider, useCookies } from 'react-cookie'
+import Select from 'react-select';
 
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
 import { getLoginUserInfo, isLogin, setLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
+import { DropDown } from '@grapecity/wijmo.input';
 
 
 const ConnectLogin = () => {
@@ -419,6 +421,7 @@ const ConnectLogin = () => {
         const $inputLocation = document.getElementById('Input-location');
         const $inputComment = document.getElementById('Input-comment');
 
+        alert(selectedOption);
 
         const res = await fetch(API_BASE_URL + '/connects/sign-up', {
             method: 'POST',
@@ -433,7 +436,7 @@ const ConnectLogin = () => {
                     birthDay: $inputBirthday.value,
                     gender: $inputGender.value,
                     phone: $inputPhone.value,
-                    location: $inputLocation.value,
+                    location: selectedOption,
                     comment: $inputComment.value,
                     loginMethod: "COMMON"
             })
@@ -722,6 +725,45 @@ const ConnectLogin = () => {
         }
 
 
+        const [dropdownOptions, setDropdownOptions] = useState(
+        [{ value: '강남구', label: '강남구' },
+         { value: '강동구', label: '강동구' },  
+         { value: '강북구', label: '강북구' },
+         { value: '강서구', label: '강서구' },  
+         { value: '관악구', label: '관악구' },  
+         { value: '광진구', label: '광진구' },  
+         { value: '구로구', label: '구로구' }, 
+         { value: '금천구', label: '금천구' }, 
+         { value: '노원구', label: '노원구' },  
+         { value: '도봉구', label: '도봉구' },  
+         { value: '동대문구', label: '동대문구' },  
+         { value: '동작구', label: '동작구' }, 
+         { value: '마포구', label: '마포구' },  
+         { value: '서대문구', label: '서대문구' }, 
+         { value: '서초구', label: '서초구' }, 
+         { value: '성동구', label: '성동구' }, 
+         { value: '성북구', label: '성북구' }, 
+         { value: '송파구', label: '송파구' }, 
+         { value: '양천구', label: '양천구' }, 
+         { value: '영등포구', label: '영등포구' },
+         { value: '용산구', label: '용산구' }, 
+         { value: '은평구', label: '은평구' }, 
+         { value: '종로구', label: '종로구' },
+         { value: '중구', label: '중구' }, 
+         { value: '중랑구', label: '중랑구' }]
+        );
+          
+          const [selectedOption, setSelectedOption] = useState(null);
+          
+          const handleDropdownChange = (selected) => {
+            
+            console.log(selected.value);
+
+
+
+            setSelectedOption(selected.value);
+            // 드롭박스 값 변경 시 수행할 동작을 여기에 작성합니다.
+          };
 
 
 
@@ -755,12 +797,12 @@ const ConnectLogin = () => {
                                 placeholder='비밀번호'
                                 type={'password'}
                             ></input>
-                            <div className='auto-login-check-box'>
+                            {/* <div className='auto-login-check-box'>
                                 <div className='auto-login-check'>
                                     <input type='checkbox' className='auto-login'/>
                                     <p className='checkbox-text'>자동로그인</p>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
 
@@ -962,14 +1004,40 @@ const ConnectLogin = () => {
                         )}
 
                         {isOpenSignInList && (
-                            <li className='signin-info-list fade-in-h'>
-                                <input
-                                    className='signin-info-text'
-                                    placeholder='지역 ex) 강남구'
-                                    id='Input-location'
-                                    maxLength={20}
-                                ></input>
-                            </li>
+                        <div className='signin-info-list fade-in-h'>
+
+                            <div className='signin-info-text' id='Input-location'>
+                                <div className='select-location-box'>
+                                    <select className='select-location' id='Input-location'>
+                                        <option value={'강남구'} className='select-option'><p>강남구</p></option>
+                                        <option value={'강동구'} className='select-option'><p>강동구</p></option>
+                                        <option value={'강북구'} className='select-option'><p>강북구</p></option>
+                                        <option value={'강서구'} className='select-option'><p>강서구</p></option>
+                                        <option value={'관악구'} className='select-option'><p>관악구</p></option>
+                                        <option value={'광진구'} className='select-option'><p>광진구</p></option>
+                                        <option value={'구로구'} className='select-option'><p>구로구</p></option>
+                                        <option value={'금천구'} className='select-option'><p>금천구</p></option>
+                                        <option value={'노원구'} className='select-option'><p>노원구</p></option>
+                                        <option value={'도봉구'} className='select-option'><p>도봉구</p></option>
+                                        <option value={'동대문구'} className='select-option'><p>동대문구</p></option>
+                                        <option value={'동작구'} className='select-option'><p>동작구</p></option>
+                                        <option value={'마포구'} className='select-option'><p>마포구</p></option>
+                                        <option value={'서대문구'} className='select-option'><p>서대문구</p></option>
+                                        <option value={'서초구'} className='select-option'><p>서초구</p></option>
+                                        <option value={'성동구'} className='select-option'><p>성동구</p></option>
+                                        <option value={'성북구'} className='select-option'><p>성북구</p></option>
+                                        <option value={'송파구'} className='select-option'><p>송파구</p></option>
+                                        <option value={'양천구'} className='select-option'><p>양천구</p></option>
+                                        <option value={'영등포구'} className='select-option'><p>영등포구</p></option>
+                                        <option value={'용산구'} className='select-option'><p>용산구</p></option>
+                                        <option value={'은평구'} className='select-option'><p>은평구</p></option>
+                                        <option value={'종로구'} className='select-option'><p>종로구</p></option>
+                                        <option value={'중구'} className='select-option'><p>중구</p></option>
+                                        <option value={'중랑구'} className='select-option'><p>중랑구</p></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         )}
 
                         {isOpenSignInList && (
