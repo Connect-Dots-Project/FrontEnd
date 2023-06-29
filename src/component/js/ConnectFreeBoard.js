@@ -66,7 +66,8 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log([...result]);
+
+
         if([...result].length === 0) {
           return; 
         }
@@ -115,7 +116,6 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const modifyHotplace = (hp) => {
-    // console.log(hp);
     setSelectedHotplace(hp);
     setIsCreateModal(true);
     setIsEditMode(true);
@@ -124,7 +124,6 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   // 글 삭제
   const deleteHotplace = (hotplaceIdx) => {
-    console.log(hotplaceIdx);
 
     fetch(REQUEST_URL + `/${hotplaceIdx}`, {
       method: 'DELETE',

@@ -116,8 +116,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
       })
       .then(res => res.json())
       .then(result => {
-        console.log(result)
-        console.log(result.isDelete);
 
         if(result.isDelete === false){
           alert('본인 글만 삭제할 수 있습니다.');
@@ -161,8 +159,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
           return;
         }
       
-        console.log(inputReplyContent);
-  
         try{
           const res = await fetch(url, {
             method: 'POST',
@@ -235,19 +231,11 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
   
           const result = await res.json();
 
-          console.log(result);
           alert(result.message);
 
 
           setFreeBoardLikeCount(result.count);
           
-
-          console.log(result.message);
-          console.log(result.count);
-
-          
-
-  
         } catch (error) {
           console.log(error);
         }
