@@ -38,6 +38,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
   const fetchData = async() => {
 
+
     const url = API_BASE_URL + '/contents/free-board/detail/' + freeBoardIdx;
 
     try{
@@ -97,8 +98,11 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
     const fbDelete = () => {
 
-      // TODO : 삭제 요청 처리
-      console.log(getLoginUserInfo().token);
+      const isDelete = window.confirm('정말 삭제하시겠습니까?');
+
+      if(!isDelete){
+        return;
+      }
 
       const url = API_BASE_URL + '/contents/free-board/' + freeBoardIdx;
 
@@ -112,8 +116,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
       })
       .then(res => res.json())
       .then(result => {
-        console.log(result)
-        console.log(result.isDelete);
 
         if(result.isDelete === false){
           alert('본인 글만 삭제할 수 있습니다.');
@@ -141,8 +143,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
     
     const writeReply = () => {
 
-      //TODO : 댓글 처리
-
       const replyPost = async() => {
 
         const url = API_BASE_URL + '/contents/free-board/replies';
@@ -159,8 +159,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
           return;
         }
       
-        console.log(inputReplyContent);
-  
         try{
           const res = await fetch(url, {
             method: 'POST',
@@ -186,16 +184,23 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
           setInputReplyContent('');
           fetchData();
-  
+
+
+          
         } catch (error) {
           console.log(error);
         }
   
       }
-
+      
       replyPost();
 
     }
+
+    useEffect(() => {
+      const element = document.querySelector('.guest-reply-box');
+      element.scrollTop = element.scrollHeight;
+    },[replayList]);
 
 
     const likeHandler = () => {
@@ -226,19 +231,11 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
   
           const result = await res.json();
 
-          console.log(result);
           alert(result.message);
 
 
           setFreeBoardLikeCount(result.count);
           
-
-          console.log(result.message);
-          console.log(result.count);
-
-          
-
-  
         } catch (error) {
           console.log(error);
         }
@@ -252,6 +249,9 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
     
 
 
+    const fbModify = () => {
+      alert('구현 중...ㅠㅠ');
+    }
 
 
 
@@ -316,7 +316,6 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
                           </div>
   
                           <div className='like-box'>
-                            {/* TODO : 좋아요 보내기 */}
                             <div className='like-img' onClick={ likeHandler }></div>
                             <div id='Like'>{freeBoardLikeCount}</div>
                           </div>
@@ -327,7 +326,8 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
   
                     <div className='ib-info-modify-delete-box'>
                       <div className='info-btn-box'>
-                        <button id='Modify-Btn' className='info-btn'><p>수정</p></button>
+                        {/* TODO : 수정 구현... */}
+                        {/* <button id='Modify-Btn' className='info-btn' onClick={fbModify}><p>수정</p></button> */}
                       </div>
                       <div className='info-btn-box'>
                         <button id='Delete-Btn' className='info-btn' onClick={fbDelete}><p>삭제</p></button>
@@ -361,6 +361,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
                       <div className='guest-reply-box'>
         
                         {replayList.map(reply => (
+                          
                                 <div className='guest-reply-info-box'>
         
                                 <div className='guest-profile-box'>

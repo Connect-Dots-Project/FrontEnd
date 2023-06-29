@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import {useParams, useNavigate } from "react-router-dom";
 import '../scss/ConnectLiveChatting.scss';
 
 import '../scss/ConnectGlobalChattingFooter.scss';
@@ -31,6 +32,8 @@ const ConnectLiveChatting = (props) => {
   const [inputHashtag, setInputHashtag] = useState('');
   const [inputContent, setInputContent] = useState('');
 
+  const navigate = useNavigate();
+
 
 
   // 입력한 content 값
@@ -60,6 +63,15 @@ const ConnectLiveChatting = (props) => {
   },[]);
 
 
+  const handleAlertConfirm = () => {
+    // "/" 경로로 리다이렉트합니다.
+    if(window.location.href !== '/') {
+      navigate('/');
+      // setLoginModalVisible(true);
+    }
+  };
+
+
   // 채팅방 목록을 불러오는 함수
   const findAll = () => {
     fetch(API_BASE_URL + `/contents/chat`, {
@@ -70,9 +82,18 @@ const ConnectLiveChatting = (props) => {
     },
       credentials: 'include' // 쿠키가 필요하다면 추가하기
     })
-      .then((res) => {return res.json();})
+      .then((res) => {
+        if(res.status === 401) {
+          alert('로그인한 회원만 이용하실 수 있습니다');
+          handleAlertConfirm();
+          return;
+        }
+        return res.json();
+      })
       .then((result) => {
-
+        if(!result) {
+          return;
+        }
         const findList = [...result.livechatList];
         setRoomList(findList);
       });
@@ -325,8 +346,6 @@ const recvMessage = (recv) => {
 
 
     .then(res => {
-      console.log(res);
-      console.log(res.isCreate);
 
       if (res.status === 401) {
         alert('토큰 없음');
@@ -554,7 +573,9 @@ useEffect(() => {
 
                         <div className='uml-img-nickname-box'>
                           <div className='uml-img-box'>
-                            <div className='uml-img'>{message.senderProfile}</div>
+                            <div className='uml-img'>
+                              <img src={message.senderProfile} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              </div>
                           </div>
                           <div className='uml-nickname-box'>
                             <p className='uml-nickname'>{message.sender}</p>
@@ -599,7 +620,9 @@ useEffect(() => {
     
                       <div className='umr-img-nickname-box'>
                         <div className='umr-img-box'>
-                          <div className='umr-img'>{message.senderProfile}</div>
+                          <div className='umr-img'>
+                          <img src={message.senderProfile} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
                         </div>
                         <div className='umr-nickname-box'>
                           <p className='umr-nickname'>{message.sender}</p>

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import ConnectViewPlayList from './ConnectViewPlayList';
 import { API_BASE_URL } from '../../config/host-config';
 import { getLoginUserInfo } from '../../util/login-util';
+import {useParams, useNavigate } from "react-router-dom";
 
 
 const ConnectPlayList = () => {
@@ -13,6 +14,17 @@ const ConnectPlayList = () => {
   const [isOpenViewPlayList, setIsOpenViewPlayList] = useState(false);
   const [playlistItems, setPlaylistItems] = useState([]);
   const [idx, setIdx] = useState('');
+  
+
+  const navigate = useNavigate();
+
+  const handleAlertConfirm = () => {
+    // "/" 경로로 리다이렉트합니다.
+    if(window.location.href !== '/') {
+      navigate('/');
+      // setLoginModalVisible(true);
+    }
+  };
   
 
   const openList = (idx) => {
@@ -36,6 +48,13 @@ const ConnectPlayList = () => {
           'Authorization' : getLoginUserInfo().token
        },credentials: 'include', // 쿠키가 필요하다면 추가하기
       });
+
+      console.log(response.status);
+      if(response.status===401){
+        alert('로그인한 회원만 이용하실 수 있습니다');
+        handleAlertConfirm();
+        return;
+      }
       const result = await response.json();
       
       // 서버에서 가져온 데이터가 배열인지 확인

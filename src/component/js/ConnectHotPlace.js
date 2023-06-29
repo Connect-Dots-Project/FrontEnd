@@ -195,6 +195,11 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const [showMap, setShowMap] = useState(false);
   
   const openChangeMap = () => {
+    if (!localStorage.getItem('ACCESS_TOKEN')) {
+      alert('로그인한 회원만 이용하실 수 있습니다');
+      return;
+    }
+
     setShowMap(!showMap);
   };
 

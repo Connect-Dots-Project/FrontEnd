@@ -66,7 +66,8 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log([...result]);
+
+
         if([...result].length === 0) {
           return; 
         }
@@ -88,7 +89,18 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isOpenWriteBoard, setIsOpenWriteBoard] = useState(false);
 
   const openWriteBoard = () => {
-    alert("글을 작성하시겠습니까?");
+
+    if(getLoginUserInfo().token === null) {
+      alert('로그인한 회원만 이용하실 수 있습니다');
+      return;
+    }
+    
+    const isWrite = window.confirm('글을 작성하시겠습니까?');
+
+    if (!isWrite) {
+      return;
+    }
+
     setIsOpenWriteBoard(true);
   };
 
@@ -104,7 +116,6 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const modifyHotplace = (hp) => {
-    // console.log(hp);
     setSelectedHotplace(hp);
     setIsCreateModal(true);
     setIsEditMode(true);
@@ -113,7 +124,6 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   // 글 삭제
   const deleteHotplace = (hotplaceIdx) => {
-    console.log(hotplaceIdx);
 
     fetch(REQUEST_URL + `/${hotplaceIdx}`, {
       method: 'DELETE',
@@ -131,7 +141,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
           return res.json();
         }
       })
-      .then(result => console.log(result));
+      .then(result => {});
 
     window.location.reload();
   };

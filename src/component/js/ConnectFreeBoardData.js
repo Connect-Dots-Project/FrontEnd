@@ -41,9 +41,9 @@ const ConnectFreeBoardData = ({ freeBoardList }) => {
                 credentials: 'include'
               });
       
-              if(res.status === 403) {
+              if(res.status === 401) {
+                alert('로그인한 회원만 이용하실 수 있습니다');
                 setIsOpenInnerBoard(false);
-                alert('로그인 해야해요;');
               } else {
                 setIsOpenInnerBoard(true);
               }
