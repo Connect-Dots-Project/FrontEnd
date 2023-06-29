@@ -48,9 +48,15 @@ const ConnectUserActivity = () => {
                                     <p>자유게시판</p>
                                 </button>
                             </div>
+                            {/* <ConnectUserWritten /> */}
                                 {isOpenHotPlace && <ConnectUserWritten isOpenHotPlace={ isOpenHotPlace } />}
                                 {isOpenFreeBoard && <ConnectUserWritten isOpenFreeBoard={ isOpenFreeBoard } />}
                         </div>
+
+                        TODO : ConnectUserActivity.js<br/>
+                        TODO : ConnectUserActivity.js<br/>
+                        TODO : ConnectUserActivity.js<br/>
+
                     </div>
                 </div>
 

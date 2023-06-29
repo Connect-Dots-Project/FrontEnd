@@ -137,14 +137,13 @@ const ConnectMyPageMain = () => {
 
     const getHotPlace = () => {
 
-        const myToken = localStorage.getItem('Authorization');
-        console.log(myToken);
+        alert('gg');
 
         fetch(API_BASE_URL + `/member/mypage/myactive/hotplace`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
-                'Authorization' : myToken
+                'Authorization' : getLoginUserInfo().token
             },
             credentials: 'include'
         }) 
@@ -152,11 +151,6 @@ const ConnectMyPageMain = () => {
         .then(response => {
             console.log(response);
         })
-
-
-
-
-
 
 
     };  
@@ -390,11 +384,9 @@ const ConnectMyPageMain = () => {
                     <div className='mp-change-menu-wrapper'>
                         <div className='mp-change-menu-box'>
                             <div className='mp-change-menu'>
-
                                 {isOpenActivity && <ConnectUserActivity />}
                                 {isOpenLike && <ConnectUserLike />}
                                 {isOpenLocation && <ConnectUserSettingLocation />}
-                                
                             </div>
                         </div>
                     </div>
