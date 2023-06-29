@@ -425,7 +425,9 @@ const recvMessage = (recv) => {
   };
   
     
-
+    const closeChattingRoom = e => {
+      setIsOpenChat(false);
+    }
 
 
 
@@ -507,10 +509,13 @@ const recvMessage = (recv) => {
         <div className='test1234'>
       <div className='lcheader-wrapper'>
       <div className='lcheader-img-box'>
-        <div className='lcheader-img'>방장 사진</div>
-        <div className='lcheader-nickname'><p>닉네임</p></div>
+        <div className='lcheader-img'></div>
+        <div className='lcheader-nickname'><p>{getLoginUserInfo().usernickname}</p></div>
       </div>
       <div className='lcheader-accessor-box'>
+        <div className='close-btn-box'>
+          <button id='closeBtn' onClick={ closeChattingRoom }></button>
+        </div>
         <div className='lcheader-accessor'>{localStorage.getItem('content')}</div>
       </div>
     </div>

@@ -4,10 +4,14 @@
     align-items: center;
 }
 
+.playlist-board-wrapper::-webkit-scrollbar {
+    display: none;
+}
 // playlist
 .playlist-board-wrapper {
     width: 100%;
-    height: 1595px;
+    height: 750px;
+    overflow: scroll;
 
     // playlist box
     .plb-box {
