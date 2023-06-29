@@ -98,11 +98,11 @@
 
                         .price-btn {
                             border: none;
-                            border-radius: 10px;
+                            border-radius: 5px;
                             background: rgb(20, 101, 173);
-                            box-shadow: 1px 1px 3px 1px #444;
+                            box-shadow: 1px 1px 2px 1px #444;
                             width: 50%;
-                            height: 50%;
+                            height: 40%;
                             margin: auto 20px;
                             transition-duration: 0.3s;
                             cursor: pointer;
@@ -116,7 +116,7 @@
                             p {
                                 font-weight: 700;
                                 color: #fff;
-                                font-size: 16px;
+                                font-size: 14px;
                             }
                         }
                     }
@@ -131,7 +131,7 @@
                             @include disflex();
 
                             .store-info-input {
-                                border: 2px solid rgb(20, 101, 173);
+                                border: 2px solid #ff6701;
                                 border-radius: 10px 0 0 10px;
                                 width: 60%;
                                 height: 50%;
@@ -145,7 +145,7 @@
                             }                            
 
                             .search-btn-box {
-                                border: 2px solid rgb(20, 101, 173);
+                                border: 2px solid #ff6701;
                                 border-left: none;
                                 border-radius: 0 10px 10px 0;
                                 width: 15%;
@@ -290,11 +290,13 @@
                                         border-radius: 5px;
                                         width: 85%;
                                         height: 60%;
+                                        padding: 5px;
                                         @include disflex();
-
+                                        
                                         p {
-                                            font-size: 16px;
+                                            font-size: 14px;
                                             font-weight: 700;
+                                            @include disflex();
                                         }
                                     }
                                 }
