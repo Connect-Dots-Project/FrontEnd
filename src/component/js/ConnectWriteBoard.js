@@ -16,7 +16,7 @@ const ConnectWriteBoard = ({ setHotplaceContent, setHotplaceImg }) => {
     setHotplaceContent(updatedContent);
     setCurrentCharacterCount(updatedContent.length);
 
-    console.log(updatedContent.length);
+    // console.log(updatedContent.length);
 
     if (updatedContent.length > MAX_CHARACTER_COUNT) {
       alert('최대 글자수는 60글자입니다!');

@@ -15,7 +15,7 @@ const ConnectLogin = () => {
     const [cookies , setCookie, removeCookie] = useCookies('REFRESH_TOKEN');
 
 
-    const [isOpenSignInList, setIsOpenSignList] = useState(false);
+    const [isOpenSignInList, setIsOpenSignList] = useState(true);
     const [isOpenSignIn, setIsOpenSignIn] = useState(false);
 
     const openSignInList = e => {
@@ -37,18 +37,59 @@ const ConnectLogin = () => {
     };
 
     const autoHyphen = (e) => {
+
+
+        let msg;
+        let flag;
+        let phoneFlag;
+
+        
         e.target.value = e.target.value
-          .replace(/[^0-9]/g, '')
-          .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
-          .replace(/(\-{1,2})$/g, '');
-
-          let msg;
-          let flag;
-
+        .replace(/[^0-9]/g, '')
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
+        .replace(/(\-{1,2})$/g, '');
+        
+        
+          fetch(API_BASE_URL + '/connects/sign-up/check-phone', {
+              method: 'POST',
+              headers: {
+                  'content-type' : 'application/json'
+                },
+                body: JSON.stringify({phone : e.target.value})
+                
+                
+            })
+            .then(res => {
+                return res.json()
+            })
+            .then(result => 
+                {
+                    console.log(result);
+                    phoneFlag = result;
+                    
+                });
+                
+                
+                // TODO: 아래 중복값 검사 결과 붙여주세용
+                
           if(e.target.value.length < 13) {
             msg = '올바르지 않은 형식입니다'
             flag = false;
+          } else if (!phoneFlag) {
+            msg = '이미 가입된 번호입니다.'
+            flag = false;
+          } else {
+            msg = '사용가능한 번호입니다.'
+            flag = true;
           }
+
+          saveInputState({
+            key: 'phoneNumber',
+            msg,
+            flag
+          });
+
+        
     };
 
 
@@ -614,7 +655,7 @@ const ConnectLogin = () => {
             console.log('중복된 별명입니다!');
         }
 
-        const nameRegex = /^[가-힣]{2,30}$/;
+        const nameRegex = /^[가-힣]{2,5}$/;
         const inputVal = e.target.value;
 
         // 입력값 검증
@@ -625,7 +666,7 @@ const ConnectLogin = () => {
             msg = '별명을 입력해주세요';
             flag = false;
         } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
-            msg = '2 ~ 30자로 작성해주세요';
+            msg = '한글로 2 ~ 5자로 작성해주세요';
             flag = false;
         } else if (!checkNickname) {
             msg = '중복된 별명입니다';
@@ -973,6 +1014,13 @@ const ConnectLogin = () => {
                                     id='Input-birthday'
                                     onChange={ autoHyphenBirth }
                                 ></input>
+                                {message.birth && (
+                                    <span style={
+                                        correct.birth
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.birth}
+                                </span>)}
                             </li>
                         )}
 
@@ -985,6 +1033,13 @@ const ConnectLogin = () => {
                                     maxLength={13}
                                     onChange={autoHyphen}
                                 ></input>
+                                 {message.phoneNumber && (
+                                    <span style={
+                                        correct.phoneNumber
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.phoneNumber}
+                                </span>)}
                             </li>
                         )}
 
