@@ -36,7 +36,7 @@ const ConnectUserActivityHotPlace = ( hotplaceList ) => {
                 <div className="user-activity-hot-place-box">
 
                     <div className="uahp-wrapper">
-                        <div className="uahp-box" style={{overflow:'scroll'}} >
+                        <div className="uahp-box">
 
                              {hpData.map(hp => (
         
