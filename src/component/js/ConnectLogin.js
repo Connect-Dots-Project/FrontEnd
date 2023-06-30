@@ -64,30 +64,30 @@ const ConnectLogin = () => {
             })
             .then(result => 
                 {
-                    console.log(result);
-                    phoneFlag = result;
+                    phoneFlag = result.checkPhone;
+                    // console.log(phoneFlag);
+                       
+                    if(e.target.value.length < 13) {
+                        msg = '올바르지 않은 형식입니다'
+                        flag = false;
+                    } else if (!phoneFlag) {
+                        msg = '이미 가입된 번호입니다.'
+                        flag = false;
+                    } else {
+                        msg = '사용가능한 번호입니다.'
+                        flag = true;
+                    }
+
+                    saveInputState({
+                        key: 'phoneNumber',
+                        msg,
+                        flag
+                    });
                     
                 });
                 
                 
-                // TODO: 아래 중복값 검사 결과 붙여주세용
-                
-          if(e.target.value.length < 13) {
-            msg = '올바르지 않은 형식입니다'
-            flag = false;
-          } else if (!phoneFlag) {
-            msg = '이미 가입된 번호입니다.'
-            flag = false;
-          } else {
-            msg = '사용가능한 번호입니다.'
-            flag = true;
-          }
-
-          saveInputState({
-            key: 'phoneNumber',
-            msg,
-            flag
-          });
+             
 
         
     };
