@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 import ConnectUserSettingLocation from './ConnectUserSettingLocation';
 import ConnectUserLike from './ConnectUserLike';
@@ -91,7 +91,39 @@ const ConnectMyPageMain = () => {
       reader.onloadend = () => {
         setImgFile(reader.result);
       }
+
     };
+
+    const fetchProfilePost = async () => {
+        
+        const profileFormData = new FormData();
+
+        profileFormData.append('profileImage', $fileTag.current.files[0]);
+
+        const res = await fetch(API_BASE_URL + '/member/mypage/profile', {
+            method: 'POST',
+            headers: {
+                'Authorization' : getLoginUserInfo().token
+            },
+            body: profileFormData,
+            credentials: 'include'
+        });
+
+        // TODO : 이미지 등록되면 이동할 곳
+       navigate('/');
+
+    };
+
+    const submitHandler = e => {
+
+        fetchProfilePost();
+
+    };
+
+    
+
+
+
 
 
     const openActivity = e => {
@@ -212,7 +244,7 @@ const ConnectMyPageMain = () => {
 
                                                     <div className="thumbnail-box" onClick={() => $fileTag.current.click()}>
                                                         <img
-                                                        src={memberProfile}
+                                                        src={imgFile? imgFile : memberProfile}
                                                         style={{width:'137px', height:'137px', borderRadius: '50%', objectFit: 'cover',}}
                                                         alt="profile"
                                                         />
@@ -287,7 +319,7 @@ const ConnectMyPageMain = () => {
                                 <button className='uim-btn' id='Cancel' onClick={ closeModify }>
                                     <p>취 소</p>
                                 </button>
-                                <button className='uim-btn' id='Save'>
+                                <button className='uim-btn' id='Save' onClick={ submitHandler}>
                                     <p>확 인</p>
                                 </button>
                             </div>
