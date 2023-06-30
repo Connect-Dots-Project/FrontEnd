@@ -43,7 +43,7 @@ const ConnectFooter = () => {
 
                         <div className="ft-main-middle">
                             <div className="ft-main-text-box">
-                                <p>본 컨텐츠의 저작권은 제공처 또는 OOO에 있으며, 이를 무단 이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.</p>
+                                <p>본 컨텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.</p>
                             </div>
                         </div>
 
