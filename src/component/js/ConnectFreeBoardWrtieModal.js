@@ -185,7 +185,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                 <header className='cp-header-wrapper'>
                   <div className='cp-header-text-tag-box'>
                     <div className='cp-header-text-box'>
-                      <p className='cp-header-text' id='SelectLocation'>지역을 선택해주세요</p>
+                      <p className='cp-header-text' id='SelectLocation'>카테고리를 선택해주세요</p>
                     </div>
   
                     <div className='connect-create-post'>

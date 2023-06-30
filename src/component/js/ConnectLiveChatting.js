@@ -15,6 +15,8 @@ import { getLoginUserInfo } from '../../util/login-util';
 
 import { setWebSocket, getWebSocket } from './ConnectWebSocket';
 import { API_BASE_URL } from '../../config/host-config';
+import swal from 'sweetalert';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 // 함수 -> 태그 -> useEffect
 
@@ -84,7 +86,7 @@ const ConnectLiveChatting = (props) => {
     })
       .then((res) => {
         if(res.status === 401) {
-          alert('로그인한 회원만 이용하실 수 있습니다');
+          swal('알림','로그인한 회원만 이용하실 수 있습니다','warning');
           handleAlertConfirm();
           return;
         }
@@ -329,7 +331,6 @@ const recvMessage = (recv) => {
   // 채팅 방을 생성하는 함수
   const createLiveChat = () => {
 
-
     fetch(API_BASE_URL + '/contents/chat',{
       method: 'POST',
       headers: { 
@@ -348,14 +349,15 @@ const recvMessage = (recv) => {
     .then(res => {
 
       if (res.status === 401) {
-        alert('토큰 없음');
+        swal('알림','토큰 없음','warning');
         return
       } else if (res.status === 500) {
-        alert('서버 문제');
+        swal('알림','토큰 없음','warning');
         return
       }
-
-      closeWriteChat(false);
+      
+      swal('알림', '글이 정상적으로 등록되었습니다.', 'success');
+      setIsOpenWriteChat(false);
 
     })
 
@@ -420,13 +422,49 @@ const recvMessage = (recv) => {
   };
 
   const closeWriteChat = e => {
+    
+    swal({
+      title: "경고",
+      text: "정말 창을 닫으시겠습니까? 창을 닫으면 내용이 저장되지 않습니다.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        setIsOpenWriteChat(false);
+      } else {
+        setIsOpenWriteChat(true);
+      }
+    });
 
-    setIsOpenWriteChat(false);
+
+
+
+
+    
   };
   
     
     const closeChattingRoom = e => {
-      setIsOpenChat(false);
+
+      swal({
+        title: "경고",
+        text: "정말 창을 닫으시겠습니까? 창을 닫으면 내용이 저장되지 않습니다.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          // swal("이용해주셔서 감사합니다.", {
+          //   icon: "success",
+          // });
+          setIsOpenChat(false);
+        } else {
+          // swal("이전 화면으로 돌아갑니다.");
+        }
+      });
     }
 
 

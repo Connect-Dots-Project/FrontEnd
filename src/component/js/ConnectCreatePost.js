@@ -3,6 +3,7 @@ import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 import Location from './Location';
 import { API_BASE_URL } from '../../config/host-config';
+import swal from 'sweetalert';
 
 const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
 
@@ -27,7 +28,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
 
   const handleLocationClick = (location) => {
-    console.log(location);
+    // console.log(location);
     setSelectedLocation(location);
   };
 
@@ -57,22 +58,54 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
   const closeModal = () => {
     const $modal = document.getElementById('CreatePostModals');
-    $modal.classList.add('closing');
-
-    setTimeout(() => {
-      setCreateModal(false);
-      closeCreatePost();
-    }, 1000);
+    
+    swal({
+      title: "경고",
+      text: "정말 창을 닫으시겠습니까? 창을 닫으면 내용이 저장되지 않습니다.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        $modal.classList.add('closing');
+        // swal("이용해주셔서 감사합니다.", {
+        //   icon: "success",
+        // });
+        setCreateModal(false);
+        closeCreatePost();
+      } else {
+        // swal("이전 화면으로 돌아갑니다.");
+      }
+    });
+      // setTimeout(() => {
+      // }, 1000);
   };
 
   const cancelBtn = (e) => {
     const $modal = document.getElementById('CreatePostModals');
-    $modal.classList.add('closing');
 
-    setTimeout(() => {
-      setCreateModal(false);
-      closeCreatePost();
-    }, 1000);
+    swal({
+      title: "경고",
+      text: "정말 창을 닫으시겠습니까? 창을 닫으면 내용이 저장되지 않습니다.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        $modal.classList.add('closing');
+        // swal("이용해주셔서 감사합니다.", {
+        //   icon: "success",
+        // });
+        setCreateModal(false);
+        closeCreatePost();
+      } else {
+        // swal("이전 화면으로 돌아갑니다.");
+      }
+    });
+
+      
   };
 
   useEffect(() => {
@@ -83,18 +116,25 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
   const submitHandler = () => {
 
-    if (!selectedLocation) {alert ('행정구역을 선택해주세요.'); return;}
-    if (!hotplaceImg) {alert ('핫플레이스의 사진을 공유해주세요.'); return;}
-    if (!hotplaceContent) {alert ('핫플레이스의 글을 공유해주세요.'); return;}
-    if (!kakaoLocation) {alert ('지도에서 장소를 선택해주세요.'); return;}
+    if (!selectedLocation) {swal("알림", "행정구역(지역)을 선택해주세요.", "warning"); return;}
+    if (!hotplaceImg) {swal ("알림", "핫플레이스의 사진(클릭)을 공유해주세요.", "warning"); return;}
+    if (!hotplaceContent) {swal ("알림", "핫플레이스의 글을 적어주세요.", "warning"); return;}
+    if (!kakaoLocation) {swal ("알림", "지도에서 장소를 선택해주세요.", "warning"); return;}
   
     if (selectedLocation !== kakaoLocation) {
-      alert('행정구역과 지도의 장소가 일치하지 않습니다.');
+      
+      swal({
+          title: "알림",
+          text: "행정구역과 지도의 장소가 일치하지 않습니다.",
+          icon: "warning",
+          button: true,
+      })
+
       return;
     }
     
     if (hotplaceContent.length > MAX_CHARACTER_COUNT) {
-      alert('글자 수가 60자를 초과했습니다.');
+      swal('알림', "글자 수가 60자를 초과했습니다. 60자 미만으로 작성해주세요.", "warning");
       return;
     }
 
@@ -152,11 +192,12 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
         .then((result) => {
           
           if (result.isWrite) {
-            alert('저장되었습니다.');
-            window.location.reload();
+            swal('알림', "저장되었습니다.", "success");
+            // window.location.reload();
+            setCreateModal(false);
           } else {
-            alert('저장에 실패했습니다.');
-            window.location.reload();
+            swal('알림', "저장에 실패했습니다. 사진의 크기를 확인해주세요. (최대 1MB)", "error");
+            // window.location.reload();
           }
         })
     }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { getLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
+import swal from 'sweetalert';
 
 const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
@@ -76,7 +77,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
       setLoginUserProfile(result.loginMemberProfile);
       
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     
   }
@@ -118,10 +119,10 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
       .then(result => {
 
         if(result.isDelete === false){
-          alert('본인 글만 삭제할 수 있습니다.');
+          swal('알림','본인 글만 삭제할 수 있습니다.', 'warning');
         } else {
-          alert('성공적으로 삭제했습니다.');
-          window.location.reload();
+          swal('알림','성공적으로 삭제했습니다.', 'success');
+          // window.location.reload();
         }
 
       })
@@ -154,7 +155,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
         }
 
         if(inputReplyContent.trim() === ''){
-          alert('댓글 내용을 입력해주세요');
+          swal('알림','댓글 내용을 입력해주세요','warning');
           setInputReplyContent('');
           return;
         }
@@ -188,7 +189,7 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
           
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
   
       }
@@ -231,13 +232,13 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
   
           const result = await res.json();
 
-          alert(result.message);
+          swal(result.message);
 
 
           setFreeBoardLikeCount(result.count);
           
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
   
       }

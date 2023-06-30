@@ -8,6 +8,7 @@ import ConnectCreatePost from './ConnectCreatePost';
 import ConnectFreeBoardWriteModal from './ConnectFreeBoardWrtieModal';
 import { getLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
+import swal from 'sweetalert';
 
 const ConnectFreeBoard = ({ closeCreatePost }) => {
 
@@ -91,15 +92,15 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
   const openWriteBoard = () => {
 
     if(getLoginUserInfo().token === null) {
-      alert('로그인한 회원만 이용하실 수 있습니다');
+      swal('알림', "로그인한 회원만 이용하실 수 있습니다", "warning");
       return;
     }
     
-    const isWrite = window.confirm('글을 작성하시겠습니까?');
+    // const isWrite = window.confirm('글을 작성하시겠습니까?');
 
-    if (!isWrite) {
-      return;
-    }
+    // if (!isWrite) {
+    //   return;
+    // }
 
     setIsOpenWriteBoard(true);
   };
@@ -135,8 +136,8 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then(res => {
         if (res.status === 401) {
-          alert('회원가입이 필요한 서비스입니다.');
-          window.location.href = '/';
+          swal('회원가입이 필요한 서비스입니다.', "", "warning");
+          // window.location.href = '/';
         } else {
           return res.json();
         }
@@ -157,8 +158,8 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
       })
         .then(res => {
           if (res.status === 401) {
-            alert('회원가입이 필요한 서비스입니다.');
-            window.location.href = '/'; // 메인 페이지로 이동
+            swal('알림', "회원가입이 필요한 서비스입니다.", "warning");
+            // window.location.href = '/'; // 메인 페이지로 이동
           } else {
             setIsCreateModal(true); // 모달 창 열기
           }
@@ -181,8 +182,8 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then(res => {
         if (res.status === 401) {
-          alert('회원가입이 필요한 서비스입니다.');
-          window.location.href = '/';
+          swal('알림', "회원가입이 필요한 서비스입니다.", "warning");
+          // window.location.href = '/';
         } else {
           return res.json();
         }

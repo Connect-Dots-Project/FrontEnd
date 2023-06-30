@@ -10,6 +10,7 @@ import '../scss/ConnectMyPageMain.scss';
 import { async } from 'q';
 import { getLoginUserInfo } from '../../util/login-util';
 import ConnectUserActivityFreeBoardLike from './ConnectUserActivityFreeBoardLike';
+import swal from 'sweetalert';
 
 const ConnectMyPageMain = () => {
 
@@ -50,7 +51,7 @@ const ConnectMyPageMain = () => {
             .then((res) => {
 
                 if(res.status === 401) {
-                    alert('로그인한 회원만 이용하실 수 있습니다');
+                    swal('알림','로그인한 회원만 이용하실 수 있습니다','warning');
                     handleAlertConfirm();
                     return;
                 }
