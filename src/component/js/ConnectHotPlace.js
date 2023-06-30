@@ -4,6 +4,7 @@ import ConnectCreatePost from './ConnectCreatePost';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
+import swal from 'sweetalert';
 
 import '../scss/ConnectHotPlace.scss';
 import ConnectTotalMap from './ConnectTotalMap';
@@ -195,6 +196,9 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const [showMap, setShowMap] = useState(false);
   
   const openChangeMap = () => {
+    // TODO 
+    swal("회원가입에 성공했습니다.", "환영합니다!!", "warning",{button:"클릭!"});
+
     if (!localStorage.getItem('ACCESS_TOKEN')) {
       alert('로그인한 회원만 이용하실 수 있습니다');
       return;
