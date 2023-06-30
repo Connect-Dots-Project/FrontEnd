@@ -197,7 +197,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   return (
     <>
-      {isOpenWriteBoard && <ConnectFreeBoardWriteModal closeCreatePost={closeCreatePost} />}
+      {isOpenWriteBoard && <ConnectFreeBoardWriteModal closeCreatePost={closeCreatePost} setIsEditMode={setIsEditMode}/>}
 
       
 

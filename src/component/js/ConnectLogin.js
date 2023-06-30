@@ -567,7 +567,7 @@ const ConnectLogin = () => {
                 $back.style.display = 'none';
             }
             
-            window.location.reload();
+            // window.location.reload();
         }
 
 

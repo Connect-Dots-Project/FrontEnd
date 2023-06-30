@@ -5,6 +5,7 @@ import { getLoginUserInfo } from '../../util/login-util';
 
 import ConnectWriteFreeBoard from "./ConnectWriteFreeBoard";
 import { API_BASE_URL } from "../../config/host-config";
+import swal from 'sweetalert';
 
 const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
 
@@ -49,10 +50,22 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
       const $modal = document.getElementById('CreatePostModal');
       $modal.classList.add('closing');
   
-      setTimeout(() => {
-        setCreateModal(false);
-        closeCreatePost();
-      }, 1000);
+
+      swal({
+        title: "경고",
+        text: "정말 창을 닫으시겠습니까? 창을 닫으면 내용이 저장되지 않습니다.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          setCreateModal(false);
+          closeCreatePost();
+        } else {
+          // swal("이전 화면으로 돌아갑니다.");
+        }
+      });
     };
   
     const cancelBtn = (e) => {
@@ -63,6 +76,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
         setCreateModal(false);
         closeCreatePost();
       }, 1000);
+      
     };
   
   

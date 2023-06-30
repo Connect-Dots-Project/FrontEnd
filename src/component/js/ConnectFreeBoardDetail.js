@@ -99,7 +99,20 @@ const ConnectFreeBoardDetail = ({ freeBoardIdx, closeInnerBoardModal }) => {
 
     const fbDelete = () => {
 
-      const isDelete = window.confirm('정말 삭제하시겠습니까?');
+      const isDelete = swal({
+        title: "경고",
+        text: "정말 삭제하시겠습니까?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          closeInnerBoardModal()
+        } else {
+          // swal("이전 화면으로 돌아갑니다.");
+        }
+      });
 
       if(!isDelete){
         return;
