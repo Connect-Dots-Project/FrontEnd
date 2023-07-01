@@ -634,32 +634,30 @@ const ConnectLogin = () => {
         // 로그아웃 핸들러
         const logoutHandler = e => {
             const confirmLogout = swal({
-                title: "경고",
-                text: "정말 로그아웃 하시겠습니까?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-              })
-              .then((confirmLogout) => {
-                if (confirmLogout) {
-                    swal({
-                        title: "알림",
-                        text: "로그아웃 되었습니다.",
-                        icon: "success",
-                        timer: 1500
-                        // buttons: true,
-                        // dangerMode: true,
-                        // allowEnterKey: true
-                      })
-                    setIsLogInTest(false);
-                    localStorage.clear();
-                    localStorage.removeItem('refreshtoken');
-                    removeCookie('REFRESH_TOKEN');
+              title: "경고",
+              text: "정말 로그아웃 하시겠습니까?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            }).then(confirmLogout => {
+              if (confirmLogout) {
+                swal({
+                  title: "알림",
+                  text: "로그아웃 되었습니다.",
+                  icon: "success",
+                  timer: 1500 // 3초 동안 알림을 표시한 후에 사라집니다
+                });
+                localStorage.clear();
+                localStorage.removeItem('refreshtoken');
+                removeCookie('REFRESH_TOKEN');
+                setTimeout(() => {
                     window.location.href = '/';
-                } else {
-
-                }
-              });
+                }, 1500);
+              } else {
+                swal('?');
+              }
+            });
+                  
             // if(confirmLogout) {
             //     setIsLogInTest(false);
             //     localStorage.clear();
