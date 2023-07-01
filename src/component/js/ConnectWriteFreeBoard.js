@@ -69,7 +69,7 @@ const ConnectWriteFreeBoard = ({ setHotplaceContent, setHotplaceImg, setInputLoc
 
       <div className='img-box' onClick={() => $fileTag.current.click()}>
         <img
-          src={imgFile ? imgFile : require('../scss/img/ad1.jpg')}
+          src={imgFile ? imgFile : require('../scss/img/addPicture.png')}
           alt='img'
         />
         <label className='hotplace-img-label' htmlFor='hotplace-img-tag'>
