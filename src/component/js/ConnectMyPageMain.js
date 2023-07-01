@@ -10,6 +10,7 @@ import '../scss/ConnectMyPageMain.scss';
 import { async } from 'q';
 import { getLoginUserInfo } from '../../util/login-util';
 import ConnectUserActivityFreeBoardLike from './ConnectUserActivityFreeBoardLike';
+import swal from 'sweetalert';
 
 const ConnectMyPageMain = () => {
 
@@ -68,25 +69,23 @@ const ConnectMyPageMain = () => {
             .then((res) => {
 
                 if(res.status === 401) {
-                    alert('로그인한 회원만 이용하실 수 있습니다');
+                    swal('알림','로그인한 회원만 이용하실 수 있습니다','warning');
                     handleAlertConfirm();
                     return;
                 }
 
-                return res.json();
+                const result = res.json();
 
-            })
-            .then((result) => {
-
+                console.log('----------------------------');
                 console.log(result);
+
                 setMemberAccount(result.memberAccount);
                 setMemberBirth(result.memberBirth);
                 setMemberComment(result.memberComment);
                 setMemberGender(result.membeGender);
                 setMemberNickname(result.memberNickname);
                 setMemberProfile(result.memberProfile);
-            });
-
+            })
 
     },[]);
 
@@ -123,23 +122,7 @@ const ConnectMyPageMain = () => {
         
         
         const profileFormData = new FormData();
-
-        // TODO : 수정 요청
-
-        // console.log(inputNickname);
-
-        // const memberJsonBlob = new Blob([JSON.stringify({
-        //     inputMemberNickname: inputNickname,
-        //     inputMemberComment: inputComment
-        // })], {type: 'application/json'});
-
-
-        // console.log(inputComment);
         
-        // console.log(memberJsonBlob);
-
-
-        // profileFormData.append('memberInfo', memberJsonBlob)
         profileFormData.append('profileImage', $fileTag.current.files[0]);
 
         const res = await fetch(API_BASE_URL + '/member/mypage/profile', {
@@ -151,7 +134,7 @@ const ConnectMyPageMain = () => {
             body: profileFormData,
         });
 
-        // TODO : 이미지 등록되면 이동할 곳
+
         window.location.reload();
 
     };
