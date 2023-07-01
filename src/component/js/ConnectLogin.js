@@ -312,13 +312,21 @@ const ConnectLogin = () => {
 
     const openSignIn = e => {
         const $signInBox = document.querySelector('.signin-modal-box');
-
+        
+        swal({
+            title: "알림",
+            text: "회원가입에 성공하였습니다!",
+            icon: "success",
+            // buttons: true,
+            // dangerMode: true,
+            timer: 1500
+          })
         if ($signInBox && $signInBox.style.display !== 'block') {
             $signInBox.style.display = 'block';
         } else {
             $signInBox.style.display = 'none';
         }
-
+        
         if($signInBox.style.height !== '800px') {
             $signInBox.style.animation = 'openSignInModal 1s forwards 1';
         } else {
@@ -433,7 +441,7 @@ const ConnectLogin = () => {
             document.querySelector('.certify-email-input').value='';
         } else {
             // 일치했을 때
-            swal('알림','코드가 일치합니다!','warning');
+            swal('알림','코드가 일치합니다!','success');
             closeCertifyEmailModal();
 
             if ($signInEmail) {
@@ -637,32 +645,28 @@ const ConnectLogin = () => {
         // 로그아웃 핸들러
         const logoutHandler = e => {
             const confirmLogout = swal({
-                title: "경고",
-                text: "정말 로그아웃 하시겠습니까?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-              })
-              .then((confirmLogout) => {
-                if (confirmLogout) {
-                    swal({
-                        title: "알림",
-                        text: "로그아웃 되었습니다.",
-                        icon: "success",
-                        timer: 1000
-                        // buttons: true,
-                        // dangerMode: true,
-                        // allowEnterKey: true
-                      })
-                    setIsLogInTest(false);
-                    localStorage.clear();
-                    localStorage.removeItem('refreshtoken');
-                    removeCookie('REFRESH_TOKEN');
+              title: "경고",
+              text: "정말 로그아웃 하시겠습니까?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            }).then(confirmLogout => {
+              if (confirmLogout) {
+                swal({
+                  title: "알림",
+                  text: "로그아웃 되었습니다.",
+                  icon: "success",
+                  timer: 1500 // 3초 동안 알림을 표시한 후에 사라집니다
+                });
+                localStorage.clear();
+                localStorage.removeItem('refreshtoken');
+                removeCookie('REFRESH_TOKEN');
+                setTimeout(() => {
                     window.location.href = '/';
-                } else {
-
-                }
-              });
+                }, 1500);
+              } 
+            });
+                  
             // if(confirmLogout) {
             //     setIsLogInTest(false);
             //     localStorage.clear();
@@ -778,7 +782,7 @@ const ConnectLogin = () => {
                 return;
             }
 
-            swal('알림','찾은 아이디는 ' + account + '입니다.','warning');
+            swal('알림','찾은 아이디는 ' + account + '입니다.','success');
         }
         
         // TODO : 이메일 인증 창 만들어야함. 회원가입과 같은 느낌으로
