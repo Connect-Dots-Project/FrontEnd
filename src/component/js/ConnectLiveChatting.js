@@ -595,7 +595,7 @@ const recvMessage = (recv) => {
 
                         <div className='uml-img-nickname-box'>
                           <div className='uml-img-box'>
-                            <div className='uml-img'>
+                            <div className='uml-img' style={{overflow:'hidden'}}>
                               <img src={message.senderProfile} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                               </div>
                           </div>
