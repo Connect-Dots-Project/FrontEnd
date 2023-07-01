@@ -174,7 +174,6 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       })
         .then(res => {
           if (res.status === 401) {
-            // alert('회원가입이 필요한 서비스입니다.');
             swal("알림","로그인이 필요한 서비스입니다.", "warning");
             // window.location.href = '/'; // 메인 페이지로 이동
           } else {

@@ -735,10 +735,10 @@ const recvMessage = (recv) => {
 
                   <div className='info-text-box'>
                     <div className='info-main-text-box'>
-                      <p>메인 텍스트</p>
+                      <p>Let's Talk Together!</p>
                     </div>
                     <div className='info-sub-text-box'>
-                      <p>서브 텍스트</p>
+                      <p>실시간 채팅으로 자유롭게 소통해보세요</p>
                     </div>
                   </div>
 
