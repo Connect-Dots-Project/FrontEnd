@@ -187,7 +187,6 @@ body {
 
                     #Cancel {
                         background: #fff;
-
                         &:hover {
                             background: tomato;
                         }
@@ -216,7 +215,7 @@ body {
     height: 880px;
     background: #fff;
     overflow: scroll;
-
+    
     .live-chatting-box {
         width: 100%;
         height: 1700px;
@@ -523,17 +522,15 @@ body {
 .test1234 {
     width: 865px;
     height: 800px;
-    border: 1px solid #000;
 
     .lcheader-wrapper {
+        border: 1px solid #000;
         width: 100%;
         height: 150px;
         display: flex;
-        border-right: 1px solid #000;
 
         .lcheader-img-box {
             border-right: 1px solid #000;
-            border-bottom: 1px solid #000;
             width: 30%;
             height: 100%;
 
@@ -563,7 +560,6 @@ body {
             height: 100%;
             font-size: 20px;
             position: relative;
-            border-bottom: 1px solid #000;
 
             .close-btn-box {
                 border: none;
@@ -579,7 +575,7 @@ body {
                 &:hover {
                     opacity: 0.7;
                 }
-
+                
                 #closeBtn {
                     background: url('./img/Quit.png') no-repeat;
                     background-size: 100%;
@@ -594,7 +590,7 @@ body {
                 width: 100%;
                 height: 100%;
                 @include disflex();
-
+                
                 p {
                     width: 100%;
                     height: 100%;
@@ -607,11 +603,12 @@ body {
 }
 
 .lcmain-wrapper {
+    border-left: 1px solid #000;
     border-right: 1px solid #000;
     background: #eeefff;
     width: 100%;
     height: 500px;
-
+    
 
     .lcmain-box {
         width: 95%;
@@ -746,11 +743,10 @@ body {
 
 .lcfooter-wrapper {
     width: 100%;
-    height: 148px;
+    height: 150px;
 
     .lcfooter-box {
-        border-top: 1px solid #000;
-        border-right: 1px solid #000;
+        border: 1px solid #000;
         width: 100%;
         height: 100%;
 
@@ -850,8 +846,8 @@ body {
                 display: flex;
                 justify-content: left;
                 align-items: center;
-
-
+                
+                
                 .uml-message {
                     border-radius: 0 20px 20px 20px;
                     border: none;
@@ -945,7 +941,7 @@ body {
                 display: flex;
                 justify-content: right;
                 align-items: center;
-
+                
                 .umr-message {
                     border-radius: 20px 0 20px 20px;
                     border: none;
@@ -966,7 +962,7 @@ body {
                         position: absolute;
                         bottom: 10%;
                         left: -101%;
-
+        
                         .umr-time {
                             color: #000;
                             width: 96%;
@@ -980,7 +976,7 @@ body {
                 }
             }
 
-
+            
         }
     }
 }

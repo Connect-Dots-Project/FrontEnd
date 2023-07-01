@@ -69,13 +69,87 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     };
   
     const cancelBtn = (e) => {
-      swal('알림','차');
       const $modal = document.getElementById('CreatePostModal');
       $modal.classList.add('closing');
   
+      setTimeout(() => {
+        setCreateModal(false);
+        closeCreatePost();
+      }, 1000);
+      
+    };
+  
+  
+  
+  
+    useEffect(() => {
+      if (isEditMode && selectedHotplace) {
+
+        setSelectedLocation(selectedHotplace.location);
+        
+      }
+    });
+  
+    
+    
+    const submitHandler = (e) => {
+    
+      e.preventDefault();
+      
+      const requestData = {
+        freeBoardTitle: freeBoardTitle,
+        freeBoardContent: hotplaceContent,
+        freeBoardLocation: inputLocation,
+        freeBoardCategory: selectedLocation
+      };
+
+      if (isEditMode) requestData.hotplaceIdx = selectedHotplace.hotplaceIdx;
+    
+    const jsonString = JSON.stringify(requestData);
+    const jsonDataBlob = new Blob([jsonString], { type: 'application/json' });
+  
+    const freeBoardFormData = new FormData();
+    freeBoardFormData.append('freeBoard', jsonDataBlob);
+    freeBoardFormData.append('freeBoardImg', hotplaceImg);
+
+      if (isEditMode) {
+        fetch(API_BASE_URL + '/contents/free-board', {
+          method: 'PATCH',
+          headers: {
+            'Authorization' : getLoginUserInfo().token
+          },
+          credentials: 'include',
+          body: freeBoardFormData
+        })
+          .then((res) => res.json())
+          .then((result) => {});
+      } else {
+        fetch(API_BASE_URL + '/contents/free-board', {
+          method: 'POST',
+          headers: {
+            'Authorization' : getLoginUserInfo().token
+          },
+          credentials: 'include',
+          body: freeBoardFormData
+        })
+          .then((res) => res.json())
+          .then((result) => {});
+      }
+  
+      window.location.reload();
+    };
+
+    const regions = [
+      '강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구',
+      '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구',
+      '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
+    ];
+
+    // 행정구역 선택
+  const [isOpenSelect, setIsOpenSelect] = useState(false);
   
   const openSelect = () => {
-    setIsOpenSelect(false);
+    setIsOpenSelect(true);
   };
   
   const closeSelect = () => {
@@ -174,7 +248,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                         <button className='api-btn' id='Cancel' onClick={cancelBtn}>
                           <p>취소</p>
                         </button>
-                        <button type='submit' className='api-btn' id='Storage' >
+                        <button type='submit' className='api-btn' id='Storage'>
                           <p>{isEditMode ? '수정하기' : '작성'}</p>
                         </button>
                       </div>

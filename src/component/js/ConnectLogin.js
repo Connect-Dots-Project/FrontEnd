@@ -9,7 +9,6 @@ import { getLoginUserInfo, isLogin, setLoginUserInfo } from '../../util/login-ut
 import { API_BASE_URL } from '../../config/host-config';
 import { DropDown } from '@grapecity/wijmo.input';
 import swal from 'sweetalert';
-import { DinnerDining } from '@mui/icons-material';
 
 
 const ConnectLogin = () => {
@@ -239,7 +238,7 @@ const ConnectLogin = () => {
         setMessage({...message, passwordCheck: ''});
         setCorrect({...correct, passwordCheck: false});
 
-        const inputVal =    DinnerDining    e.target.value;
+        const inputVal = e.target.value;
 
         const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 
@@ -258,7 +257,7 @@ const ConnectLogin = () => {
             }
 
             saveInputState({
-                key: '50%',
+                key: 'password',
                 inputVal,
                 msg,
                 flag
@@ -294,7 +293,6 @@ const ConnectLogin = () => {
     const openLogin = e => {
         const $loginBox = document.getElementById('LoginModalBox');
         const $back = document.querySelector('.backDrop');
-        
 
         if ($loginBox.style.height !== '800px') {
           $loginBox.style.animation = 'openLoginModal 1s forwards 1';
@@ -315,7 +313,14 @@ const ConnectLogin = () => {
     const openSignIn = e => {
         const $signInBox = document.querySelector('.signin-modal-box');
         
-        
+        swal({
+            title: "알림",
+            text: "회원가입에 성공하였습니다!",
+            icon: "success",
+            // buttons: true,
+            // dangerMode: true,
+            timer: 1500
+          })
         if ($signInBox && $signInBox.style.display !== 'block') {
             $signInBox.style.display = 'block';
         } else {
@@ -498,8 +503,6 @@ const ConnectLogin = () => {
             $signBox.style.animation = 'closeSignInModal 1s forwards 1';
         }
 
-        
-
     };
 
 
@@ -566,7 +569,12 @@ const ConnectLogin = () => {
             document.getElementById('PW').value='';
         } else {
             swal({
-                
+                title: "알림",
+                text: "환영합니다!",
+                icon: "success",
+                // buttons: true,
+                // dangerMode: true,
+                timer: 1000
               })
             setIsLogInTest(true);
             const $loginBox = document.querySelector('.login-modal-box');
@@ -575,21 +583,6 @@ const ConnectLogin = () => {
             if ($loginBox && $back && $loginBox.style.display === 'block') {
                 $loginBox.style.animation = 'closeLoginModal 1s forwards 1';
                 $back.style.display = 'none';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             }
             
             // window.location.reload();
@@ -598,10 +591,6 @@ const ConnectLogin = () => {
 
         const token = res.headers.get('Authorization');
         localStorage.setItem('Authorization', token);
-
-
-
-
 
         // console.log(res.headers);
         // console.log(res.headers.get);

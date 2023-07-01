@@ -136,7 +136,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then(res => {
         if (res.status === 401) {
-          swal('알림', "회원가입이 필요한 서비스입니다.", "warning");
+          swal('회원가입이 필요한 서비스입니다.', "", "warning");
           // window.location.href = '/';
         } else {
           return res.json();
