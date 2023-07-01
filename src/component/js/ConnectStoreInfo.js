@@ -6,6 +6,7 @@ import ConnectLogin from "./ConnectLogin";
 import {getLoginUserInfo} from "../../util/login-util";
 
 import { API_BASE_URL } from '../../config/host-config';
+import swal from 'sweetalert';
 
 
 const ConnectStoreInfo = () => {
@@ -54,13 +55,13 @@ const ConnectStoreInfo = () => {
     })
         .then((response) => {
           if(response.status===401){
-          alert('로그인한 회원만 이용하실 수 있습니다');
+          swal('알림','로그인한 회원만 이용하실 수 있습니다','warning');
           handleAlertConfirm();
         } return response.json()})
 
         .then((data) => {
           setCvsData(data);
-          console.log('데이터 전송 완료');
+          // console.log('데이터 전송 완료');
         })
         .catch((error) => {
           console.error('Error fetching CVS data:', error);
