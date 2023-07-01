@@ -34,7 +34,7 @@ body {
     bottom: 75px;
     right: 75px;
 
-    z-index: 1;
+    z-index: 100;
 
     &:hover .ch-signin-box {
         display: block;
@@ -47,17 +47,17 @@ body {
         width: 75px;
         height: 75px;
         border: none;
+        position: relative;
 
         @include disflex();
 
         // 로그인
         #Login {
-            box-shadow: 2px 2px 1px 1px #000;
-            width: 100%;
-            height: 100%;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 700;
+            background: url('./img/ConnectCat2.png') no-repeat;
+            background-size: 100%;
+            border: none;
+            width: 75px;
+            height: 75px;
             cursor: pointer;
 
             @include disflex();
@@ -66,27 +66,31 @@ body {
                 transform: scale(0.95);
             }
         }
+    }
 
-
-
+    p {
+        position: absolute;
+        bottom: -5px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
     }
 
     .ch-logout-box {
         width: 75px;
         height: 75px;
         border: none;
+        position: relative;
 
         @include disflex();
 
         // 로그아웃
         #Logout {
-            background: tomato;
-            box-shadow: 2px 2px 1px 1px #000;
-            width: 100%;
-            height: 100%;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 700;
+            background: url('./img/ConncetCat.Logo.png') no-repeat;
+            background-size: 100%;
+            border: none;
+            width: 75px;
+            height: 75px;
             cursor: pointer;
 
             @include disflex();
@@ -94,7 +98,17 @@ body {
             &:active {
                 transform: scale(0.95);
             }
+
         }
+            p {
+                width: 80px;
+                position: absolute;
+                bottom: -5px;
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
     }
 }
 
@@ -196,7 +210,7 @@ body {
                     height: 50%;
                     margin-bottom: 30px;
                     text-align: center;
-                    
+
                     // 입력창
                     .inputBox {
                         background: none;
@@ -208,7 +222,7 @@ body {
                         padding-left: 2%;
                         margin-top: 15px;
                         font-size: 16px;
-                        
+
                         &:focus {
                             outline: none;
                         }
@@ -217,7 +231,7 @@ body {
                             border: 1px solid #fff;
                             opacity: 0.8;
                         }
-                        
+
                         &::placeholder {
                             color: #fff;
                             opacity: 0.7;
@@ -226,43 +240,43 @@ body {
 
                     // // 자동로그인
                     // .auto-login-check-box {
-                        //     width: 100%;
-                        //     height: 85px;
-                        //     margin: 0 auto;
-                        
-                        //     .auto-login-check {
-                            //         width: 86%;
+                    //     width: 100%;
+                    //     height: 85px;
+                    //     margin: 0 auto;
+
+                    //     .auto-login-check {
+                    //         width: 86%;
                     //         height: 90%;
                     //         margin: 0 auto;
 
                     //         display: flex;
                     //         justify-content: left;
                     //         align-items: center;
-                    
+
                     //         .auto-login {
-                        //             margin-right: 5px;
-                        //             width: 20px;
-                        //             height: 20px;
+                    //             margin-right: 5px;
+                    //             width: 20px;
+                    //             height: 20px;
                     //         }
 
                     //         .checkbox-text {
                     //             color: #fff;
                     //             font-size: 16px;
                     //         }
-                    
+
                     //     }
-                    
+
                     // }
-                    
+
                 }
-                
+
                 // 로그인 버튼 box
                 .login-btn-box {
                     width: 87.5%;
                     height: 15%;
                     margin: 0 auto;
                     margin-top: 45px;
-                    
+
                     // 로그인 버튼
                     .login-btn {
                         background: rgb(20, 101, 173);
@@ -279,31 +293,31 @@ body {
                         &:focus {
                             outline: none;
                         }
-                        
+
                         &:hover {
                             opacity: 0.8;
                         }
                     }
-                    
+
                 }
-                
+
             }
-            
+
             // 아이디, 비밀번호 찾기
             .search-id-pw-wrapper {
                 width: 100%;
                 height: 10%;
-                
+
                 // 아이디, 비밀번호 찾기 box 
                 .search-id-pw-box {
                     width: 100%;
                     height: 100%;
                     margin: 0 auto;
-                    
+
                     display: flex;
                     justify-content: space-evenly;
                     align-items: center;
-                    
+
                     // 아이디, 비밀번호 찾기
                     .search-id-pw {
                         border: 1px solid rgb(20, 101, 173);
@@ -311,22 +325,22 @@ body {
                         border-radius: 5px;
                         width: 40%;
                         height: 85%;
-                        
+
                         &:hover {
                             opacity: 0.8;
                         }
-                        
+
                         .search-id {
                             @include disflex();
                             width: 100%;
                             height: 100%;
                         }
-                        
+
                         .search-pw {
                             @include disflex();
                             width: 100%;
                             height: 100%;
-                            
+
                         }
 
                         .search-text {
@@ -335,25 +349,25 @@ body {
                     }
                 }
             }
-            
+
             .division-wrapper {
                 width: 90%;
                 height: 15%;
                 margin: 0 auto;
                 display: flex;
-                
+
                 .division-box {
                     border-bottom: 2px solid rgb(20, 101, 173);
                     width: 140px;
                     height: 50%;
                     margin: 0 auto;
                 }
-                
+
                 .division-text-box {
                     width: 100%;
                     height: 100%;
                     @include disflex();
-                    
+
                     .division-text {
                         color: #fff;
                         opacity: 0.7;
@@ -361,7 +375,7 @@ body {
                 }
             }
         }
-        
+
         // 회원가입 box
         .ch-signin-box {
             width: 85%;
@@ -369,13 +383,13 @@ body {
             margin: 0 auto;
             margin-top: 5px;
             border-radius: 5px;
-            
+
             @include disflex();
-            
+
             &:hover {
                 opacity: 0.8;
             }
-            
+
             // 회원가입
             #Sign-in {
                 border: 2px solid rgb(20, 101, 173);
@@ -389,7 +403,7 @@ body {
                 cursor: pointer;
 
                 @include disflex();
-                
+
                 &:active {
                     transform: scale(0.95);
                 }

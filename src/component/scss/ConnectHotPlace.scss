@@ -241,7 +241,7 @@ body {
 
         // hot-place 정보
         .hp-info {
-            background: #eeeeee;
+            background: #eeefff;
             box-shadow: 2px 2px 3px 1px #444;
             width: 49%;
             height: 300px;
@@ -352,7 +352,7 @@ body {
                         .hp-text {
                             // border: 1px solid #000;
                             // background: pink;
-                            width: 95%;
+                            width: 100%;
                             height: 55%;
                             font-size: 15px;
                             // font-weight: 700;
@@ -361,20 +361,26 @@ body {
                         }
                         
                         .hp-writer-date-box {
-                            width: 95%;
-                            height: 50%;
+                            width: 100%;
+                            height: 45%;
                             display: flex;
                             
                             .hp-writer-box {
-                                width: 50%;
+                                width: 60%;
                                 height: 100%;
                                 @include disflex();
+
+                                img {
+                                    width: 35px;
+                                    height: 35px;
+                                    border-radius: 50%;
+                                }
                                 
                                 .hp-writer-text {
                                     // border: 1px solid #000;
                                     // background: #999;
-                                    margin: 20px;
-                                    width: 100%;
+                                    // margin: 20px;
+                                    width: 70%;
                                     height: 60%;
                                     font-size: 16px;
                                     font-weight: 700;
@@ -387,7 +393,7 @@ body {
                             }
                             
                             .hp-date-box {
-                                width: 50%;
+                                width: 40%;
                                 height: 100%;
                                 @include disflex();
                                 
@@ -422,6 +428,10 @@ body {
                             p {
                                 font-size: 18px;
                                 font-weight: 700;
+
+                                .person-icon {
+                                    border: 1px solid #000;
+                                }
                             }
                         }
 

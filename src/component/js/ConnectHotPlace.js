@@ -4,6 +4,7 @@ import ConnectCreatePost from './ConnectCreatePost';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
+import swal from 'sweetalert';
 
 import '../scss/ConnectHotPlace.scss';
 import ConnectTotalMap from './ConnectTotalMap';
@@ -42,7 +43,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result.hotplaceList.length);
+        // console.log(result.hotplaceList.length);
         if(result.length === 0) {
           return;
         }
@@ -70,7 +71,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log([...result.hotplaceList]);
+        // console.log([...result.hotplaceList]);
         if([...result.hotplaceList].length === 0) {
           return; 
         }
@@ -122,28 +123,45 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   // 글 삭제
   const deleteHotplace = (hotplaceIdx) => {
-    console.log(hotplaceIdx);
-
-    fetch(REQUEST_URL + `/${hotplaceIdx}`, {
-      method: 'DELETE',
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization' : getLoginUserInfo().token
-      },
-        credentials: 'include', 
+    // console.log(hotplaceIdx);
+    
+    swal({
+      title: "경고",
+      text: "정말 게시글을 삭제하시겠습니까?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
     })
-      .then(res => {
-        if (res.status === 401) {
-          alert('회원가입이 필요한 서비스입니다.');
-          window.location.href = '/';
-        } else {
-          return res.json();
-        }
-      })
-      .then(result => console.log(result));
+    .then((willDelete) => {
+      if (willDelete) {
+        fetch(REQUEST_URL + `/${hotplaceIdx}`, {
+          method: 'DELETE',
+          headers: { 
+            'content-type': 'application/json',
+            'Authorization' : getLoginUserInfo().token
+          },
+            credentials: 'include', 
+        })
+          .then(res => {
+            if (res.status === 401) {
+              swal('알림','회원가입이 필요한 서비스입니다.','warning');
+            } else {
+              // .then(result => console.log(result));
+              swal('알림','게시글이 정상적으로 삭제되었습니다.','success');
+              return res.json();
+            }
+          })
+        setTimeout(() => {
+          window.location.reload();
+          }, 750);
+      } else {
+        
+      }
+    });
 
-    window.location.reload();
+    
   };
+
 
   // 작성창 (글쓰기)
   const [isCreateModal, setIsCreateModal] = useState(false);
@@ -156,10 +174,20 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       })
         .then(res => {
           if (res.status === 401) {
-            alert('회원가입이 필요한 서비스입니다.');
-            window.location.href = '/'; // 메인 페이지로 이동
+            // alert('회원가입이 필요한 서비스입니다.');
+            swal("알림","로그인이 필요한 서비스입니다.", "warning");
+            // window.location.href = '/'; // 메인 페이지로 이동
           } else {
+            swal({
+              title: "알림",
+              text: "글쓰기 화면을 불러옵니다. 잠시만 기다려주세요",
+              icon: "success",
+              // buttons: true,
+              // dangerMode: true,
+              timer: 1000
+            })
             setIsCreateModal(true); // 모달 창 열기
+            
           }
         })
   };
@@ -180,8 +208,8 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     })
       .then(res => {
         if (res.status === 401) {
-          alert('회원가입이 필요한 서비스입니다.');
           window.location.href = '/';
+          swal('회원가입이 필요한 서비스입니다.');
         } else {
           return res.json();
         }
@@ -195,8 +223,9 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   const [showMap, setShowMap] = useState(false);
   
   const openChangeMap = () => {
+
     if (!localStorage.getItem('ACCESS_TOKEN')) {
-      alert('로그인한 회원만 이용하실 수 있습니다');
+      swal('알림','로그인한 회원만 이용하실 수 있습니다','warning');
       return;
     }
 
@@ -206,7 +235,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
   // 검색어 기능 구현
   const handleSearch = () => {
-    console.log(hpData);
+    // console.log(hpData);
     const filtered = hpData.filter((content) =>
       content.hotplaceContent.includes(searchText)
     );
@@ -321,6 +350,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
             ref={containerRef}
         >
           {hpData.map(hp => (
+            console.log(hp),
                         <div className='hp-info' key={hp.hotplaceIdx}>
 
                           {hp.memberNickname === getLoginUserInfo().usernickname && (
@@ -362,7 +392,12 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
                                 <div className='hp-writer-date-box'>
                                   <div className='hp-writer-box'>
-                                    <p className='hp-writer-text'><FontAwesomeIcon icon={faUser} className="person-icon" />&nbsp;{hp.memberNickname}</p>
+                                    {/* <p className='hp-writer-text'><FontAwesomeIcon icon={faUser} className="person-icon" />&nbsp;{hp.memberNickname}</p> */}
+                                    <img src={hp.memberProfile} alt='유저 프로필 이미지'/> 
+                                    
+                                    <p className='hp-writer-text'>
+                                      {hp.memberNickname}
+                                    </p>
                                   </div>
                                   <div className='hp-date-box'>
                                     <p className='hp-date-text'>{hp.hotplaceWriteDate}</p>

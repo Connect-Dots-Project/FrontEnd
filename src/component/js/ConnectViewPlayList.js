@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import '../scss/ConnectViewPlayList.scss';
 import { API_BASE_URL } from '../../config/host-config';
 import { getLoginUserInfo } from '../../util/login-util';
+import swal from 'sweetalert';
 
 const ConnectViewPlayList = ({ closeList, playListId }) => {
   const [playListItems, setPlayListItem] = useState([]);
@@ -22,7 +23,7 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
         });
 
         const result = await response.json();
-        console.log(result);
+        // console.log(result);
         setPlayListItem(result);
       } catch (error) {
         console.error('플레이리스트 항목을 불러오는 중 오류 발생:', error);
@@ -44,7 +45,7 @@ const ConnectViewPlayList = ({ closeList, playListId }) => {
     const previewUrl = playListItems[index]?.musicBoardPreviewUrl;
   
     if (!previewUrl) {
-      alert('지원하지 않는 음악입니다.');
+      swal('알림','지원하지 않는 음악입니다.','warning');
       return;
     }
   if (isPlaying && currentTrackIndex === index) {

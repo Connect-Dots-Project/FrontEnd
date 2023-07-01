@@ -212,13 +212,14 @@ body {
 
 .live-chatting-wrapper {
     width: 100%;
-    height: 750px;
+    height: 880px;
     background: #fff;
     overflow: scroll;
-
+    
     .live-chatting-box {
         width: 100%;
-        height: 100%;
+        height: 1700px;
+        overflow: hidden;
 
         .lc-info-tag-box {
             background: #fff;

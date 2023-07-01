@@ -8,6 +8,7 @@ import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
 import { getLoginUserInfo, isLogin, setLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
 import { DropDown } from '@grapecity/wijmo.input';
+import swal from 'sweetalert';
 
 
 const ConnectLogin = () => {
@@ -64,30 +65,30 @@ const ConnectLogin = () => {
             })
             .then(result => 
                 {
-                    console.log(result);
-                    phoneFlag = result;
+                    phoneFlag = result.checkPhone;
+                    // console.log(phoneFlag);
+                       
+                    if(e.target.value.length < 13) {
+                        msg = '올바르지 않은 형식입니다'
+                        flag = false;
+                    } else if (!phoneFlag) {
+                        msg = '이미 가입된 번호입니다.'
+                        flag = false;
+                    } else {
+                        msg = '사용가능한 번호입니다.'
+                        flag = true;
+                    }
+
+                    saveInputState({
+                        key: 'phoneNumber',
+                        msg,
+                        flag
+                    });
                     
                 });
                 
                 
-                // TODO: 아래 중복값 검사 결과 붙여주세용
-                
-          if(e.target.value.length < 13) {
-            msg = '올바르지 않은 형식입니다'
-            flag = false;
-          } else if (!phoneFlag) {
-            msg = '이미 가입된 번호입니다.'
-            flag = false;
-          } else {
-            msg = '사용가능한 번호입니다.'
-            flag = true;
-          }
-
-          saveInputState({
-            key: 'phoneNumber',
-            msg,
-            flag
-          });
+             
 
         
     };
@@ -356,7 +357,7 @@ const ConnectLogin = () => {
         const inputEmail = document.getElementById('Input-email');
         
         if (inputEmail.value.length === 0) {
-            alert('이메일을 입력하세요.');
+            swal('알림','이메일을 입력하세요.','warning');
             return;
         }
 
@@ -367,16 +368,16 @@ const ConnectLogin = () => {
         });
 
         if(checkEmailResponse.status === 400) {
-            alert('이메일 양식이 다릅니다. 다시 입력해주세요');
+            swal('알림','이메일 양식이 다릅니다. 다시 입력해주세요','warning');
             return;
         }
 
         const { checkEmail } = await checkEmailResponse.json();
 
-        console.log(checkEmail);
+        // console.log(checkEmail);
 
         if (!checkEmail) {
-            alert('이미 가입한 회원입니다.');
+            swal('알림','이미 가입한 회원입니다.','warning');
             return;
         }
 
@@ -425,14 +426,14 @@ const ConnectLogin = () => {
 
         const { checkResult } = await res.json();
 
-        console.log(checkResult + '       <<<<<< sign-up/check');
+        // console.log(checkResult + '       <<<<<< sign-up/check');
 
         if(!checkResult) {
-            alert('코드가 일치하지 않습니다!');
+            swal('알림','코드가 일치하지 않습니다!','warning');
             document.querySelector('.certify-email-input').value='';
         } else {
             // 일치했을 때
-            alert('코드가 일치합니다!');
+            swal('알림','코드가 일치합니다!','warning');
             closeCertifyEmailModal();
 
             if ($signInEmail) {
@@ -462,7 +463,7 @@ const ConnectLogin = () => {
         const $inputLocation = document.getElementById('Input-location');
         const $inputComment = document.getElementById('Input-comment');
 
-        alert(selectedOption);
+        // alert(selectedOption);
 
         const res = await fetch(API_BASE_URL + '/connects/sign-up', {
             method: 'POST',
@@ -483,7 +484,7 @@ const ConnectLogin = () => {
             })
         });
 
-        console.log(res);
+        // console.log(res);
         // TODO : 창 닫히게 res
         const $signBox = document.querySelector('.signin-modal-box');
 
@@ -539,8 +540,8 @@ const ConnectLogin = () => {
         if(res.status === 400) {
             // 서버에서 온 문자열 읽기
             const text = await res.text();
-            alert(text);
-            document.getElementById('ID').value = '';
+            swal('알림', '아이디 또는 비밀번호를 다시 확인해주세요', 'warning');
+            // document.getElementById('ID').value = '';
             document.getElementById('PW').value = '';
             return;
         }
@@ -552,11 +553,18 @@ const ConnectLogin = () => {
 
 
         if(!account) {
-            alert('아이디 혹은 비밀번호가 틀렸습니다.');
+            swal('알림','아이디 혹은 비밀번호가 틀렸습니다.','warning');
             // document.getElementById('ID').value='';
             document.getElementById('PW').value='';
         } else {
-            alert('환영합니다!');
+            swal({
+                title: "알림",
+                text: "환영합니다!",
+                icon: "success",
+                // buttons: true,
+                // dangerMode: true,
+                timer: 1000
+              })
             setIsLogInTest(true);
             const $loginBox = document.querySelector('.login-modal-box');
             const $back = document.querySelector('.backDrop');
@@ -566,24 +574,24 @@ const ConnectLogin = () => {
                 $back.style.display = 'none';
             }
             
-            window.location.reload();
+            // window.location.reload();
         }
 
 
         const token = res.headers.get('Authorization');
         localStorage.setItem('Authorization', token);
 
-        console.log(res.headers);
-        console.log(res.headers.get);
-        console.log(nickname);
-        console.log(account);
+        // console.log(res.headers);
+        // console.log(res.headers.get);
+        // console.log(nickname);
+        // console.log(account);
 
-        console.log(document.cookie);
+        // console.log(document.cookie);
 
-        // TODO: 쿠키 가져오기
+        // // TODO: 쿠키 가져오기
 
-        console.log(token);
-        console.log(localStorage.getItem('Authorization'));
+        // console.log(token);
+        // console.log(localStorage.getItem('Authorization'));
 
             localStorage.setItem('ACCESS_TOKEN', token);
             localStorage.setItem('ACCOUNT', account);
@@ -625,14 +633,40 @@ const ConnectLogin = () => {
 
         // 로그아웃 핸들러
         const logoutHandler = e => {
-            const confirmLogout = window.confirm('정말로 로그아웃하시겠습니까?');
-            if(confirmLogout) {
-                setIsLogInTest(false);
-                localStorage.clear();
-                localStorage.removeItem('refreshtoken');
-                removeCookie('REFRESH_TOKEN');
-                window.location.href = '/';
-            }
+            const confirmLogout = swal({
+                title: "경고",
+                text: "정말 로그아웃 하시겠습니까?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((confirmLogout) => {
+                if (confirmLogout) {
+                    swal({
+                        title: "알림",
+                        text: "로그아웃 되었습니다.",
+                        icon: "success",
+                        timer: 1000
+                        // buttons: true,
+                        // dangerMode: true,
+                        // allowEnterKey: true
+                      })
+                    setIsLogInTest(false);
+                    localStorage.clear();
+                    localStorage.removeItem('refreshtoken');
+                    removeCookie('REFRESH_TOKEN');
+                    window.location.href = '/';
+                } else {
+
+                }
+              });
+            // if(confirmLogout) {
+            //     setIsLogInTest(false);
+            //     localStorage.clear();
+            //     localStorage.removeItem('refreshtoken');
+            //     removeCookie('REFRESH_TOKEN');
+            //     window.location.href = '/';
+            // }
         };
 
     const checkNickname = async (e) => {
@@ -649,10 +683,10 @@ const ConnectLogin = () => {
 
         if (checkNickname) {
             // 중복된 별명이 있을 경우 처리 로직
-            console.log('사용 가능한 별명입니다!');
+            // console.log('사용 가능한 별명입니다!');
         } else {
             // 중복된 별명이 없을 경우 처리 로직
-            console.log('중복된 별명입니다!');
+            // console.log('중복된 별명입니다!');
         }
 
         const nameRegex = /^[가-힣]{2,5}$/;
@@ -735,13 +769,13 @@ const ConnectLogin = () => {
 
             const { account } = await response.json();
 
-            console.log(account);
+            // console.log(account);
             if(account === null) {
-                alert('가입하지 않은 핸드폰 번호 입니다.');
+                swal('알림','가입하지 않은 핸드폰 번호 입니다.','warning');
                 return;
             }
 
-            alert('찾은 아이디는 ' + account + '입니다.');
+            swal('알림','찾은 아이디는 ' + account + '입니다.','warning');
         }
         
         // TODO : 이메일 인증 창 만들어야함. 회원가입과 같은 느낌으로
@@ -760,12 +794,12 @@ const ConnectLogin = () => {
         //                   2. 입력한 암호가 맞은 경우
         //                          ----> [front : 새 비밀번호 입력받기]
         //                               1. 입력받은 비밀번호는 새 비밀번호로 적용됨 [front : 입력받은 비밀번호를 담은 request 보내기]
-        const findPassword = async() => {
-            alert('findPassword');
+        // const findPassword = async() => {
+        //     alert('findPassword');
 
 
 
-        }
+        // }
 
 
         
@@ -774,7 +808,7 @@ const ConnectLogin = () => {
           
           const handleDropdownChange = (selected) => {
             
-            console.log(selected.value);
+            // console.log(selected.value);
 
             setSelectedOption(selected.value);
             // 드롭박스 값 변경 시 수행할 동작을 여기에 작성합니다.
@@ -850,7 +884,7 @@ const ConnectLogin = () => {
                             </li>
                             <li className='search-id-pw' id='SearchPW'>
                                 <Link to={'/nb-search-PW'} className='search-pw'>
-                                    <p className='search-text' onClick={ findPassword } >비밀번호 찾기</p>
+                                    <p className='search-text'>비밀번호 찾기</p>
                                 </Link>
                             </li>
                         </ul>
@@ -1113,11 +1147,13 @@ const ConnectLogin = () => {
         <div className='connect-header-login-wrapper'>
         {isLogInTest ? (
             <div className='ch-logout-box'>
-                <button id='Logout' onClick={ logoutHandler }>로그아웃</button>
+                <button id='Logout' onClick={ logoutHandler }></button>
+                <p>로그아웃▲</p>
             </div>
         ) : (
             <div className='ch-login-box'>
-                <button id='Login' onClick={ openLogin }>로그인</button>
+                <button id='Login' onClick={ openLogin }></button>
+                <p>로그인▲</p>
             </div>
         )
         }

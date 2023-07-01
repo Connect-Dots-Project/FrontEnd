@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import '../scss/ConnectStoreSales.scss';
 import ConnectMainOutline from "./ConnectMainOutline";
+// import swal from 'sweetalert';
 
 const ConnectStoreSales = () => {
   const [activeButton, setActiveButton] = useState(null);

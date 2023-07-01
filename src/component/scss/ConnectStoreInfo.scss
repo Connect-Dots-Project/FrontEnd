@@ -7,13 +7,12 @@
 
 .store-info-wrapper {
     width: 100%;
-    height: 567px;
-    //height: 300px;
-
+    height: 880px;
+    
     .store-info-box {
         width: 100%;
         height: 100%;
-
+        
         .store-info-header {
             border-bottom: 4px solid #1247ad;
             width: 100%;
@@ -78,8 +77,8 @@
 
         .store-info-filter-wrapper {
             width: 100%;
-            height: 1537px;
-
+            height: 790px;
+            
             .store-info-filter-box {
                 width: 100%;    
                 height: 100%;
@@ -90,12 +89,12 @@
                     padding-left: 30px;
                     display: flex;
                     align-items: center;
-
+                    
                     .price-btn-box {
                         width: 50%;
                         height: 100%;
                         @include disflex();
-
+                        
                         .price-btn {
                             border: none;
                             border-radius: 5px;
@@ -107,12 +106,12 @@
                             transition-duration: 0.3s;
                             cursor: pointer;
                             text-align: center;
-
+                            
                             &:hover {
                                 opacity: 0.8;
                                 background: #ff6701;
                             }
-
+                            
                             p {
                                 font-weight: 700;
                                 color: #fff;
@@ -120,16 +119,16 @@
                             }
                         }
                     }
-
+                    
                     .search-box {
                         width: 50%;
                         height: 100%;
-
+                        
                         .input-btn-box {
                             width: 100%;
                             height: 100%;
                             @include disflex();
-
+                            
                             .store-info-input {
                                 border: 2px solid #ff6701;
                                 border-radius: 10px 0 0 10px;
@@ -138,12 +137,12 @@
                                 padding-left: 2%;
                                 font-size: 16px;
                                 font-weight: 700;
-
+                                
                                 &:focus {
                                     outline: none;
                                 }
                             }                            
-
+                            
                             .search-btn-box {
                                 border: 2px solid #ff6701;
                                 border-left: none;
@@ -160,7 +159,7 @@
                                     width: 100%;
                                     height: 100%;
                                     transition-duration: 0.5s;
-
+                                    
                                     &:hover{
                                         cursor: pointer;
                                         opacity: 0.5;
@@ -170,10 +169,10 @@
                         }
                     }
                 }
-
+                
                 .store-info-main-wrapper {
                     width: 100%;
-                    height: 580px;
+                    height: 680px;
                     margin-top: 10px;
                     
                     .store-info-main-box {
@@ -183,7 +182,7 @@
                         .store-info-list-box::-webkit-scrollbar {
                             display: none;
                         }
-
+                        
                         .store-info-list-box {
                             width: 100%;
                             height: 100%;

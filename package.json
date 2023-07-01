@@ -35,6 +35,7 @@
     "sass": "^1.63.4",
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",
+    "sweetalert": "^2.1.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
