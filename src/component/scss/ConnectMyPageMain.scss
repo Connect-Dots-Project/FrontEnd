@@ -59,7 +59,7 @@ body {
 
                         .uim-profile-img-text-box {
                             width: 100%;
-                            height: 50%;
+                            height: 100%;
                             @include disflex();
 
                             .img-text-box {
@@ -79,27 +79,36 @@ body {
                                     }
                                 }
 
-                                .uim-profile-text-box {
+                                .uim-profile-text-wrapper {
                                     width: 100%;
                                     height: 20%;
-                                    @include disflex();
+                                    position: relative;
 
-                                    .profile-modify-btn {
-                                        background: none;
-                                        border: none;
-                                        width: 60%;
-                                        height: 70%;
-                                        cursor: pointer;
-                                        @include disflex();
-                                        
-                                        p {
+                                    .uim-profile-text-box {
+                                        width: 100%;
+                                        height: 100%;
+                                        position: absolute;
+                                        top: 0;
+                                        right: -20%;
+
+                                        .profile-modify-btn {
+                                            background: none;
                                             border: none;
-                                            background: #1465ad;
-                                            color: #fff;
-                                            width: 100%;
-                                            height: 100%;
-                                            font-size: 14px;
+                                            width: 60%;
+                                            height: 45%;
+                                            margin-bottom: 8px;
+                                            cursor: pointer;
                                             @include disflex();
+
+                                            p {
+                                                border: none;
+                                                background: #1465ad;
+                                                color: #fff;
+                                                width: 100%;
+                                                height: 100%;
+                                                font-size: 14px;
+                                                @include disflex();
+                                            }
                                         }
                                     }
                                 }
@@ -150,7 +159,7 @@ body {
         .uim-footer-wrapper {
             width: 100%;
             height: 15%;
-            
+
             .uim-footer-box {
                 width: 100%;
                 height: 100%;
@@ -169,6 +178,7 @@ body {
                         // box-shadow: 0 2px 2px 1px #444;
                         width: 35%;
                         height: 40%;
+                        cursor: pointer;
 
                         p {
                             font-size: 16px;
@@ -194,12 +204,12 @@ body {
 #MyPageMainWrapper {
     width: 100%;
     height: 100%;
-    
+
     .my-page-wrapper {
         width: 100%;
         height: 750px;
         @include disflex();
-        
+
         .my-page-box {
             width: 90%;
             height: 90%;
@@ -343,7 +353,7 @@ body {
                                             height: 100px;
                                         }
                                     }
-                                    
+
                                     p {
                                         color: #000;
                                         width: 100%;
@@ -365,12 +375,12 @@ body {
                                         width: 100%;
                                         height: 80%;
                                         @include disflex();
-                                        
+
                                         .mp-user-like {
                                             border: none;
                                             background: url('./img/UserLike.png') no-repeat;
                                             background-size: 100%;
-                                            
+
                                             width: 100px;
                                             height: 100px;
                                         }
@@ -392,12 +402,12 @@ body {
                                     height: 100%;
                                     border: none;
                                     cursor: pointer;
-                                    
+
                                     .mp-user-setting-location-box {
                                         width: 100%;
                                         height: 80%;
                                         @include disflex();
-                                        
+
                                         .mp-user-setting-location {
                                             border: none;
                                             background: url('./img/UserLocation.png') no-repeat;
@@ -406,7 +416,7 @@ body {
                                             height: 100px;
                                         }
                                     }
-                                    
+
                                     p {
                                         color: #000;
                                         width: 100%;

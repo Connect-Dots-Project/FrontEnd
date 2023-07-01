@@ -36,6 +36,12 @@ const ConnectMyPageMain = () => {
     const [inputNickname, setInputNickname] = useState([]);
     const [inputComment, setInputComment] = useState([]);
 
+    const [isUpdateProfile, setIsUpdateProfile] = useState(true);
+
+    const updateProfile = e => {
+        setIsUpdateProfile(!isUpdateProfile);
+    }
+
       
       const updateMemberNickname = (value) => {
         setInputNickname(value);
@@ -325,15 +331,18 @@ const ConnectMyPageMain = () => {
 
                                                 </div>
                                             </div>
-                                            <div className='uim-profile-text-box'>
                                                 
-                                                <button className='profile-modify-btn' onClick={() => $fileTag.current.click()}>
-                                                    <p>사진 변경</p>
-                                                </button>
-                                                <button onClick={ profilePostHandler }>
-                                                    <p>사진 수정 완료</p>
-                                                </button>
+                                            <div className='uim-profile-text-wrapper'>
+                                                <div className='uim-profile-text-box'>
+                                                    <button className='profile-modify-btn' onClick={() => $fileTag.current.click()}>
+                                                        <p>사진 변경</p>
+                                                    </button>
+                                                    <button className='profile-modify-btn' onClick={ profilePostHandler }>
+                                                        <p>사진 수정 완료</p>
+                                                    </button>
+                                                </div>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
