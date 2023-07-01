@@ -350,6 +350,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
             ref={containerRef}
         >
           {hpData.map(hp => (
+            console.log(hp),
                         <div className='hp-info' key={hp.hotplaceIdx}>
 
                           {hp.memberNickname === getLoginUserInfo().usernickname && (
@@ -392,7 +393,8 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
                                 <div className='hp-writer-date-box'>
                                   <div className='hp-writer-box'>
                                     {/* <p className='hp-writer-text'><FontAwesomeIcon icon={faUser} className="person-icon" />&nbsp;{hp.memberNickname}</p> */}
-                                    <img src={hp.hotplaceImg} alt='유저 프로필 이미지'/> 
+                                    <img src={hp.memberProfile} alt='유저 프로필 이미지'/> 
+                                    
                                     <p className='hp-writer-text'>
                                       {hp.memberNickname}
                                     </p>
