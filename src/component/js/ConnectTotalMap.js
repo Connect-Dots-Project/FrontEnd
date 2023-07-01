@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import '../scss/ConnectTotalMap.scss';
 
-const ConnectTotalMap = () => {
-  const [hpData, setHpData] = useState([]);
+const ConnectTotalMap = ({ hpDataList }) => {
+  const [hpData, setHpData] = useState(hpDataList);
   const [page, setPage] = useState(0);
   const [selectedLocation, setSelectedLocation] = useState(null);
 
@@ -30,10 +30,9 @@ const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
           return res.json();
         }
       })
-      .then((result) => {
-        const list = [...result.hotplaceList];
-        console.log(list);
-        setHpData(list);
+      .then((result) => {        
+        
+;
       });
   }, []);
 
@@ -44,7 +43,7 @@ const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
 
 
   const locations = hpData.map(hp => {
-	console.log(hp);
+    
     const { memberNickname, hotplaceName, hotplaceLatitude, hotplaceLongitude, hotplaceFullAddress, hotplaceImg, hotplaceContent } = hp;
     return {
       memberNickname,

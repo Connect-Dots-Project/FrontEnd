@@ -79,6 +79,9 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
         setIsLoading(false);
         setPage(page + 1);
         isFetchingRef.current = false;
+
+
+
       });
   };
 
@@ -343,14 +346,14 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
 
 
         {showMap ? (
-        <ConnectTotalMap />
+        <ConnectTotalMap hpDataList={hpData} />
       ) : (
         <div className='hp-info-box'
         onScroll={handleScroll}
             ref={containerRef}
         >
           {hpData.map(hp => (
-            console.log(hp),
+            
                         <div className='hp-info' key={hp.hotplaceIdx}>
 
                           {hp.memberNickname === getLoginUserInfo().usernickname && (
