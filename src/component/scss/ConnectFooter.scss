@@ -1,0 +1,170 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#MainFooterWrapper {
+    background: #fff;
+    width: 100%;
+    height: 200px;
+    position: relative;
+    // z-index: 1;
+    
+    #CatCrownBox {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 19%;
+        right: -39%;
+        z-index: 1000;
+        
+        #CatCrown {
+            background: url('./img/crown.png') no-repeat;
+            background-size: 100%;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    
+    #CatWandBox {
+        width: 30px;
+        height: 40px;
+        position: absolute;
+        top: 32%;
+        right: -43.7%;
+        z-index: 1000;
+        
+        #CatWand {
+            background: url('./img/Wand.png') no-repeat;
+            background-size: 100%;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .main-footer-box {
+        width: 100%;
+        height: 100%;
+
+        .ft-header {
+            border-bottom: 2px solid #ccc;
+            width: 100%;
+            height: 30%;
+            display: flex;
+
+            .ft-header-notice {
+                width: 15%;
+                height: 100%;
+                @include disflex();
+
+                p {
+                    font-weight: 700;
+                    font-size: 14px;
+                }
+            }
+
+            .ft-header-list-box {
+                width: 85%;
+                height: 100%;
+                display: flex;
+                justify-content: right;
+                align-items: center;
+
+                .ft-header-list {
+                    width: 13%;
+                    height: 100%;
+                    @include disflex();
+                    
+                    p {
+                        color: #000;
+                        font-weight: 700;
+                        font-size: 12px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .ft-main-box {
+            width: 100%;
+            height: 70%;
+
+            .ft-main-top {
+                width: 100%;
+                height: 30%;
+
+                .ft-main-menu {
+                    width: 100%;
+                    height: 100%;
+                    @include disflex();
+
+                    .ft-main-list {
+                        width: 12%;
+                        height: 100%;
+                        @include disflex();
+
+                        p {
+                            color: #999;
+                            font-weight: 700;
+                            font-size: 12px;
+                            @include disflex();
+                        }
+                    }
+                }
+            }
+
+            .ft-main-middle {
+                width: 100%;
+                height: 30%;
+
+                .ft-main-text-box {
+                    width: 100%;
+                    height: 100%;
+                    @include disflex();
+
+                    p {
+                        font-size: 12px;
+                        font-weight: 700;
+                        color: #999;
+                    }
+                }
+            }
+
+            .ft-main-bottom {
+                width: 100%;
+                height: 40%;
+
+                .ft-main-logo-box {
+                    width: 100%;
+                    height: 100%;
+                    @include disflex();
+
+                    .ft-main-logo {
+                        color: #999;
+                        font-size: 12px;
+                        font-weight: 700;
+                        @include disflex();
+                    }
+                }
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+}

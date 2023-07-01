@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { Map, MapMarker, MapInfoWindow } from 'react-kakao-maps-sdk';
 import { API_BASE_URL } from '../../config/host-config';
 import { getLoginUserInfo } from '../../util/login-util';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import '../scss/ConnectTotalMap.scss';
 
 const ConnectTotalMap = () => {
   const [hpData, setHpData] = useState([]);
@@ -12,7 +15,7 @@ const ConnectTotalMap = () => {
 const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
 
   useEffect(() => {
-    fetch(REQUEST_URL+`/${page}`, {
+    fetch(REQUEST_URL+`/list/${page}`, {
       method: 'GET',
       headers: {
         'Authorization' : getLoginUserInfo().token
@@ -41,13 +44,15 @@ const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
 
 
   const locations = hpData.map(hp => {
-	// console.log(hp);
-    const { hotplaceName, hotplaceLatitude, hotplaceLongitude, hotplaceFullAddress, hotplaceImg } = hp;
+	console.log(hp);
+    const { memberNickname, hotplaceName, hotplaceLatitude, hotplaceLongitude, hotplaceFullAddress, hotplaceImg, hotplaceContent } = hp;
     return {
-	  hotplaceName: hotplaceName,
+      memberNickname,
+	    hotplaceName,
       latlng: { lat: parseFloat(hotplaceLatitude), lng: parseFloat(hotplaceLongitude) },
-      hotplaceFullAddress: hotplaceFullAddress,
-      hotplaceImg: hotplaceImg,
+      hotplaceFullAddress,
+      hotplaceImg,
+      hotplaceContent
     };
   });
 
@@ -70,13 +75,19 @@ const REQUEST_URL = API_BASE_URL + '/contents/hot-place';
           {selectedLocation && (
 			  <MapInfoWindow position={selectedLocation.latlng} onClose={() => setSelectedLocation(null)}>
 				  
-              <div style={{ width: '240px', height: '200px', backgroundColor: 'white', padding: '10px', borderRadius: '5px' }}>
-                <h4>{selectedLocation.hotplaceName}</h4>
-
-				{/* 이미지 aws s3 저장 */}
-				<img src={selectedLocation.hotplaceImg}  style={{ width: '200px', height: '120px', paddingLeft: '10px', margin: '10px 0px' }} />
+              <div className='mapBox'>
                 
-			    <p>{selectedLocation.hotplaceFullAddress}</p>
+                <p className='memberNickname'> {selectedLocation.memberNickname} 님 </p>
+
+                <div className='inside'>
+                      <h4 className='hotplaceName'><FontAwesomeIcon icon={faLocationDot} /> {selectedLocation.hotplaceName}</h4>
+                      <p className='hotplaceFullAddress'>{selectedLocation.hotplaceFullAddress}</p>
+
+                      <img className='hotplaceImg' src={selectedLocation.hotplaceImg} style={{width: '300px', height: '120px', margin: '10px 0px' }} />
+
+                </div>
+                        
+                <p className='hotplaceContent' dangerouslySetInnerHTML={{ __html: selectedLocation.hotplaceContent }}></p>
               </div>
 				
             </MapInfoWindow>

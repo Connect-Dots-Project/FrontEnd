@@ -1,11 +1,14 @@
 
 import React, { useEffect, useState } from 'react'
 import { CookiesProvider, useCookies } from 'react-cookie'
+// import Select from 'react-select';
 
 import '../scss/ConnectLogin.scss';
 import { Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
 import { getLoginUserInfo, isLogin, setLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
+import { DropDown } from '@grapecity/wijmo.input';
+import swal from 'sweetalert';
 
 
 const ConnectLogin = () => {
@@ -35,18 +38,59 @@ const ConnectLogin = () => {
     };
 
     const autoHyphen = (e) => {
+
+
+        let msg;
+        let flag;
+        let phoneFlag;
+
+        
         e.target.value = e.target.value
-          .replace(/[^0-9]/g, '')
-          .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
-          .replace(/(\-{1,2})$/g, '');
+        .replace(/[^0-9]/g, '')
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
+        .replace(/(\-{1,2})$/g, '');
+        
+        
+          fetch(API_BASE_URL + '/connects/sign-up/check-phone', {
+              method: 'POST',
+              headers: {
+                  'content-type' : 'application/json'
+                },
+                body: JSON.stringify({phone : e.target.value})
+                
+                
+            })
+            .then(res => {
+                return res.json()
+            })
+            .then(result => 
+                {
+                    phoneFlag = result.checkPhone;
+                    // console.log(phoneFlag);
+                       
+                    if(e.target.value.length < 13) {
+                        msg = '올바르지 않은 형식입니다'
+                        flag = false;
+                    } else if (!phoneFlag) {
+                        msg = '이미 가입된 번호입니다.'
+                        flag = false;
+                    } else {
+                        msg = '사용가능한 번호입니다.'
+                        flag = true;
+                    }
 
-          let msg;
-          let flag;
+                    saveInputState({
+                        key: 'phoneNumber',
+                        msg,
+                        flag
+                    });
+                    
+                });
+                
+                
+             
 
-          if(e.target.value.length < 13) {
-            msg = '올바르지 않은 형식입니다'
-            flag = false;
-          }
+        
     };
 
 
@@ -308,12 +352,40 @@ const ConnectLogin = () => {
 
     const openCertifyEmailModal = async() => {
 
+        
+        
+        const inputEmail = document.getElementById('Input-email');
+        
+        if (inputEmail.value.length === 0) {
+            swal('알림','이메일을 입력하세요.','warning');
+            return;
+        }
+
+        const checkEmailResponse = await fetch(API_BASE_URL + '/connects/sign-up/check-email' , {
+            method: 'POST',
+            headers: { 'content-type': 'application/json'},
+            body: JSON.stringify({ email: inputEmail.value })
+        });
+
+        if(checkEmailResponse.status === 400) {
+            swal('알림','이메일 양식이 다릅니다. 다시 입력해주세요','warning');
+            return;
+        }
+
+        const { checkEmail } = await checkEmailResponse.json();
+
+        // console.log(checkEmail);
+
+        if (!checkEmail) {
+            swal('알림','이미 가입한 회원입니다.','warning');
+            return;
+        }
+
+
         const $emailModalWrapper = document.getElementById('EmailModalWrapper');
         $emailModalWrapper.style.display = 'block';
         $emailModalWrapper.style.animation = 'openCertifyEmailModal 1s forwards 1';
 
-
-        const inputEmail = document.getElementById('Input-email');
 
         const res = await fetch(API_BASE_URL + '/connects/sign-up/email', {
             method: 'POST',
@@ -354,14 +426,14 @@ const ConnectLogin = () => {
 
         const { checkResult } = await res.json();
 
-        console.log(checkResult + '       <<<<<< sign-up/check');
+        // console.log(checkResult + '       <<<<<< sign-up/check');
 
         if(!checkResult) {
-            alert('코드가 일치하지 않습니다!');
+            swal('알림','코드가 일치하지 않습니다!','warning');
             document.querySelector('.certify-email-input').value='';
         } else {
             // 일치했을 때
-            alert('코드가 일치합니다!');
+            swal('알림','코드가 일치합니다!','warning');
             closeCertifyEmailModal();
 
             if ($signInEmail) {
@@ -391,6 +463,7 @@ const ConnectLogin = () => {
         const $inputLocation = document.getElementById('Input-location');
         const $inputComment = document.getElementById('Input-comment');
 
+        // alert(selectedOption);
 
         const res = await fetch(API_BASE_URL + '/connects/sign-up', {
             method: 'POST',
@@ -405,13 +478,13 @@ const ConnectLogin = () => {
                     birthDay: $inputBirthday.value,
                     gender: $inputGender.value,
                     phone: $inputPhone.value,
-                    location: $inputLocation.value,
+                    location: selectedOption,
                     comment: $inputComment.value,
                     loginMethod: "COMMON"
             })
         });
 
-        console.log(res);
+        // console.log(res);
         // TODO : 창 닫히게 res
         const $signBox = document.querySelector('.signin-modal-box');
 
@@ -467,7 +540,9 @@ const ConnectLogin = () => {
         if(res.status === 400) {
             // 서버에서 온 문자열 읽기
             const text = await res.text();
-            alert(text);
+            swal('알림', '아이디 또는 비밀번호를 다시 확인해주세요', 'warning');
+            // document.getElementById('ID').value = '';
+            document.getElementById('PW').value = '';
             return;
         }
 
@@ -478,38 +553,45 @@ const ConnectLogin = () => {
 
 
         if(!account) {
-            alert('아이디 혹은 비밀번호가 틀렸습니다.');
-            document.getElementById('ID').value='';
+            swal('알림','아이디 혹은 비밀번호가 틀렸습니다.','warning');
+            // document.getElementById('ID').value='';
             document.getElementById('PW').value='';
         } else {
+            swal({
+                title: "알림",
+                text: "환영합니다!",
+                icon: "success",
+                // buttons: true,
+                // dangerMode: true,
+                timer: 1000
+              })
             setIsLogInTest(true);
-            alert('환영합니다!');
             const $loginBox = document.querySelector('.login-modal-box');
             const $back = document.querySelector('.backDrop');
-
+            
             if ($loginBox && $back && $loginBox.style.display === 'block') {
                 $loginBox.style.animation = 'closeLoginModal 1s forwards 1';
                 $back.style.display = 'none';
             }
-
-            window.location.reload();
+            
+            // window.location.reload();
         }
 
 
         const token = res.headers.get('Authorization');
         localStorage.setItem('Authorization', token);
 
-        console.log(res.headers);
-        console.log(res.headers.get);
-        console.log(nickname);
-        console.log(account);
+        // console.log(res.headers);
+        // console.log(res.headers.get);
+        // console.log(nickname);
+        // console.log(account);
 
-        console.log(document.cookie);
+        // console.log(document.cookie);
 
-        // TODO: 쿠키 가져오기
+        // // TODO: 쿠키 가져오기
 
-        console.log(token);
-        console.log(localStorage.getItem('Authorization'));
+        // console.log(token);
+        // console.log(localStorage.getItem('Authorization'));
 
             localStorage.setItem('ACCESS_TOKEN', token);
             localStorage.setItem('ACCOUNT', account);
@@ -551,36 +633,63 @@ const ConnectLogin = () => {
 
         // 로그아웃 핸들러
         const logoutHandler = e => {
-            const confirmLogout = window.confirm('정말로 로그아웃하시겠습니까?');
-            if(confirmLogout) {
-                setIsLogInTest(false);
-                localStorage.clear();
-                localStorage.removeItem('refreshtoken');
-                removeCookie('REFRESH_TOKEN');
-                window.location.href = '/';
-            }
+            const confirmLogout = swal({
+                title: "경고",
+                text: "정말 로그아웃 하시겠습니까?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((confirmLogout) => {
+                if (confirmLogout) {
+                    swal({
+                        title: "알림",
+                        text: "로그아웃 되었습니다.",
+                        icon: "success",
+                        timer: 1000
+                        // buttons: true,
+                        // dangerMode: true,
+                        // allowEnterKey: true
+                      })
+                    setIsLogInTest(false);
+                    localStorage.clear();
+                    localStorage.removeItem('refreshtoken');
+                    removeCookie('REFRESH_TOKEN');
+                    window.location.href = '/';
+                } else {
+
+                }
+              });
+            // if(confirmLogout) {
+            //     setIsLogInTest(false);
+            //     localStorage.clear();
+            //     localStorage.removeItem('refreshtoken');
+            //     removeCookie('REFRESH_TOKEN');
+            //     window.location.href = '/';
+            // }
         };
 
     const checkNickname = async (e) => {
         const inputNickname = e.target.value;
 
         // 중복 검사를 위해 서버로 요청을 보냄
-        const response = await fetch(API_BASE_URL + '/connects/sign-up/check', {
+        const response = await fetch(API_BASE_URL + '/connects/sign-up/check-nickname', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ nickname: inputNickname }),
         });
 
-        const { isDuplicate } = await response.json();
+        const { checkNickname } = await response.json();
 
-        if (isDuplicate) {
+        if (checkNickname) {
             // 중복된 별명이 있을 경우 처리 로직
-            console.log('중복된 별명입니다!');
+            // console.log('사용 가능한 별명입니다!');
         } else {
             // 중복된 별명이 없을 경우 처리 로직
-            console.log('사용 가능한 별명입니다!');
+            // console.log('중복된 별명입니다!');
         }
-        const nameRegex = /^[가-힣]{2,30}$/;
+
+        const nameRegex = /^[가-힣]{2,5}$/;
         const inputVal = e.target.value;
 
         // 입력값 검증
@@ -591,9 +700,9 @@ const ConnectLogin = () => {
             msg = '별명을 입력해주세요';
             flag = false;
         } else if (!nameRegex.test(inputVal)) { // 양식에 맞지 않은 경우
-            msg = '2 ~ 30자로 작성해주세요';
+            msg = '한글로 2 ~ 5자로 작성해주세요';
             flag = false;
-        } else if (isDuplicate) {
+        } else if (!checkNickname) {
             msg = '중복된 별명입니다';
             flag = false;
         } else {
@@ -645,6 +754,75 @@ const ConnectLogin = () => {
             msg: msg + lengthMessage,
             flag
         });}
+
+
+        // TODO : prompt 를 입력받는 창 만들기
+        // TODO : alert 띄우는 창 만들기 (custom alert, 모달 등)
+        const findAccount = async() => {
+            const inputPhone = prompt('핸드폰 번호를 입력하세요');
+
+            const response = await fetch(API_BASE_URL + '/connects/login/find/account', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ phone: inputPhone }),
+            });
+
+            const { account } = await response.json();
+
+            // console.log(account);
+            if(account === null) {
+                swal('알림','가입하지 않은 핸드폰 번호 입니다.','warning');
+                return;
+            }
+
+            swal('알림','찾은 아이디는 ' + account + '입니다.','warning');
+        }
+        
+        // TODO : 이메일 인증 창 만들어야함. 회원가입과 같은 느낌으로
+        // - 로직 -
+        // 1. 이메일을 입력받는다. [front : 입력받는 창 필요]
+        // 2. 서버로 전송 [front : fetch 요청]
+        // ----> [response 에 따라]
+        //     1. 해당 이메일로 가입된 멤버가 없다면
+        //           ----> [front : 가입된 정보가 없음을 알리고 로직 종료]
+        //     2. 해당 이메일로 가입된 멤버가 있다면 
+        //           ----> [back : 암호코드를 이메일로 발송]
+        //          1. 암호코드를 입력받는다. [front : 입력받는 창 필요 + 서버로 fetch 요청]
+        //               ----> [response 에 따라]
+        //                   1. 입력한 암호가 틀린 경우 
+        //                          ----> [front : 암호 재입력받기]
+        //                   2. 입력한 암호가 맞은 경우
+        //                          ----> [front : 새 비밀번호 입력받기]
+        //                               1. 입력받은 비밀번호는 새 비밀번호로 적용됨 [front : 입력받은 비밀번호를 담은 request 보내기]
+        // const findPassword = async() => {
+        //     alert('findPassword');
+
+
+
+        // }
+
+
+        
+          
+          const [selectedOption, setSelectedOption] = useState(null);
+          
+          const handleDropdownChange = (selected) => {
+            
+            // console.log(selected.value);
+
+            setSelectedOption(selected.value);
+            // 드롭박스 값 변경 시 수행할 동작을 여기에 작성합니다.
+          };
+
+        //   document.addEventListener('keydown', function(event) {
+        //     if (event.key === 'Enter') {
+        //         fetchLogin();
+        //     }
+        // });
+
+
+
+
     return (
             <>
         <div className='backDrop'></div>
@@ -672,13 +850,18 @@ const ConnectLogin = () => {
                                 id='PW'
                                 placeholder='비밀번호'
                                 type={'password'}
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter') {
+                                      fetchLogin();
+                                    }
+                                  }}
                             ></input>
-                            <div className='auto-login-check-box'>
+                            {/* <div className='auto-login-check-box'>`
                                 <div className='auto-login-check'>
                                     <input type='checkbox' className='auto-login'/>
                                     <p className='checkbox-text'>자동로그인</p>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
 
@@ -696,7 +879,7 @@ const ConnectLogin = () => {
                         <ul className='search-id-pw-box'>
                             <li className='search-id-pw' id='SearchID'>
                                 <Link to={'/nb-search-ID'} className='search-id'>
-                                    <p className='search-text'>아이디 찾기</p>
+                                    <p className='search-text' onClick={ findAccount }>아이디 찾기</p>
                                 </Link>
                             </li>
                             <li className='search-id-pw' id='SearchPW'>
@@ -799,6 +982,7 @@ const ConnectLogin = () => {
                                     className='signin-info-text'
                                     placeholder='비밀번호 확인'
                                     id='Input-second-password'
+                                    type='password'
                                     onChange={ passwordCheckHandler }
                                     ></input>
                                 {message.passwordCheck && (
@@ -864,6 +1048,13 @@ const ConnectLogin = () => {
                                     id='Input-birthday'
                                     onChange={ autoHyphenBirth }
                                 ></input>
+                                {message.birth && (
+                                    <span style={
+                                        correct.birth
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.birth}
+                                </span>)}
                             </li>
                         )}
 
@@ -876,18 +1067,51 @@ const ConnectLogin = () => {
                                     maxLength={13}
                                     onChange={autoHyphen}
                                 ></input>
+                                 {message.phoneNumber && (
+                                    <span style={
+                                        correct.phoneNumber
+                                        ? {color:'yellow'}
+                                        : {color:'red'}}
+                                        className='input-span'>{message.phoneNumber}
+                                </span>)}
                             </li>
                         )}
 
                         {isOpenSignInList && (
-                            <li className='signin-info-list fade-in-h'>
-                                <input
-                                    className='signin-info-text'
-                                    placeholder='지역 ex) 강남구'
-                                    id='Input-location'
-                                    maxLength={20}
-                                ></input>
-                            </li>
+                        <div className='signin-info-list fade-in-h'>
+
+                            <div className='signin-info-text' id='Input-location'>
+                                <div className='select-location-box'>
+                                    <select className='select-location' id='Input-location'>
+                                        <option value={'강남구'} className='select-option' onClick={ handleDropdownChange }><p>강남구</p></option>
+                                        <option value={'강동구'} className='select-option' onClick={ handleDropdownChange }><p>강동구</p></option>
+                                        <option value={'강북구'} className='select-option' onClick={ handleDropdownChange }><p>강북구</p></option>
+                                        <option value={'강서구'} className='select-option' onClick={ handleDropdownChange }><p>강서구</p></option>
+                                        <option value={'관악구'} className='select-option' onClick={ handleDropdownChange }><p>관악구</p></option>
+                                        <option value={'광진구'} className='select-option' onClick={ handleDropdownChange }><p>광진구</p></option>
+                                        <option value={'구로구'} className='select-option' onClick={ handleDropdownChange }><p>구로구</p></option>
+                                        <option value={'금천구'} className='select-option' onClick={ handleDropdownChange }><p>금천구</p></option>
+                                        <option value={'노원구'} className='select-option' onClick={ handleDropdownChange }><p>노원구</p></option>
+                                        <option value={'도봉구'} className='select-option' onClick={ handleDropdownChange }><p>도봉구</p></option>
+                                        <option value={'동대문구'} className='select-option' onClick={ handleDropdownChange }><p>동대문구</p></option>
+                                        <option value={'동작구'} className='select-option' onClick={ handleDropdownChange }><p>동작구</p></option>
+                                        <option value={'마포구'} className='select-option' onClick={ handleDropdownChange }><p>마포구</p></option>
+                                        <option value={'서대문구'} className='select-option' onClick={ handleDropdownChange }><p>서대문구</p></option>
+                                        <option value={'서초구'} className='select-option' onClick={ handleDropdownChange }><p>서초구</p></option>
+                                        <option value={'성동구'} className='select-option' onClick={ handleDropdownChange }><p>성동구</p></option>
+                                        <option value={'성북구'} className='select-option' onClick={ handleDropdownChange }><p>성북구</p></option>
+                                        <option value={'송파구'} className='select-option' onClick={ handleDropdownChange }><p>송파구</p></option>
+                                        <option value={'양천구'} className='select-option' onClick={ handleDropdownChange }><p>양천구</p></option>
+                                        <option value={'영등포구'} className='select-option' onClick={ handleDropdownChange }><p>영등포구</p></option>
+                                        <option value={'용산구'} className='select-option' onClick={ handleDropdownChange }><p>용산구</p></option>
+                                        <option value={'은평구'} className='select-option' onClick={ handleDropdownChange }><p>은평구</p></option>
+                                        <option value={'종로구'} className='select-option' onClick={ handleDropdownChange }><p>종로구</p></option>
+                                        <option value={'중구'} className='select-option' onClick={ handleDropdownChange }><p>중구</p></option>
+                                        <option value={'중랑구'} className='select-option' onClick={ handleDropdownChange }><p>중랑구</p></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         )}
 
                         {isOpenSignInList && (
@@ -923,11 +1147,13 @@ const ConnectLogin = () => {
         <div className='connect-header-login-wrapper'>
         {isLogInTest ? (
             <div className='ch-logout-box'>
-                <button id='Logout' onClick={ logoutHandler }>로그아웃</button>
+                <button id='Logout' onClick={ logoutHandler }></button>
+                <p>로그아웃▲</p>
             </div>
         ) : (
             <div className='ch-login-box'>
-                <button id='Login' onClick={ openLogin }>로그인</button>
+                <button id='Login' onClick={ openLogin }></button>
+                <p>로그인▲</p>
             </div>
         )
         }

@@ -5,6 +5,7 @@ import '../scss/ConnectFreeBoard.scss';
 import ConnectFreeBoardDetail from './ConnectFreeBoardDetail';
 import { getLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
+import swal from 'sweetalert';
 
 const ConnectFreeBoardData = ({ freeBoardList }) => {
 
@@ -41,9 +42,9 @@ const ConnectFreeBoardData = ({ freeBoardList }) => {
                 credentials: 'include'
               });
       
-              if(res.status === 403) {
+              if(res.status === 401) {
+                swal('알림','로그인한 회원만 이용하실 수 있습니다','warning');
                 setIsOpenInnerBoard(false);
-                alert('로그인 해야해요;');
               } else {
                 setIsOpenInnerBoard(true);
               }

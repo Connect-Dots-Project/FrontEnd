@@ -6,6 +6,8 @@ import { useState } from 'react';
 import ConnectViewPlayList from './ConnectViewPlayList';
 import { API_BASE_URL } from '../../config/host-config';
 import { getLoginUserInfo } from '../../util/login-util';
+import {useParams, useNavigate } from "react-router-dom";
+import swal from 'sweetalert';
 
 
 const ConnectPlayList = () => {
@@ -15,6 +17,17 @@ const ConnectPlayList = () => {
   const [idx, setIdx] = useState('');
   
 
+  const navigate = useNavigate();
+
+  const handleAlertConfirm = () => {
+    // "/" 경로로 리다이렉트합니다.
+    if(window.location.href !== '/') {
+      navigate('/');
+      // setLoginModalVisible(true);
+    }
+  };
+  
+
   const openList = (idx) => {
     setIsOpenViewPlayList(true);
     setIdx(idx);
@@ -22,7 +35,23 @@ const ConnectPlayList = () => {
 
   const closeList = e => {
     // setIsOpenViewPlayList(false);
-    window.location.href = '/nb-playlist';
+    swal({
+      title: "알림",
+      text: "정말 창을 닫으시겠습니까?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        // swal("이용해주셔서 감사합니다.", {
+        //   icon: "success",
+        // });
+        window.location.href = '/nb-playlist';
+      } else {
+        // swal("이전 화면으로 돌아갑니다.");
+      }
+    });
   };
 
   useEffect(() => {
@@ -36,6 +65,13 @@ const ConnectPlayList = () => {
           'Authorization' : getLoginUserInfo().token
        },credentials: 'include', // 쿠키가 필요하다면 추가하기
       });
+
+      // console.log(response.status);
+      if(response.status===401){
+        swal('알림','로그인한 회원만 이용하실 수 있습니다','warning');
+        handleAlertConfirm();
+        return;
+      }
       const result = await response.json();
       
       // 서버에서 가져온 데이터가 배열인지 확인

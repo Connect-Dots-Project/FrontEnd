@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import {useParams, useNavigate } from "react-router-dom";
 import '../scss/ConnectLiveChatting.scss';
 
 import '../scss/ConnectGlobalChattingFooter.scss';
@@ -14,6 +15,8 @@ import { getLoginUserInfo } from '../../util/login-util';
 
 import { setWebSocket, getWebSocket } from './ConnectWebSocket';
 import { API_BASE_URL } from '../../config/host-config';
+import swal from 'sweetalert';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 // 함수 -> 태그 -> useEffect
 
@@ -24,10 +27,15 @@ const ConnectLiveChatting = (props) => {
   const [messages, setMessages] = useState([]);
   const [roomList, setRoomList] = useState([]); // 채팅방 목록
 
+  const [senderProfile, setSenderProfile] = useState('');
+  const [isSender, setIsSender] = useState(false);
 
 
   const [inputHashtag, setInputHashtag] = useState('');
   const [inputContent, setInputContent] = useState('');
+
+  const navigate = useNavigate();
+
 
 
   // 입력한 content 값
@@ -57,29 +65,40 @@ const ConnectLiveChatting = (props) => {
   },[]);
 
 
+  const handleAlertConfirm = () => {
+    // "/" 경로로 리다이렉트합니다.
+    if(window.location.href !== '/') {
+      navigate('/');
+      // setLoginModalVisible(true);
+    }
+  };
+
+
   // 채팅방 목록을 불러오는 함수
   const findAll = () => {
-    const myToken = localStorage.getItem('Authorization');
-    console.log(myToken);
-    
     fetch(API_BASE_URL + `/contents/chat`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
-        'Authorization' : myToken
+        'Authorization' : getLoginUserInfo().token
     },
       credentials: 'include' // 쿠키가 필요하다면 추가하기
     })
-      .then((res) => {return res.json();})
+      .then((res) => {
+        if(res.status === 401) {
+          swal('알림','로그인한 회원만 이용하실 수 있습니다','warning');
+          handleAlertConfirm();
+          return;
+        }
+        return res.json();
+      })
       .then((result) => {
-
+        if(!result) {
+          return;
+        }
         const findList = [...result.livechatList];
         setRoomList(findList);
       });
-
-      console.log('--------------------');
-      console.log(getLoginUserInfo());
-      console.log('--------------------');
 
   }
 
@@ -106,6 +125,7 @@ function showNotification(recv) {
 
   // 웹소켓을 연결합니다.
   const connect = () => {
+
     sock = new SockJS(API_BASE_URL + '/contents/chat/live');
     ws.current = Stomp.over(sock);
   
@@ -122,24 +142,36 @@ function showNotification(recv) {
         });
         ws.current.send(
           '/app/chat/message',
-          {},
+          {
+            Authorization: getLoginUserInfo().token,
+            Cookie: document.cookie
+          },
           JSON.stringify({ type: 'ENTER', roomId, sender })
         );
         // TODO : error 처리 해야 함. (연결 실패 시)
       }
     );
+
   };
 
 
+
+
+
+  //  TODO : 주석------------------------------------------------------------
+  
+  
   // 방 번호가 바뀔때마다 소켓 연결을 다시 해줍니다.
   useEffect(() => {
     // 웹 소켓 연결 함수
     connect();
-
-    return () => {const connect = () => {
-      sock = new SockJS('http://localhost:8181/contents/chat/live');
-      ws.current = Stomp.over(sock);
     
+    
+    
+    return () => {const connect = () => {
+      sock = new SockJS(API_BASE_URL + '/contents/chat/live');
+      ws.current = Stomp.over(sock);
+      
       // 아래 주소로 연결합니다.
       ws.current.connect(
         {},
@@ -152,20 +184,29 @@ function showNotification(recv) {
             '/app/chat/message',
             {},
             JSON.stringify({ type: 'ENTER', roomId, sender })
+            );
+            // TODO : error 처리 해야 함. (연결 실패 시)
+          }
           );
-          // TODO : error 처리 해야 함. (연결 실패 시)
-        }
-      );
-    };
-      ws.current.disconnect();
-    };
+        };
+        
+        ws.current.disconnect();
+        
+      };
+      
+    }, [roomId]);
+    
+    //  TODO : 주석------------------------------------------------------------
 
-  }, [roomId]);
-
-
-  // 메세지를 보내는 함수
-  const sendMessage = () => {
-
+    
+    
+    
+    
+    
+    
+    // 메세지를 보내는 함수
+    const sendMessage = () => {
+      
     // TODO : 스크롤 맨 밑으로 내리는 기능 추가
 
     if(!ws.current) {
@@ -188,29 +229,94 @@ function showNotification(recv) {
   };
 
   
+
+
+
+
+
+
+
+
   // 스프링에서 리턴하는 메시지를 받아서 셋팅하는 함수
   // 메시지를 처리하는 함수
 const recvMessage = (recv) => {
-  setMessages((prevMessages) => [
-    ...prevMessages,
-    {
-      type: recv.type,
-      sender: recv.type === 'ENTER' ? '알림' : recv.sender,
-      message: recv.message,
-    },
-  ]);
 
-  // 알림 보여주기
-  showNotification(recv);
+  fetch(API_BASE_URL + '/contents/chat/check-sender', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'Authorization' : getLoginUserInfo().token
+    },
+    credentials: 'include',
+    body: JSON.stringify({ messageSender: recv.sender })
+  })
+  .then((res) => res.json())
+  .then((result) => {
+    setIsSender(result.isSender);
+    setSenderProfile(result.senderProfile);
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        type: recv.type,
+        sender: recv.type === 'ENTER' ? '알림' : recv.sender,
+        message: recv.message,
+        senderProfile: result.senderProfile,
+        checkSender: result.isSender,
+        time: new Date().toLocaleTimeString(),
+      },
+    ]);
+
+
+    // 알림 보여주기
+    showNotification(recv);
+  });
+
 };
-  // 채팅창을 클릭했을 때
-  // 1. 채팅창의 룸 인덱스로 소켓을 연결함
-  // 2. 보내는이의 아이디를 유저의 닉네임으로 셋업함
-  // 3. div태그를 엽니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // TODO
 
   const handleClick = (idx) => {
+
+    setMessages([]);
+
+    localStorage.setItem('content',idx);
+
+
+
+
+
+
     setRoomId(idx);
-    setSender(localStorage.getItem('NICKNAME'));
+    setSender(getLoginUserInfo().usernickname);
+
+
+
+
+
+
+
 
     // TODO : 기존의 채팅창에서 다른 방으로 클릭할 때
     // 연결은 되지만 창이 안 열림.
@@ -225,38 +331,33 @@ const recvMessage = (recv) => {
   // 채팅 방을 생성하는 함수
   const createLiveChat = () => {
 
-    const myToken = localStorage.getItem('Authorization');
-    console.log('--------------------------------');
-
     fetch(API_BASE_URL + '/contents/chat',{
       method: 'POST',
       headers: { 
         'content-type': 'application/json',
-        'Authorization' : myToken
+        'Authorization' : getLoginUserInfo().token
     },
     credentials: 'include', // 쿠키가 필요하다면 추가하기
       body: JSON.stringify({
           content: inputContent,
           hashTag: inputHashtag,
-          // TODO : 닉네임을 없애야 한다 토큰으로 nickname 작성할 예정
       })
     })
 
 
 
     .then(res => {
-      console.log(res);
-      console.log(res.isCreate);
 
       if (res.status === 401) {
-        alert('토큰 없음');
+        swal('알림','토큰 없음','warning');
         return
       } else if (res.status === 500) {
-        alert('서버 문제');
+        swal('알림','토큰 없음','warning');
         return
       }
-
-      closeWriteChat(false);
+      
+      swal('알림', '글이 정상적으로 등록되었습니다.', 'success');
+      setIsOpenWriteChat(false);
 
     })
 
@@ -321,38 +422,56 @@ const recvMessage = (recv) => {
   };
 
   const closeWriteChat = e => {
+    
+    swal({
+      title: "경고",
+      text: "정말 창을 닫으시겠습니까? 창을 닫으면 내용이 저장되지 않습니다.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        setIsOpenWriteChat(false);
+      } else {
+        setIsOpenWriteChat(true);
+      }
+    });
 
-    setIsOpenWriteChat(false);
+
+
+
+
+    
   };
   
     
+    const closeChattingRoom = e => {
 
-  const [isOpenWriteInput, setIsOpenWriteInput] = useState(false);
+      swal({
+        title: "경고",
+        text: "정말 창을 닫으시겠습니까? 창을 닫으면 내용이 저장되지 않습니다.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          // swal("이용해주셔서 감사합니다.", {
+          //   icon: "success",
+          // });
+          setIsOpenChat(false);
+        } else {
+          // swal("이전 화면으로 돌아갑니다.");
+        }
+      });
+    }
 
-  const clickTag = e => {
-    
-    setIsOpenWriteInput(!isOpenWriteInput);
-  };
 
 
-const inputTagRef = useRef(null);
-const inputBtnRef = useRef(null);
-const inputBtnTextRef = useRef(null);
 
-useEffect(() => {
-  const inputTag = inputTagRef.current;
-  const inputBtn = inputBtnRef.current;
-  const inputBtnText = inputBtnTextRef.current;
 
-  if (isOpenWriteInput && inputTag && inputBtn) {
-    inputTag.style.display = 'block';
-    inputTag.style.animation = 'openClickTagBtn 0.5s forwards 1';
-    inputBtn.style.animation = 'openTag 1s forwards 1';
-    inputBtn.style.background = '#fff';
-    inputBtnText.style.color = '#1465ad';
-    inputBtnText.style.fontWeight = '700';
-  } 
-}, [isOpenWriteInput]);
+
 
 
 
@@ -365,19 +484,17 @@ useEffect(() => {
 
         <div className='wc-header'>
           <div className='wc-tag-box'>
-            <button id='ClickTag' onClick={ clickTag } ref={inputBtnRef}>
-              <p ref={inputBtnTextRef}>#</p>
+            <button id='ClickTag'>
+              <p>#</p>
             </button>
 
-            {isOpenWriteInput && (
               <input 
-              className='wc-tag' 
-              id='Input-Tag'
-              placeholder='태그를 적어주세요'
-              value={inputHashtag}
-              onChange={inputHashtagHandler}
-              ref={inputTagRef}/>
-            )}
+                className='wc-tag' 
+                id='Input-Tag'
+                placeholder='태그를 적어주세요'
+                // value={inputHashtag}
+                // onChange={inputHashtagHandler}
+              />
 
           </div>
         </div>
@@ -430,11 +547,17 @@ useEffect(() => {
         <div className='test1234'>
       <div className='lcheader-wrapper'>
       <div className='lcheader-img-box'>
-        <div className='lcheader-img'>방장 사진</div>
-        <div className='lcheader-nickname'><p>닉네임</p></div>
+        <div className='lcheader-img'></div>
+        <div className='lcheader-nickname'><p>{getLoginUserInfo().usernickname}</p></div>
       </div>
       <div className='lcheader-accessor-box'>
-        <div className='lcheader-accessor'>현재 방에 참여한 유저들의 사진 + 닉네임 들어갈 예정</div>
+        <div className='close-btn-box'>
+          <button id='closeBtn' onClick={ closeChattingRoom }></button>
+        </div>
+        <div className='lcheader-accessor'>'{localStorage.getItem('content')}' 님의 구역 #해시태그</div>
+
+
+
       </div>
     </div>
 
@@ -443,6 +566,10 @@ useEffect(() => {
       {/* main */}
       <div className='lcmain-wrapper'>
         <div className='lcmain-box'>
+            
+            
+            
+            
             <div className='lcmain-chatlist-wrapper' ref={chatlistWrapperRef}>
 
               {/* <div className='lcmain-chatlist-header'>이곳이 채팅창</div> */}
@@ -451,23 +578,90 @@ useEffect(() => {
 
 
               {messages.map((message, index) => (
-                <div className="list-group-item" key={index}>
-                
-                  <li className='list-group'>
-                    <p>[</p>
-                    <div 
-                      className='message' 
-                      id='Sender'>{message.sender}</div>
-                    <p>]</p>
-                    <div 
-                      className='message' 
-                      id='Message'>{message.message}</div>
-                  </li>
+                <div key={index}>
+                  {message.type === 'ENTER' ? (
+                    <div className="list-group-item" >
+                        <li className='list-group'>
+                          <p>[</p>
+                          <div className='message' id='Sender'>{message.sender}</div>
+                          <p>]</p>
+                          <div className='message' id='Message'>{message.message}</div>
+                        </li>
+                    </div>
+                  ) : message.type === 'TALK' && message.checkSender === true ? (
+
+                    <div className='user-message-left-wrapper' id='Left'>
+                      <div className='user-message-left-box'>
+
+                        <div className='uml-img-nickname-box'>
+                          <div className='uml-img-box'>
+                            <div className='uml-img'>
+                              <img src={message.senderProfile} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              </div>
+                          </div>
+                          <div className='uml-nickname-box'>
+                            <p className='uml-nickname'>{message.sender}</p>
+                          </div>
+                        </div>
+
+                        <div className='uml-message-time-box'>
+                          <div className='uml-message-box'>
+                            <div className='uml-message' style={{ wordBreak: 'break-all' }}>
+                            {message.message}
+                              <div className='uml-time-box'>
+                                <div className='uml-time'  style={{ whiteSpace: 'nowrap' }}>
+                                  {message.time}
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                        
+                  ) : message.type === 'TALK' && message.checkSender === false ? (
+
+
+                    <div className='user-message-right-wrapper' id='Right'>
+                    <div className='user-message-right-box'>
+    
+                      <div className='umr-message-time-box'>
+                        <div className='umr-message-box'>
+                          <div className='umr-message' style={{ wordBreak: 'break-all' }}>
+                          {message.message}
+                            <div className='umr-time-box'>
+                              <div className='umr-time' style={{ whiteSpace: 'nowrap' }}>
+                                {message.time}
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <div className='umr-img-nickname-box'>
+                        <div className='umr-img-box'>
+                          <div className='umr-img'>
+                          <img src={message.senderProfile} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                        </div>
+                        <div className='umr-nickname-box'>
+                          <p className='umr-nickname'>{message.sender}</p>
+                        </div>
+                      </div>
+    
+                    </div>
+                  </div>
+    
+
+
+                  ) : null }
 
                 </div>
               ))} 
 
-
+              
 
               {/* <div className='lcmain-chatlist-box'>
 
@@ -476,7 +670,13 @@ useEffect(() => {
                 </div>
 
               </div> */}
+              
             </div> 
+
+
+
+
+
         </div>
       </div>
 
@@ -563,7 +763,7 @@ useEffect(() => {
                     <div className='lc-info-tag-like-reply-box'>
                       <div className='tag-box'>
                         <div className='tag'>
-                          <p>{room.hashtag}</p>
+                          <p>{room.hashtag} + {room.memberNickname}</p>
                         </div>
                       </div>
                     </div>
@@ -580,7 +780,7 @@ useEffect(() => {
 
             </div>
 
-            <div className='lc-tag-wrapper'>
+            {/* <div className='lc-tag-wrapper'>
               <ul className='lc-tag-box'>
                 <div className='tag-text'>
                   <p>실시간 인기 해시태그</p>
@@ -609,7 +809,7 @@ useEffect(() => {
                   </li>
                 </div>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

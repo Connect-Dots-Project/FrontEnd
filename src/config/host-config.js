@@ -1,7 +1,7 @@
 
 
 // 브라우저가 현재 클라이언트의 호스트 이름 얻어오기
-const clientHostName = window.location.hostname;
+const clientHostName = 'http://connect-dots.site';
 
 let backEndHostName; // 백엔드 서버 호스트 이름
 

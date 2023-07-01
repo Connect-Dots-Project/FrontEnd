@@ -1,0 +1,159 @@
+@mixin disflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#UserActivityFreeBoardReplyWrappers {
+    width: 100%;
+    height: 100%;
+
+    .user-activity-free-boards {
+        width: 100%;
+        height: 100%;
+        @include disflex();
+
+
+        .user-info-list-wrappers {
+            width: 100%;
+            height: 100%;
+
+            .user-info-list-boxes::-webkit-scrollbar {
+                display: none;
+            }
+
+            .user-info-list-boxes {
+                width: 100%;
+                height: 100%;
+                margin: 0 auto;
+                overflow: scroll;
+                
+                .user-info-lists-boxes {
+                    background: #fff;
+                    width: 95%;
+                    height: 50%;
+                    margin: 18px;
+                    border-radius: 10px;
+                    box-shadow: 1px 1px 2px 1px #444;
+                    padding: 5px;
+
+                    .user-info-lists {
+                        background: #eeefff;
+                        border-radius: 10px 10px 0 0;
+                        border-bottom: none;
+                        border: none;
+                        width: 100%;
+                        height: 50%;
+                        transition-duration: 0.3s;
+                        cursor: pointer;
+
+                        &:hover {
+                            opacity: 0.9;
+                            animation: vibe 0.2s forwards 2;
+                        }
+
+                        @keyframes vibe {
+                            0% {
+                                transform: rotate(0.5deg);
+                            }
+
+                            50% {
+                                transform: rotate(-0.5deg);
+                            }
+
+                            100% {
+                                transform: rotate(0);
+                            }
+                        }
+
+                        p {
+                            font-size: 16px;
+                            font-weight: 700;
+                        }
+
+                        .ui-list-boxes {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+
+                            .ui-categories {
+                                width: 15%;
+                                height: 90%;
+                                @include disflex();
+
+                                p {
+                                    border-radius: 5px;
+                                    background: #1465ad;
+                                    color: #fff;
+                                    width: 80%;
+                                    height: 50%;
+                                    @include disflex();
+                                }
+                            }
+
+                            .ui-locations {
+                                width: 15%;
+                                height: 90%;
+                                @include disflex();
+
+                                p {
+                                    border-radius: 5px;
+                                    background: #ff6701;
+                                    color: #fff;
+                                    width: 80%;
+                                    height: 50%;
+                                    @include disflex();
+                                }
+                            }
+
+                            .ui-titles {
+                                width: 45%;
+                                height: 90%;
+                                @include disflex();
+                            }
+
+                            .ui-dates {
+                                width: 25%;
+                                height: 90%;
+                                @include disflex();
+
+                                p {
+                                    font-weight: normal;
+                                }
+                            }
+                        }
+                        .ui-guest-reply-boxes {
+                            border-top: none;
+                            border-radius: 0 0 10px 10px;
+                            width: 100%;
+                            height: 100%;
+                            @include disflex();
+                            
+                            .ui-guest-replies {
+                                border: none;
+                                background: #eeefff;
+                                border-radius: 0 0 5px 5px;
+                                width: 100%;
+                                height: 85%;
+                                margin-top: 5px;
+                                padding-left: 2%;
+                                display: flex;
+                                justify-content: left;
+                                align-items: center;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+}
+
+.openClicked {
+    font-weight: 700;
+}
+
+.closeClicked {
+    font-weight: normal;
+}

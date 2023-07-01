@@ -4,6 +4,8 @@ import MenuRouter from '../../route/MenuRouter';
 import { API_BASE_URL } from '../../config/host-config';
 
 import '../scss/ConnectTemplate.scss';
+import ConnectLogin from './ConnectLogin';
+import ConnectFooter from './ConnectFooter';
 
 const ConnectTemplate = () => {
 
@@ -43,7 +45,9 @@ const ConnectTemplate = () => {
 return (
     <div className='ConnectTemplate'>
         <ConnectHeader />
+        <ConnectLogin />
         <MenuRouter />
+        <ConnectFooter />
     </div>
   )
 }

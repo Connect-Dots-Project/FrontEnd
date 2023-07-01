@@ -8,6 +8,7 @@ import ConnectCreatePost from './ConnectCreatePost';
 import ConnectFreeBoardWriteModal from './ConnectFreeBoardWrtieModal';
 import { getLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
+import swal from 'sweetalert';
 
 const ConnectFreeBoard = ({ closeCreatePost }) => {
 
@@ -41,7 +42,6 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result.length);
         if(result.length === 0) {
           return;
         }
@@ -52,13 +52,12 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
   };
 
   const fetchData = () => {
-    setPage(page + 1);
-    alert(page);
 
+    const newPage = page + 1;
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setIsLoading(true);
-    fetch(API_BASE_URL + `/contents/free-board/list/${page}`, {
+    fetch(API_BASE_URL + `/contents/free-board/list/${newPage}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -68,17 +67,20 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then((res) => res.json())
       .then((result) => {
+
+
+        if([...result].length === 0) {
+          return; 
+        }
         setFbData((prevData) => [...prevData, ...result]);
         setIsLoading(false);
+        setPage(page + 1);
         isFetchingRef.current = false;
       });
   };
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
-    console.log(scrollHeight);
-    console.log(scrollTop);
-    console.log(clientHeight);
     if (scrollHeight - scrollTop <= clientHeight * 1.1) {
       
       fetchData();
@@ -88,6 +90,18 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isOpenWriteBoard, setIsOpenWriteBoard] = useState(false);
 
   const openWriteBoard = () => {
+
+    if(getLoginUserInfo().token === null) {
+      swal('알림', "로그인한 회원만 이용하실 수 있습니다", "warning");
+      return;
+    }
+    
+    // const isWrite = window.confirm('글을 작성하시겠습니까?');
+
+    // if (!isWrite) {
+    //   return;
+    // }
+
     setIsOpenWriteBoard(true);
   };
 
@@ -103,7 +117,6 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const modifyHotplace = (hp) => {
-    // console.log(hp);
     setSelectedHotplace(hp);
     setIsCreateModal(true);
     setIsEditMode(true);
@@ -112,7 +125,6 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   // 글 삭제
   const deleteHotplace = (hotplaceIdx) => {
-    console.log(hotplaceIdx);
 
     fetch(REQUEST_URL + `/${hotplaceIdx}`, {
       method: 'DELETE',
@@ -124,13 +136,13 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then(res => {
         if (res.status === 401) {
-          alert('회원가입이 필요한 서비스입니다.');
-          window.location.href = '/';
+          swal('회원가입이 필요한 서비스입니다.', "", "warning");
+          // window.location.href = '/';
         } else {
           return res.json();
         }
       })
-      .then(result => console.log(result));
+      .then(result => {});
 
     window.location.reload();
   };
@@ -146,8 +158,8 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
       })
         .then(res => {
           if (res.status === 401) {
-            alert('회원가입이 필요한 서비스입니다.');
-            window.location.href = '/'; // 메인 페이지로 이동
+            swal('알림', "회원가입이 필요한 서비스입니다.", "warning");
+            // window.location.href = '/'; // 메인 페이지로 이동
           } else {
             setIsCreateModal(true); // 모달 창 열기
           }
@@ -170,8 +182,8 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     })
       .then(res => {
         if (res.status === 401) {
-          alert('회원가입이 필요한 서비스입니다.');
-          window.location.href = '/';
+          swal('알림', "회원가입이 필요한 서비스입니다.", "warning");
+          // window.location.href = '/';
         } else {
           return res.json();
         }
@@ -185,7 +197,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
 
   return (
     <>
-      {isOpenWriteBoard && <ConnectFreeBoardWriteModal closeCreatePost={closeCreatePost} />}
+      {isOpenWriteBoard && <ConnectFreeBoardWriteModal closeCreatePost={closeCreatePost} setIsEditMode={setIsEditMode}/>}
 
       
 
@@ -206,7 +218,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
                 </button>
               </div>
             </div>
-            <ul className="fbh-best-info-box">
+            {/* <ul className="fbh-best-info-box">
               <li className="fbh-best-info-list">
                 <Link to={'/'} className="fbh-best-info-text-box">
                   <p className="fbh-best-info-text">삭제 예정</p>
@@ -232,7 +244,7 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
                   <p className="fbh-best-info-text">삭제 예정</p>
                 </Link>
               </li>
-            </ul>
+            </ul> */}
           </header>
 
           <div

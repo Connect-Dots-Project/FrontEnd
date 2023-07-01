@@ -3,6 +3,7 @@ import '../scss/ConnectCreatePost.scss';
 import ConnectWriteBoard from './ConnectWriteBoard';
 import Location from './Location';
 import { API_BASE_URL } from '../../config/host-config';
+import swal from 'sweetalert';
 
 const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) => {
 
@@ -11,6 +12,8 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   const MyToken = localStorage.getItem('Authorization');
 
   const [isCreateModal, setCreateModal] = useState(true);
+
+  const MAX_CHARACTER_COUNT = 68; // 최대 글자 수
 
   // 초기값 설정
   const [hotplaceImg, setHotplaceImg] = useState('');
@@ -23,7 +26,9 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   const [selectedLocation, setSelectedLocation] = useState('');
 
 
+
   const handleLocationClick = (location) => {
+    // console.log(location);
     setSelectedLocation(location);
   };
 
@@ -36,7 +41,7 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
   const districtItems = districtList.map((district) => (
     <li
       key={district}
-      className={`cp-header-tag ${selectedLocation === district ? 'selected' : ''}`}
+      className={`ctp-header-tags ${selectedLocation === district ? 'selected' : ''}`}
       style={{ backgroundColor: selectedLocation === district ? 'orange' : '' }}
       onClick={() => handleLocationClick(district)}
     >
@@ -46,29 +51,61 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
   useEffect(() => {
     if (isCreateModal) {
-      const $modal = document.getElementById('CreatePostModal');
+      const $modal = document.getElementById('CreatePostModals');
       $modal.classList.add('opening');
     }
   }, [isCreateModal]);
 
   const closeModal = () => {
-    const $modal = document.getElementById('CreatePostModal');
-    $modal.classList.add('closing');
-
-    setTimeout(() => {
-      setCreateModal(false);
-      closeCreatePost();
-    }, 1000);
+    const $modal = document.getElementById('CreatePostModals');
+    
+    swal({
+      title: "경고",
+      text: "정말 창을 닫으시겠습니까? 창을 닫으면 내용이 저장되지 않습니다.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        $modal.classList.add('closing');
+        // swal("이용해주셔서 감사합니다.", {
+        //   icon: "success",
+        // });
+        setCreateModal(false);
+        closeCreatePost();
+      } else {
+        // swal("이전 화면으로 돌아갑니다.");
+      }
+    });
+      // setTimeout(() => {
+      // }, 1000);
   };
 
   const cancelBtn = (e) => {
-    const $modal = document.getElementById('CreatePostModal');
-    $modal.classList.add('closing');
+    const $modal = document.getElementById('CreatePostModals');
 
-    setTimeout(() => {
-      setCreateModal(false);
-      closeCreatePost();
-    }, 1000);
+    swal({
+      title: "경고",
+      text: "정말 창을 닫으시겠습니까? 창을 닫으면 내용이 저장되지 않습니다.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        $modal.classList.add('closing');
+        // swal("이용해주셔서 감사합니다.", {
+        //   icon: "success",
+        // });
+        setCreateModal(false);
+        closeCreatePost();
+      } else {
+        // swal("이전 화면으로 돌아갑니다.");
+      }
+    });
+
+      
   };
 
   useEffect(() => {
@@ -79,21 +116,33 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
 
   const submitHandler = () => {
 
-    if (!selectedLocation) {alert ('행정구역을 선택해주세요.'); return;}
-    if (!hotplaceImg) {alert ('핫플레이스의 사진을 공유해주세요.'); return;}
-    if (!hotplaceContent) {alert ('핫플레이스의 글을 공유해주세요.'); return;}
-    if (!kakaoLocation) {alert ('지도에서 장소를 선택해주세요.'); return;}
+    if (!selectedLocation) {swal("알림", "행정구역(지역)을 선택해주세요.", "warning"); return;}
+    if (!hotplaceImg) {swal ("알림", "핫플레이스의 사진(클릭)을 공유해주세요.", "warning"); return;}
+    if (!hotplaceContent) {swal ("알림", "핫플레이스의 글을 적어주세요.", "warning"); return;}
+    if (!kakaoLocation) {swal ("알림", "지도에서 장소를 선택해주세요.", "warning"); return;}
   
     if (selectedLocation !== kakaoLocation) {
-      alert('행정구역과 지도의 장소가 일치하지 않습니다.');
+      
+      swal({
+          title: "알림",
+          text: "행정구역과 지도의 장소가 일치하지 않습니다.",
+          icon: "warning",
+          button: true,
+      })
+
+      return;
+    }
+    
+    if (hotplaceContent.length > MAX_CHARACTER_COUNT) {
+      swal('알림', "글자 수가 60자를 초과했습니다. 60자 미만으로 작성해주세요.", "warning");
       return;
     }
 
 
     const requestData = {
       location: selectedLocation,
+      memberIdx: MyToken,
       hotplaceContent,
-      memberIdx: 1,
       hotplaceLatitude,
       hotplaceLongitude,
       hotplaceName,
@@ -119,8 +168,13 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
         credentials: 'include',
         body: hotplaceFormData,
       })
-        .then((res) => res.json())
-        .then((result) => console.log(result));
+        .then((res) => {
+          return res.json();
+        })
+        .then((result) => {
+          // TODO : 수정 완료 or 미완료 그대로
+          window.location.reload();
+        });
 
         
     } else {
@@ -132,82 +186,102 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
         credentials: 'include',
         body: hotplaceFormData,
       })
-        .then((res) => res.json())
+        .then((res) => {
+          return res.json();
+        })
         .then((result) => {
+          
           if (result.isWrite) {
-            alert('저장되었습니다.');
+            swal('알림', "저장되었습니다.", "success");
+            setCreateModal(false);
+            setTimeout(() => {
+              window.location.reload();
+              }, 750);
           } else {
-            alert('저장에 실패했습니다.');
+            swal('알림', "저장에 실패했습니다. 사진의 크기를 확인해주세요. (최대 1MB)", "error");
+            // window.location.reload();
           }
         })
     }
 
-    window.location.reload();
+    
   };
 
   return (
     <>
       {isCreateModal && (
-        <div className='create-post-wrapper' id='CreatePostModal'>
-          <button className='cp-close-btn' onClick={closeModal}>X</button>
+        <div className='create-post-wrappers' id='CreatePostModals'>
+          
 
-          {/* <form onSubmit={submitHandler} encType='multipart/form-data'> */}
-            <div className='header-main-footer-box'>
-              <header className='cp-header'>
-                <div className='cp-header-text-tag-box'>
-                  <div className='cp-header-text-box'>
-                    <p className='cp-header-text' id='SelectLocation'>지역을 선택해주세요</p>
+            <div className='header-main-footer-boxes'>
+              <header className='ctp-header-wrappers'>
+                <div className='ctp-header-text-tag-boxes'>
+                  <div className='ctp-header-text-boxes'>
+                    <p className='ctp-header-text' id='SelectLocation'>지역을 선택해주세요</p>
                   </div>
 
-                  <div className='connect-create-post'>
-                    <ul className='cp-header-tag-box'>
+                  <div className='connect-create-posts'>
+                    <ul className='ctp-header-tag-boxes'>
                       {districtItems}
                     </ul>
                   </div>
                 </div>
               </header>
-
-              <div className='cp-main-box'>
-                <div className='cp-main'>
-                  <ConnectWriteBoard
-                    setHotplaceImg={setHotplaceImg}
-                    setHotplaceContent={setHotplaceContent}
-                  />
+              
+              <div className='ctp-main-wrappers'>
+                <div className='ctp-main-boxes'>
+                  <div className='ctp-main'>
+                    <ConnectWriteBoard
+                      setHotplaceImg={setHotplaceImg}
+                      setHotplaceContent={setHotplaceContent}
+                      />
+                  </div>
                 </div>
               </div>
 
-              <footer className='cp-footer-wrapper'>
-                <div className='cp-footer-text-api-box'>
-                  <div className='cp-footer-text-box'>
-                    <p>장소를 선택해주세요</p>
-                  </div>
-
-                  <div className='cp-footer-api-box'>
-                    <div className='storage-btn-box'>
-                      <button className='api-btn' id='Cancel' onClick={cancelBtn}>
-                        <p>취소</p>
-                      </button>
-                      <button type='submit' className='api-btn' id='Storage' onClick={submitHandler}>
-                        <p>{isEditMode ? '수정하기' : '작성'}</p>
-                      </button>
-                    </div>
-
-                    <div className='cp-footer-api'>
-                      <Location
-                        setHotplaceLatitude={setHotplaceLatitude}
-                        setHotplaceLongitude={setHotplaceLongitude}
-                        setHotplaceName={setHotplaceName}
-                        setHotplaceFullAddress={setHotplaceFullAddress}
-                        setKakaoLocation={setKakaoLocation}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </footer>
             </div>
-          {/* </form> */}
+
+            <div className='ctp-footer'>
+
+          <footer className='ctp-footer-wrappers'>
+          <button className='ctp-close-btn' onClick={closeModal}>X</button>
+            <div className='ctp-footer-text-api-boxes'>
+              <div className='ctp-footer-text-boxes'>
+                <p>장소를 선택해주세요</p>
+              </div>
+
+              <div className='ctp-footer-api'>
+                  <Location
+                    setHotplaceLatitude={setHotplaceLatitude}
+                    setHotplaceLongitude={setHotplaceLongitude}
+                    setHotplaceName={setHotplaceName}
+                    setHotplaceFullAddress={setHotplaceFullAddress}
+                    setKakaoLocation={setKakaoLocation}
+                  />
+                </div>
+
+                <div className='ctp-footer-api-boxes'>
+                  <div className='storage-btn-boxes'>
+                    <button className='api-btn' id='Cancel' onClick={cancelBtn}>
+                      <p>취소</p>
+                    </button>
+                    <button type='submit' className='api-btn' id='Storage' onClick={submitHandler}>
+                      <p>{isEditMode ? '수정하기' : '작성'}</p>
+                    </button>
+                  </div>
+
+                
+              </div>
+            </div>
+          </footer>
+
+          </div>
+            
         </div>
       )}
+
+
+      
     </>
   );
 };

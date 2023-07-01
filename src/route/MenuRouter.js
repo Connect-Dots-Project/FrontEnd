@@ -6,10 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 // import ConnectStoreInfo from '../component/js/ConnectStoreInfo';
 // import ConnectFreeBoard from '../component/js/ConnectFreeBoard';
 import ConnectMainPage from '../component/js/ConnectMainPage';
-import ConnectLogin from '../component/js/ConnectLogin';
 import ConnectMainOutline from '../component/js/ConnectMainOutline';
-import ConnectGlobalChatting from '../component/js/ConnectGlobalChatting';
-import ConnectMyPageMain from '../component/js/ConnectMyPageMain';
 
 const MenuRouter = () => {
 
@@ -19,7 +16,7 @@ const MenuRouter = () => {
         <Route path='/' element={ 
           <>
             <ConnectMainPage />
-            <ConnectLogin />
+            {/* <ConnectLogin /> */}
           </>
         }></Route>
       </Routes>

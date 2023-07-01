@@ -11,8 +11,8 @@ body {
 
 #ViewPlayListModal {
     background: #eeefff;
-    width: 2000px;
-    height: 950px;
+    width: 1500px;
+    height: 700px;
 
 
     position: fixed;
@@ -136,23 +136,30 @@ body {
                         width: 100%;
                         height: 100%;
                         
+                        .vpl-main-list-box::-webkit-scrollbar {
+                            display: none;
+                        }
+
                         .vpl-main-list-box {
                             width: 100%;
                             height: 100%;
                             margin: 0 auto;
+                            padding-top: 5px;
                             overflow: scroll;
+
+                            
                             
                             .vpl-main-text-view-box {
                                 border-bottom: 1px solid #1465ad;
                                 background: #eeefff;
-                                width: 830px;
+                                width: 650px;
                                 height: 150px;
                                 margin: 0 auto;
                                 display: flex;
                                 margin-bottom: 20px;
                                 position: fixed;
+                                top: 0;
                                 z-index: 1;
-
                                 
 
                                 
@@ -175,7 +182,8 @@ body {
                                 .vpl-main-view-box {
                                     width: 15%;
                                     height: 100%;
-                                    display: flex;
+                                    display: none;
+                                    
                                     
                                     
                                     .view-img {
@@ -238,7 +246,7 @@ body {
                                     @include disflex();
                                     
                                     .list-info-img {
-                                        border: 2px solid #1465ad;
+                                        // border: 2px solid #1465ad;
                                         width: 70px;
                                         height: 70px;
                                         .album-img{
@@ -262,7 +270,7 @@ body {
                                         align-items: center;
 
                                         p {
-                                            font-size: 25px;
+                                            font-size: 20px;
                                             font-weight: 700;
                                         }
                                     }
@@ -274,7 +282,7 @@ body {
                                         align-items: center;
 
                                         p {
-                                            font-size: 20px;
+                                            font-size: 16px;
                                             font-weight: 700;
                                         }
                                     }

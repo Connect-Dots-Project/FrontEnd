@@ -12,13 +12,15 @@ const ConnectUserWritten = ({ isOpenHotPlace, isOpenFreeBoard }) => {
         <>
             <div className='ua-header-user-written-box'>
                 <div className='user-written-info-box'>
-                    {isOpenHotPlace && <ConnectUserWrittenWriting /> }
-                    {isOpenFreeBoard && 
+                    
+                    {/* // TODO : 내가 쓴 글 단어 삭제 */}
+                    {/* {isOpenHotPlace && <ConnectUserWrittenWriting /> } */}
+                    {/* {isOpenFreeBoard && 
                         <>  
                             <ConnectUserWrittenWriting />
                             <ConnectUserWrittenReply /> 
                         </>
-                    }
+                    } */}
                 </div>
             </div>
         </>

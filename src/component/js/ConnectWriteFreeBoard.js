@@ -6,6 +6,7 @@ import '../scss/ConnectHotPlace.scss';
 const ConnectWriteFreeBoard = ({ setHotplaceContent, setHotplaceImg, setInputLocation }) => {
   const [content, setContent] = useState('');
   const [imgFile, setImgFile] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null); 
 
   const $fileTag = useRef();
 
@@ -15,7 +16,7 @@ const ConnectWriteFreeBoard = ({ setHotplaceContent, setHotplaceImg, setInputLoc
     setHotplaceContent(updatedContent);
   };
 
-  const showHotplaceHandler = e => {
+  const showHotplaceHandler = (e) => {
     const file = $fileTag.current.files[0];
     setHotplaceImg(file);
 
@@ -26,11 +27,10 @@ const ConnectWriteFreeBoard = ({ setHotplaceContent, setHotplaceImg, setInputLoc
     reader.readAsDataURL(file);
   };
 
-
   const handleLocationClick = (inputLocation) => {
     setInputLocation(inputLocation);
+    setSelectedLocation(inputLocation); 
   };
-
 
   const regions = [
     '강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구',
@@ -38,22 +38,22 @@ const ConnectWriteFreeBoard = ({ setHotplaceContent, setHotplaceImg, setInputLoc
     '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
   ];
 
-
   return (
-    
     <div>
-      
-      
       <div className='administration-select-wrapper' id='ADS-Modal'>
         <div id='Header'>
           <h1>구역을 선택해주세요</h1>
         </div>
-
         <div className='ads-main-box'>
           <div className='ads-main'>
             <ul className='ads-list-box'>
-              {regions.map(e => ( 
-                <li className='ads-list' onClick={() => handleLocationClick(e)}> 
+              {regions.map((e) => (
+                <li
+                  className={`ads-list ${selectedLocation === e ? 'selected' : ''}`}
+                  onClick={() => handleLocationClick(e)}
+                  style={{ color: selectedLocation === e ? 'tomato' : 'initial' }} 
+                  key={e}
+                >
                   <p>{e}</p> 
                 </li> 
               ))}
@@ -69,7 +69,7 @@ const ConnectWriteFreeBoard = ({ setHotplaceContent, setHotplaceImg, setInputLoc
 
       <div className='img-box' onClick={() => $fileTag.current.click()}>
         <img
-          src={imgFile ? imgFile : require('../scss/img/ad1.jpg')}
+          src={imgFile ? imgFile : require('../scss/img/addPicture.png')}
           alt='img'
         />
         <label className='hotplace-img-label' htmlFor='hotplace-img-tag'>
