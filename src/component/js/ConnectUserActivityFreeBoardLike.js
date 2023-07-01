@@ -9,23 +9,31 @@ const ConnectUserActivityFreeBoardLike = () => {
   
   const [freeboardItems, setfreeboardItems] = useState([]);
 
-  useEffect(()=>{
 
-      fetch(API_BASE_URL + `/member/mypage/myactive/freeboard/like`, {
-          method: 'GET',
-          headers: {
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+          const res = await fetch(API_BASE_URL + `/member/mypage/myactive/freeboard/like`, {
+            method: 'GET',
+            headers: {
               'content-type': 'application/json',
               'Authorization' : getLoginUserInfo().token
-          },
-          credentials: 'include'
-      }) 
-      .then(res => res.json())
-      .then(response => {
+            },
+            credentials: 'include'
+          });
+      
+          const response = await res.json();
           console.log(response);
           setfreeboardItems([...response]);
-      })
+        } catch (error) {
+          // Handle error
+        }
+      };
 
-  }, []);
+      fetchData();
+
+  },[]);
 
 
 
