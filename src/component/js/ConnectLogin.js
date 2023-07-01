@@ -646,7 +646,7 @@ const ConnectLogin = () => {
                         title: "알림",
                         text: "로그아웃 되었습니다.",
                         icon: "success",
-                        timer: 1000
+                        timer: 1500
                         // buttons: true,
                         // dangerMode: true,
                         // allowEnterKey: true
