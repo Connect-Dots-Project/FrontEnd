@@ -21,17 +21,6 @@ const ConncetMainPageMenu = () => {
         </li>
 
         {/* cm 메인 메뉴 리스트 */}
-        <li className='cm-menu-list' id='LiveChat'>
-            {/* cm 메인 메뉴 사진 */}
-            <Link to='/nb-live-chatting' id='list'></Link>
-            {/* cm 메인 메뉴 텍스트 box */}
-            <div className='cm-menu-text-box'>
-                {/* cm 메인 메뉴 텍스트 */}
-                <Link to='/' className='cm-menu-text'>동네 실시간 채팅</Link>
-            </div>
-        </li>
-
-        {/* cm 메인 메뉴 리스트 */}
         <li className='cm-menu-list' id='FreeBoard'>
             {/* cm 메인 메뉴 사진 */}
             <Link to='/contents/free-board' id='list'></Link>
@@ -39,6 +28,17 @@ const ConncetMainPageMenu = () => {
             <div className='cm-menu-text-box'>
                 {/* cm 메인 메뉴 텍스트 */}
                 <Link to='/contents/free-board' className='cm-menu-text'>동네 자유게시판</Link>
+            </div>
+        </li>
+
+        {/* cm 메인 메뉴 리스트 */}
+        <li className='cm-menu-list' id='LiveChat'>
+            {/* cm 메인 메뉴 사진 */}
+            <Link to='/nb-live-chatting' id='list'></Link>
+            {/* cm 메인 메뉴 텍스트 box */}
+            <div className='cm-menu-text-box'>
+                {/* cm 메인 메뉴 텍스트 */}
+                <Link to='/' className='cm-menu-text'>동네 실시간 채팅</Link>
             </div>
         </li>
 
