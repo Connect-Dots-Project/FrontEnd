@@ -313,14 +313,7 @@ const ConnectLogin = () => {
     const openSignIn = e => {
         const $signInBox = document.querySelector('.signin-modal-box');
         
-        swal({
-            title: "알림",
-            text: "회원가입에 성공하였습니다!",
-            icon: "success",
-            // buttons: true,
-            // dangerMode: true,
-            timer: 1500
-          })
+        
         if ($signInBox && $signInBox.style.display !== 'block') {
             $signInBox.style.display = 'block';
         } else {
@@ -502,7 +495,14 @@ const ConnectLogin = () => {
         if ($signBox && $signBox.style.display === 'block') {
             $signBox.style.animation = 'closeSignInModal 1s forwards 1';
         }
-
+        swal({
+            title: "알림",
+            text: "회원가입에 성공하였습니다!",
+            icon: "success",
+            // buttons: true,
+            // dangerMode: true,
+            timer: 1500
+          })
     };
 
 
