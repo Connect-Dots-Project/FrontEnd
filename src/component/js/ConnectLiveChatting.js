@@ -588,7 +588,7 @@ const recvMessage = (recv) => {
                           <div className='message' id='Message'>{message.message}</div>
                         </li>
                     </div>
-                  ) : message.type === 'TALK' && message.checkSender === true ? (
+                  ) : message.type === 'TALK' && message.checkSender === false ? (
 
                     <div className='user-message-left-wrapper' id='Left'>
                       <div className='user-message-left-box'>
@@ -621,7 +621,7 @@ const recvMessage = (recv) => {
                     </div>
 
                         
-                  ) : message.type === 'TALK' && message.checkSender === false ? (
+                  ) : message.type === 'TALK' && message.checkSender === true ? (
 
 
                     <div className='user-message-right-wrapper' id='Right'>
@@ -642,7 +642,7 @@ const recvMessage = (recv) => {
     
                       <div className='umr-img-nickname-box'>
                         <div className='umr-img-box'>
-                          <div className='umr-img'>
+                          <div className='umr-img' style={{overflow:'hidden'}}>
                           <img src={message.senderProfile} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </div>
                         </div>
