@@ -557,7 +557,14 @@ const ConnectLogin = () => {
             // document.getElementById('ID').value='';
             document.getElementById('PW').value='';
         } else {
-            swal('알림','환영합니다!','success');
+            swal({
+                title: "알림",
+                text: "환영합니다!",
+                icon: "success",
+                // buttons: true,
+                // dangerMode: true,
+                timer: 1000
+              })
             setIsLogInTest(true);
             const $loginBox = document.querySelector('.login-modal-box');
             const $back = document.querySelector('.backDrop');
@@ -635,6 +642,15 @@ const ConnectLogin = () => {
               })
               .then((confirmLogout) => {
                 if (confirmLogout) {
+                    swal({
+                        title: "알림",
+                        text: "로그아웃 되었습니다.",
+                        icon: "success",
+                        timer: 1000
+                        // buttons: true,
+                        // dangerMode: true,
+                        // allowEnterKey: true
+                      })
                     setIsLogInTest(false);
                     localStorage.clear();
                     localStorage.removeItem('refreshtoken');

@@ -124,27 +124,44 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   // 글 삭제
   const deleteHotplace = (hotplaceIdx) => {
     // console.log(hotplaceIdx);
-
-    fetch(REQUEST_URL + `/${hotplaceIdx}`, {
-      method: 'DELETE',
-      headers: { 
-        'content-type': 'application/json',
-        'Authorization' : getLoginUserInfo().token
-      },
-        credentials: 'include', 
+    
+    swal({
+      title: "경고",
+      text: "정말 게시글을 삭제하시겠습니까?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
     })
-      .then(res => {
-        if (res.status === 401) {
-          swal('알림','회원가입이 필요한 서비스입니다.','warning');
-          // window.location.href = '/';
-        } else {
-          return res.json();
-        }
-      })
-      // .then(result => console.log(result));
+    .then((willDelete) => {
+      if (willDelete) {
+        fetch(REQUEST_URL + `/${hotplaceIdx}`, {
+          method: 'DELETE',
+          headers: { 
+            'content-type': 'application/json',
+            'Authorization' : getLoginUserInfo().token
+          },
+            credentials: 'include', 
+        })
+          .then(res => {
+            if (res.status === 401) {
+              swal('알림','회원가입이 필요한 서비스입니다.','warning');
+            } else {
+              // .then(result => console.log(result));
+              swal('알림','게시글이 정상적으로 삭제되었습니다.','success');
+              return res.json();
+            }
+          })
+        setTimeout(() => {
+          window.location.reload();
+          }, 750);
+      } else {
+        
+      }
+    });
 
-    window.location.reload();
+    
   };
+
 
   // 작성창 (글쓰기)
   const [isCreateModal, setIsCreateModal] = useState(false);
@@ -161,8 +178,16 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
             swal("알림","로그인이 필요한 서비스입니다.", "warning");
             // window.location.href = '/'; // 메인 페이지로 이동
           } else {
-            swal("알림","글쓰기 화면을 불러옵니다. 잠시만 기다려주세요", "success");
+            swal({
+              title: "알림",
+              text: "글쓰기 화면을 불러옵니다. 잠시만 기다려주세요",
+              icon: "success",
+              // buttons: true,
+              // dangerMode: true,
+              timer: 1000
+            })
             setIsCreateModal(true); // 모달 창 열기
+            
           }
         })
   };

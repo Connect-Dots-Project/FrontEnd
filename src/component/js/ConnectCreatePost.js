@@ -193,8 +193,10 @@ const ConnectCreatePost = ({ closeCreatePost, selectedHotplace, isEditMode }) =>
           
           if (result.isWrite) {
             swal('알림', "저장되었습니다.", "success");
-            // window.location.reload();
             setCreateModal(false);
+            setTimeout(() => {
+              window.location.reload();
+              }, 750);
           } else {
             swal('알림', "저장에 실패했습니다. 사진의 크기를 확인해주세요. (최대 1MB)", "error");
             // window.location.reload();
