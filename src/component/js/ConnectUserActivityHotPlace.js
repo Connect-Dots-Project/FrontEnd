@@ -2,32 +2,39 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from "../../config/host-config";
 import { getLoginUserInfo } from "../../util/login-util";
+import swal from "sweetalert";
 
 import '../scss/ConnectUserActivityHotPlace.scss';
 
-const ConnectUserActivityHotPlace = ( hotplaceList ) => {
+const ConnectUserActivityHotPlace = () => {
 
     const [hpData, setHpData] = useState([]);
 
-    useEffect(()=>{
-
-        fetch(API_BASE_URL + `/member/mypage/myactive/hotplace`, {
-            method: 'GET',
-            headers: {
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const res = await fetch(API_BASE_URL + `/member/mypage/myactive/hotplace`, {
+              method: 'GET',
+              headers: {
                 'content-type': 'application/json',
-                'Authorization' : getLoginUserInfo().token
-            },
-            credentials: 'include'
-        }) 
-        .then(res => res.json())
-        .then(response => {
+                'Authorization': getLoginUserInfo().token
+              },
+              credentials: 'include'
+            });
+        
+            const response = await res.json();
+            
             setHpData([...response]);
-        })
-
-    }, []);
-
-
-
+          } catch (error) {
+            // 오류 처리
+          }
+        };
+      
+        fetchData();
+        
+      }, []);
+      
+      
 
     return (
         <>

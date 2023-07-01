@@ -58,34 +58,81 @@ const ConnectMyPageMain = () => {
     useEffect(() => {
 
         // TODO fetch 보내서 회원정보 가져오기
-        fetch(API_BASE_URL + `/member/mypage`, {
-            method: 'GET',
-            headers: {
-              'content-type': 'application/json',
-              'Authorization' : getLoginUserInfo().token
-            },
-            credentials: 'include'
-          })
-            .then((res) => {
+        // fetch(API_BASE_URL + `/member/mypage`, {
+        //     method: 'GET',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //       'Authorization' : getLoginUserInfo().token
+        //     },
+        //     credentials: 'include'
+        //   })
+        //     .then((res) => {
 
-                if(res.status === 401) {
-                    swal('알림','로그인한 회원만 이용하실 수 있습니다','warning');
+        //         if(res.status === 401) {
+        //             swal('알림','로그인한 회원만 이용하실 수 있습니다','warning');
+        //             handleAlertConfirm();
+        //             return;
+        //         }
+                
+
+        //         const result = res.json();
+        //         console.log(res);
+        //         console.log('----------------------------');
+        //         console.log(result);
+        //         console.log('----------------------------');
+        //         console.log(result.membeGender);
+
+        //         setMemberAccount(result.memberAccount);
+        //         setMemberBirth(result.memberBirth);
+        //         setMemberComment(result.memberComment);
+        //         setMemberGender(result.membeGender);
+        //         setMemberNickname(result.memberNickname);
+        //         setMemberProfile(result.memberProfile);
+        //     })
+
+
+
+
+
+            const fetchMemberData = async () => {
+                try {
+                  const res = await fetch(API_BASE_URL + '/member/mypage', {
+                    method: 'GET',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': getLoginUserInfo().token
+                    },
+                    credentials: 'include'
+                  });
+              
+                  if (res.status === 401) {
+                    swal('알림', '로그인한 회원만 이용하실 수 있습니다', 'warning');
                     handleAlertConfirm();
                     return;
+                  }
+              
+                  const result = await res.json();
+                  console.log(result);
+                  console.log('----------------------------');
+                  console.log(result.memberGender);
+              
+                  setMemberAccount(result.memberAccount);
+                  setMemberBirth(result.memberBirth);
+                  setMemberComment(result.memberComment);
+                  setMemberGender(result.memberGender);
+                  setMemberNickname(result.memberNickname);
+                  setMemberProfile(result.memberProfile);
+                } catch (error) {
+                  console.error('Error fetching member data:', error);
+                  // Handle any error that may occur during the fetch
                 }
+              };
+              
 
-                const result = res.json();
 
-                console.log('----------------------------');
-                console.log(result);
 
-                setMemberAccount(result.memberAccount);
-                setMemberBirth(result.memberBirth);
-                setMemberComment(result.memberComment);
-                setMemberGender(result.membeGender);
-                setMemberNickname(result.memberNickname);
-                setMemberProfile(result.memberProfile);
-            })
+
+            fetchMemberData();
 
     },[]);
 

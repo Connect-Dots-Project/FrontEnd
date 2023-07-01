@@ -84,16 +84,14 @@ const ConnectUserActivity = () => {
             <div className='ua-main-wrapper'>
                 <div className='ua-main-box'>
 
-                {isOpenHotPlace && <ConnectUserActivityHotPlace />}
+                {isOpenHotPlace && 
+                    <ConnectUserActivityHotPlace />
+                    }
                 {isOpenFreeBoard &&
-                    <>
-                        <ConnectUserActivityFreeBoard />
-                    </>
+                    <ConnectUserActivityFreeBoard />
                 }
                 {isOpenFreeBoardReply &&
-                    <>
-                        <ConnectUserActivityFreeBoardReply />
-                    </>
+                    <ConnectUserActivityFreeBoardReply />
                 }
 
 
