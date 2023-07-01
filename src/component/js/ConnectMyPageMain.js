@@ -10,7 +10,6 @@ import '../scss/ConnectMyPageMain.scss';
 import { async } from 'q';
 import { getLoginUserInfo } from '../../util/login-util';
 import ConnectUserActivityFreeBoardLike from './ConnectUserActivityFreeBoardLike';
-import swal from 'sweetalert';
 
 const ConnectMyPageMain = () => {
 
@@ -25,15 +24,27 @@ const ConnectMyPageMain = () => {
     const $fileTag = useRef();
 
 
-
     const [memberAccount, setMemberAccount] = useState('');
     const [memberBirth, setMemberBirth] = useState('');
-    const [memberComment, setMemberCommnet] = useState('');
+    const [memberComment, setMemberComment] = useState('');
     const [memberGender, setMemberGender] = useState('');
     const [memberNickname, setMemberNickname] = useState('');
     const [memberProfile, setMemberProfile] = useState('');
 
     const [hotplaceList, setHotplaceList] = useState([]);
+
+    const [inputNickname, setInputNickname] = useState([]);
+    const [inputComment, setInputComment] = useState([]);
+
+      
+      const updateMemberNickname = (value) => {
+        setInputNickname(value);
+      };
+      
+      const updateMemberComment = (value) => {
+        setInputComment(value);
+      };
+
     
 
 
@@ -51,7 +62,7 @@ const ConnectMyPageMain = () => {
             .then((res) => {
 
                 if(res.status === 401) {
-                    swal('알림','로그인한 회원만 이용하실 수 있습니다','warning');
+                    alert('로그인한 회원만 이용하실 수 있습니다');
                     handleAlertConfirm();
                     return;
                 }
@@ -61,9 +72,10 @@ const ConnectMyPageMain = () => {
             })
             .then((result) => {
 
+                console.log(result);
                 setMemberAccount(result.memberAccount);
                 setMemberBirth(result.memberBirth);
-                setMemberCommnet(result.memberComment);
+                setMemberComment(result.memberComment);
                 setMemberGender(result.membeGender);
                 setMemberNickname(result.memberNickname);
                 setMemberProfile(result.memberProfile);
@@ -95,10 +107,33 @@ const ConnectMyPageMain = () => {
 
     };
 
+    const [memberValue, setMemberValue] = useState({
+        inputMemberNickname: inputNickname,
+        inputMemberComment: inputComment
+
+    });
+
     const fetchProfilePost = async () => {
+        
         
         const profileFormData = new FormData();
 
+        // TODO : 수정 요청
+
+        // console.log(inputNickname);
+
+        // const memberJsonBlob = new Blob([JSON.stringify({
+        //     inputMemberNickname: inputNickname,
+        //     inputMemberComment: inputComment
+        // })], {type: 'application/json'});
+
+
+        // console.log(inputComment);
+        
+        // console.log(memberJsonBlob);
+
+
+        // profileFormData.append('memberInfo', memberJsonBlob)
         profileFormData.append('profileImage', $fileTag.current.files[0]);
 
         const res = await fetch(API_BASE_URL + '/member/mypage/profile', {
@@ -106,20 +141,48 @@ const ConnectMyPageMain = () => {
             headers: {
                 'Authorization' : getLoginUserInfo().token
             },
+            credentials: 'include',
             body: profileFormData,
-            credentials: 'include'
         });
 
         // TODO : 이미지 등록되면 이동할 곳
-       navigate('/');
+        window.location.reload();
 
     };
+
+
+
+
+    const profilePostHandler = e => {
+        fetchProfilePost();
+    };
+
+    const fetchMemberInfo = async () => {
+
+        const requestBody = {
+            inputMemberNickname: inputNickname,
+            inputMemberComment: inputComment
+          };
+
+          
+        const res = await fetch (API_BASE_URL + '/member/mypage/modify', {
+            method: 'PATCH',
+            headers: {
+                'Authorization' : getLoginUserInfo().token,
+                'content-type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(requestBody)
+
+        });
+        window.location.reload();
+        
+    }
 
     const submitHandler = e => {
-
-        fetchProfilePost();
-
+        fetchMemberInfo();
     };
+
 
     
 
@@ -227,7 +290,7 @@ const ConnectMyPageMain = () => {
                     <div className='uim-header-wrapper'>
                         <div className='uim-title-box'>
                            
-                            {/* <img src={img}/> */}
+                            {/* <img src={imgFile? imgFile : memberProfile}/> */}
                             <h2>내 정보 수정</h2>
                         </div>
                     </div>
@@ -267,6 +330,9 @@ const ConnectMyPageMain = () => {
                                                 <button className='profile-modify-btn' onClick={() => $fileTag.current.click()}>
                                                     <p>사진 변경</p>
                                                 </button>
+                                                <button onClick={ profilePostHandler }>
+                                                    <p>사진 수정 완료</p>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -289,8 +355,14 @@ const ConnectMyPageMain = () => {
                                                 <p>별명</p>
                                             </div>    
                                             <div className='list-value'>
-                                                <p>[코딩마스터]</p>
-                                            </div>
+                                                {/* <p>{memberNickname}</p> */}
+                                                <input
+                                                type="text"
+                                                placeholder={memberNickname}
+                                                value={inputNickname}
+                                                onChange={(e) => updateMemberNickname(e.target.value)}
+                                                />
+                                            </div> 
                                         </div>
                                         <div className='uim-info-list'>
                                             <div className='list-key' id='Gender'>
@@ -308,6 +380,23 @@ const ConnectMyPageMain = () => {
                                                 <p>{memberBirth}</p>
                                             </div>
                                         </div>
+                                       
+                                        <div className='uim-info-list'>
+                                            <div className='list-key' id='Comment'>
+                                                <p>나의 한줄</p>
+                                            </div>    
+                                            <div className='list-value'>
+                                                <input
+                                                type="text"
+                                                placeholder={memberComment}
+                                                value={inputComment}
+                                                onChange={(e) => updateMemberComment(e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+
+                                       
+
                                     </div>
                                 </div>
                             </div>
@@ -320,7 +409,7 @@ const ConnectMyPageMain = () => {
                                 <button className='uim-btn' id='Cancel' onClick={ closeModify }>
                                     <p>취 소</p>
                                 </button>
-                                <button className='uim-btn' id='Save' onClick={ submitHandler}>
+                                <button className='uim-btn' id='Save' onClick={ submitHandler }>
                                     <p>확 인</p>
                                 </button>
                             </div>
