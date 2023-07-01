@@ -433,7 +433,7 @@ const ConnectLogin = () => {
             document.querySelector('.certify-email-input').value='';
         } else {
             // 일치했을 때
-            swal('알림','코드가 일치합니다!','warning');
+            swal('알림','코드가 일치합니다!','success');
             closeCertifyEmailModal();
 
             if ($signInEmail) {
@@ -771,7 +771,7 @@ const ConnectLogin = () => {
                 return;
             }
 
-            swal('알림','찾은 아이디는 ' + account + '입니다.','warning');
+            swal('알림','찾은 아이디는 ' + account + '입니다.','success');
         }
         
         // TODO : 이메일 인증 창 만들어야함. 회원가입과 같은 느낌으로
