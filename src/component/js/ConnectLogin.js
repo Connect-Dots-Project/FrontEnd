@@ -653,9 +653,7 @@ const ConnectLogin = () => {
                 setTimeout(() => {
                     window.location.href = '/';
                 }, 1500);
-              } else {
-                swal('?');
-              }
+              } 
             });
                   
             // if(confirmLogout) {
