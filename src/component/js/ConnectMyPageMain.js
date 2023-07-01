@@ -175,6 +175,7 @@ const ConnectMyPageMain = () => {
             body: JSON.stringify(requestBody)
 
         });
+        window.location.reload();
         
     }
 
