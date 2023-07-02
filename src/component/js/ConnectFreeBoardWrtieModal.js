@@ -92,10 +92,16 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
   
     
     
-    const submitHandler = (e) => {
+  const submitHandler = (e) => {
     
-      e.preventDefault();
-      
+    e.preventDefault();
+
+    if (!inputLocation) {swal ("알림", "행정구역을 선택해주세요.", "warning"); return;}
+    if (!selectedLocation) {swal ("알림", "카테고리를 선택해주세요.", "warning"); return;}
+    if (!freeBoardTitle) {swal("알림", "제목을 입력해주세요.", "warning"); return;}
+    if (!hotplaceImg) {swal ("알림", "자유게시판의 사진을 공유해주세요.", "warning"); return;}
+    if (!hotplaceContent) {swal ("알림", "자유게시판의 글을 입력해주세요.", "warning"); return;}
+
       const requestData = {
         freeBoardTitle: freeBoardTitle,
         freeBoardContent: hotplaceContent,
@@ -133,10 +139,33 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
           body: freeBoardFormData
         })
           .then((res) => res.json())
-          .then((result) => {});
+          .then((result) => {
+
+            // console.log(result);
+
+            if (result !== null ) {
+              swal('알림', "저장되었습니다.", "success");
+              setCreateModal(false);
+              setTimeout(() => {
+                window.location.reload();
+                }, 750);
+            } else {
+              swal('알림', "저장에 실패하였습니다.", "error");
+              setTimeout(() => {
+                window.location.reload();
+                }, 750);
+            }
+            
+            if (result.status == 500) {
+              swal('알림', "저장에 실패했습니다. 사진의 크기를 확인해주세요. (최대 1MB)", "error");
+              // window.location.reload();
+            }
+
+
+          });
       }
   
-      window.location.reload();
+      // window.location.reload();
     };
 
     const regions = [
@@ -145,11 +174,17 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
       '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
     ];
 
-    // 행정구역 선택
-  const [isOpenSelect, setIsOpenSelect] = useState(false);
-  
-  const openSelect = () => {
-    setIsOpenSelect(true);
+      // 행정구역 선택
+    const [isOpenSelect, setIsOpenSelect] = useState(false);
+    
+    const openSelect = () => {
+      setIsOpenSelect(true);
+
+
+
+
+
+
   };
   
   const closeSelect = () => {
@@ -166,6 +201,9 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
   const checkData = e => {
     const $inputTitle = document.getElementById('InputTitle');
   };
+
+  
+
   
   
   return (
@@ -194,7 +232,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
 
             <button className='cp-close-btn' onClick={closeModal}>X</button>
   
-            <form onSubmit={submitHandler} encType='multipart/form-data'>
+            {/* <form onSubmit={submitHandler} encType='multipart/form-data'> */}
               <div className='header-main-footer-box'>
                 <header className='cp-header-wrapper'>
                   <div className='cp-header-text-tag-box'>
@@ -248,7 +286,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                         <button className='api-btn' id='Cancel' onClick={cancelBtn}>
                           <p>취소</p>
                         </button>
-                        <button type='submit' className='api-btn' id='Storage'>
+                        <button type='submit' className='api-btn' id='Storage' onClick={submitHandler} >
                           <p>{isEditMode ? '수정하기' : '작성'}</p>
                         </button>
                       </div>
@@ -257,7 +295,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                   </div>
                 </footer>
               </div>
-            </form>
+            {/* </form> */}
           </div>
         )}
       </>
