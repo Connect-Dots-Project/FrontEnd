@@ -71,11 +71,28 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     const cancelBtn = (e) => {
       const $modal = document.getElementById('CreatePostModal');
       $modal.classList.add('closing');
+
+      swal({
+        title: "경고",
+        text: "정말 창을 닫으시겠습니까? 창을 닫으면 내용이 저장되지 않습니다.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          $modal.classList.add('closing');
+          // swal("이용해주셔서 감사합니다.", {
+          //   icon: "success",
+          // });
+          setCreateModal(false);
+          closeCreatePost();
+        } else {
+          // swal("이전 화면으로 돌아갑니다.");
+        }
+      });
   
-      setTimeout(() => {
-        setCreateModal(false);
-        closeCreatePost();
-      }, 1000);
+      
       
     };
   
