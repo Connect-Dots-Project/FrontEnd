@@ -492,8 +492,8 @@ const recvMessage = (recv) => {
                 className='wc-tag' 
                 id='Input-Tag'
                 placeholder='태그를 적어주세요'
-                // value={inputHashtag}
-                // onChange={inputHashtagHandler}
+                value={inputHashtag}
+                onChange={inputHashtagHandler}
               />
 
           </div>
@@ -763,7 +763,7 @@ const recvMessage = (recv) => {
                     <div className='lc-info-tag-like-reply-box'>
                       <div className='tag-box'>
                         <div className='tag'>
-                          <p>{room.hashtag} + {room.memberNickname}</p>
+                          <p>#{room.hashtag} (.feat {room.memberNickname})</p>
                         </div>
                       </div>
                     </div>
