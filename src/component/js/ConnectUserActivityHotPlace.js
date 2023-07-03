@@ -23,8 +23,9 @@ const ConnectUserActivityHotPlace = () => {
             });
         
             const response = await res.json();
+            const reversResponse = response.reverse();
             
-            setHpData([...response]);
+            setHpData([...reversResponse]);
           } catch (error) {
             // 오류 처리
           }

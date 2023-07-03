@@ -38,8 +38,12 @@ const ConnectUserActivityFreeBoard = () => {
             });
         
             const response = await res.json();
+
+            const reversResponse = response.reverse();
             
-            setfreeboardItems([...response]);
+            setfreeboardItems([...reversResponse]);
+            
+            
         } catch (error) {
             // 오류 처리
         }

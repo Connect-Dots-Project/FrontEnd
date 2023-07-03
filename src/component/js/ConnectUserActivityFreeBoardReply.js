@@ -21,8 +21,10 @@ const ConnectUserActivityFreeBoard = () => {
       }) 
       .then(res => res.json())
       .then(response => {
-          console.log(response);
-          setfreeboardItems([...response]);
+        
+        const reverseResponse = response.reverse();
+
+        setfreeboardItems([...reverseResponse]);
       })
 
   }, []);

@@ -215,13 +215,16 @@ body {
             height: 90%;
 
             .mp-header {
-                background: #eeefff;
+                // background: #eeefff;
+                border: 1px solid #000;
+                border-radius: 10px;
                 width: 100%;
                 height: 40%;
 
                 .mp-user-info-box {
                     width: 100%;
                     height: 100%;
+                
                     @include disflex();
 
                     .mp-user-info {
@@ -443,7 +446,7 @@ body {
                     @include disflex();
 
                     .mp-change-menu {
-                        background: #eeefff;
+                        // background: #eeefff;                        
                         width: 90%;
                         height: 90%;
                     }
