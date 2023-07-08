@@ -1,11 +1,11 @@
 import React from "react";
-import '../scss/ConnectGlobalChatting.scss';
+import '../scss/NsTemplate.scss';
 
 const NsTemplate = () => {
 
     return (
         <>
-            <div></div>
+            <div id='NsWrapper'>Main Page</div>
         </>
     )
 

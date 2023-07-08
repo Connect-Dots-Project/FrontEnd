@@ -1,2 +1,7 @@
 @import './Common.scss';
 
+#NsWrapper {
+    min-width: 1020px;
+    overflow-y: scroll;
+    border: 1px solid #000;
+}
