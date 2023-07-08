@@ -1,11 +1,11 @@
-import ConnectTemplate from "./component/js/ConnectTemplate";
+import React from 'react';
+import NsTemplate from './component/js/NsTemplate';
 
 function App() {
 
   return (
     <>
-  
-    <ConnectTemplate />
+      <NsTemplate />
     </>
   );
   
