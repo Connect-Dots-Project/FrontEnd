@@ -9,6 +9,7 @@ import { getLoginUserInfo } from '../../util/login-util';
 import { API_BASE_URL } from '../../config/host-config';
 
 const ConnectHotPlace = ({ closeCreatePost }) => {
+  const [fbData, setFbData] = useState([]);
 
 
   const regions = [
@@ -57,63 +58,13 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
       });
     };
 
-  const fetchData = () => {
-    if (isFetchingRef.current) return;
-    isFetchingRef.current = true;
-    setIsLoading(true);
-    fetch(API_BASE_URL + `/contents/hot-place/list/${page}`, {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        setHpData((prevData) => [...prevData, ...result]);
-        setIsLoading(false);
-        isFetchingRef.current = false;
-      });
-  };
+ 
 
-  const handleScroll = () => {
-    const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
-    if (scrollHeight - scrollTop < clientHeight) {
-      setPage(page + 1);
-      fetchData();
-    }
-  };
-
-  // 행정구역으로 핫플레이스 게시물 목록 조회하기
-  const handleLocationClick = (kakaoLocation) => {
-    fetch(REQUEST_URL + `/${kakaoLocation}`, {
-      method: 'GET',
-      headers: { 
-        'content-type' : 'application/json',
-        'Authorization' : MyToken
-      },
-      credentials: 'include'  
-    })
-      .then(res => {
-        if (res.status === 401) {
-          alert('회원가입이 필요한 서비스입니다.');
-          window.location.href = '/';
-        } else {
-          return res.json();
-        }
-      })
-      .then(result => {
-        if (Array.isArray(result.hotplaceList)) {
-          const list = [...result.hotplaceList];
-          setHpData(list);
-        } else {
-          setHpData([]);
-        }
-      });
-  };
+  
 
 
 
-  // 좋아요 카운팅
-  const [hotplaceLikeCount, setLikeCount] = useState(0);
-  const increase = () => { setLikeCount(hotplaceLikeCount + 1 );};
-  // const increase = (hotplaceId) => {
+    // const increase = (hotplaceId) => {
   //   setLikeCount((prevState) => ({
   //     ...prevState,
   //     [hotplaceId]: (prevState[hotplaceId] || 0) + 1,
@@ -121,23 +72,78 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
   // };
 
   
-  // 작성창 (글쓰기)
-  const [isCreateModal, setIsCreateModal] = useState(false);
   
-  const openCreatePost = () => {
-      fetch(REQUEST_URL, {
-        headers: {
-          'Authorization': MyToken
-        }
-      })
-        .then(res => {
-          if (res.status === 401) {
-            alert('회원가입이 필요한 서비스입니다.');
-            window.location.href = '/'; // 메인 페이지로 이동
-          } else {
-            setIsCreateModal(true); // 모달 창 열기
-          }
-        })
+
+  
+
+  
+  // const modifyHotplace = (hotplaceIdx) => {
+  //   fetch(REQUEST_URL + `/${hotplaceIdx}`, {
+  //     method: 'PATCH'
+  //   })
+  //     .then(res => res.json())
+  //     .then(result => console.log(result));
+
+  // }
+
+  
+
+  const fetchData = () => {
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
+    setIsLoading(true);
+    fetch(`http://localhost:8181/contents/hot-place/list/${page}`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization' : getLoginUserInfo().token
+      },
+      credentials: 'include'
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setFbData((prevData) => [...prevData, ...result]);
+        setIsLoading(false);
+        isFetchingRef.current = false;
+      });
+  };
+
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
+    if (scrollHeight - scrollTop <= clientHeight * 1.3) {
+      setPage(page + 1);
+      fetchData();
+    }
+  };
+
+  
+
+  // 행정구역 선택
+  const [isOpenSelect, setIsOpenSelect] = useState(false);
+  
+  const openSelect = () => {
+    setIsOpenSelect(true);
+  };
+  
+  const closeSelect = () => {
+    const $adsModal = document.getElementById('ADS-Modal');
+    $adsModal.classList.add('closing');
+    
+    setTimeout(() => {
+      setIsOpenSelect(false);
+      $adsModal.classList.remove('closing');
+    }, 1000);
+  };
+
+  // 글 수정, 선택한 핫플 게시판
+  const [selectedHotplace, setSelectedHotplace] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const modifyHotplace = (hp) => {
+    // console.log(hp);
+    setSelectedHotplace(hp);
+    setIsCreateModal(true);
+    setIsEditMode(true);
   };
 
 
@@ -166,50 +172,51 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
     window.location.reload();
   };
 
-  // 글 수정, 선택한 핫플 게시판
-  const [selectedHotplace, setSelectedHotplace] = useState(null);
-  const [isEditMode, setIsEditMode] = useState(false);
-
-  const modifyHotplace = (hp) => {
-    // console.log(hp);
-    setSelectedHotplace(hp);
-    setIsCreateModal(true);
-    setIsEditMode(true);
+  // 작성창 (글쓰기)
+  const [isCreateModal, setIsCreateModal] = useState(false);
+  
+  const openCreatePost = () => {
+      fetch(REQUEST_URL, {
+        headers: {
+          'Authorization': MyToken
+        }
+      })
+        .then(res => {
+          if (res.status === 401) {
+            alert('회원가입이 필요한 서비스입니다.');
+            window.location.href = '/'; // 메인 페이지로 이동
+          } else {
+            setIsCreateModal(true); // 모달 창 열기
+          }
+        })
   };
 
-  // const modifyHotplace = (hotplaceIdx) => {
-  //   fetch(REQUEST_URL + `/${hotplaceIdx}`, {
-  //     method: 'PATCH'
-  //   })
-  //     .then(res => res.json())
-  //     .then(result => console.log(result));
+  // 좋아요 카운팅
+  const [hotplaceLikeCount, setLikeCount] = useState(0);
+  const increase = () => { setLikeCount(hotplaceLikeCount + 1 );};
 
-  // }
-  
-
-
-
-  
-  
-  
- 
-  
-  
-  // 행정구역 선택
-  const [isOpenSelect, setIsOpenSelect] = useState(false);
-  
-  const openSelect = () => {
-    setIsOpenSelect(true);
-  };
-  
-  const closeSelect = () => {
-    const $adsModal = document.getElementById('ADS-Modal');
-    $adsModal.classList.add('closing');
-    
-    setTimeout(() => {
-      setIsOpenSelect(false);
-      $adsModal.classList.remove('closing');
-    }, 1000);
+  // 행정구역으로 핫플레이스 게시물 목록 조회하기
+  const handleLocationClick = (kakaoLocation) => {
+    fetch(REQUEST_URL + `/${kakaoLocation}`, {
+      method: 'GET',
+      headers: { 
+        'content-type' : 'application/json',
+        'Authorization' : MyToken
+      },
+      credentials: 'include'  
+    })
+      .then(res => {
+        if (res.status === 401) {
+          alert('회원가입이 필요한 서비스입니다.');
+          window.location.href = '/';
+        } else {
+          return res.json();
+        }
+      })
+      .then(result => {
+        const list = [...result.hotplaceList];
+        setHpData(list);
+      });
   };
   
   const [showMap, setShowMap] = useState(false);
@@ -234,31 +241,7 @@ const ConnectHotPlace = ({ closeCreatePost }) => {
         />
       )}
 
-      {isOpenSelect && (
-        <div className='administration-select-wrapper' id='ADS-Modal'>
-          <div id='Header'>
-            <h1>구역을 선택해주세요</h1>
-            <button id='AdsCloseBtn' onClick={ closeSelect }><p>X</p></button>
-          </div>
-
-
-
-          <div className='ads-main-box'>
-            <div className='ads-main'>
-              <ul className='ads-list-box'>
-                {regions.map(e => ( 
-                  <li className='ads-list' onClick={() => handleLocationClick(e)}> 
-                    <p>{e}</p> 
-                  </li> 
-                ))}
-              </ul>
-            </div>
-          </div>
-
-
-
-        </div>
-      )}
+      
 
       <div className='hp-wrapper'>
         <div className='hp-info-header'>

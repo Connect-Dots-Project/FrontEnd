@@ -81,8 +81,7 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
     const submitHandler = (e) => {
     
       e.preventDefault();
-
-      // TODO : 게시글 제목 입력이 없음.
+      
       const requestData = {
         freeBoardTitle: freeBoardTitle,
         freeBoardContent: hotplaceContent,
@@ -126,13 +125,56 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
       window.location.reload();
     };
 
+    const regions = [
+      '강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구',
+      '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구',
+      '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
+    ];
 
+    // 행정구역 선택
+  const [isOpenSelect, setIsOpenSelect] = useState(false);
+  
+  const openSelect = () => {
+    setIsOpenSelect(true);
+  };
+  
+  const closeSelect = () => {
+    const $adsModal = document.getElementById('ADS-Modal');
+    $adsModal.classList.add('closing');
+    
+    setTimeout(() => {
+      setIsOpenSelect(false);
+      $adsModal.classList.remove('closing');
+    }, 1000);
+  };
   
   
-    return (
-      <>
+  
+  
+  return (
+    <>
+      <div className='administration-select-wrapper' id='ADS-Modal'>
+        <div id='Header'>
+          <h1>구역을 선택해주세요</h1>
+          <button id='AdsCloseBtn' onClick={ closeSelect }><p>X</p></button>
+        </div>
+        
+        <div className='ads-main-box'>
+          <div className='ads-main'>
+            <ul className='ads-list-box'>
+              {regions.map(e => ( 
+                <li className='ads-list' onClick={() => handleLocationClick(e)}> 
+                  <p>{e}</p> 
+                </li> 
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
         {isCreateModal && (
           <div className='create-post-wrapper' id='CreatePostModal'>
+
             <button className='cp-close-btn' onClick={closeModal}>X</button>
   
             <form onSubmit={submitHandler} encType='multipart/form-data'>
@@ -151,16 +193,17 @@ const ConnectFreeBoardWriteModal = ({ closeCreatePost, selectedHotplace, isEditM
                   </div>
                 </header>
 
-                {/* TODO : 제목 입력 창 시작 SCSS 필요 */}
-
-                <input
-                    style={{marginLeft: '500px'}}
+                <div className="input-box">
+                  <input
                     type='text'
                     value={freeBoardTitle}
                     onChange={(e) => setFreeBoardTitle(e.target.value)}
                     placeholder='제목을 입력하세요'
                     className='cp-title-input'
                   />
+                </div>
+
+
 
                 {/* TODO : 제목 입력 창 끝 */}
   

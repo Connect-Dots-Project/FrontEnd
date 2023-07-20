@@ -1,6 +1,10 @@
 import React, {useEffect, useState, useRef } from 'react';
 import '../scss/ConnectStoreInfo.scss';
-import {useParams} from "react-router-dom";
+
+import {useParams, useNavigate } from "react-router-dom";
+import ConnectLogin from "./ConnectLogin";
+import {getLoginUserInfo} from "../../util/login-util";
+
 import { API_BASE_URL } from '../../config/host-config';
 
 
@@ -10,9 +14,11 @@ const ConnectStoreInfo = () => {
   const [cvsSale, setCvsSale] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState('');
-
+  const navigate = useNavigate();
   const {cvsname} = useParams();
   const storeInfoListRef = useRef(null);
+  // const [loginModalVisible, setLoginModalVisible] = useState(false);
+
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 초기 데이터를 불러옵니다.
@@ -24,10 +30,34 @@ const ConnectStoreInfo = () => {
     filterData();
   }, [cvsData, cvsType, cvsSale]);
 
+
+  const handleAlertConfirm = () => {
+    // "/" 경로로 리다이렉트합니다.
+    if(window.location.href !== '/') {
+      navigate('/');
+      // setLoginModalVisible(true);
+    }
+  };
+
+
   const getCvsData = () => {
+    // const MyToken = localStorage.getItem("Authorization");
+
     // 서버로부터 데이터를 가져오는 비동기 함수를 호출합니다.
-    fetch(API_BASE_URL + '/contents/cvs')
-        .then((response) => response.json())
+
+    fetch(API_BASE_URL + '/contents/cvs', {
+      method: "GET",
+      headers: {
+        'Authorization':  getLoginUserInfo().token
+      },
+      credentials: 'include'
+    })
+        .then((response) => {
+          if(response.status===401){
+          alert('로그인한 회원만 이용하실 수 있습니다');
+          handleAlertConfirm();
+        } return response.json()})
+
         .then((data) => {
           setCvsData(data);
           console.log('데이터 전송 완료');
@@ -251,6 +281,9 @@ const ConnectStoreInfo = () => {
         </div>
         <div className='ss-select-list'>
         </div>
+        {/*{<ConnectLogin loginModalVisible={loginModalVisible}/>}*/}
+        { <ConnectLogin />}
+        {/*{ loginModalVisible && <ConnectLogin loginModalVisible={loginModalVisible} />}*/}
       </>
   );
 }
