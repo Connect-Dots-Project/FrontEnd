@@ -64,6 +64,8 @@ const ConnectFreeBoard = ({ closeCreatePost }) => {
     setIsOpenWriteBoard(false);
   };
 
+  
+
   return (
     <>
       {isOpenWriteBoard && <ConnectFreeBoardWriteModal closeCreatePost={closeCreatePost} />}
