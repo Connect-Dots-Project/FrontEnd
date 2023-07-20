@@ -23,7 +23,7 @@ const ConncetMainPageMenu = () => {
         {/* cm 메인 메뉴 리스트 */}
         <li className='cm-menu-list' id='LiveChat'>
             {/* cm 메인 메뉴 사진 */}
-            <Link to='/' id='list'></Link>
+            <Link to='/nb-live-chatting' id='list'></Link>
             {/* cm 메인 메뉴 텍스트 box */}
             <div className='cm-menu-text-box'>
                 {/* cm 메인 메뉴 텍스트 */}
@@ -46,7 +46,7 @@ const ConncetMainPageMenu = () => {
         {/* cm 메인 메뉴 리스트 */}
         <li className='cm-menu-list' id='closingSale'>
             {/* cm 메인 메뉴 사진 */}
-            <Link to='/' id='list'></Link>
+            <Link to='/nb-playlist' id='list'></Link>
             {/* cm 메인 메뉴 텍스트 box */}
             <div className='cm-menu-text-box'>
                 {/* cm 메인 메뉴 텍스트 */}
@@ -68,7 +68,7 @@ const ConncetMainPageMenu = () => {
         {/* cm 메인 메뉴 리스트 */}
         <li className='cm-menu-list' id='MyPage'>
             {/* cm 메인 메뉴 사진 */}
-            <Link to='/' id='list'></Link>
+            <Link to='/nb' id='list'></Link>
             {/* cm 메인 메뉴 텍스트 box */}
             <div className='cm-menu-text-box'>
                 {/* cm 메인 메뉴 텍스트 */}

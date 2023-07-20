@@ -1,21 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 
 import ConnectUserSettingLocation from './ConnectUserSettingLocation';
 import ConnectUserLike from './ConnectUserLike';
 import ConnectUserActivity from './ConnectUserActivity';
 
+import { API_BASE_URL } from '../../config/host-config';
 import '../scss/ConnectMyPageMain.scss';
+import { async } from 'q';
 
 const ConnectMyPageMain = () => {
 
     const [isOpenActivity, setIsOpenActivity] = useState(false);    
     const [isOpenLike, setIsOpenLike] = useState(false);    
+
     const [isOpenLocation, setIsOpenLocation] = useState(false);    
+    const [isOpenModify, setIsOpenModify] = useState(false);    
 
     const openActivity = e => {
         setIsOpenActivity(true);
         setIsOpenLike(false);
         setIsOpenLocation(false);
+        getHotPlace();
     };
     
     const openLike = e => {
@@ -31,9 +36,187 @@ const ConnectMyPageMain = () => {
     };
 
 
+    const openModify = e => {
+        setIsOpenModify(true);
+    };
+    
+    const closeModify = e => {
+        setIsOpenModify(false);
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const getHotPlace = () => {
+
+        const myToken = localStorage.getItem('Authorization');
+        console.log(myToken);
+
+        fetch(API_BASE_URL + `/member/mypage/myactive/hotplace`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization' : myToken
+            },
+            credentials: 'include'
+        }) 
+        .then(res => res.json())
+        .then(response => {
+            console.log(response);
+        })
+
+
+
+
+
+
+
+    };  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <>
-        
+
+        {isOpenModify && (
+
+            <div id='UserInfoModifyModal'>
+                <div className='user-info-modify-modal-box'>
+
+                    <div className='uim-header-wrapper'>
+                        <div className='uim-title-box'>
+                            <h2>내 정보 수정</h2>
+                        </div>
+                    </div>
+
+                    <div className='uim-main-wrapper'>
+                        <div className='uim-main-box'>
+
+                            <div className='uim-profile-box'>
+                                <div className='uim-profile-img-text-wrapper'>
+                                    <div className='uim-profile-img-text-box'>
+                                        <div className='img-text-box'>
+                                            <div className='uim-profile-img-box'>
+                                                <div className='uim-profile-img'></div>
+                                            </div>
+                                            <div className='uim-profile-text-box'>
+                                                <button className='profile-modify-btn'>
+                                                    <p>사진 변경</p>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className='uim-info-wrapper'>
+                                <div className='uim-info-box'>
+                                    <div className='uim-info-list-box'>
+                                        <div className='uim-info-list'>
+                                            <div className='list-key' id='Email'>
+                                                <p>아이디</p>
+                                            </div>    
+                                            <div className='list-value'>
+                                                <p>aaa@naver.com</p>
+                                            </div>
+                                        </div>
+                                        <div className='uim-info-list'>
+                                            <div className='list-key' id='PW'>
+                                                <p>비밀번호</p>
+                                            </div>    
+                                            <div className='list-value'>
+                                                <p>1차확인</p>
+                                                <p>2차확인</p>
+                                            </div>
+                                        </div>
+                                        <div className='uim-info-list'>
+                                            <div className='list-key' id='NickName'>
+                                                <p>별명</p>
+                                            </div>    
+                                            <div className='list-value'>
+                                                <p>[코딩마스터]</p>
+                                            </div>
+                                        </div>
+                                        <div className='uim-info-list'>
+                                            <div className='list-key' id='Gender'>
+                                                <p>성별</p>
+                                            </div>    
+                                            <div className='list-value'>
+                                                <p>[남 / 여]</p>
+                                            </div>
+                                        </div>
+                                        <div className='uim-info-list'>
+                                            <div className='list-key' id='Birth'>
+                                                <p>생년월일</p>
+                                            </div>    
+                                            <div className='list-value'>
+                                                <p>[2023.06.24]</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='uim-footer-wrapper'>
+                        <div className='uim-footer-box'>
+                            <div className='uim-btn-box'>
+                                <button className='uim-btn' id='Cancel' onClick={ closeModify }>
+                                    <p>취 소</p>
+                                </button>
+                                <button className='uim-btn' id='Save'>
+                                    <p>확 인</p>
+                                </button>
+                            </div>
+                        </div>
+                    </div>                
+                </div>
+            </div>
+        )}
+
+
+
+
+
+
+
+
 
         <div id='MyPageMainWrapper'>
             <div className='my-page-wrapper'>
@@ -51,7 +234,11 @@ const ConnectMyPageMain = () => {
                                             <div className='mp-user-profile'></div>
                                         </div>
                                         <div className='mp-user-modify-profile'>
-                                            <p>내 정보 수정</p>
+                                            <div className='mp-user-modify-info-btn-box'>
+                                                <button className='mp-user-modify-info-btn' onClick={ openModify }>
+                                                    <p>내 정보 수정</p>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

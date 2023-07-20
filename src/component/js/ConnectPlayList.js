@@ -4,6 +4,8 @@ import '../scss/ConnectPlayList.scss';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import ConnectViewPlayList from './ConnectViewPlayList';
+import { API_BASE_URL } from '../../config/host-config';
+
 
 const ConnectPlayList = () => {
 
@@ -18,14 +20,19 @@ const ConnectPlayList = () => {
   };
 
   const closeList = e => {
-    setIsOpenViewPlayList(false);
+    // setIsOpenViewPlayList(false);
+    window.location.href = '/nb-playlist';
   };
 
   useEffect(() => {
   const fetchPlaylistItems = async () => {
     try {
-      const response = await fetch('http://localhost:8181/contents/music-board', {
-        method: 'GET'
+      const MyToken = localStorage.getItem('Authorization');
+      const response = await fetch(API_BASE_URL + '/contents/music-board', {
+        method: 'GET',
+        headers: { 
+          'Authorization' : MyToken
+       },credentials: 'include', // 쿠키가 필요하다면 추가하기
       });
       const result = await response.json();
       
@@ -79,8 +86,8 @@ const ConnectPlayList = () => {
                     <div className='plb-header-text-search-box'>
                         <div className='plb-logo'></div> 
                         <div className='plb-text-box'>
-                            <h2>나의 플리 자랑하기</h2>
-                            <p>가장 인기있는 플리입니다.</p>
+                            <h2>인기 추천 곡</h2>
+                            <p>내 취향에 맞게 원하는 노래 카테고리를 선택해보세요</p>
                         </div>
 
                         
